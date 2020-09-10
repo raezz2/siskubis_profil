@@ -8,6 +8,8 @@ use DB;
 use Auth;
 use App\User;
 use App\Surat;
+use Session;
+
 class PersuratanController extends Controller
 {
       public function __construct()
@@ -35,17 +37,31 @@ class PersuratanController extends Controller
 
     public function store (Request $request)
     {
+        $request->validate([
+            'file' => 'mimes:pdf',
+        ]);
+
         DB::table('surat')->insert([
             'title' => $request->judul,
             'dari' => Auth::user()->email,
             'kepada' => $request->kepada,
             'perihal' => $request->perihal,
-            'dokumen' => $request->dokumen,
+            'dokumen' => $request->file->getClientOriginalName(),
             'jenis_surat' => 2,
             'author_id' => Auth::user()->id,
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s'),
         ]);
+
+        $file = $request->file;
+    	$tujuan_upload = 'file/dokumen';
+        $file->move($tujuan_upload,$file->getClientOriginalName());
+        
+        if ($file) {
+            Session::flash('success', 'Surat Terkirim');
+        } else {
+            Session::flash('error', 'Surat Gagal Terkirim');
+        }
 
         return redirect ('inkubator/surat');
     }
@@ -55,5 +71,17 @@ class PersuratanController extends Controller
         $surat = DB::table('surat')->where('id', $id)->get();
         
         return view ('surat.detail', compact($surat));
+
+    }
+
+    public function destroy($id)
+    {
+        $surat  = Surat::findOrFail($id);
+
+        if ($surat->delete()) {
+            Session::flash('success', 'Surat berhasil dihapus');
+        }
+
+        return redirect('/inkubator/surat');
     }
 }
