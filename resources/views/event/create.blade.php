@@ -9,10 +9,13 @@
             <label for="title">Title</label>
             <input type="text" name="title" class="form-control" id="title" placeholder="title">
           </div>
-          <div class="form-">
-            <label for="title">Foto</label>
-            <input type="file" name="foto" class="form-control" id="foto" placeholder="foto">
-          </div>
+          <div class="input-group mb-3">
+            <div class="custom-file">
+              <label class="custom-file-label" for="foto" aria-describedby="inputGroupFileAddon02">Choose file</label>
+                <input class="custom-file-input" id="foto" type="file"  name="foto"/>
+            </div>
+            <div class="input-group-append"><span class="input-group-text" id="inputGroupFileAddon02">Upload</span></div>
+        </div>
           <div class="form-group">
             <label for="event">Event</label>
             <textarea name="event" class="form-control" id="body" rows="5"></textarea>

@@ -24,12 +24,19 @@ class EventController extends Controller
      */
     public function index()
     {
-        return view('event.index');
+        $event = Event::latest()->paginate(5);
+        return view('event.index', compact('event'));
     }
 
     public function calendar()
     {
         return view('event.calendar');
+    }
+
+    public function show(Event $event)
+    {
+
+        return view('event.show', compact('event'));
     }
 
     public function create()
@@ -86,5 +93,14 @@ class EventController extends Controller
         // $event['slug'] = \Str::slug($request->title);
         // Event::create($event);
 
+    }
+
+    public function edit(Event $event)
+    {
+        return view('event.edit');
+    }
+
+    public function update(Event $event)
+    {
     }
 }

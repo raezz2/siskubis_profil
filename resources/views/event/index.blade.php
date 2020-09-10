@@ -17,7 +17,27 @@
 			<div class="card-body">
 				<div class="create_event_wrap">
                     <div class="d-flex justify-content-center">
-                    <a href="{{route('inkubator.event.create')}}"><button class="btn btn-sm btn-outline-primary">Tambah Event</button></a>
+                    <a href="{{route('inkubator.event.create')}}"><button class="btn btn-outline-primary btn-block">Tambah Event</button></a>
+                </div>
+				</div>
+			</div>
+        </div>
+        <div class="card mb-4">
+			<div class="card-header container-fluid">
+			  <div class="row">
+				<div class="col-md-8">
+				  <h3>Event</h3>
+				</div>
+				<div class="col-md-4 btn-group">
+				  <a href="#"><button class="btn btn-primary custom-btn btn-sm"><i class="i-Receipt"></i></button></a>
+				  <a href="{{route('inkubator.event-calendar')}}"><button class="btn btn-primary custom-btn btn-sm"><i class="i-Calendar-4"></i></button></a>
+				</div>
+			  </div>
+			</div>
+			<div class="card-body">
+				<div class="create_event_wrap">
+                    <div class="d-flex justify-content-center">
+                    <a href="{{route('inkubator.event.create')}}"><button class="btn btn-outline-primary btn-lg btn-block">Tambah Event</button></a>
                 </div>
 				</div>
 			</div>
@@ -71,35 +91,30 @@
                                         </thead>
                                         <tbody id="names">
                                             <!-- --------------------------- tr1 -------------------------------------------->
+                                            @foreach ($event as $item)
+                                                
+                                            
                                             <tr id="names">
-                                                <th class="head-width" scope="row">#1</th>
+                                                <th class="head-width" scope="row">{{ $item->id }}</th>
                                                 <td class="collection-item">
-                                                    <div class="font-weight-bold"><a href="#">Update User profile page</a></div>
-                                                    <div class="text-muted">A small river named Duden flows by their place and supplies it..</div>
+                                                    <div class="font-weight-bold"><a href="/inkubator/event/{{ $item->slug }}">{{ $item->title }}</a></div>
+                                                    <div class="text-muted">{{ Str::limit($item->event, 100) }}</div>
                                                 </td>
                                                 <td class="custom-align">
                                                     <div class="btn-group">
-                                                        <button class="btn btn-danger custom-btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            Blocker
-
+                                                        <button class="btn btn-danger custom-btn btn-sm" type="button" aria-haspopup="true" aria-expanded="false">
+                                                            {{ $item->priority->name }}
                                                         </button>
-                                                        <div class="dropdown-menu ul-task-manager__dropdown-menu"><a class="dropdown-item" href="#"><span class="ul-task-manager__dot bg-primary mr-2"></span>Blocker</a><a class="dropdown-item" href="#"><span class="ul-task-manager__dot bg-danger mr-2"></span>High Priority</a><a class="dropdown-item" href="#"><span class="ul-task-manager__dot bg-warning mr-2"></span>Normal Priority</a><a class="dropdown-item" href="#"><span class="ul-task-manager__dot bg-success mr-2"></span>Low Priority</a></div>
                                                     </div>
                                                 </td>
                                                 <td class="custom-align">
-                                                    <div class="d-inline-flex align-items-center calendar align-middle"><i class="i-Calendar-4"></i><span>12 January 2015</span></div>
+                                                    <div class="d-inline-flex align-items-center calendar align-middle"><i class="i-Calendar-4"></i><span>{{ $item->created_at->format("d M Y") }}</span></div>
                                                 </td>
                                                 <td class="custom-align">
-                                                    <select class="custom-select task-manager-list-select" id="inputGroupSelect01">
-                                                        <option selected="selected">Choose...</option>
-                                                        <option value="1">Open</option>
-                                                        <option value="2">On hold</option>
-                                                        <option value="3">Resolved</option>
-                                                        <option value="3">Duplicate</option>
-                                                        <option value="3">Invalid</option>
-                                                        <option value="3">Wontfix</option>
-                                                        <option value="3">Closed</option>
-                                                    </select>
+                                                    {!! $item->publish == 1 ? '<button class="btn btn-sm btn-primary">Published</button>' : '<button class="btn btn-sm btn-warning">Draft</button>' !!}
+                                                    {{-- <button class="btn btn-sm btn-primary">
+                                                        {{ $item->publish }}
+                                                    </button> --}}
                                                 </td>
                                                 <td class="custom-align"><img class="rounded-circle m-0 ul-task-manager__avatar" src="{{ asset('theme/images/faces/1.jpg')}}" alt="alt" /><img class="rounded-circle m-0 ul-task-manager__avatar" src="{{ asset('theme/images/faces/1.jpg')}}" alt="alt" /><i class="i-Add font-custom-table"></i></td>
                                                 <td class="custom-align"><span id="menu-toggle">
@@ -108,94 +123,7 @@
                                                         </div>
                                                     </span></td>
                                             </tr>
-                                            <!-- ------------------------------ end of tr1 -------------------------------------->
-                                            <!--  table row 2 -->
-                                            <tr>
-                                                <th scope="row">#2</th>
-                                                <td class="collection-item">
-                                                    <div class="font-weight-bold"><a href="#">Not Update User profile page</a></div>
-                                                    <div class="text-muted">A small river named Duden flows by their place and supplies it..</div>
-                                                </td>
-                                                <td class="custom-align">
-                                                    <div class="btn-group">
-                                                        <button class="btn btn-success custom-btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            Low
-
-                                                        </button>
-                                                        <div class="dropdown-menu ul-task-manager__dropdown-menu"><a class="dropdown-item" href="#"><span class="ul-task-manager__dot bg-primary mr-2"></span>Blocker</a><a class="dropdown-item" href="#"><span class="ul-task-manager__dot bg-warning mr-2"></span>High Priority</a><a class="dropdown-item" href="#"><span class="ul-task-manager__dot bg-danger mr-2"></span>Normal Priority</a><a class="dropdown-item" href="#"><span class="ul-task-manager__dot bg-info mr-2"></span>Low Priority</a></div>
-                                                    </div>
-                                                </td>
-                                                <td class="custom-align">
-                                                    <div class="d-inline-flex align-items-center calendar"><i class="i-Calendar-4"></i><span>12 January 2015</span>
-                                                        <!--  <input size="16" type="text" value="2012-06-15 14:45" readonly class="form_datetime"> -->
-                                                    </div>
-                                                </td>
-                                                <td class="custom-align">
-                                                    <select class="custom-select task-manager-list-select" id="inputGroupSelect01">
-                                                        <option selected="selected">Choose...</option>
-                                                        <option value="1">Open</option>
-                                                        <option value="2">On hold</option>
-                                                        <option value="3">Resolved</option>
-                                                        <option value="3">Duplicate</option>
-                                                        <option value="3">Invalid</option>
-                                                        <option value="3">Wontfix</option>
-                                                        <option value="3">Closed</option>
-                                                    </select>
-                                                </td>
-                                                <td class="custom-align"><img class="rounded-circle m-0 ul-task-manager__avatar" src="{{ asset('theme/images/faces/1.jpg')}}" alt="alt" /><img class="rounded-circle m-0 ul-task-manager__avatar" src="{{ asset('theme/images/faces/1.jpg')}}" alt="alt" /><i class="i-Add font-custom-table"></i></td>
-                                                <td class="custom-align"><span id="menu-toggle">
-                                                        <div class="dropdown"><i class="i-Align-Right custom-font-down-arrow" data-toggle="dropdown"></i>
-                                                            <div class="dropdown-menu"><a class="dropdown-item" href="#">Check In</a><a class="dropdown-item" href="#">Attach Screenshot 2</a><a class="dropdown-item" href="#">Reassign</a><a class="dropdown-item" href="#">Edit Task</a><a class="dropdown-item" href="#">Remove</a></div>
-                                                        </div>
-                                                    </span></td>
-                                            </tr>
-                                            <!--  end of table row 2 -->
-                                        </tbody>
-                                        <thead class="thead-light">
-                                            <tr>
-                                                <th colspan="7">2 Days Ago</th>
-                                            </tr>
-                                        </thead>
-                                        <!--  table row 3 -->
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">#3</th>
-                                                <td class="collection-item">
-                                                    <div class="font-weight-bold"><a href="#">Update User profile page</a></div>
-                                                    <div class="text-muted">A small river named Duden flows by their place and supplies it..</div>
-                                                </td>
-                                                <td class="custom-align">
-                                                    <div class="btn-group">
-                                                        <button class="btn btn-warning text-white custom-btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            High
-
-                                                        </button>
-                                                        <div class="dropdown-menu ul-task-manager__dropdown-menu"><a class="dropdown-item" href="#"><span class="ul-task-manager__dot bg-primary mr-2"></span>Blocker</a><a class="dropdown-item" href="#"><span class="ul-task-manager__dot bg-danger mr-2"></span>High Priority</a><a class="dropdown-item" href="#"><span class="ul-task-manager__dot bg-success mr-2"></span>Normal Priority</a><a class="dropdown-item" href="#"><span class="ul-task-manager__dot bg-warning mr-2"></span>Low Priority</a></div>
-                                                    </div>
-                                                </td>
-                                                <td class="custom-align">
-                                                    <div class="d-inline-flex align-items-center calendar"><i class="i-Calendar-4"></i><span>12 January 2015</span></div>
-                                                </td>
-                                                <td class="custom-align">
-                                                    <select class="custom-select task-manager-list-select" id="inputGroupSelect01">
-                                                        <option selected="selected">Choose...</option>
-                                                        <option value="1">Open</option>
-                                                        <option value="2">On hold</option>
-                                                        <option value="3">Resolved</option>
-                                                        <option value="3">Duplicate</option>
-                                                        <option value="3">Invalid</option>
-                                                        <option value="3">Wontfix</option>
-                                                        <option value="3">Closed</option>
-                                                    </select>
-                                                </td>
-                                                <td class="custom-align"><img class="rounded-circle m-0 ul-task-manager__avatar" src="{{ asset('theme/images/faces/1.jpg')}}" alt="alt" /><img class="rounded-circle m-0 ul-task-manager__avatar" src="{{ asset('theme/images/faces/1.jpg')}}" alt="alt" /><i class="i-Add font-custom-table"></i></td>
-                                                <td class="custom-align"><span id="menu-toggle">
-                                                        <div class="dropdown"><i class="i-Align-Right custom-font-down-arrow" data-toggle="dropdown"></i>
-                                                            <div class="dropdown-menu"><a class="dropdown-item" href="#">Check In</a><a class="dropdown-item" href="#">Attach Screenshot 2</a><a class="dropdown-item" href="#">Reassign</a><a class="dropdown-item" href="#">Edit Task</a><a class="dropdown-item" href="#">Remove</a></div>
-                                                        </div>
-                                                    </span></td>
-                                            </tr>
-                                            <!--  end of table row 3 -->
+                                            @endforeach                                    <!--  end of table row 3 -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -203,14 +131,10 @@
                             <div class="card-footer text-muted">
                                 <div class="row align-items-center">
                                     <div class="col"><span>Showing 1 to 25 of 25 entries</span></div>
-                                    <div class="col">
-                                        <ul class="pagination justify-content-end">
-                                            <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Previous</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                        </ul>
+                                    <div class="d-flex justify-content-end">
+                                        
+                                           {{  $event->links()  }}
+                    
                                     </div>
                                 </div>
                             </div>

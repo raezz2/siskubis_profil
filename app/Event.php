@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Priority;
 use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
@@ -13,4 +14,9 @@ class Event extends Model
     // ];
 
     protected $guarded = ['id'];
+
+    public function priority()
+    {
+        return $this->belongsTo(Priority::class);
+    }
 }
