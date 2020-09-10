@@ -42,6 +42,9 @@ Route::group(['prefix'=>'inkubator','middleware' => ['role:inkubator']], functio
 	Route::get('/pencapaian', 'Produk\ProdukController@index')->name('inkubator.pencapaian');
 	Route::get('/laporan', 'Produk\ProdukController@index')->name('inkubator.laporan');
 	Route::get('/surat', 'Persuratan\PersuratanController@index')->name('inkubator.surat');
+	Route::get('/buatsurat', 'Persuratan\PersuratanController@create')->name('inkubator.buatsurat');
+	Route::post('/kirimsurat', 'Persuratan\PersuratanController@store');
+	Route::get('/surat/{surat}', 'Persuratan\PersuratanController@show');
 	//Route::get('/event', 'Produk\ProdukController@index')->name('inkubator.event');
 	//Route::get('/berita', 'Produk\ProdukController@index')->name('inkubator.berita');
 	//Route::get('/pengumuman', 'Produk\ProdukController@index')->name('inkubator.pengumuman');
