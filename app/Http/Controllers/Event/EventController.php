@@ -97,10 +97,22 @@ class EventController extends Controller
 
     public function edit(Event $event)
     {
-        return view('event.edit');
+        $priority = Priority::all();
+        return view('event.edit', compact('event', 'priority'));
     }
 
     public function update(Event $event)
     {
+        $attr = request()->validate([
+            'title' => 'required|min:3',
+            // 'foto' => 'required',
+            'priority_id' => 'required',
+            'event' => 'required',
+            'publish' => 'required',
+        ]);
+
+        $event->update($attr);
+
+        return redirect()->to('/inkubator/event');
     }
 }

@@ -92,7 +92,7 @@
 @section('content')
 <div class="row">
     <div class="col-md-4">
-        <div class="card bg-dark text-white o-hidden mb-4"><img class="card-img" src="https://dummyimage.com/600x600/cfcfcf/fff" alt="Card image">
+        <div class="card bg-dark text-white o-hidden mb-4"><img class="card-img" src="{{ asset("storage/" . $event->foto) }}" alt="Card image">
             {{-- <div class="card-img-overlay">
                 <div class="text-center pt-4">
                     <h5 class="card-title mb-2 text-white">Card title</h5>
@@ -107,7 +107,7 @@
         <div class="card container">
             <div class="card-body">
                 <div class="card-title">
-                    <h2>Judul Event</h2>
+                    <h2>{{ $event->title }}</h2>
                 </div>
                 <div class="d-flex align-items-center border-bottom-dotted-dim pb-3 mb-3"><img  style="border-radius: 50% !important" class="avatar-md rounded mr-3" src="https://dummyimage.com/75x75/cfcfcf/fff" alt="">
                     <div class="flex-grow-1">
@@ -137,7 +137,7 @@
                     Detail Event
                 </div>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate, harum laborum quod hic rerum quam magni reprehenderit ad ex distinctio quaerat blanditiis a officia quo numquam excepturi ut, sunt provident.
+                  {{ $event->event }}
                 </p>
             </div>
         </div>

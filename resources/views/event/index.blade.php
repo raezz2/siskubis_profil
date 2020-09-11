@@ -76,7 +76,7 @@
                                                 <th scope="col">Latest Update</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Assigned Users</th>
-                                                <th scope="col"><a href="href"><span class="checkmarks">
+                                                <th scope="col"><a href="/inkubator/event/{event:slug}/edit"><span class="checkmarks">
                                                             <div class="checkmark_stem"></div>
                                                             <div class="checkmark_kick"></div>
                                                         </span></a></th>
@@ -117,7 +117,7 @@
                                                 <td class="custom-align"><img class="rounded-circle m-0 ul-task-manager__avatar" src="{{ asset('theme/images/faces/1.jpg')}}" alt="alt" /><img class="rounded-circle m-0 ul-task-manager__avatar" src="{{ asset('theme/images/faces/1.jpg')}}" alt="alt" /><i class="i-Add font-custom-table"></i></td>
                                                 <td class="custom-align"><span id="menu-toggle">
                                                         <div class="dropdown"><i class="i-Align-Right custom-font-down-arrow" data-toggle="dropdown"></i>
-                                                            <div class="dropdown-menu"><a class="dropdown-item" href="#">Check In</a><a class="dropdown-item" href="#">Attach Screenshot 2</a><a class="dropdown-item" href="#">Reassign</a><a class="dropdown-item" href="#">Edit Task</a><a class="dropdown-item" href="#">Remove</a></div>
+                                                            <div class="dropdown-menu"><a class="dropdown-item" href="#">Check In</a><a class="dropdown-item" href="#">Attach Screenshot 2</a><a class="dropdown-item" href="#">Reassign</a><a class="dropdown-item" href="/inkubator/event/{{$item->slug}}/edit">Edit Task</a><a class="dropdown-item" href="#">Remove</a></div>
                                                         </div>
                                                     </span></td>
                                             </tr>
