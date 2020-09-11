@@ -21,23 +21,27 @@
 			</div>
         </div>
         <div class="card mb-4">
-			<div class="card-header container-fluid">
+			{{-- <div class="card-header container-fluid">
 			  <div class="row">
-				<div class="col-md-8">
-				  <h3>Event</h3>
-				</div>
-				<div class="col-md-4 btn-group">
-				  <a href="#"><button class="btn btn-primary custom-btn btn-sm"><i class="i-Receipt"></i></button></a>
-				  <a href="{{route('inkubator.event-calendar')}}"><button class="btn btn-primary custom-btn btn-sm"><i class="i-Calendar-4"></i></button></a>
+				<div class="col">
+				  <h3>Filter</h3>
 				</div>
 			  </div>
-			</div>
+			</div> --}}
 			<div class="card-body">
-				<div class="create_event_wrap">
-                    <div class="d-flex justify-content-center">
-                    <a href="{{route('inkubator.event.create')}}"><button class="btn btn-outline-primary btn-lg btn-block">Tambah Event</button></a>
-                </div>
-				</div>
+                <form action="">
+                    <div class="form-group">
+                        <label for="search">Pencarian</label>
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control" placeholder="search">
+                            <button class="btn btn-primary">search</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="daterange">Rentang tanggal</label>
+                        <input type="text" name="daterange" class="form-control" placeholder="set tanggal">
+                    </div>
+                </form>
 			</div>
 		</div>
 	</div>
@@ -142,4 +146,21 @@
                 </div>
 	</div>
 </div>
+@endsection
+
+@section('js')
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+<script>
+    $(function() {
+      $('input[name="daterange"]').daterangepicker({
+        opens: 'left'
+      }, function(start, end, label) {
+        console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+      });
+    });
+</script>
 @endsection
