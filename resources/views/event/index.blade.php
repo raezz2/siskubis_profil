@@ -104,9 +104,23 @@
                                                 </td>
                                                 <td class="custom-align">
                                                     <div class="btn-group">
+                                                        @if ( $item->priority->id == 1 )
+                                                        <button class="btn btn-primary custom-btn btn-sm" type="button" aria-haspopup="true" aria-expanded="false">
+                                                            {{ $item->priority->name }}
+                                                        </button>
+                                                        @elseif( $item->priority->id == 2 )
                                                         <button class="btn btn-danger custom-btn btn-sm" type="button" aria-haspopup="true" aria-expanded="false">
                                                             {{ $item->priority->name }}
                                                         </button>
+                                                        @elseif( $item->priority->id == 3 )
+                                                        <button class="btn btn-warning custom-btn btn-sm" type="button" aria-haspopup="true" aria-expanded="false">
+                                                            {{ $item->priority->name }}
+                                                        </button>
+                                                        @else
+                                                        <button class="btn btn-info custom-btn btn-sm" type="button" aria-haspopup="true" aria-expanded="false">
+                                                            {{ $item->priority->name }}
+                                                        </button>
+                                                        @endif
                                                     </div>
                                                 </td>
                                                 <td class="custom-align">
