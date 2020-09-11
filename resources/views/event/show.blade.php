@@ -122,7 +122,7 @@
                     <i class="i-Calendar-4 mr-2"></i> 20 September 2020
                 </div>
                 <div class="mb-4">
-                    <i class="i-Clock mr-2"></i> 08.00 - 15.00 WIB
+                    <i class="i-Clock mr-2"></i>{{ $event->waktu_mulai }} - {{ $event->waktu_selesai }}
                 </div>
             </div>
         </div>

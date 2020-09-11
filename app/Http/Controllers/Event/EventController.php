@@ -54,6 +54,10 @@ class EventController extends Controller
             'priority_id' => 'required',
             'event' => 'required',
             'publish' => 'required',
+            'tgl_mulai' => 'required',
+            'waktu_mulai' => 'required',
+            'tgl_selesai' => 'required',
+            'waktu_selesai' => 'required',
         ]);
 
         $slug = \Str::slug(request('title'));
@@ -70,15 +74,6 @@ class EventController extends Controller
         return redirect()->to('/inkubator/event');
         // // session()->flash('success', 'The Post was created');
 
-        // return 'success';
-        // $event = new Event;
-        // $event->title = $request->title;
-        // $event->slug = \Str::slug($request->title);
-        // $event->foto = $request->foto;
-        // $event->priority_id = $request->priority_id;
-        // $event->event = $request->event;
-        // $event->publish = $request->publish;
-        // $event->save();
 
         // $this->validate($request, [
         //     'title' => 'required|min:3',
@@ -103,6 +98,7 @@ class EventController extends Controller
 
     public function update(Event $event)
     {
+
         $attr = request()->validate([
             'title' => 'required|min:3',
             // 'foto' => 'required',
@@ -110,6 +106,19 @@ class EventController extends Controller
             'event' => 'required',
             'publish' => 'required',
         ]);
+
+        if (request()->file('foto')) {
+            \Storage::delete($event->foto);
+            $foto = request()->file('foto');
+            $fotoUrl = $foto->store("image/event");
+        } else {
+            $foto = $event->foto;
+        }
+
+        $foto = request()->file('foto');
+        $fotoUrl = $foto->store("image/event");
+
+        $attr['foto'] = $fotoUrl;
 
         $event->update($attr);
 
