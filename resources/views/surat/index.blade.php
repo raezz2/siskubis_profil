@@ -32,7 +32,15 @@
 										<p>{{ $p->perihal }}</p>
 								</a>
 								</td>
-								<td><a class="badge badge-primary m-2 p-2" href="#">{{ $p->jenis_surat }}</a></td>
+								<td>
+								@if ($p->jenis_surat == 'masuk' )
+								<a class="badge badge-primary m-2 p-2" href="#">{{ $p->jenis_surat }}</a>
+								@else
+								<a class="badge badge-danger m-2 p-2" href="#">{{ $p->jenis_surat }}</a>
+						
+								@endif
+
+								</td>
 								<td>{{ $p->created_at }}</td>
 								<td><a class="ul-link-action text-success" href="" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="/inkubator/surat/delete/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
 							</tr>

@@ -47,7 +47,7 @@ class PersuratanController extends Controller
             'kepada' => $request->kepada,
             'perihal' => $request->perihal,
             'dokumen' => $request->file->getClientOriginalName(),
-            'jenis_surat' => 2,
+            'jenis_surat' => 1,
             'author_id' => Auth::user()->id,
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s'),
