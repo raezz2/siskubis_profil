@@ -16,9 +16,7 @@
 			</div>
 			<div class="card-body">
 				<div class="create_event_wrap">
-                    <div class="d-flex justify-content-center">
                     <a href="{{route('inkubator.event.create')}}"><button class="btn btn-outline-primary btn-block">Tambah Event</button></a>
-                </div>
 				</div>
 			</div>
         </div>
@@ -131,11 +129,10 @@
                             <div class="card-footer text-muted">
                                 <div class="row align-items-center">
                                     <div class="col"><span>Showing 1 to 25 of 25 entries</span></div>
-                                    <div class="d-flex justify-content-end">
-                                        
-                                           {{  $event->links()  }}
-                    
-                                    </div>
+                                    {{-- <div class="d-flex justify-content-end">
+                                          
+                                    </div> --}}
+                                     {{  $event->links()  }}
                                 </div>
                             </div>
                         </div>
