@@ -27,14 +27,14 @@
               <label for="tgl_mulai">Tanggal Mulai :</label>
               <div class="input-group">
                 <input type="date" name="tgl_mulai" class="form-control">
-                <input type="time" name="tgl_mulai" class="form-control">
+                <input type="time" name="waktu_mulai" class="form-control">
               </div>
             </div>
             <div class="form-group col-md-6">
               <label for="tgl_selesai">Tanggal Selesai</label>
               <div class="input-group">
                 <input type="date" name="tgl_selesai" class="form-control">
-                <input type="time" name="tgl_selesai" class="form-control">
+                <input type="time" name="waktu_selesai" class="form-control">
               </div>
             </div>
           </div>
