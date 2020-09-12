@@ -1,0 +1,90 @@
+@extends('layouts.app')
+@section('content')
+<div class="row">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header">
+                <h3>Pengumuman</h3>
+            </div>
+            <div class="card-body">
+                <div class="ul-contact-list">
+                    <div class="contact-close-mobile-icon float-right mb-2"><i class="i-Close-Window text-15 font-weight-600"></i></div>
+                    <input class="form-control form-control-rounded col-md-12" id="exampleFormControlInput1" type="text" placeholder="Search Tenant..." />
+                    <br>
+                    <div class="list-group" id="list-tab" role="tablist"><a class="list-group-item list-group-item-action border-0 active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home"><i class="nav-icon i-Business-Mens"></i> Semua Pengumuman</a>
+                        <a class="list-group-item list-group-item-action border-0" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile"><i class="nav-icon i-Conference"></i> Non Tenan</a>
+                        <label class="text-muted font-weight-600 py-8" for="">MEMBERS INKUBATOR</label>
+                        <select class="form-control form-control-rounded">
+                            <option>All Inkubator</option>
+                            <option></option>
+                        </select>
+                        </br>
+                        <a class="list-group-item list-group-item-action border-0" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i> Pra Start Up</a>
+                        <a class="list-group-item list-group-item-action border-0" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile"><i class="nav-icon i-Arrow-Next"></i> Start Up</a>
+                        <a class="list-group-item list-group-item-action border-0" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings"><i class="nav-icon i-Arrow-Next"></i> Scale Up</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-body">
+                <table class="display table" id="ul-contact-list" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th width="65%">Pengumuman</th>
+                            <th width="15%">Kategori</th>
+                            <th width="15%">Tanggal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($pengumuman as $p)
+                        <tr>
+                            <td>
+                                <a href="/mentor/pengumuman/{{ $p->slug }}">
+                                    <strong>{{ $p->title }}</strong>
+                                    <p>{{ str_limit($p->pengumuman), '100' }}</p>
+                                </a>
+                            </td>
+                            <td>
+                                @if($p->priority_id == 1)
+                                <a class="badge badge-success m-2 p-2" href="#">{{ $p->priority->name }}</a>
+                                @elseif($p->priority_id == 2)
+                                <a class="badge badge-danger m-2 p-2" href="#">{{ $p->priority->name }}</a>
+                                @elseif($p->priority_id == 3)
+                                <a class="badge badge-primary m-2 p-2" href="#">{{ $p->priority->name }}</a>
+                                @else
+                                <a class="badge badge-warning m-2 p-2" href="#">{{ $p->priority->name }}</a>
+                                @endif
+                            </td>
+                            <td>{{ $p->created_at }}</td>
+                        </tr>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div><!-- end of main-content -->
+@endsection
+@section('css')
+<link rel="stylesheet" href="{{asset('theme/css/plugins/datatables.min.css')}}" />
+@endsection
+@section('js')
+<script src="{{asset('theme/js/plugins/datatables.min.js')}}"></script>
+<script src="{{asset('theme/js/scripts/contact-list-table.min.js')}}"></script>
+<script src="{{asset('theme/js/scripts/datatables.script.min.js')}}"></script>
+<script src="{{asset('theme/js/plugins/datatables.min.js')}}"></script>
+<script src="{{asset('theme/js/scripts/tooltip.script.min.js')}}"></script>
+<script>
+    $('#ul-contact-list').DataTable({
+        responsive: true,
+        order: [
+            [2, 'DESC']
+        ]
+    });
+</script>
+@endsection
