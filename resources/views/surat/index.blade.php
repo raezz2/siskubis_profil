@@ -30,7 +30,7 @@
 								<td>
 								<a href="/inkubator/surat/{{ $p->id }}">
 										<strong>{{ $p->title }}</strong>
-										<p>{{ $p->perihal }}</p>
+										<p>{{ str_limit($p->perihal, $limit = 80, $end = '') }}</p>
 								</a>
 								</td>
 								<td><a class="badge badge-primary m-2 p-2" href="#">{{ $p->jenis_surat }}</a></td>
@@ -59,7 +59,7 @@
 							<td>
 							<a href="/inkubator/surat/{{ $p->id }}">
 									<strong>{{ $p->title }}</strong>
-									<p>{{ $p->perihal }}</p>
+										<p>{{ str_limit($p->perihal, $limit = 80, $end = '') }}</p>
 							</a>
 							</td>
 							<td><a class="badge badge-danger m-2 p-2" href="#">{{ $p->jenis_surat }}</a></td>
