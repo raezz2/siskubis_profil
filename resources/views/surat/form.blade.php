@@ -60,10 +60,11 @@
                         <div class="form-group">
                           <label for="file">File</label>
                           <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="exampleInputFile" name="file">
+                            <input type="file" class="custom-file-input" id="exampleInputFile" name="file" required="required">
                             <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                           </div>
                         </div>
+                        
                       </div>
                     </div>
                     <div class="modal-footer">
