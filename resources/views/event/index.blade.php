@@ -20,6 +20,8 @@
 				</div>
 			</div>
         </div>
+
+        {{-- Menu Filter --}}
         <div class="card mb-4">
 			<div class="card-header container-fluid">
 			  <div class="row">
@@ -40,6 +42,21 @@
                     <div class="form-group">
                         <label for="daterange">Rentang tanggal</label>
                         <input type="text" name="daterange" class="form-control" placeholder="set tanggal">
+                    </div>
+                    <div class="form-group">
+                        <label for="priority">Priority</label>
+                        <select name="priority" class="form-control">
+                            @foreach ($priority as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="daterange">Status</label>
+                        <select name="publish" class="form-control">
+                            <option value="0">Draft</option>
+                            <option value="1">Published</option>
+                        </select>
                     </div>
                 </form>
 			</div>

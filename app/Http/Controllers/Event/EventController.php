@@ -25,7 +25,8 @@ class EventController extends Controller
     public function index()
     {
         $event = Event::latest()->paginate(5);
-        return view('event.index', compact('event'));
+        $priority = Priority::orderBy('name', 'ASC')->get();
+        return view('event.index', compact('event', 'priority'));
     }
 
     public function calendar()
