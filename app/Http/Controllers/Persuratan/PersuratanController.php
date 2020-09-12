@@ -47,7 +47,7 @@ class PersuratanController extends Controller
             'kepada' => $request->kepada,
             'perihal' => $request->perihal,
             'dokumen' => $request->file->getClientOriginalName(),
-            'jenis_surat' => 1,
+            'jenis_surat' => 2,
             'author_id' => Auth::user()->id,
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s'),
@@ -70,8 +70,45 @@ class PersuratanController extends Controller
     {
         $surat = DB::table('surat')->where('id', $id)->get();
         
-        return view ('surat.detail', compact($surat));
+        return view ('surat.detail', compact('surat'));
 
+    }
+
+    public function edit($id)
+    {
+        $surat = Surat::findOrFail($id);
+        // $surat = Surat::where('id', '!=', $id)->orderBy('name', 'asc')->get();
+
+        // $this->data['categories'] = $categories->toArray();
+        // $this->data['category'] = $category;
+        return view('surat.edit', compact('surat'));
+    }
+
+    public function update(Request $request, Surat $surat)
+    {
+        Surat::where('id', $surat->id)
+        ->update ([
+            'title' => $request->judul,
+            'dari' => Auth::user()->email,
+            'kepada' => $request->kepada,
+            'perihal' => $request->perihal,
+            'dokumen' => $request->file->getClientOriginalName(),
+            'author_id' => Auth::user()->id,
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s'),
+        ]);
+
+        $file = $request->file;
+    	$tujuan_upload = 'file/dokumen';
+        $file->move($tujuan_upload,$file->getClientOriginalName());
+        
+        if ($file) {
+            Session::flash('success', 'Surat Berhasil Dirubah');
+        } else {
+            Session::flash('error', 'Surat Gagal Dirubah');
+        }
+
+    	return redirect ('/inkubator/surat');
     }
 
     public function destroy($id)

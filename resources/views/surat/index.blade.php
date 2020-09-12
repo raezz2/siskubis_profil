@@ -17,14 +17,15 @@
 					<table class="display table" id="masuk" style="width:100%">
 						<thead>
 							<tr>
-								<th width="65%">Surat</th>
-								<th width="15%">Kategori</th>
-								<th width="15%">Tanggal</th>
-								<th width="5%">Action</th>
+							<th width="65%">Surat</th>
+							<th width="15%">Kategori</th>
+							<th width="15%">Tanggal</th>
+							<th width="5%">Action</th>
 							</tr>
 						</thead>
 						<tbody>
 						@foreach($surat as $p)
+							@if ($p->jenis_surat == 'masuk')
 							<tr>
 								<td>
 								<a href="/inkubator/surat/{{ $p->id }}">
@@ -32,19 +33,12 @@
 										<p>{{ $p->perihal }}</p>
 								</a>
 								</td>
-								<td>
-								@if ($p->jenis_surat == 'masuk' )
-								<a class="badge badge-primary m-2 p-2" href="#">{{ $p->jenis_surat }}</a>
-								@else
-								<a class="badge badge-danger m-2 p-2" href="#">{{ $p->jenis_surat }}</a>
-						
-								@endif
-
-								</td>
+								<td><a class="badge badge-primary m-2 p-2" href="#">{{ $p->jenis_surat }}</a></td>
 								<td>{{ $p->created_at }}</td>
-								<td><a class="ul-link-action text-success" href="" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="/inkubator/surat/delete/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
+								<td><a class="ul-link-action text-success" href="/inkubator/surat/{{ $p->id }}/edit" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="/inkubator/surat/delete/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
 							</tr>
-							@endforeach
+							@endif
+						@endforeach
 						</tbody>
 					</table>
 				</div>
@@ -59,117 +53,21 @@
 						</tr>
 					</thead>
 					<tbody>
+					@foreach($surat as $p)
+						@if ($p->jenis_surat == 'keluar')
 						<tr>
 							<td>
-							<a href="">
-									<strong>Judul Surat</strong>
-									<p>Suratnya adalah ini</p>
+							<a href="/inkubator/surat/{{ $p->id }}">
+									<strong>{{ $p->title }}</strong>
+									<p>{{ $p->perihal }}</p>
 							</a>
 							</td>
-							<td><a class="badge badge-primary m-2 p-2" href="#">Scale Up</a></td>
-							<td>April 25, 2019</td>
-							<td><a class="ul-link-action text-success" href="" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
+							<td><a class="badge badge-danger m-2 p-2" href="#">{{ $p->jenis_surat }}</a></td>
+							<td>{{ $p->created_at }}</td>
+							<td><a class="ul-link-action text-success" href="/inkubator/surat/{{ $p->id }}/edit" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="/inkubator/surat/delete/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
 						</tr>
-						<tr>
-							<td><a href="">
-									<strong>Judul Surat</strong>
-									<p>Suratnya adalah ini</p>
-							</a>
-							</td>
-							<td><a class="badge badge-success m-2 p-2" href="#">Start Up</a></td>
-							<td>April 34, 2019</td>
-							<td><a class="ul-link-action text-success" href="" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
-						</tr>
-						<tr>
-							<td><a href="">
-									<strong>Judul Surat</strong>
-									<p>Suratnya adalah ini</p>
-							</a></td>
-							<td><a class="badge badge-danger m-2 p-2" href="#">Pra Start Up</a></td>
-							<td>April 34, 2019</td>
-							<td><a class="ul-link-action text-success" href="" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
-						</tr>
-						<tr>
-							<td><a href="">
-									<strong>Judul Surat</strong>
-									<p>Suratnya adalah ini</p>
-							</a></td>
-							<td><a class="badge badge-warning m-2 p-2" href="#">Semua Tenan</a></td>
-							<td>April 34, 2019</td>
-							<td><a class="ul-link-action text-success" href="" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
-						</tr>
-						<tr>
-							<td><a href="">
-									<strong>Judul Surat</strong>
-									<p>Suratnya adalah ini</p>
-							</a></td>
-							<td><a class="badge badge-primary m-2 p-2" href="#">Scale Up</a></td>
-							<td>April 25, 2019</td>
-							<td><a class="ul-link-action text-success" href="" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
-						</tr>
-						<tr>
-							<td><a href="">
-									<strong>Judul Surat</strong>
-									<p>Suratnya adalah ini</p>
-							</a></td>
-							<td><a class="badge badge-success m-2 p-2" href="#">Start Up</a></td>
-							<td>April 34, 2019</td>
-							<td><a class="ul-link-action text-success" href="" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
-						</tr>
-						<tr>
-							<td><a href="">
-									<strong>Judul Surat</strong>
-									<p>Suratnya adalah ini</p>
-							</a></td>
-							<td><a class="badge badge-danger m-2 p-2" href="#">Pra Start Up</a></td>
-							<td>April 34, 2019</td>
-							<td><a class="ul-link-action text-success" href="" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
-						</tr>
-						<tr>
-							<td><a href="">
-									<strong>Judul Surat</strong>
-									<p>Suratnya adalah ini</p>
-							</a></td>
-							<td><a class="badge badge-warning m-2 p-2" href="#">Semua Tenan</a></td>
-							<td>April 34, 2019</td>
-							<td><a class="ul-link-action text-success" href="" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
-						</tr>
-						<tr>
-							<td><a href="">
-									<strong>Judul Surat</strong>
-									<p>Suratnya adalah ini</p>
-							</a></td>
-							<td><a class="badge badge-primary m-2 p-2" href="#">Scale Up</a></td>
-							<td>April 25, 2019</td>
-							<td><a class="ul-link-action text-success" href="" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
-						</tr>
-						<tr>
-							<td><a href="">
-									<strong>Judul Surat</strong>
-									<p>Suratnya adalah ini</p>
-							</a></td>
-							<td><a class="badge badge-success m-2 p-2" href="#">Start Up</a></td>
-							<td>April 34, 2019</td>
-							<td><a class="ul-link-action text-success" href="" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
-						</tr>
-						<tr>
-							<td><a href="">
-									<strong>Judul Surat</strong>
-									<p>Suratnya adalah ini</p>
-							</a></td>
-							<td><a class="badge badge-danger m-2 p-2" href="#">Pra Start Up</a></td>
-							<td>April 34, 2019</td>
-							<td><a class="ul-link-action text-success" href="" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
-						</tr>
-						<tr>
-							<td><a href="">
-									<strong>Judul Surat</strong>
-									<p>Suratnya adalah ini</p>
-							</a></td>
-							<td><a class="badge badge-warning m-2 p-2" href="#">Semua Tenan</a></td>
-							<td>April 34, 2019</td>
-							<td><a class="ul-link-action text-success" href="" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
-						</tr>
+						@endif
+					@endforeach
 					</tbody>
 				</table>
 				</div>
