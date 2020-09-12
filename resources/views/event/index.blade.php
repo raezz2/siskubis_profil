@@ -21,19 +21,19 @@
 			</div>
         </div>
         <div class="card mb-4">
-			{{-- <div class="card-header container-fluid">
+			<div class="card-header container-fluid">
 			  <div class="row">
 				<div class="col">
 				  <h3>Filter</h3>
 				</div>
 			  </div>
-			</div> --}}
+			</div>
 			<div class="card-body">
-                <form action="">
+                {{-- <form action="{{route('inkubator.event.search')}}" method="get"> --}}
                     <div class="form-group">
                         <label for="search">Pencarian</label>
                         <div class="input-group">
-                            <input type="text" name="search" class="form-control" placeholder="search">
+                            <input type="text" name="query" class="form-control" placeholder="search">
                             <button class="btn btn-primary">search</button>
                         </div>
                     </div>
@@ -80,10 +80,7 @@
                                                 <th scope="col">Latest Update</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Assigned Users</th>
-                                                <th scope="col"><a href="/inkubator/event/{event:slug}/edit"><span class="checkmarks">
-                                                            <div class="checkmark_stem"></div>
-                                                            <div class="checkmark_kick"></div>
-                                                        </span></a></th>
+                                                <th scope="col">Action</th>
                                             </tr>
                                         </thead>
                                         <thead class="thead-light">
@@ -134,8 +131,7 @@
                                                 </td>
                                                 <td class="custom-align"><img class="rounded-circle m-0 ul-task-manager__avatar" src="{{ asset('theme/images/faces/1.jpg')}}" alt="alt" /><img class="rounded-circle m-0 ul-task-manager__avatar" src="{{ asset('theme/images/faces/1.jpg')}}" alt="alt" /><i class="i-Add font-custom-table"></i></td>
                                                 <td class="custom-align"><span id="menu-toggle">
-                                                        <div class="dropdown"><i class="i-Align-Right custom-font-down-arrow" data-toggle="dropdown"></i>
-                                                            <div class="dropdown-menu"><a class="dropdown-item" href="#">Check In</a><a class="dropdown-item" href="#">Attach Screenshot 2</a><a class="dropdown-item" href="#">Reassign</a><a class="dropdown-item" href="/inkubator/event/{{$item->slug}}/edit">Edit Task</a><a class="dropdown-item" href="#">Remove</a></div>
+                                                            <div><a href="/inkubator/event/{{ $item->slug}}/delete"><i class="text-20 i-Remove-Basket"></i></a> <br> <a href="/inkubator/event/{{ $item->slug }}/edit"><i class="text-20 i-Edit"></i></a></div>
                                                         </div>
                                                     </span></td>
                                             </tr>

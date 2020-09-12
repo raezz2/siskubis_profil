@@ -124,4 +124,15 @@ class EventController extends Controller
 
         return redirect()->to('/inkubator/event');
     }
+
+    public function destroy(Event $event)
+    {
+        \Storage::delete($event->foto);
+        $event->delete();
+        return redirect()->to('/inkubator/event');
+    }
+
+    public function search(Request $request)
+    {
+    }
 }

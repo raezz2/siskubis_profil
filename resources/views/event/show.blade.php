@@ -119,7 +119,7 @@
                     <i class="i-Geo21 mr-2"></i> Ds. sanggrahan, Ngemplak, kab. Sleman, DI. Yogyakarta
                 </div>
                 <div class="mb-4">
-                    <i class="i-Calendar-4 mr-2"></i> 20 September 2020
+                    <i class="i-Calendar-4 mr-2"></i> 
                 </div>
                 <div class="mb-4">
                     <i class="i-Clock mr-2"></i>{{ $event->waktu_mulai }} - {{ $event->waktu_selesai }}

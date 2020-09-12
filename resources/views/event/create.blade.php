@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('content')
 <div class="card">
     <div class="card-body">
@@ -8,19 +9,34 @@
           <div class="form-group">
             <label for="title">Title</label>
             <input type="text" name="title" class="form-control" id="title" placeholder="title">
+            @error('title')
+                <div class="mt-2 text-danger">
+                  {{ $message }}
+                </div>
+            @enderror
           </div>
           <div class="form-group">
             <label for="foto">Foto</label>
             <div class="input-group mb-3">
               <div class="custom-file">
                 <label class="custom-file-label" for="foto">Choose file</label>
-                <input class="custom-file-input" id="foto" type="file"  name="foto"/>
+                <input class="custom-file-input" id="foto" type="file"  name="file"/>
               </div>
             </div>
+            @error('title')
+            <div class="mt-2 text-danger">
+              Please Choose Your File
+            </div>
+        @enderror
           </div>
           <div class="form-group">
             <label for="event">Event</label>
             <textarea name="event" class="form-control" id="event" rows="5"></textarea>
+            @error('event')
+                <div class="mt-2 text-danger">
+                  {{ $message }}
+                </div>
+            @enderror
           </div>
           <div class="row">
             <div class="form-group col-md-6">
@@ -64,3 +80,5 @@
     </div>
 </div>
 @endsection
+
+
