@@ -23,10 +23,10 @@
                 <h4>Dari</h4>
                     <p>{{ $p->dari }}</p>
             </div>
-
+        
             <div class="col-12">
                 <h4>Kepada</h4>
-                    <p>{{ $p->kepada }}</p>
+                    <p>{{ $p->}}</p>
             </div>
 
             <div class="col-12">

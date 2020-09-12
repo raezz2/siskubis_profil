@@ -31,7 +31,9 @@ class PersuratanController extends Controller
 
     public function create()
     {
-        return view ('surat.form');
+        $user = DB::table('users')->get();
+
+        return view ('surat.form', compact('user'));
         
     }
 
@@ -69,19 +71,24 @@ class PersuratanController extends Controller
     public function show ($id)
     {
         $surat = DB::table('surat')->where('id', $id)->get();
+        $user = DB::table('users')->get();
         
-        return view ('surat.detail', compact('surat'));
+        $this->data['surat'] = $surat;
+        $this->data['user'] = $user;
+        return view ('surat.detail', $this->data);
 
     }
 
     public function edit($id)
     {
         $surat = Surat::findOrFail($id);
+        
+        $user = DB::table('users')->get();
         // $surat = Surat::where('id', '!=', $id)->orderBy('name', 'asc')->get();
 
-        // $this->data['categories'] = $categories->toArray();
-        // $this->data['category'] = $category;
-        return view('surat.edit', compact('surat'));
+        $this->data['surat'] = $surat;
+        $this->data['user'] = $user;
+        return view('surat.edit', $this->data);
     }
 
     public function update(Request $request, Surat $surat)

@@ -39,31 +39,37 @@
                     {{ csrf_field() }}
                     @include('layouts.alert', ['$errors' => $errors])
                     <div class="row">
-                      <div class="col-sm-12">
+                      <div class="col-sm-6">
                         <div class="form-group">
                           <label for="nama">Judul</label>
                           <input type="text" name="judul" class="form-control" placeholder="Judul" required="required" value="{{ $surat->title }}">
                         </div>
                       </div>
-                      <div class="col-sm-12">
-                       
-                        <div class="form-group">
-                          <label for="kepada">Kepada</label>
-                          <input type="text" name="kepada" class="form-control" placeholder="Kepada" required="required" value="{{ $surat->kepada }}">
-                        </div>
-            
+                      <div class="col-sm-6">
+                      <div class="form-group">
+                          <label for="picker1">Kepada</label>
+                          <select class="form-control" name="kepada">
+                          @foreach ($user as $u)
+                              <option value="{{ $u->id }}">{{ $u->email }}</option>
+                          @endforeach
+                          </select>
+                          </div>
+                      </div>
+                        <div class="col-sm-12">
                         <label for="alamat">Buat Surat</label>
                             <div class="input-group">
                               <div class="input-group-prepend"></div>
                               <textarea name="perihal" class="form-control" aria-label="With textarea" value="{{ $surat->perihal }}">{{ $surat->perihal }}</textarea>
                             </div>
-                          
+                        </div>
+                        <div class="col-sm-3">
                         <div class="form-group">
                           <label for="file">File</label>
                           <div class="custom-file">
                             <input type="file" class="custom-file-input form-control" id="exampleInputFile" name="file" required="required">
                             <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                           </div>
+                        </div>
                         </div>
                       </div>
                     </div>

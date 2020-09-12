@@ -37,4 +37,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function Surat(){
+    	return $this->hasMany('App\Surat');
+    }
 }
