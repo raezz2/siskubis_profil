@@ -52,11 +52,14 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="daterange">Status</label>
+                            <label for="daterange">Status</label>
                         <select name="publish" class="form-control">
                             <option value="0">Draft</option>
                             <option value="1">Published</option>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary">Filter</button>
                     </div>
                 </form>
 			</div>
