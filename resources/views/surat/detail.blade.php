@@ -26,7 +26,9 @@
         
             <div class="col-12">
                 <h4>Kepada</h4>
-                    <p>{{ $p->}}</p>
+                
+                    <p>{{ $user}}</p>
+                
             </div>
 
             <div class="col-12">

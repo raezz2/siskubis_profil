@@ -48,9 +48,9 @@
                       <div class="col-sm-6">
                       <div class="form-group">
                           <label for="picker1">Kepada</label>
-                          <select class="form-control" name="kepada">
+                          <select class="form-control" name="kepada" >
                           @foreach ($user as $u)
-                              <option value="{{ $u->id }}">{{ $u->email }}</option>
+                              <option value="{{ $u->email }}">{{ $u->email }}</option>
                           @endforeach
                           </select>
                           </div>

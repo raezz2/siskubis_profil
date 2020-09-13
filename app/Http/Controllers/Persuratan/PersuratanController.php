@@ -70,11 +70,12 @@ class PersuratanController extends Controller
 
     public function show ($id)
     {
+        $user = User::where('id', '!=', $id)->orderBy('name', 'asc')->get();
         $surat = DB::table('surat')->where('id', $id)->get();
-        $user = DB::table('users')->get();
         
-        $this->data['surat'] = $surat;
         $this->data['user'] = $user;
+        $this->data['surat'] = $surat;
+        // dd($this->data);
         return view ('surat.detail', $this->data);
 
     }

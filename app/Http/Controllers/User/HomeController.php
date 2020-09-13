@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Surat;
 
 class HomeController extends Controller
 {
@@ -19,6 +20,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('user.dashboard');
+        $surat = DB::table('surat')->get();
+        $surat = Auth::user()->surat();
+
+        return view('user.dashboard', compact('surat'));
     }
 }
