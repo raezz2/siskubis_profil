@@ -43,6 +43,23 @@ class PengumumanController extends Controller
     }
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required',
+            'kategori' => 'required',
+            'inkubator' => 'required',
+            'pengumuman' => 'required',
+        ]);
+        // $pengumuman = new pengumuman;
+
+        // $pengumuman->title = $request->title;
+        // $pengumuman->title = Str::slug($request->get('title')),
+        // $pengumuman->foto = $request->foto;
+        // $pengumuman->priority_id = $request->priority_id;
+        // $pengumuman->inkubator_id = $request->inkubator_id;
+        // $pengumuman->pengumuman = $request->pengumuman;
+        // $pengumuman->author_id = $request->author_id;
+        // $pengumuman->publish = $request->publish;
+
         DB::table('pengumuman')->insert([
             'title' => $request->title,
             'slug' => Str::slug($request->get('title')),
@@ -57,7 +74,7 @@ class PengumumanController extends Controller
         $file = $request->file;
         $tujuan_upload = 'img/pengumuman';
         $file->move($tujuan_upload, $file->getClientOriginalName());
-
+        // $pengumuman->save();
         \Session::flash('sukses', 'Berhasil Menambahkan Data Pengumuman');
         return redirect('/inkubator/pengumuman');
     }
@@ -82,6 +99,7 @@ class PengumumanController extends Controller
 
         $pengumuman = Pengumuman::find($id);
         $pengumuman = Pengumuman::all();
+        $foto = Pengumuman::find($id)->where('foto', $id)->first();
         $old_image_name = $request->hidden_image;
         $kategori = DB::table('priority')->get();
         $inkubator = DB::table('inkubator')->get();
@@ -100,8 +118,10 @@ class PengumumanController extends Controller
             $file = $request->file('foto');
             $extension = $file->getClientOriginalExtension();
             $file->move($tujuan_upload, $file->getClientOriginalName());
+            $file->first();
         }
         $image_name = $old_image_name;
+        $foto->save();
         return redirect('inkubator/pengumuman');
     }
     public function hapus($id)
