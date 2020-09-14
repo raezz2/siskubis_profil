@@ -21,6 +21,22 @@
             <textarea name="event" class="form-control" id="event" rows="5">{{ old('event') ?? $event->event }}</textarea>
           </div>
           <div class="row">
+            <div class="form-group col-md-6">
+              <label for="tgl_mulai">Tanggal Mulai :</label>
+              <div class="input-group">
+                <input type="date" name="tgl_mulai" class="form-control" value="{{ old('tgl_mulai') ?? $event->tgl_mulai }}">
+                <input type="time" name="waktu_mulai" class="form-control" value="{{ old('waktu_mulai') ?? $event->waktu_mulai }}">
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="tgl_selesai">Tanggal Selesai</label>
+              <div class="input-group">
+                <input type="date" name="tgl_selesai" class="form-control" value="{{ old('tgl_selesai') ?? $event->tgl_selesai }}">
+                <input type="time" name="waktu_selesai" class="form-control" value="{{ old('waktu_selesai') ?? $event->waktu_selesai }}">
+              </div>
+            </div>
+          </div>
+          <div class="row">
           <div class="form-group col-md-6">
             <label for="priority">Priority</label>
             <select class="form-control" name="priority_id" id="priority_id">
