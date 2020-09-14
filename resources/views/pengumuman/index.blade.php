@@ -39,6 +39,7 @@
 						<tr>
 							<th width="65%">Pengumuman</th>
 							<th width="15%">Kategori</th>
+							<th width="15%">Status</th>
 							<th width="15%">Tanggal</th>
 							<th width="5%">Action</th>
 						</tr>
@@ -62,6 +63,17 @@
 								@else
 								<a class="badge badge-warning m-2 p-2" href="#">{{ $p->priority->name }}</a>
 								@endif
+							</td>
+							<td>
+								<div class="btn-group">
+									<button class="btn btn-danger btn-block dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+										Status
+									</button>
+									<div class="dropdown-menu ul-task-manager__dropdown-menu" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -102px, 0px);"><a class="dropdown-item" href="#"><span class="ul-task-manager__dot bg-warning mr-2">
+											</span>Draft</a><a class="dropdown-item" href="#"><span class="ul-task-manager__dot bg-success mr-2">
+											</span>Published</a></div>
+								</div>
+
 							</td>
 							<td>{{ $p->created_at }}</td>
 							<td><a class="ul-link-action text-success" data-toggle="tooltip" href="/inkubator/pengumuman/edit/{{ $p->id }}" data-placement="top" title="Edit"><i class="i-Edit"></i>
@@ -138,7 +150,18 @@
 			e.preventDefault();
 			location.reload();
 		})
+	});
+	$(document).ready(function() {
+		var flash = "{{ Session::get('hapus')}}";
+		if (flash) {
+			var pesan = "{{ Session::get('hapus')}}"
+			alert(pesan);
+		}
 
+		$('.btn-refresh').click(function(e) {
+			e.preventDefault();
+			location.reload();
+		})
 	});
 	$('#ul-contact-list').DataTable({
 		responsive: true,

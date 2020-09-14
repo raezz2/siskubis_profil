@@ -26,7 +26,7 @@
                         <select class="form-control @error('kategori') is-invalid @enderror" name="kategori">
                             <option selected="" disabled="">Pilih Kategori</option>
                             @foreach ($kategori as $k)
-                            <option value="{{ $k->id }}">{{ $k->name }}</option>
+                            <option value="{{ $k->id }}" {{ old('kategori') == $k->id ? 'selected':''}}>{{ $k->name }}</option>
                             @endforeach
                         </select>
                         @if($errors->has('kategori'))
@@ -41,7 +41,7 @@
                             <option selected="" disabled="">Pilih Inkubator</option>
                             <option value="0">Kategori Umum</option>
 
-                            <option value="{{ $i->id }}">{{ $i->nama }}</option>
+                            <option value="{{ $i->id }}" {{ old('inkubator') == $i->id ? 'selected':''}}>{{ $i->nama }}</option>
                             @endforeach
                         </select>
                         @if($errors->has('inkubator'))
@@ -52,7 +52,7 @@
                     </div>
                     <div class="form-group">
 
-                        <textarea class="form-control @error('pengumuman') is-invalid @enderror" rows=" 3" placeholder="Pengumuman ...." name="pengumuman" value="{{ old('pengumuman') }}"></textarea>
+                        <textarea class="form-control @error('pengumuman') is-invalid @enderror" rows=" 3" placeholder="Pengumuman ...." name="pengumuman">{{old('pengumuman')}}</textarea>
 
                         @if($errors->has('pengumuman'))
                         <div class="text-danger">
@@ -62,13 +62,18 @@
 
                     </div>
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input @error('foto') is-invalid @enderror" id=" exampleInputFile" name="file" value="{{ old('foto ') }}">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                        <!-- @if($errors->has('foto'))
+
+                        <input type="file" class="custom-file-input @error('file') is-invalid @enderror" id=" exampleInputFile" name="file" value="{{ old('foto') }}">
+                        <label class="custom-file-label" for="exampleInputFile"></a>
+
+                        </label>
+
+                        @if($errors->has('file'))
                         <div class="text-danger">
-                            {{ $errors->first('foto')}}
+                            {{ $errors->first('file')}}
                         </div>
-                        @endif -->
+                        @endif
+
                     </div>
                     <div class="modal-footer">
                         <a href="/inkubator/pengumuman/"><button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button></a>

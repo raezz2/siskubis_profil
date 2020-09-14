@@ -48,17 +48,8 @@ class PengumumanController extends Controller
             'kategori' => 'required',
             'inkubator' => 'required',
             'pengumuman' => 'required',
+            'file' => 'required',
         ]);
-        // $pengumuman = new pengumuman;
-
-        // $pengumuman->title = $request->title;
-        // $pengumuman->title = Str::slug($request->get('title')),
-        // $pengumuman->foto = $request->foto;
-        // $pengumuman->priority_id = $request->priority_id;
-        // $pengumuman->inkubator_id = $request->inkubator_id;
-        // $pengumuman->pengumuman = $request->pengumuman;
-        // $pengumuman->author_id = $request->author_id;
-        // $pengumuman->publish = $request->publish;
 
         DB::table('pengumuman')->insert([
             'title' => $request->title,
@@ -74,7 +65,7 @@ class PengumumanController extends Controller
         $file = $request->file;
         $tujuan_upload = 'img/pengumuman';
         $file->move($tujuan_upload, $file->getClientOriginalName());
-        // $pengumuman->save();
+
         \Session::flash('sukses', 'Berhasil Menambahkan Data Pengumuman');
         return redirect('/inkubator/pengumuman');
     }
@@ -87,6 +78,7 @@ class PengumumanController extends Controller
 
     public function edit($id)
     {
+
         $title = 'Edit Pengumuman';
         $p = DB::table('pengumuman')->where('id', $id)->first();
         $kategori = DB::table('priority')->get();
@@ -100,7 +92,6 @@ class PengumumanController extends Controller
         $pengumuman = Pengumuman::find($id);
         $pengumuman = Pengumuman::all();
         $foto = Pengumuman::find($id)->where('foto', $id)->first();
-        $old_image_name = $request->hidden_image;
         $kategori = DB::table('priority')->get();
         $inkubator = DB::table('inkubator')->get();
         $file = $pengumuman->foto;
@@ -119,8 +110,11 @@ class PengumumanController extends Controller
             $extension = $file->getClientOriginalExtension();
             $file->move($tujuan_upload, $file->getClientOriginalName());
             $file->first();
+        } else {
+            $file = $pengumuman->foto;
         }
-        $image_name = $old_image_name;
+
+        $pengumuman->update($file);
         $foto->save();
         return redirect('inkubator/pengumuman');
     }
@@ -131,7 +125,26 @@ class PengumumanController extends Controller
         File::delete('img/film/' . $file->foto);
         DB::table('pengumuman')->where('id', $id)->delete();
 
-        \Session::flash('sukses', 'Berhasil Menghapus Data Pengumuman');
+        \Session::flash('hapus', 'Berhasil Menghapus Data Pengumuman');
+        return redirect('inkubator/pengumuman');
+    }
+
+    public function status($id)
+    {
+        $data = \DB::table('priority')->where('id', $id)->first();
+
+        $status_sekarang = $data->status;
+
+        if ($status_sekarang == 1) {
+            \DB::table('priority')->where('id', $id)->update([
+                'status' == 0
+            ]);
+        } else {
+            \DB::table('priority')->where('id', $id)->update([
+                'status' == 1
+            ]);
+        }
+        \Session::flash('hapus', 'Berhasil Mengupdate Status Pengumuman');
         return redirect('inkubator/pengumuman');
     }
 }

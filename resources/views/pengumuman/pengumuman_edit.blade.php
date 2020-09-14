@@ -35,7 +35,6 @@
                     </div>
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="exampleInputFile" name="file">
-                        <input type="hidden" class="custom-file-input" id="hhidden_image" name="hidden_image">
                         <label class="custom-file-label" for="exampleInputFile">{{ $p->foto }}</label>
                     </div>
                     <div class="modal-footer">
