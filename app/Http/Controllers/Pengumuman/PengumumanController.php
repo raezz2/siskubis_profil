@@ -134,4 +134,21 @@ class PengumumanController extends Controller
         \Session::flash('sukses', 'Berhasil Menghapus Data Pengumuman');
         return redirect('inkubator/pengumuman');
     }
+    public function status($id){
+        $pengumuman = DB::table('pengumuman')->where('id',$id)->first();
+
+        $status = $pengumuman->publish;
+
+        if($status == 1){
+            DB::table('pengumuman')->where('id', $id)->update([
+                'publish' => 0
+            ]);
+        }else{
+            DB::table('pengumuman')->where('id', $id)->update([
+                'publish' => 1
+            ]);
+        }
+        \Session::flash('sukses','Berhasil Merubah Status Pengumuman');
+        return redirect('inkubator/pengumuman');
+    }
 }
