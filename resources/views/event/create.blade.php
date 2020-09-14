@@ -20,7 +20,7 @@
             <div class="input-group mb-3">
               <div class="custom-file">
                 <label class="custom-file-label" for="foto">Choose file</label>
-                <input class="custom-file-input" id="foto" type="file"  name="file"/>
+                <input class="custom-file-input" id="foto" type="file"  name="foto" />
               </div>
             </div>
             @error('title')
@@ -42,15 +42,15 @@
             <div class="form-group col-md-6">
               <label for="tgl_mulai">Tanggal Mulai :</label>
               <div class="input-group">
-                <input type="date" name="tgl_mulai" class="form-control">
-                <input type="time" name="waktu_mulai" class="form-control">
+                <input type="date" name="tgl_mulai" class="form-control" id="tgl_mulai">
+                <input type="time" name="waktu_mulai" class="form-control" id="waktu_mulai">
               </div>
             </div>
             <div class="form-group col-md-6">
               <label for="tgl_selesai">Tanggal Selesai</label>
               <div class="input-group">
-                <input type="date" name="tgl_selesai" class="form-control">
-                <input type="time" name="waktu_selesai" class="form-control">
+                <input type="date" name="tgl_selesai" class="form-control" id="tgl_selesai">
+                <input type="time" name="waktu_selesai" class="form-control" id="waktu_selesa">
               </div>
             </div>
           </div>

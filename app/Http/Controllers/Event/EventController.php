@@ -73,22 +73,6 @@ class EventController extends Controller
 
         Event::create($attr);
         return redirect()->to('/inkubator/event');
-        // // session()->flash('success', 'The Post was created');
-
-
-        // $this->validate($request, [
-        //     'title' => 'required|min:3',
-        //     'foto' => 'required',
-        //     'priority_id' => 'required',
-        //     'event' => 'required',
-        //     'publish' => 'required'
-        // ]);
-
-
-        // $event = $request->all();
-        // $event['slug'] = \Str::slug($request->title);
-        // Event::create($event);
-
     }
 
     public function edit(Event $event)
@@ -102,7 +86,7 @@ class EventController extends Controller
 
         $attr = request()->validate([
             'title' => 'required|min:3',
-            // 'foto' => 'required',
+            'foto' => 'required',
             'priority_id' => 'required',
             'event' => 'required',
             'publish' => 'required',
@@ -135,6 +119,10 @@ class EventController extends Controller
 
     public function search(Request $request)
     {
-        
+        $priority = Priority::get();
+        $query = request('query');
+
+        $event = Event::where("title", "Like", "%$query%")->where("priority_id", "Like", "%$query%")->where("publish", "Like", "%$query%")->paginate(10);
+        return view('event.index', compact('event', 'priority'));
     }
 }

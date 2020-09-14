@@ -31,7 +31,7 @@
 			  </div>
 			</div>
 			<div class="card-body">
-                {{-- <form action="{{route('inkubator.event.search')}}" method="get"> --}}
+                <form action="{{route('eventsearch')}}" method="get">
                     <div class="form-group">
                         <label for="search">Pencarian</label>
                         <div class="input-group">
@@ -39,10 +39,10 @@
                             <button class="btn btn-primary">search</button>
                         </div>
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="daterange">Rentang tanggal</label>
                         <input type="text" name="daterange" class="form-control" placeholder="set tanggal">
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <label for="priority">Priority</label>
                         <select name="priority" class="form-control">
