@@ -35,7 +35,7 @@
 								</td>
 								<td><a class="badge badge-primary m-2 p-2" href="#">{{ $p->jenis_surat }}</a></td>
 								<td>{{ $p->created_at }}</td>
-								<td><a class="ul-link-action text-success" href="/inkubator/surat/{{ $p->id }}/edit" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="/inkubator/surat/delete/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
+								<td><a class="ul-link-action text-success" href="/inkubator/surat/edit/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="/inkubator/surat/delete/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
 							</tr>
 							@endif
 						@endforeach
@@ -64,7 +64,7 @@
 							</td>
 							<td><a class="badge badge-danger m-2 p-2" href="#">{{ $p->jenis_surat }}</a></td>
 							<td>{{ $p->created_at }}</td>
-							<td><a class="ul-link-action text-success" href="/inkubator/surat/{{ $p->id }}/edit" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="/inkubator/surat/delete/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
+							<td><a class="ul-link-action text-success" href="/inkubator/surat/edit/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="/inkubator/surat/delete/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
 						</tr>
 						@endif
 					@endforeach

@@ -40,7 +40,7 @@ class PersuratanController extends Controller
     public function store (Request $request)
     {
         $request->validate([
-            'file' => 'mimes:pdf',
+            'file' => 'mimes:pdf,jpg,png,jpeg',
         ]);
 
         DB::table('surat')->insert([
@@ -70,13 +70,16 @@ class PersuratanController extends Controller
 
     public function show ($id)
     {
-        $user = User::where('id', '!=', $id)->orderBy('name', 'asc')->get();
-        $surat = DB::table('surat')->where('id', $id)->get();
-        
-        $this->data['user'] = $user;
-        $this->data['surat'] = $surat;
-        // dd($this->data);
-        return view ('surat.detail', $this->data);
+        $surat = Surat::where('surat.id', $id)
+        ->leftJoin('profil_user',['profil_user.user_id' => 'surat.kepada'])
+        ->leftjoin('users',['surat.kepada'=>'users.id'])
+        ->select('surat.*','profil_user.nama','users.email')
+        ->get();
+        $user = User::where('email', $id )->get();
+
+        //dd($surat, $user);
+        // return response()->json($surat);
+        return view ('surat.detail', compact('surat', 'user'));
 
     }
 

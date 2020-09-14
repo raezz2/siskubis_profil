@@ -8,10 +8,13 @@ class Surat extends Model
 {
     protected $table = 'surat';
 
+    protected $fillable = ['id', 'title', 'dari', 'prihal', 'kepada','dokumen', 'jenis_surat', 'author_id'];
 
-    public function user(){
+
+    public function users(){
         
-    	return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Users');
+        // return $this->hasMany('App\User');
     }
 
     

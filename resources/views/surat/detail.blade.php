@@ -27,7 +27,9 @@
             <div class="col-12">
                 <h4>Kepada</h4>
                 
-                    <p>{{ $user}}</p>
+                    <p>{{ $p->email}}</p>
+
+                  
                 
             </div>
 
@@ -45,10 +47,6 @@
                 <h4>Dokumen</h4>
                     <img src="/file/dokumen/{{ $p->dokumen }}" class="dokumen" alt="dokumen">
             </div>
-
-            
-
-            
               @endforeach
             </div>
           </div>

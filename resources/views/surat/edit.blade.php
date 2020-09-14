@@ -50,8 +50,8 @@
                           <label for="picker1">Kepada</label>
                           <select class="form-control" name="kepada" >
                           @foreach ($user as $u)
-                              <option value="{{ $u->email }}">{{ $u->email }}</option>
-                          @endforeach
+                            <option value="{{ $u->id }}" {{ ($surat->kepada == $u->id) ? 'selected' : null }}>{{ $u->email}}</option>
+                            @endforeach
                           </select>
                           </div>
                       </div>

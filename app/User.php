@@ -38,7 +38,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function Surat(){
-    	return $this->hasMany('App\Surat');
+    public function surat(){
+        return $this->hasMany('App\Surat');
+        // return $this->belongsTo('App\Surat');
     }
 }
