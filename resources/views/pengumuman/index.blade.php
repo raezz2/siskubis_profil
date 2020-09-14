@@ -22,9 +22,10 @@
 							<option></option>
 						</select>
 						</br>
-						<a class="list-group-item list-group-item-action border-0" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i> Pra Start Up</a>
-						<a class="list-group-item list-group-item-action border-0" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile"><i class="nav-icon i-Arrow-Next"></i> Start Up</a>
-						<a class="list-group-item list-group-item-action border-0" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings"><i class="nav-icon i-Arrow-Next"></i> Scale Up</a>
+						<a class="list-group-item list-group-item-action border-0" id="list-home-list" href="/inkubator/pengumuman" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>All Kategori</a>
+						@foreach($kategori as $y)					
+							<a class="list-group-item list-group-item-action border-0" id="list-home-list" href="/inkubator/kategori/{{ $y->id }}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
+						@endforeach
 					</div>
 				</div>
 
@@ -41,6 +42,7 @@
 							<th width="15%">Kategori</th>
 							<th width="15%">Status</th>
 							<th width="15%">Tanggal</th>
+							<th width="15%">Status</th>
 							<th width="5%">Action</th>
 						</tr>
 					</thead>
@@ -76,6 +78,21 @@
 
 							</td>
 							<td>{{ $p->created_at }}</td>
+							<td class="custom-align">
+                                <div class="btn-group">
+									@if($p->publish == 1)
+                                    	<button class="btn btn-success custom-btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Publish</button>
+									@else
+										<button class="btn btn-danger custom-btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Draf</button>
+									@endif
+								<div class="dropdown-menu ul-task-manager__dropdown-menu">
+									@if($p->publish == 1)
+										<a class="dropdown-item btn btn-danger" href="{{ url('inkubator/pengumuman/status/'.$p->id)}}">Draf</a>
+									@else
+										<a class="dropdown-item btn btn-success" href="{{ url('inkubator/pengumuman/status/'.$p->id)}}">Publish</a>
+									@endif
+								</div>
+							</td>
 							<td><a class="ul-link-action text-success" data-toggle="tooltip" href="/inkubator/pengumuman/edit/{{ $p->id }}" data-placement="top" title="Edit"><i class="i-Edit"></i>
 									<a class="ul-link-action text-danger mr-1" href="/inkubator/pengumuman/hapus/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!">
 										<i class="i-Eraser-2"></i></a>
