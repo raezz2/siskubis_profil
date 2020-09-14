@@ -70,13 +70,9 @@ class EventController extends Controller
         $fotoUrl = $foto->storeAs("image/event", "{$slug}.{$foto->extension()}");
 
         $attr['foto'] = $fotoUrl;
-        
+
         Event::create($attr);
         return redirect()->to('/inkubator/event');
-<<<<<<< HEAD
-=======
-
->>>>>>> 7df7b194db0958759e4c712d91fc8af3587ed299
     }
 
     public function edit(Event $event)
@@ -90,10 +86,6 @@ class EventController extends Controller
 
         $attr = request()->validate([
             'title' => 'required|min:3',
-<<<<<<< HEAD
-            'foto' => 'required',
-=======
->>>>>>> 7df7b194db0958759e4c712d91fc8af3587ed299
             'priority_id' => 'required',
             'event' => 'required',
             'publish' => 'required',
@@ -126,7 +118,7 @@ class EventController extends Controller
         $title = request('title');
         $priority_id = request('priority');
         $publish = request('publish');
-        
+
         $event = Event::where('title', 'like', "%$title%")->where('priority_id', '=', $priority_id)->where('publish', '=', $publish)->paginate(10);
         return view('/event/index', compact('event', 'priority'));
     }

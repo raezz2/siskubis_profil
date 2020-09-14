@@ -31,11 +31,7 @@
 			  </div>
 			</div>
 			<div class="card-body">
-<<<<<<< HEAD
-                <form action="{{route('eventsearch')}}" method="get">
-=======
                 <form action="{{ route('search.event') }}" method="get">
->>>>>>> 7df7b194db0958759e4c712d91fc8af3587ed299
                     <div class="form-group">
                         <label for="search">Pencarian</label>
                         <div class="input-group">
