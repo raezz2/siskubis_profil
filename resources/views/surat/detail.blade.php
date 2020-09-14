@@ -14,28 +14,21 @@
             <div class="card-body">
               <div class="row">
             @foreach($surat as $p)
-            <div class="col-12">
-              <h4> Judul</h4>
-              <p>{{ $p->title }}</p>
-            </div>
 
-            <div class="col-12">
+            <div class="col-6">
                 <h4>Dari</h4>
                     <p>{{ $p->dari }}</p>
             </div>
         
-            <div class="col-12">
+            <div class="col-6">
                 <h4>Kepada</h4>
                 
                     <p>{{ $p->email}}</p>
-
-                  
-                
             </div>
 
             <div class="col-12">
-                <h4>Jenis Surat</h4>
-                    <p>{{ $p->jenis_surat }}</p>
+              <h4> Judul</h4>
+              <p>{{ $p->title }}</p>
             </div>
             
             <div class="col-12">
@@ -45,7 +38,7 @@
 
             <div class="col-12">
                 <h4>Dokumen</h4>
-                    <img src="/file/dokumen/{{ $p->dokumen }}" class="dokumen" alt="dokumen">
+                    <iframe src="/file/dokumen/{{ $p->dokumen }}" class="dokumen" alt="dokumen" style="width:100%;height:1200px;border:none;"></iframe>
             </div>
               @endforeach
             </div>
