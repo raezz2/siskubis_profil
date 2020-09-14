@@ -2,14 +2,30 @@
 
 @section('content')
 
+<div class="main-content pt-4">
+    <div class="breadcrumb">
+        <h1>Persuratan</h1>
+        <ul>
+            <li><a href="href">Detail</a></li>
+            <li>Persuratan</li>
+        </ul>
+    </div>
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1></h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
     <!-- Main content -->
     <section class="content">
       <div class="row">
         <div class="col-12">
           <div class="card card-info">
-            <div class="card-header">
-              <h3 class="card-title">Detail Pesan</h3>
-            </div>
+            
             <!-- /.card-header -->
             <div class="card-body">
               <div class="row">
@@ -55,4 +71,29 @@
       </div>
       <!-- /.row -->
     </section>
+@endsection
+
+@section('css')
+    <link rel="stylesheet" href="{{asset('theme/css/plugins/datatables.min.css')}}" />
+@endsection
+@section('js')
+	<script src="{{asset('theme/js/plugins/datatables.min.js')}}"></script>
+    <script src="{{asset('theme/js/scripts/contact-list-table.min.js')}}"></script>
+    <script src="{{asset('theme/js/scripts/datatables.script.min.js')}}"></script>
+	<script src="{{asset('theme/js/plugins/datatables.min.js')}}"></script>
+    <script src="{{asset('theme/js/scripts/tooltip.script.min.js')}}"></script>
+    <script>
+        $('#masuk').DataTable({
+			responsive:true,
+		});
+		
+		$('#keluar').DataTable({
+			responsive:true,
+		});
+    </script>
+    <script>
+        $("#file").change(function(){
+        $("#custom-file-label").text(this.files[0].name);
+      }); 
+    </script>
 @endsection
