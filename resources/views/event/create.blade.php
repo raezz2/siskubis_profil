@@ -67,6 +67,7 @@
             <div class="form-group col-md-6">
               <label for="publish">Publish</label>
               <select name="publish" class="form-control" id="publish">
+                <option value="">Pilih salah satu</option>
                 <option value="1">Publish</option>
                 <option value="0">Draft</option>
               </select>
