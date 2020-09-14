@@ -44,6 +44,8 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 	//Route::get('/event', 'Produk\ProdukController@index')->name('inkubator.event');
 	//Route::get('/berita', 'Produk\ProdukController@index')->name('inkubator.berita');
 	//Route::get('/pengumuman', 'Produk\ProdukController@index')->name('inkubator.pengumuman');
+
+	// ! route event start
 	Route::get('/event', 'Event\EventController@index')->name('inkubator.event-list');
 	Route::get('/event/calendar', 'Event\EventController@calendar')->name('inkubator.event-calendar');
 	Route::get('/event/create', 'Event\EventController@create')->name('inkubator.event.create');
@@ -52,6 +54,9 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 	Route::get('/event/{event:slug}/edit', 'Event\EventController@edit')->name('inkubator.event.edit');
 	Route::patch('/event/{event:slug}/edit', 'Event\EventController@update');
 	Route::get('/event/{event:slug}/delete', 'Event\EventController@destroy');
+	Route::get('search', 'Event\EventController@search')->name('search.event');
+
+
 	Route::get('/pengumuman', 'Pengumuman\PengumumanController@index')->name('inkubator.pengumuman');
 	Route::get('/berita', 'Berita\BeritaController@index')->name('inkubator.berita');
 	Route::get('/chat', 'Chat\ChatController@index')->name('inkubator.chat');

@@ -70,9 +70,13 @@ class EventController extends Controller
         $fotoUrl = $foto->storeAs("image/event", "{$slug}.{$foto->extension()}");
 
         $attr['foto'] = $fotoUrl;
-
+        
         Event::create($attr);
         return redirect()->to('/inkubator/event');
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7df7b194db0958759e4c712d91fc8af3587ed299
     }
 
     public function edit(Event $event)
@@ -86,7 +90,10 @@ class EventController extends Controller
 
         $attr = request()->validate([
             'title' => 'required|min:3',
+<<<<<<< HEAD
             'foto' => 'required',
+=======
+>>>>>>> 7df7b194db0958759e4c712d91fc8af3587ed299
             'priority_id' => 'required',
             'event' => 'required',
             'publish' => 'required',
@@ -95,15 +102,11 @@ class EventController extends Controller
         if (request()->file('foto')) {
             \Storage::delete($event->foto);
             $foto = request()->file('foto');
-            $fotoUrl = $foto->store("image/event");
+            $fotoUrl = $foto->storeAs("image/event", "{$event->slug}.{$foto->extension()}");
+            $attr['foto'] = $fotoUrl;
         } else {
             $foto = $event->foto;
         }
-
-        $foto = request()->file('foto');
-        $fotoUrl = $foto->store("image/event");
-
-        $attr['foto'] = $fotoUrl;
 
         $event->update($attr);
 
@@ -117,12 +120,14 @@ class EventController extends Controller
         return redirect()->to('/inkubator/event');
     }
 
-    public function search(Request $request)
+    public function search()
     {
         $priority = Priority::get();
-        $query = request('query');
-
-        $event = Event::where("title", "Like", "%$query%")->where("priority_id", "Like", "%$query%")->where("publish", "Like", "%$query%")->paginate(10);
-        return view('event.index', compact('event', 'priority'));
+        $title = request('title');
+        $priority_id = request('priority');
+        $publish = request('publish');
+        
+        $event = Event::where('title', 'like', "%$title%")->where('priority_id', '=', $priority_id)->where('publish', '=', $publish)->paginate(10);
+        return view('/event/index', compact('event', 'priority'));
     }
 }

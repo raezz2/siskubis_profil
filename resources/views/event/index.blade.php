@@ -31,12 +31,15 @@
 			  </div>
 			</div>
 			<div class="card-body">
+<<<<<<< HEAD
                 <form action="{{route('eventsearch')}}" method="get">
+=======
+                <form action="{{ route('search.event') }}" method="get">
+>>>>>>> 7df7b194db0958759e4c712d91fc8af3587ed299
                     <div class="form-group">
                         <label for="search">Pencarian</label>
                         <div class="input-group">
-                            <input type="text" name="query" class="form-control" placeholder="search">
-                            <button class="btn btn-primary">search</button>
+                            <input type="text" name="title" class="form-control" placeholder="search">
                         </div>
                     </div>
                     {{-- <div class="form-group">
@@ -46,20 +49,22 @@
                     <div class="form-group">
                         <label for="priority">Priority</label>
                         <select name="priority" class="form-control">
+                            <option>Pilih Salah satu</option>
                             @foreach ($priority as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
-                            <label for="daterange">Status</label>
+                        <label for="publish">Status</label>
                         <select name="publish" class="form-control">
-                            <option value="0">Draft</option>
+                            <option>Status</option>
                             <option value="1">Published</option>
+                            <option value="0">Draft</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-primary">Filter</button>
+                        <button type="submit" class="btn btn-primary">Filter</button>
                     </div>
                 </form>
 			</div>
