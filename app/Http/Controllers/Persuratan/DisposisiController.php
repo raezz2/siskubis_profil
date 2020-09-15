@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Persuratan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Surat;
+use App\Disposisi;
 
 class DisposisiController extends Controller
 {
@@ -16,9 +16,9 @@ class DisposisiController extends Controller
      */
     public function index()
     {
-        $surat = Surat::get();
+        $disposisi = Disposisi::get();
 
-        return view('inbox.index', compact('surat'));
+        return view('inbox.index', compact('disposisi'));
     }
 
     /**
