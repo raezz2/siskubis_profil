@@ -14,6 +14,7 @@
 				</div>
 			  </div>
 			</div>
+			@role('inkubator')
 			<div class="card-body">
 				<div class="create_event_wrap">
 					<form class="js-form-add-event">
@@ -24,19 +25,19 @@
 					</form>
 					<ul class="list-group" id="external-events">
 						<li class="list-group-item bg-success fc-event">
-							Hello World
+							Scale Up
 
 						</li>
 						<li class="list-group-item bg-primary fc-event">
-							Go to Shopping
+							Proposal
 
 						</li>
 						<li class="list-group-item bg-warning fc-event">
-							Payment schedule
+							Start Up
 
 						</li>
 						<li class="list-group-item bg-danger fc-event">
-							Rent Due
+							Pra Start Up
 
 						</li>
 					</ul>
@@ -46,6 +47,7 @@
 					</p>
 				</div>
 			</div>
+			@endrole
 		</div>
 	</div>
 	<div class="col-md-9">
@@ -64,5 +66,20 @@
     <script src="{{ asset('theme/js/plugins/calendar/jquery-ui.min.js')}}"></script>
     <script src="{{ asset('theme/js/plugins/calendar/moment.min.js')}}"></script>
     <script src="{{ asset('theme/js/plugins/calendar/fullcalendar.min.js')}}"></script>
-    <script src="{{ asset('theme/js/scripts/calendar.script.min.js')}}"></script>
+	<script src="{{ asset('theme/js/scripts/calendar.script.min.js')}}"></script>
+	
+	<script>
+		var calendar = new Calendar(calendarEl, {
+
+			eventClick: function(info) {
+			alert('Event: ' + info.event.title);
+			alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+			alert('View: ' + info.view.type);
+
+			// change the border color just for fun
+			info.el.style.borderColor = 'red';
+			}
+
+});
+	</script>
 @endsection

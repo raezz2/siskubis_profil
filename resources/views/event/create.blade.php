@@ -59,13 +59,8 @@
             <div class="form-group col-md-6">
               <label for="tgl_selesai">Tanggal Selesai</label>
               <div class="input-group">
-<<<<<<< HEAD
                 <input type="date" name="tgl_selesai" class="form-control" id="tgl_selesai">
                 <input type="time" name="waktu_selesai" class="form-control" id="waktu_selesa">
-=======
-                <input type="date" name="tgl_selesai" class="form-control" value="2020-02-21">
-                <input type="time" name="waktu_selesai" class="form-control">
->>>>>>> 7df7b194db0958759e4c712d91fc8af3587ed299
               </div>
             </div>
           </div>

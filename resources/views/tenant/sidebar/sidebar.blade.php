@@ -34,7 +34,7 @@
                                     <li class="item-name"><a href="user.profile.html"><i class="nav-icon i-Male"></i><span class="item-name">Surat Keluar</span></a></li>
                                 </ul>
 							</li>
-							<li class="Ul_li--hover"><a class="" href="#"><i class="i-File-Horizontal-Text text-20 mr-2 text-muted"></i><span class="item-name text-15 text-muted">Event</span></a></li>
+							<li class="Ul_li--hover"><a class="" href="{{route('tenant.event-list')}}"><i class="i-File-Horizontal-Text text-20 mr-2 text-muted"></i><span class="item-name text-15 text-muted">Event</span></a></li>
 							<li class="Ul_li--hover"><a class="" href="#"><i class="i-File-Horizontal-Text text-20 mr-2 text-muted"></i><span class="item-name text-15 text-muted">Beritas</span></a></li>
                         </ul>
                     </div>

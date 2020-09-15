@@ -40,6 +40,11 @@ class EventController extends Controller
         return view('event.show', compact('event'));
     }
 
+    public function createmodal()
+    {
+        return view('event.modal', compact('event'));
+    }
+
     public function create()
     {
         $priority = Priority::all();
