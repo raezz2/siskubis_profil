@@ -53,6 +53,7 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 	Route::get('/pengumuman/edit/{id}', 'Pengumuman\PengumumanController@edit');
 	Route::put('/pengumuman/update/{id}', 'Pengumuman\PengumumanController@update');
 	Route::get('/pengumuman/hapus/{id}', 'Pengumuman\PengumumanController@hapus');
+	Route::get('/kategori/{id}', 'Pengumuman\KategoriController@kategori');
 	Route::get('/pengumuman/status/{id}', 'Pengumuman\PengumumanController@status');
 	Route::get('/berita', 'Berita\BeritaController@index')->name('inkubator.berita');
 	Route::get('/chat', 'Chat\ChatController@index')->name('inkubator.chat');
@@ -65,6 +66,7 @@ Route::group(['prefix' => 'mentor', 'middleware' => ['role:mentor']], function (
 	Route::get('/chat', 'Chat\ChatController@index')->name('mentor.chat');
 	Route::get('/pengumuman', 'Mentor\MentorController@pengumuman');
 	Route::get('/pengumuman/{slug}', 'Mentor\MentorController@show');
+	Route::get('/kategori/{id}', 'Mentor\MentorController@kategori');
 });
 
 Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function () {
@@ -72,9 +74,12 @@ Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function (
 	Route::get('/chat', 'Chat\ChatController@index')->name('tenant.chat');
 	Route::get('/pengumuman', 'Tenant\TenantController@pengumuman');
 	Route::get('/pengumuman/{slug}', 'Tenant\TenantController@show');
+	Route::get('/kategori/{id}', 'Tenant\TenantController@kategori');
 });
 
 Route::group(['prefix' => 'user', 'middleware' => ['role:user']], function () {
 	Route::get('/', 'User\HomeController@index')->name('user.home');
 	Route::get('/chat', 'Chat\ChatController@index')->name('user.chat');
+	Route::get('/pengumuman', 'User\UserController@pengumuman');
+	Route::get('/pengumuman/{slug}', 'User\UserController@show');
 });

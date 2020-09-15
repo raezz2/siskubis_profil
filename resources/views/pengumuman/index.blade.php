@@ -23,8 +23,8 @@
 						</select>
 						</br>
 						<a class="list-group-item list-group-item-action border-0" id="list-home-list" href="/inkubator/pengumuman" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>All Kategori</a>
-						@foreach($kategori as $y)					
-							<a class="list-group-item list-group-item-action border-0" id="list-home-list" href="/inkubator/kategori/{{ $y->id }}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
+						@foreach($kategori as $y)
+						<a class="list-group-item list-group-item-action border-0" id="list-home-list" href="/inkubator/kategori/{{ $y->id }}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
 						@endforeach
 					</div>
 				</div>
@@ -40,7 +40,6 @@
 						<tr>
 							<th width="65%">Pengumuman</th>
 							<th width="15%">Kategori</th>
-							<th width="15%">Status</th>
 							<th width="15%">Tanggal</th>
 							<th width="15%">Status</th>
 							<th width="5%">Action</th>
@@ -66,32 +65,21 @@
 								<a class="badge badge-warning m-2 p-2" href="#">{{ $p->priority->name }}</a>
 								@endif
 							</td>
-							<td>
-								<div class="btn-group">
-									<button class="btn btn-danger btn-block dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-										Status
-									</button>
-									<div class="dropdown-menu ul-task-manager__dropdown-menu" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -102px, 0px);"><a class="dropdown-item" href="#"><span class="ul-task-manager__dot bg-warning mr-2">
-											</span>Draft</a><a class="dropdown-item" href="#"><span class="ul-task-manager__dot bg-success mr-2">
-											</span>Published</a></div>
-								</div>
-
-							</td>
 							<td>{{ $p->created_at }}</td>
 							<td class="custom-align">
-                                <div class="btn-group">
+								<div class="btn-group">
 									@if($p->publish == 1)
-                                    	<button class="btn btn-success custom-btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Publish</button>
+									<button class="btn btn-success custom-btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Publish</button>
 									@else
-										<button class="btn btn-danger custom-btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Draf</button>
+									<button class="btn btn-danger custom-btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Draf</button>
 									@endif
-								<div class="dropdown-menu ul-task-manager__dropdown-menu">
-									@if($p->publish == 1)
+									<div class="dropdown-menu ul-task-manager__dropdown-menu">
+										@if($p->publish == 1)
 										<a class="dropdown-item btn btn-danger" href="{{ url('inkubator/pengumuman/status/'.$p->id)}}">Draf</a>
-									@else
+										@else
 										<a class="dropdown-item btn btn-success" href="{{ url('inkubator/pengumuman/status/'.$p->id)}}">Publish</a>
-									@endif
-								</div>
+										@endif
+									</div>
 							</td>
 							<td><a class="ul-link-action text-success" data-toggle="tooltip" href="/inkubator/pengumuman/edit/{{ $p->id }}" data-placement="top" title="Edit"><i class="i-Edit"></i>
 									<a class="ul-link-action text-danger mr-1" href="/inkubator/pengumuman/hapus/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!">
@@ -106,7 +94,7 @@
 		</div>
 	</div>
 </div><!-- end of main-content -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -144,7 +132,7 @@
 			</div>
 		</div>
 	</div>
-</div> <!-- end of form-input -->
+</div> end of form-input -->
 @endsection
 @section('css')
 <link rel="stylesheet" href="{{asset('theme/css/plugins/datatables.min.css')}}" />

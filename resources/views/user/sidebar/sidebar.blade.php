@@ -9,7 +9,7 @@
                     <div class="main-menu">
                         <ul class="metismenu" id="menu">
                             <li class="Ul_li--hover"><a class="active" href="#"><i class="i-Bar-Chart text-20 mr-2 "></i><span class="item-name text-15 ">Dashboard</span></a>
-                                
+
                             </li>
 
                             <li class="Ul_li--hover"><a class="has-arrow" href="#"><i class="i-Computer-Secure text-20 mr-2 "></i><span class="item-name text-15 ">Keuangan</span></a>
@@ -21,8 +21,10 @@
                                     <li class="item-name"><a href="weather-card.html"><i class="nav-icon i-Receipt-4"></i><span class="item-name">Weather App </span></a></li>
                                 </ul>
                             </li>
+                            <li class="Ul_li--hover"><a class="" href="/user/pengumuman"><i class="i-File-Horizontal-Text text-20 mr-2 "></i><span class="item-name text-15 text">Pengumuman</span></a>
+                            </li>
 
-						</ul>
+                        </ul>
                     </div>
                 </div>
                 <div class="ps__rail-x" style="left: 0px; bottom: 0px;">

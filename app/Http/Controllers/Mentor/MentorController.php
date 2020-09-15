@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Mentor;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\ProfilUser;
-use App\User;
-use Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use App\Pengumuman;
 use App\Priority;
+use File;
+use Illuminate\Support\Facades\Auth;
 
 class MentorController extends Controller
 {
@@ -31,13 +31,22 @@ class MentorController extends Controller
 
     public function pengumuman()
     {
+        $pengumuman = Pengumuman::all();
+        $kategori = DB::table('priority')->get();
+        $inkubator = DB::table('inkubator')->get();
         $pengumuman = Pengumuman::where('publish', 1)->get();
-        return view('mentor.pengumuman', compact('pengumuman'));
+        return view('mentor.pengumuman', compact('pengumuman', 'kategori', 'inkubator'));
     }
 
     public function show($slug)
     {
         $pengumuman = DB::table('pengumuman')->where('slug', $slug)->get();
         return view('mentor.detail', ['pengumuman' => $pengumuman]);
+    }
+    public function kategori($id)
+    {
+        $pengumuman = Pengumuman::where('priority_id', $id)->latest()->get();
+        $kategori = DB::table('priority')->get();
+        return view('mentor.pengumuman', compact('pengumuman', 'kategori'));
     }
 }

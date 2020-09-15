@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\User;
+use Auth;
+use App\Pengumuman;
+use App\Priority;
 
 class HomeController extends Controller
 {
-        public function __construct()
+    public function __construct()
     {
         $this->middleware('auth');
     }

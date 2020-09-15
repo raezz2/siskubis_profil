@@ -48,7 +48,7 @@ class PengumumanController extends Controller
             'kategori' => 'required',
             'inkubator' => 'required',
             'pengumuman' => 'required',
-            'file' => 'required',
+            'file' => 'required|file|mimes:png,jpeg,jpg,pdf',
         ]);
 
         DB::table('pengumuman')->insert([
@@ -62,6 +62,7 @@ class PengumumanController extends Controller
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
+
         $file = $request->file;
         $tujuan_upload = 'img/pengumuman';
         $file->move($tujuan_upload, $file->getClientOriginalName());
@@ -131,37 +132,20 @@ class PengumumanController extends Controller
 
     public function status($id)
     {
-        $data = \DB::table('priority')->where('id', $id)->first();
-
-        $status_sekarang = $data->status;
-
-        if ($status_sekarang == 1) {
-            \DB::table('priority')->where('id', $id)->update([
-                'status' == 0
-            ]);
-        } else {
-            \DB::table('priority')->where('id', $id)->update([
-                'status' == 1
-            ]);
-        }
-        \Session::flash('hapus', 'Berhasil Mengupdate Status Pengumuman');
-        return redirect('inkubator/pengumuman');
-    }
-    public function status($id){
-        $pengumuman = DB::table('pengumuman')->where('id',$id)->first();
+        $pengumuman = DB::table('pengumuman')->where('id', $id)->first();
 
         $status = $pengumuman->publish;
 
-        if($status == 1){
+        if ($status == 1) {
             DB::table('pengumuman')->where('id', $id)->update([
                 'publish' => 0
             ]);
-        }else{
+        } else {
             DB::table('pengumuman')->where('id', $id)->update([
                 'publish' => 1
             ]);
         }
-        \Session::flash('sukses','Berhasil Merubah Status Pengumuman');
+        \Session::flash('sukses', 'Berhasil Merubah Status Pengumuman');
         return redirect('inkubator/pengumuman');
     }
 }

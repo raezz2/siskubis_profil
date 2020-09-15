@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Auth;
-use App\Tenant;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use App\Pengumuman;
 use App\Priority;
+use File;
+use Illuminate\Support\Facades\Auth;
 
 class TenantController extends Controller
 {
@@ -30,24 +31,25 @@ class TenantController extends Controller
         return view('tenant.index', $data);
     }
 
-    public function kategori($kategori)
-    {
-        return view('tenant.' . $kategori);
-    }
-    public function detail($kategori, $id)
-    {
-        return view('tenant.' . $kategori);
-    }
-
     public function pengumuman()
     {
+        $pengumuman = Pengumuman::all();
+        $kategori = DB::table('priority')->get();
+        $inkubator = DB::table('inkubator')->get();
         $pengumuman = Pengumuman::where('publish', 1)->get();
-        return view('tenant.pengumuman', compact('pengumuman'));
+        return view('tenant.pengumuman', compact('pengumuman', 'kategori', 'inkubator'));
     }
 
     public function show($slug)
     {
         $pengumuman = DB::table('pengumuman')->where('slug', $slug)->get();
         return view('tenant.detail', ['pengumuman' => $pengumuman]);
+    }
+
+    public function kategori($id)
+    {
+        $pengumuman = Pengumuman::where('priority_id', $id)->latest()->get();
+        $kategori = DB::table('priority')->get();
+        return view('tenant.pengumuman', compact('pengumuman', 'kategori'));
     }
 }

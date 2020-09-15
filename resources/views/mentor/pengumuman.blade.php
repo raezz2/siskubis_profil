@@ -19,9 +19,10 @@
                             <option></option>
                         </select>
                         </br>
-                        <a class="list-group-item list-group-item-action border-0" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i> Pra Start Up</a>
-                        <a class="list-group-item list-group-item-action border-0" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile"><i class="nav-icon i-Arrow-Next"></i> Start Up</a>
-                        <a class="list-group-item list-group-item-action border-0" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings"><i class="nav-icon i-Arrow-Next"></i> Scale Up</a>
+                        <a class="list-group-item list-group-item-action border-0" id="list-profile-list" href="/mentor/pengumuman/" role="tab" aria-controls="home" id="myList"><i class="nav-icon i-Business-Mens"></i>All Kategori</a>
+                        @foreach($kategori as $y)
+                        <a class="list-group-item list-group-item-action border-0" id="list-profile-list" href="/mentor/kategori/{{ $y->id }}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
+                        @endforeach
                     </div>
                 </div>
 
