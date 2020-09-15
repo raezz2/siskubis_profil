@@ -22,7 +22,7 @@ class InboxController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function indexmasuk()
     {
         $surat = Surat::all();
         // $surat = Surat::all()
@@ -37,11 +37,26 @@ class InboxController extends Controller
         return view('inbox.index', compact('surat'));
     }
 
+    public function indexkeluar()
+    {
+        $surat = Surat::all();
+        // $surat = Surat::all()
+        // ->join('profil_user',['profil_user.user_id' => 'surat.kepada'])
+        // ->join('users',['surat.kepada'=>'users.id'])
+        // ->join('surat_disposisi',['surat_disposisi.user_id' => 'surat.kepada'])
+        // ->select('surat.*','profil_user.nama','users.email','surat.perihal')
+        // ->get();
+
+        // dd($surat);
+
+        return view('inbox.keluar', compact('surat'));
+    }
+
     public function create()
     {
         $user = DB::table('users')->get();
 
-        return view ('surat.form', compact('user'));
+        return view ('inbox.form', compact('user'));
         
     }
 
@@ -73,7 +88,7 @@ class InboxController extends Controller
             Session::flash('error', 'Surat Gagal Terkirim');
         }
 
-        return redirect ('inkubator/surat');
+        return redirect ('tenant/suratmasuk');
     }
 
     public function show ($id)
@@ -87,7 +102,7 @@ class InboxController extends Controller
 
         //dd($surat, $user);
         // return response()->json($surat);
-        return view ('surat.detail', compact('surat', 'user'));
+        return view ('inbox.detail', compact('surat', 'user'));
 
     }
 
@@ -100,7 +115,7 @@ class InboxController extends Controller
 
         $this->data['surat'] = $surat;
         $this->data['user'] = $user;
-        return view('surat.edit', $this->data);
+        return view('inbox.edit', $this->data);
     }
 
     public function update(Request $request, Surat $surat)
@@ -127,7 +142,7 @@ class InboxController extends Controller
             Session::flash('error', 'Surat Gagal Dirubah');
         }
 
-    	return redirect ('/inkubator/surat');
+    	return redirect ('/tenant/suratmasuk');
     }
 
     public function destroy($id)
@@ -138,6 +153,6 @@ class InboxController extends Controller
             Session::flash('success', 'Surat berhasil dihapus');
         }
 
-        return redirect('/inkubator/surat');
+        return redirect('/tenant/suratmasuk');
     }
 }

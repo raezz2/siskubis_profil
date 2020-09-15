@@ -69,7 +69,15 @@ Route::group(['prefix'=>'mentor','middleware' => ['role:mentor']], function () {
 Route::group(['prefix'=>'tenant','middleware' => ['role:tenant']], function () {
     Route::get('/', 'Tenant\HomeController@index')->name('tenant.home');
 	Route::get('/chat', 'Chat\ChatController@index')->name('tenant.chat');
-	Route::get('/inbox', 'Inbox\InboxController@index')->name('tenant.inbox');
+	Route::get('/suratmasuk', 'Inbox\InboxController@indexmasuk');
+	Route::get('/suratkeluar', 'Inbox\InboxController@indexkeluar');
+	Route::get('/buatsurat', 'Inbox\InboxController@create');
+	Route::post('/kirimsurat', 'Inbox\InboxController@store');
+	Route::get('/suratmasuk/{surat}', 'Inbox\InboxController@show');
+	Route::get('/suratkeluar/{surat}', 'Inbox\InboxController@show');
+	Route::get('/suratmasuk/delete/{surat}', 'Inbox\InboxController@destroy');
+	Route::get('/suratmasuk/edit/{surat}', 'Inbox\InboxController@edit');
+	Route::patch('/suratmasuk/{surat}', 'Inbox\InboxController@update');
 });
 
 Route::group(['prefix'=>'user','middleware' => ['role:user']], function () {
