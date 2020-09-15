@@ -63,11 +63,13 @@ Route::group(['prefix'=>'inkubator','middleware' => ['role:inkubator']], functio
 Route::group(['prefix'=>'mentor','middleware' => ['role:mentor']], function () {
     Route::get('/', 'Mentor\HomeController@index')->name('mentor.home');
 	Route::get('/chat', 'Chat\ChatController@index')->name('mentor.chat');
+	Route::get('/inbox', 'Persuratan\DisposisiController@index')->name('mentor.inbox');
 });
 
 Route::group(['prefix'=>'tenant','middleware' => ['role:tenant']], function () {
     Route::get('/', 'Tenant\HomeController@index')->name('tenant.home');
 	Route::get('/chat', 'Chat\ChatController@index')->name('tenant.chat');
+	Route::get('/inbox', 'Inbox\InboxController@index')->name('tenant.inbox');
 });
 
 Route::group(['prefix'=>'user','middleware' => ['role:user']], function () {

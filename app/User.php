@@ -39,7 +39,7 @@ class User extends Authenticatable
     ];
 
     public function surat(){
-        return $this->hasMany('App\Surat');
-        // return $this->belongsTo('App\Surat');
+        // return $this->hasMany('App\Surat');
+        return $this->belongsToMany('App\Surat');
     }
 }

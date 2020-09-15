@@ -13,7 +13,7 @@ class Surat extends Model
 
     public function users(){
         
-        return $this->belongsTo('App\Users');
+        return $this->belongsToMany('App\User');
         // return $this->hasMany('App\User');
     }
 
