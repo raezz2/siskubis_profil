@@ -106,17 +106,20 @@ class PengumumanController extends Controller
             'author_id' => Auth::user()->id,
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
-        if ($request->hasfile('foto')) {
-            $file = $request->file('foto');
-            $extension = $file->getClientOriginalExtension();
-            $file->move($tujuan_upload, $file->getClientOriginalName());
-            $file->first();
-        } else {
-            $file = $pengumuman->foto;
-        }
+        // if ($request->hasfile('foto')) {
+        //     $file = $request->file('foto');
+        //     $extension = $file->getClientOriginalExtension();
+        //     $file->move($tujuan_upload, $file->getClientOriginalName());
+        //     $file->first();
+        // } else {
+        //     $file = $pengumuman->foto;
+        // }
 
-        $pengumuman->update($file);
-        $foto->save();
+        // $pengumuman->update($file);
+        // $foto->save();
+        $file = $request->file;
+    	$tujuan_upload = 'img/pengumuman';
+        $file->move($tujuan_upload,$file->getClientOriginalName());
         return redirect('inkubator/pengumuman');
     }
     public function hapus($id)
