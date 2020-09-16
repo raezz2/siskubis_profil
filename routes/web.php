@@ -68,6 +68,12 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 Route::group(['prefix' => 'mentor', 'middleware' => ['role:mentor']], function () {
 	Route::get('/', 'Mentor\HomeController@index')->name('mentor.home');
 	Route::get('/chat', 'Chat\ChatController@index')->name('mentor.chat');
+
+	// ! route event start
+	Route::get('/event', 'Event\EventController@index')->name('mentor.event-list');
+	Route::get('/event/calendar', 'Event\EventController@calendar')->name('mentor.event-calendar');
+	Route::get('/event/{event:slug}', 'Event\EventController@show');
+	Route::get('search', 'Event\EventController@search')->name('search.event');
 });
 
 Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function () {
