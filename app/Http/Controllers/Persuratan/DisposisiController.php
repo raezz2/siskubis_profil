@@ -14,11 +14,18 @@ class DisposisiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function indexsuratmasuk()
     {
         $disposisi = Disposisi::get();
 
         return view('inbox.index', compact('disposisi'));
+    }
+
+    public function indexsuratkeluar()
+    {
+        $disposisi = Disposisi::get();
+
+        return view('inbox.keluar', compact('disposisi'));
     }
 
     /**

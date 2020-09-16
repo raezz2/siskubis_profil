@@ -11,10 +11,11 @@
 				<li class="nav-item"><a class="nav-link" id="profile-icon-tab" data-toggle="tab" href="#profileIcon" role="tab" aria-controls="profileIcon" aria-selected="false"><i class="nav-icon i-Home1 mr-1"></i> Surat Keluar</a></li>
 			</ul>
 			@include('layouts.alert', ['$errors' => $errors])
-				<a href="/inkubator/buatsurat"><li  class="btn btn-danger btn-sm mt-2" width="10%" >Buat Surat</li></a>
+				
 			<div class="tab-content" id="myIconTabContent" style="padding: 1rem 0 !important; ">
 				<div class="tab-pane fade show active" id="homeIcon" role="tabpanel" aria-labelledby="home-icon-tab">
 					<table class="display table" id="masuk" style="width:100%">
+			<a href="/inkubator/buatsurat"><li  class="btn btn-danger btn-sm mt-2" width="10%" >Buat Surat</li></a>
 						<thead>
 							<tr>
 							<th width="65%">Surat</th>

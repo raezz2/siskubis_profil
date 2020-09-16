@@ -63,14 +63,15 @@ Route::group(['prefix'=>'inkubator','middleware' => ['role:inkubator']], functio
 Route::group(['prefix'=>'mentor','middleware' => ['role:mentor']], function () {
     Route::get('/', 'Mentor\HomeController@index')->name('mentor.home');
 	Route::get('/chat', 'Chat\ChatController@index')->name('mentor.chat');
-	Route::get('/inbox', 'Persuratan\DisposisiController@index')->name('mentor.inbox');
+	Route::get('/suratmasuk', 'Persuratan\DisposisiController@indexsuratmasuk');
+	Route::get('/suratkeluar', 'Persuratan\DisposisiController@indexsuratkeluar');
 });
 
 Route::group(['prefix'=>'tenant','middleware' => ['role:tenant']], function () {
     Route::get('/', 'Tenant\HomeController@index')->name('tenant.home');
 	Route::get('/chat', 'Chat\ChatController@index')->name('tenant.chat');
-	Route::get('/suratmasuk', 'Inbox\InboxController@indexmasuk');
-	Route::get('/suratkeluar', 'Inbox\InboxController@indexkeluar');
+	Route::get('/suratmasuk', 'Persuratan\DisposisiController@indexsuratmasuk');
+	Route::get('/suratkeluar', 'Persuratan\DisposisiController@indexsuratkeluar');
 	Route::get('/buatsurat', 'Inbox\InboxController@create');
 	Route::post('/kirimsurat', 'Inbox\InboxController@store');
 	Route::get('/suratmasuk/{surat}', 'Inbox\InboxController@show');
