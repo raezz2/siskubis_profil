@@ -43,11 +43,11 @@
 			  </div>
 			</div>
 			<div class="card-body">
-                <form action="{{ route('search.event') }}" method="get">
+                {{-- <form action="{{ route('search.event') }}" method="get"> --}}
                     <div class="form-group">
                         <label for="search">Pencarian</label>
                         <div class="input-group">
-                            <input type="text" name="title" class="form-control" placeholder="search">
+                            <input type="text" name="title" id="title" class="form-control" placeholder="search" value="{{ request()->input('title') }}">
                         </div>
                     </div>
                     {{-- <div class="form-group">
@@ -56,25 +56,49 @@
                     </div> --}}
                     <div class="form-group">
                         <label for="priority">Priority</label>
-                        <select name="priority" class="form-control">
+                        @foreach ($priority as $item)
+                            <label class="checkbox checkbox-success">
+                                <input type="checkbox" name="priority" value="{{ $item->id }}"
+                                    @if (in_array($item->id, explode(',', request()->input('filter.priority'))))
+                                        checked
+                                    @endif
+                                /><span>{{ $item->name }}</span><span class="checkmark"></span>
+                            </label>
+                        @endforeach
+                        {{-- <select name="priority" class="form-control">
                             <option>Pilih Salah satu</option>
                             @foreach ($priority as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
-                        </select>
+                        </select> --}}
                     </div>
                     <div class="form-group">
                         <label for="publish">Status</label>
-                        <select name="publish" class="form-control">
-                            <option>Status</option>
+                        halo
+                        <label class="checkbox checkbox-primary">
+                            <input type="checkbox" value="1" name="publish"
+                            @if (in_array('1', explode(',', request()->input('filter.publish'))))
+                                checked
+                            @endif
+                            /><span>Published</span><span class="checkmark"></span>
+                        </label>
+                        <label class="checkbox checkbox-warning">
+                            <input type="checkbox" value="0" name="publish"
+                            @if (in_array('0', explode(',', request()->input('filter.publish'))))
+                                checked
+                            @endif
+                            /><span>Draft</span><span class="checkmark"></span>
+                        </label>
+                        {{-- <select name="publish" class="form-control">
+                            <option value="2">All</option>
                             <option value="1">Published</option>
                             <option value="0">Draft</option>
-                        </select>
+                        </select> --}}
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Filter</button>
+                        <button id="filter" class="btn btn-primary">Filter</button>
                     </div>
-                </form>
+                {{-- </form> --}}
 			</div>
 		</div>
 	</div>
@@ -215,5 +239,37 @@
         console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
       });
     });
+
+    function getIds(checkboxName) {
+        let checkBoxes = document.getElementsByName(checkboxName);
+        let ids = Array.prototype.slice.call(checkBoxes)
+                        .filter(ch => ch.checked==true)
+                        .map(ch => ch.value);
+        return ids;
+    }
+
+    function filterResults () {
+        let priorityIds = getIds("priority");
+        let title = $('#title').val();
+        let publishStats = getIds("publish");
+
+        let href = 'event?';
+
+        if(priorityIds.length) {
+            href += 'filter[priority]=' + priorityIds;
+        }
+
+        if(publishStats.length) {
+            href += '&filter[publish]=' + publishStats;
+        }
+
+        if(title !== ""){
+            href += '&filter[title]=' + title;
+        }
+
+        document.location.href=href;
+    }
+
+    document.getElementById("filter").addEventListener("click", filterResults);
 </script>
 @endsection

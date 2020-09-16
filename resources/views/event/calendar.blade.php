@@ -146,4 +146,8 @@ jQuery(".js-form-add-event").on("submit", function (e) {
 });
 </script>
 
+<<<<<<< HEAD
 @endsection
+=======
+@endsection
+>>>>>>> bfb9e07ff12425f8654b38ec2cc5204e5516ebdb
