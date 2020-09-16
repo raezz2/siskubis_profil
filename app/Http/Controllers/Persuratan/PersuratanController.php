@@ -37,7 +37,46 @@ class PersuratanController extends Controller
         
     }
 
+    public function createkeluar()
+    {
+        $user = DB::table('users')->get();
+
+        return view ('surat.formkeluar', compact('user'));
+        
+    }
+
     public function store (Request $request)
+    {
+        $request->validate([
+            'file' => 'mimes:pdf,jpg,png,jpeg',
+        ]);
+
+        DB::table('surat')->insert([
+            'title' => $request->judul,
+            'dari' => Auth::user()->email,
+            'kepada' => $request->kepada,
+            'perihal' => $request->perihal,
+            'dokumen' => $request->file->getClientOriginalName(),
+            'jenis_surat' => 1,
+            'author_id' => Auth::user()->id,
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s'),
+        ]);
+
+        $file = $request->file;
+    	$tujuan_upload = 'file/dokumen';
+        $file->move($tujuan_upload,$file->getClientOriginalName());
+        
+        if ($file) {
+            Session::flash('success', 'Surat Terkirim');
+        } else {
+            Session::flash('error', 'Surat Gagal Terkirim');
+        }
+
+        return redirect ('inkubator/surat');
+    }
+
+    public function storekeluar (Request $request)
     {
         $request->validate([
             'file' => 'mimes:pdf,jpg,png,jpeg',

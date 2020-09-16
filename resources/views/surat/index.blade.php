@@ -45,6 +45,7 @@
 				</div>
 				<div class="tab-pane fade" id="profileIcon" role="tabpanel" aria-labelledby="profile-icon-tab">
 					<table class="display table" id="keluar" style="width:100%">
+					<a href="/inkubator/buatsuratkeluar"><li  class="btn btn-danger btn-sm mt-2" width="10%" >Buat Surat</li></a>
 					<thead>
 						<tr>
 							<th width="65%">Surat</th>
