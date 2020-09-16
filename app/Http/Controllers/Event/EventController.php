@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers\Event;
 
-use App\Event;
-use App\Http\Controllers\Controller;
-use App\Priority;
-use App\Http\Middleware\Authenticate;
-use Illuminate\Http\Request;
 use Auth;
+use Redirect;
+use Response;
+use App\Event;
+use App\Priority;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Http\Middleware\Authenticate;
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
 
 class EventController extends Controller
 {
@@ -24,14 +29,22 @@ class EventController extends Controller
      */
     public function index()
     {
-        $event = Event::latest()->paginate(5);
+        // $event = Event::latest()->paginate(5);
         $priority = Priority::orderBy('name', 'ASC')->get();
+        $event = QueryBuilder::for(Event::class)
+            ->allowedFilters([
+                AllowedFilter::partial('title'),
+                AllowedFilter::exact('priority', 'priority_id'),
+                AllowedFilter::exact('publish', 'publish'), 
+            ])
+            ->latest()->paginate(10);
         return view('event.index', compact('event', 'priority'));
     }
 
     public function calendar()
     {
-        return view('event.calendar');
+        $event = Event::all();
+        return view('event.calendar', compact('event'));
     }
 
     public function show(Event $event)
@@ -67,7 +80,7 @@ class EventController extends Controller
         $attr['inkubator_id'] = Auth::user()->inkubator_id;
 
         $foto = request()->file('foto');
-        $fotoUrl = $foto->storeAs("image/event", "{$slug}.{$foto->extension()}");
+        $fotoUrl = $foto->storeAs("/image/event", "{$slug}.{$foto->extension()}");
 
         $attr['foto'] = $fotoUrl;
         
@@ -113,14 +126,59 @@ class EventController extends Controller
         return redirect()->to('/inkubator/event');
     }
 
-    public function search()
+    public function search(Request $request)
     {
         $priority = Priority::get();
         $title = request('title');
         $priority_id = request('priority');
         $publish = request('publish');
-        
+
         $event = Event::where('title', 'like', "%$title%")->where('priority_id', '=', $priority_id)->where('publish', '=', $publish)->paginate(10);
         return view('/event/index', compact('event', 'priority'));
     }
+
+    // // ? ini fungsi untuk fullcalendar
+    // public function indexCalendar()
+    // {
+    //     if(request()->ajax())
+    //     {
+    //         $start = (!empty($_GET["start"])) ? ($_GET["start"]) : ('');
+    //         $end = (!empty($_GET["end"])) ? ($_GET["end"]) : ('');
+            
+    //         $data = Event::whereDate('start', '>=', $start)->whereDate('end', '<=', $end)->get(['id', 'title', 'tgl_mulai', 'tgl_selesai']);
+    //         return Response::json($data);
+    //     }
+    //     return view('event.calendar');
+    // }
+
+    // public function createCalendar(Request $request)
+    // {
+    //     $insertAttr = [
+    //         'title' => $request->title,
+    //         'tgl_mulai' => $request->start,
+    //         'tgl_selesai' => $request->end
+    //     ];
+    //     $event = Event::insert($insertAttr);
+    //     return Response::json($event);
+    // }
+
+    // public function updateCalendar(Request $request)
+    // {
+    //     $where = array('id' => $request->id);
+    //     $updateAttr = [
+    //         'title' => $request->title,
+    //         'tgl_mulai' => $request->start,
+    //         'tgl_selesai' => $request->end,
+    //     ];
+    //     $event = Event::where($where)->update($updateAttr);
+
+    //     return Response::json($event);
+    // }
+
+    // public function destroyCalendar(Request $request)
+    // {
+    //     $event = Event::where('id', $request->id)->delete();
+
+    //     return Response::json($event);
+    // }
 }
