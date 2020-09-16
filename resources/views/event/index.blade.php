@@ -13,12 +13,14 @@
 				  <a href="{{route('inkubator.event-calendar')}}"><button class="btn btn-primary custom-btn btn-sm"><i class="i-Calendar-4"></i></button></a>
 				</div>
 			  </div>
-			</div>
+            </div>
+            @role('inkubator')
 			<div class="card-body">
 				<div class="create_event_wrap">
                     <a href="{{route('inkubator.event.create')}}"><button class="btn btn-outline-primary btn-block">Tambah Event</button></a>
 				</div>
-			</div>
+            </div>
+            @endrole
         </div>
 
         {{-- Menu Filter --}}
@@ -125,7 +127,9 @@
                                                 <th scope="col">Latest Update</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Assigned Users</th>
+                                                @role('inkubator')
                                                 <th scope="col">Action</th>
+                                                @endrole
                                             </tr>
                                         </thead>
                                         <thead class="thead-light">
@@ -141,7 +145,12 @@
                                             <tr id="names">
                                                 <th class="head-width" scope="row">{{ $item->id }}</th>
                                                 <td class="collection-item">
+                                                    @role('inkubator')
                                                     <div class="font-weight-bold"><a href="/inkubator/event/{{ $item->slug }}">{{ $item->title }}</a></div>
+                                                    @endrole
+                                                    @role('tenant')
+                                                    <div class="font-weight-bold"><a href="/tenant/event/{{ $item->slug }}">{{ $item->title }}</a></div>
+                                                    @endrole
                                                     <div class="text-muted">{{ Str::limit($item->event, 100) }}</div>
                                                 </td>
                                                 <td class="custom-align">
@@ -175,10 +184,13 @@
                                                     </button> --}}
                                                 </td>
                                                 <td class="custom-align"><img class="rounded-circle m-0 ul-task-manager__avatar" src="{{ asset('theme/images/faces/1.jpg')}}" alt="alt" /><img class="rounded-circle m-0 ul-task-manager__avatar" src="{{ asset('theme/images/faces/1.jpg')}}" alt="alt" /><i class="i-Add font-custom-table"></i></td>
-                                                <td class="custom-align"><span id="menu-toggle">
+                                                @role('inkubator')
+                                                <td><a class="ul-link-action text-success" href="/inkubator/event/{{ $item->slug }}/edit" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="/inkubator/event/{{ $item->slug }}/delete" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
+                                                {{-- <td class="custom-align"><span id="menu-toggle">
                                                             <div><a href="/inkubator/event/{{ $item->slug}}/delete"><i class="text-20 i-Remove-Basket"></i></a> <br> <a href="/inkubator/event/{{ $item->slug }}/edit"><i class="text-20 i-Edit"></i></a></div>
                                                         </div>
-                                                    </span></td>
+                                                    </span></td> --}}
+                                                @endrole
                                             </tr>
                                             @endforeach                                    <!--  end of table row 3 -->
                                         </tbody>

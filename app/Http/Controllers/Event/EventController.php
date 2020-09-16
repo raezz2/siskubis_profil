@@ -53,6 +53,11 @@ class EventController extends Controller
         return view('event.show', compact('event'));
     }
 
+    public function createmodal()
+    {
+        return view('event.modal', compact('event'));
+    }
+
     public function create()
     {
         $priority = Priority::all();
@@ -83,10 +88,9 @@ class EventController extends Controller
         $fotoUrl = $foto->storeAs("/image/event", "{$slug}.{$foto->extension()}");
 
         $attr['foto'] = $fotoUrl;
-        
+
         Event::create($attr);
         return redirect()->to('/inkubator/event');
-
     }
 
     public function edit(Event $event)

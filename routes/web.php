@@ -44,7 +44,7 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 	//Route::get('/event', 'Produk\ProdukController@index')->name('inkubator.event');
 	//Route::get('/berita', 'Produk\ProdukController@index')->name('inkubator.berita');
 	//Route::get('/pengumuman', 'Produk\ProdukController@index')->name('inkubator.pengumuman');
-	
+
 	// ! route event start
 	Route::get('/event', 'Event\EventController@index')->name('inkubator.event-list');
 	Route::get('/event/calendar', 'Event\EventController@calendar')->name('inkubator.event-calendar');
@@ -55,7 +55,8 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 	Route::patch('/event/{event:slug}/edit', 'Event\EventController@update');
 	Route::get('/event/{event:slug}/delete', 'Event\EventController@destroy');
 	Route::get('search', 'Event\EventController@search')->name('search.event');
-	
+	Route::get('/event/createmodal', 'Event\EventController@createmodal')->name('inkubator.event.modal');
+
 
 	Route::get('/pengumuman', 'Pengumuman\PengumumanController@index')->name('inkubator.pengumuman');
 	Route::get('/berita', 'Berita\BeritaController@index')->name('inkubator.berita');
@@ -72,9 +73,17 @@ Route::group(['prefix' => 'mentor', 'middleware' => ['role:mentor']], function (
 Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function () {
 	Route::get('/', 'Tenant\HomeController@index')->name('tenant.home');
 	Route::get('/chat', 'Chat\ChatController@index')->name('tenant.chat');
+
+	// ! route event start
+	Route::get('/event', 'Event\EventController@index')->name('tenant.event-list');
+	Route::get('/event/calendar', 'Event\EventController@calendar')->name('tenant.event-calendar');
+	Route::get('/event/{event:slug}', 'Event\EventController@show');
+	Route::get('search', 'Event\EventController@search')->name('search.event');
 });
 
 Route::group(['prefix' => 'user', 'middleware' => ['role:user']], function () {
 	Route::get('/', 'User\HomeController@index')->name('user.home');
 	Route::get('/chat', 'Chat\ChatController@index')->name('user.chat');
 });
+
+// Route::get('search', 'Event\EventController@search')->name('eventsearch');
