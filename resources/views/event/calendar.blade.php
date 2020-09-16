@@ -85,8 +85,8 @@ function initEvent() {
 	  title: $.trim($(this).text()),
 	  // use the element's text as the event title
 	  color: $(this).css('background-color'),
-	  stick: true // maintain when user navigates (see docs on the renderEvent method)
-
+	  stick: true, // maintain when user navigates (see docs on the renderEvent method)
+	  url: "{{ route('inkubator.event.create') }}",
 	}); // make the event draggable using jQuery UI
 
 	$(this).draggable({
@@ -119,35 +119,42 @@ $('#calendar').fullCalendar({
   eventLimit: true,
   // allow "more" link when too many events
   drop: function drop() {
-	// is the "remove after drop" checkbox checked?
-	if ($('#drop-remove').is(':checked')) {
-	  // if so, remove the element from the "Draggable Events" list
-	  $(this).remove();
-	}
+	// // is the "remove after drop" checkbox checked?
+	// if ($('#drop-remove').is(':checked')) {
+	//   // if so, remove the element from the "Draggable Events" list
+	//   $(this).remove();
+	// }
   },
   events: [
 	  @foreach($event as $e){
 		title: "{{ $e->title }}",
 		start: "{{ $e->tgl_mulai }}",
 		end: "{{ $e->tgl_selesai }}",
-		color: "#ffc107",
+		@if ($e->priority_id == 1)
+			color: "#4caf50",
+		@endif
+		@if ($e->priority_id == 2)
+			color: "#663399",
+		@endif
+		@if ($e->priority_id == 3)
+			color: "#ffc107",
+		@endif
+		@if ($e->priority_id == 4)
+			color: "#f44336",
+		@endif
 		url : "{{ $e->slug }}",
 	  },
 	  @endforeach
   ]
 });
-jQuery(".js-form-add-event").on("submit", function (e) {
-  e.preventDefault();
-  var data = $('#newEvent').val();
-  $('#newEvent').val('');
-  $('#external-events').prepend('<li class="list-group-item bg-success fc-event">' + data + '</li>');
-  initEvent();
-});
+// jQuery(".js-form-add-event").on("submit", function (e) {
+//   e.preventDefault();
+//   var data = $('#newEvent').val();
+//   $('#newEvent').val('');
+//   $('#external-events').prepend('<li class="list-group-item bg-success fc-event">' + data + '</li>');
+//   initEvent();
+// });
 });
 </script>
 
-<<<<<<< HEAD
 @endsection
-=======
-@endsection
->>>>>>> bfb9e07ff12425f8654b38ec2cc5204e5516ebdb

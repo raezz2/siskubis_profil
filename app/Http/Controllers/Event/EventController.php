@@ -35,7 +35,7 @@ class EventController extends Controller
             ->allowedFilters([
                 AllowedFilter::partial('title'),
                 AllowedFilter::exact('priority', 'priority_id'),
-                AllowedFilter::exact('publish', 'publish'), 
+                AllowedFilter::exact('publish', 'publish'),
             ])
             ->latest()->paginate(10);
         return view('event.index', compact('event', 'priority'));
@@ -148,7 +148,7 @@ class EventController extends Controller
     //     {
     //         $start = (!empty($_GET["start"])) ? ($_GET["start"]) : ('');
     //         $end = (!empty($_GET["end"])) ? ($_GET["end"]) : ('');
-            
+
     //         $data = Event::whereDate('start', '>=', $start)->whereDate('end', '<=', $end)->get(['id', 'title', 'tgl_mulai', 'tgl_selesai']);
     //         return Response::json($data);
     //     }
