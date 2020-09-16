@@ -31,7 +31,8 @@ class EventController extends Controller
 
     public function calendar()
     {
-        return view('event.calendar');
+        $event = Event::all();
+        return view('event.calendar', compact('event'));
     }
 
     public function show(Event $event)

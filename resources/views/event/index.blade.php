@@ -9,8 +9,18 @@
 				  <h3>Event</h3>
 				</div>
 				<div class="col-md-4 btn-group">
-				  <a href="#"><button class="btn btn-primary custom-btn btn-sm"><i class="i-Receipt"></i></button></a>
-				  <a href="{{route('inkubator.event-calendar')}}"><button class="btn btn-primary custom-btn btn-sm"><i class="i-Calendar-4"></i></button></a>
+                  @role('inkubator')
+                  <a href="{{route('inkubator.event-list')}}"><button class="btn btn-primary custom-btn btn-sm"><i class="i-Receipt"></i></button></a>
+                  @endrole
+                  @role('tenant')
+                  <a href="{{route('tenant.event-list')}}"><button class="btn btn-primary custom-btn btn-sm"><i class="i-Receipt"></i></button></a>
+                  @endrole
+                  @role('inkubator')
+                  <a href="{{route('inkubator.event-calendar')}}"><button class="btn btn-primary custom-btn btn-sm"><i class="i-Calendar-4"></i></button></a>
+                  @endrole
+                  @role('tenant')
+                  <a href="{{route('tenant.event-calendar')}}"><button class="btn btn-primary custom-btn btn-sm"><i class="i-Calendar-4"></i></button></a>
+                  @endrole
 				</div>
 			  </div>
             </div>
