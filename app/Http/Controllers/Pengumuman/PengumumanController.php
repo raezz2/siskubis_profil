@@ -74,13 +74,7 @@ class PengumumanController extends Controller
     public function show($slug)
     {
         $pengumuman = DB::table('pengumuman')->where('slug', $slug)->get();
-        $file_extensi = $pengumuman;
-
-        if($file_extensi == ''){
-            return view('pengumuman.detail', ['pengumuman' => $pengumuman]);
-        }else{
-            echo 'salah';
-        }
+        return view('pengumuman.detail', ['pengumuman' => $pengumuman]);
     }
 
     public function edit($id)
