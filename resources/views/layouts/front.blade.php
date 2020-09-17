@@ -135,7 +135,7 @@
 										<li><a href="category.html">Desktop</a></li>
 									</ul>
 								</li>
-								<li><a href="#">Pengumuman</a></li>
+								<li><a href="/pengumuman">Pengumuman</a></li>
 							</ul>
 						</li>
 						<li class="dropdown magz-dropdown magz-dropdown-megamenu"><a href="#">Pra Start Up <i class="ion-ios-arrow-right"></i>

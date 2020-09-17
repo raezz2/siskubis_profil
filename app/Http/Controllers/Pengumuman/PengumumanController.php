@@ -87,6 +87,7 @@ class PengumumanController extends Controller
         $pengumuman = pengumuman::find($id);
         return view('pengumuman.pengumuman_edit', compact('title', 'p', 'kategori', 'inkubator'));
     }
+
     public function update($id, Request $request)
     {
 
@@ -118,8 +119,8 @@ class PengumumanController extends Controller
         // $pengumuman->update($file);
         // $foto->save();
         $file = $request->file;
-    	$tujuan_upload = 'img/pengumuman';
-        $file->move($tujuan_upload,$file->getClientOriginalName());
+        $tujuan_upload = 'img/pengumuman';
+        $file->move($tujuan_upload, $file->getClientOriginalName());
         return redirect('inkubator/pengumuman');
     }
     public function hapus($id)

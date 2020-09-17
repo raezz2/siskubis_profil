@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'Front\IndexController@index');
 Route::get('/single', 'Front\IndexController@single')->name('single');
-
-Auth::routes();
+Route::get('/pengumuman', 'Front\PengumumanController@index');
+Route::get('/pengumuman/{slug}', 'Front\PengumumanController@show');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {
 	Route::get('/', 'Admin\HomeController@index')->name('admin.home');
