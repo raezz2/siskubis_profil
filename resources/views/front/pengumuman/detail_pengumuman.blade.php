@@ -122,8 +122,8 @@
                     <div class="main">
                         <div class="featured">
                             <figure>
-                                <img src="\img\pengumuman\{{ $p->foto }}">
-                                <figcaption>Image by pexels.com</figcaption>
+                            <object data="/img/pengumuman/{{ $p->foto }}" width="700" height="500"></object>
+                            <figcaption>Image by pexels.com</figcaption>
                             </figure>
                         </div>
 
