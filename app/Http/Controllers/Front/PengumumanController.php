@@ -38,6 +38,6 @@ class PengumumanController extends Controller
     {
         $pengumuman = DB::table('pengumuman')->where('slug', $slug)->get();
         $users = DB::table('users')->get();
-        return view('front/pengumuman/detail_pengumuman', compact('users'));
+        return view('front/pengumuman/detail_pengumuman', compact('users','pengumuman'));
     }
 }

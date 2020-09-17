@@ -116,7 +116,7 @@
                         <ul class="details">
                             <li>Posted on {{ date('d F Y', strtotime($p->created_at)) }}</li>
                             <li><a>Pengumuman</a></li>
-                            <li>By <a href="#">{{$p->author_id->name}}</a></li>
+                            <li>By <a href="#"></a></li>
                         </ul>
                     </header>
                     <div class="main">
