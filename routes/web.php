@@ -50,7 +50,7 @@ Route::group(['prefix'=>'inkubator','middleware' => ['role:inkubator']], functio
 	Route::get('/surat/delete/{surat}', 'Persuratan\PersuratanController@destroy');
 	Route::get('/surat/edit/{surat}', 'Persuratan\PersuratanController@edit');
 	Route::patch('/surat/{surat}', 'Persuratan\PersuratanController@update');
-	Route::get('/disposisi/{surat}' , 'Persuratan\PersuratanController@disposisi');
+	Route::patch('/disposisi/{surat}' , 'Persuratan\PersuratanController@disposisiupdate');
 	//Route::get('/event', 'Produk\ProdukController@index')->name('inkubator.event');
 	//Route::get('/berita', 'Produk\ProdukController@index')->name('inkubator.berita');
 	//Route::get('/pengumuman', 'Produk\ProdukController@index')->name('inkubator.pengumuman');

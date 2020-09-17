@@ -9,6 +9,7 @@ use Auth;
 use App\User;
 use App\Surat;
 use Session;
+use App\Disposisi;
 
 class PersuratanController extends Controller
 {
@@ -180,13 +181,30 @@ class PersuratanController extends Controller
 
     public function disposisi($id)
     {
-        $surat = Surat::where('surat.id', $id)
-        ->leftJoin('profil_user',['profil_user.user_id' => 'surat.kepada'])
-        ->leftjoin('users',['surat.kepada'=>'users.id'])
-        ->select('surat.*','profil_user.nama','users.email')
-        ->get();
-        $user = User::where('email', $id )->get();
+        $surat = Surat::findOrFail($id);
+        
+        $user = DB::table('users')->get();
+        // $surat = Surat::where('id', '!=', $id)->orderBy('name', 'asc')->get();
 
-        dd($user, $surat);
+        $this->data['surat'] = $surat;
+        $this->data['user'] = $user;
+        return view('surat.disposisi', $this->data);
+        
+    }
+
+    public function disposisiupdate( $id, Request $request)
+    {
+        $surat = Surat::where('id', $id)->get();
+        $disposisi =Disposisi::create([
+            'user_id' => $request->kepada,
+            'surat_id' => $surat->id,
+            'author_id' => $surat->author_id,
+            'inkubator_id' => 1,
+        ]);
+        Surat::where('id', $surat->id)
+        ->update([
+            'kepada'=> $request->kepada,
+        ]);
+
     }
 }
