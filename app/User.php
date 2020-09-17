@@ -10,14 +10,14 @@ use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
 class User extends Authenticatable
 {
     use Notifiable;
-	use HasRoleAndPermission;
+    use HasRoleAndPermission;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','inkubator_id'
+        'name', 'email', 'password', 'inkubator_id'
     ];
 
     /**

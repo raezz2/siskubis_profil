@@ -33,7 +33,7 @@
                                 <a class="badge badge-warning m-2 p-2" href="#">{{ $p->priority->name }}</a>
                                 @endif
                             </td>
-                            <td>{{ $p->created_at }}</td>
+                            <td>{{ date('d F Y', strtotime($p->created_at)) }}</td>
                         </tr>
                         </tr>
                         @endforeach

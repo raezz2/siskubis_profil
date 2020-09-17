@@ -12,7 +12,7 @@
                             <div class="content-heading">
                                 <h3>{{ $p->title }}</h3>
                             </div>
-                            <p class="btn btn-inverse">Diposkan pada {{$p->created_at}}
+                            <p class="btn btn-inverse">Diposkan pada {{ date('d F Y', strtotime($p->created_at)) }}
                             </p>
                             <p style="text-align:justify; text-indent: 0.5in;">{{$p->pengumuman}}</p>
                             <div style="clear:both;"></div>

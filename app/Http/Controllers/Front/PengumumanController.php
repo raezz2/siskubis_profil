@@ -11,6 +11,7 @@ use App\Priority;
 use Inkubator;
 use File;
 use Illuminate\Support\Facades\Auth;
+use Users;
 
 class PengumumanController extends Controller
 {
@@ -26,15 +27,17 @@ class PengumumanController extends Controller
      */
     public function index()
     {
-        $pengumuman = Pengumuman::all();
+        $pengumuman = Pengumuman::where('inkubator_id', 0)->latest()->get();
         $kategori = DB::table('priority')->get();
         $inkubator = DB::table('inkubator')->get();
-        return view('front.pengumuman.list_pengumuman', compact('pengumuman', 'kategori', 'inkubator'));
+        $users = DB::table('users')->get();
+        return view('front.pengumuman.list_pengumuman', compact('pengumuman', 'kategori', 'inkubator', 'users'));
     }
 
     public function show($slug)
     {
         $pengumuman = DB::table('pengumuman')->where('slug', $slug)->get();
-        return view('front/pengumuman/detail_pengumuman', ['pengumuman' => $pengumuman]);
+        $users = DB::table('users')->get();
+        return view('front/pengumuman/detail_pengumuman', compact('users'));
     }
 }
