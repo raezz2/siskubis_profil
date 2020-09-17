@@ -8,7 +8,8 @@
                     <div class="row">
                         <div class="span12 well">
                             @foreach($pengumuman as $p)
-                            <img class="img-polaroid" src="\img\pengumuman\{{ $p->foto }}" style="width:450px; height: auto; float:left; margin-right:10px;" />
+                            <object data="/img/pengumuman/{{ $p->foto }}" width="700" height="500"></object>
+                            <!-- <iframe src="/img/pengumuman/{{ $p->foto }}" class="dokumen" alt="dokumen" style="width:600px;height:700px;border:none;"></iframe> -->
                             <div class="content-heading">
                                 <h3>{{ $p->title }}</h3>
                             </div>

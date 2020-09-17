@@ -17,6 +17,7 @@ Route::get('/', 'Front\IndexController@index');
 Route::get('/single', 'Front\IndexController@single')->name('single');
 Route::get('/pengumuman', 'Front\PengumumanController@index');
 Route::get('/pengumuman/{slug}', 'Front\PengumumanController@show');
+Auth::routes();
 
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {
 	Route::get('/', 'Admin\HomeController@index')->name('admin.home');

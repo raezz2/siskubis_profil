@@ -13,4 +13,5 @@ class Pengumuman extends Model
     {
         return $this->belongsTo('App\Priority');
     }
+    
 }
