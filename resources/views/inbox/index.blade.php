@@ -39,8 +39,8 @@
 							</tr>
 							@endif
 							@endif
-							@endif
-							@endforeach
+						@endif
+						@endforeach
 						</tbody>
 					</table>
 				</div>

@@ -35,7 +35,9 @@ class DisposisiController extends Controller
      */
     public function create()
     {
-        //
+        $disposisi = Disposisi::get();
+
+        
     }
 
     /**
@@ -46,7 +48,12 @@ class DisposisiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $gambar = Disposisi::create([
+            'surat_id' => $nama_file,
+            'user_id' => 
+            'author_id' =>
+            'inkubator_id' =>
+        ]);
     }
 
     /**

@@ -50,6 +50,7 @@ Route::group(['prefix'=>'inkubator','middleware' => ['role:inkubator']], functio
 	Route::get('/surat/delete/{surat}', 'Persuratan\PersuratanController@destroy');
 	Route::get('/surat/edit/{surat}', 'Persuratan\PersuratanController@edit');
 	Route::patch('/surat/{surat}', 'Persuratan\PersuratanController@update');
+	Route::get('/disposisi/{surat}' , 'Persuratan\PersuratanController@disposisi');
 	//Route::get('/event', 'Produk\ProdukController@index')->name('inkubator.event');
 	//Route::get('/berita', 'Produk\ProdukController@index')->name('inkubator.berita');
 	//Route::get('/pengumuman', 'Produk\ProdukController@index')->name('inkubator.pengumuman');
@@ -74,13 +75,6 @@ Route::group(['prefix'=>'tenant','middleware' => ['role:tenant']], function () {
 	Route::get('/chat', 'Chat\ChatController@index')->name('tenant.chat');
 	Route::get('/suratmasuk', 'Persuratan\DisposisiController@indexsuratmasuk');
 	Route::get('/suratkeluar', 'Persuratan\DisposisiController@indexsuratkeluar');
-	Route::get('/buatsurat', 'Inbox\InboxController@create');
-	Route::post('/kirimsurat', 'Inbox\InboxController@store');
-	Route::get('/suratmasuk/{surat}', 'Inbox\InboxController@show');
-	Route::get('/suratkeluar/{surat}', 'Inbox\InboxController@show');
-	Route::get('/suratmasuk/delete/{surat}', 'Inbox\InboxController@destroy');
-	Route::get('/suratmasuk/edit/{surat}', 'Inbox\InboxController@edit');
-	Route::patch('/suratmasuk/{surat}', 'Inbox\InboxController@update');
 });
 
 Route::group(['prefix'=>'user','middleware' => ['role:user']], function () {

@@ -94,15 +94,21 @@ class PersuratanController extends Controller
             'updated_at'=>date('Y-m-d H:i:s'),
         ]);
 
-        $file = $request->file;
-    	$tujuan_upload = 'file/dokumen';
-        $file->move($tujuan_upload,$file->getClientOriginalName());
         
-        if ($file) {
+        $file = $request->file('dokumen');
+        $name = time();
+        $fileName = $name . '.' . $file->getClientOriginalName();
+
+        $tujuan_upload = 'file/dokumen';
+        $filestore = $file->move($tujuan_upload, $fileName, 'public');
+        
+    
+        if ($filestore) {
             Session::flash('success', 'Surat Terkirim');
         } else {
             Session::flash('error', 'Surat Gagal Terkirim');
         }
+        
 
         return redirect ('inkubator/surat');
     }
@@ -170,5 +176,17 @@ class PersuratanController extends Controller
         }
 
         return redirect('/inkubator/surat');
+    }
+
+    public function disposisi($id)
+    {
+        $surat = Surat::where('surat.id', $id)
+        ->leftJoin('profil_user',['profil_user.user_id' => 'surat.kepada'])
+        ->leftjoin('users',['surat.kepada'=>'users.id'])
+        ->select('surat.*','profil_user.nama','users.email')
+        ->get();
+        $user = User::where('email', $id )->get();
+
+        dd($user, $surat);
     }
 }
