@@ -19,7 +19,7 @@ class KategoriController extends Controller
     public function index($id){
     }
     public function kategori($id){
-        $pengumuman = Pengumuman::where('priority_id',$id)->latest()->get();
+        $pengumuman = Pengumuman::where([['priority_id',$id],['author_id',\Auth::user()->id]])->latest()->get();
         $kategori = DB::table('priority')->get();
         return view('pengumuman.index',compact('pengumuman','kategori'));
     }

@@ -27,7 +27,7 @@ class PengumumanController extends Controller
     public function index()
     {
 
-        $pengumuman = Pengumuman::all();
+        $pengumuman = Pengumuman::where('author_id',\Auth::user()->id)->get();
         $kategori = DB::table('priority')->get();
         $inkubator = DB::table('inkubator')->get();
         return view('pengumuman.index', compact('pengumuman', 'kategori', 'inkubator'));

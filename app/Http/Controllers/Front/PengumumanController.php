@@ -27,7 +27,7 @@ class PengumumanController extends Controller
      */
     public function index()
     {
-        $pengumuman = Pengumuman::where('inkubator_id', 0)->latest()->get();
+        $pengumuman = Pengumuman::where([['inkubator_id', 0],['publish', 1]])->latest()->get();
         $kategori = DB::table('priority')->get();
         $inkubator = DB::table('inkubator')->get();
         $users = DB::table('users')->get();
