@@ -69,6 +69,7 @@ Route::group(['prefix'=>'mentor','middleware' => ['role:mentor']], function () {
 	Route::get('/chat', 'Chat\ChatController@index')->name('mentor.chat');
 	Route::get('/suratmasuk', 'Persuratan\DisposisiController@indexsuratmasuk');
 	Route::get('/suratkeluar', 'Persuratan\DisposisiController@indexsuratkeluar');
+	Route::get('/surat/hapus/{disposisi}', 'Persuratan\DisposisiController@destroy');
 });
 
 Route::group(['prefix'=>'tenant','middleware' => ['role:tenant']], function () {
@@ -76,6 +77,7 @@ Route::group(['prefix'=>'tenant','middleware' => ['role:tenant']], function () {
 	Route::get('/chat', 'Chat\ChatController@index')->name('tenant.chat');
 	Route::get('/suratmasuk', 'Persuratan\DisposisiController@indexsuratmasuk');
 	Route::get('/suratkeluar', 'Persuratan\DisposisiController@indexsuratkeluar');
+	Route::get('/surat/hapus/{disposisi}', 'Persuratan\DisposisiController@destroy');
 });
 
 Route::group(['prefix'=>'user','middleware' => ['role:user']], function () {

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Disposisi;
+use Session;
 
 class DisposisiController extends Controller
 {
@@ -46,15 +47,10 @@ class DisposisiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    // public function store(Request $request)
-    // {
-    //     $gambar = Disposisi::create([
-    //         'surat_id' => $nama_file,
-    //         'user_id' => 
-    //         'author_id' =>
-    //         'inkubator_id' =>
-    //     ]);
-    // }
+    public function store(Request $request)
+    {
+        //
+    }
 
     /**
      * Display the specified resource.
@@ -98,6 +94,13 @@ class DisposisiController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $disposisi  = Disposisi::findOrFail($id);
+
+        if ($disposisi->delete()) {
+            Session::flash('success', 'Surat berhasil dihapus');
+        }
+
+        return redirect('/mentor/suratmasuk');
+    
     }
 }

@@ -199,6 +199,7 @@ class PersuratanController extends Controller
         Surat::where('id', $surat->id)
         ->update([
             'kepada'=> $request->kepada,
+            'jenis_surat'=> 2,
             ]);
 
         DB::table('surat_disposisi')->insert([
@@ -215,5 +216,7 @@ class PersuratanController extends Controller
 
         return redirect('inkubator/surat');
 
+
     }
+    
 }
