@@ -31,10 +31,10 @@ class MentorController extends Controller
 
     public function pengumuman()
     {
-        $pengumuman = Pengumuman::all();
+        $pengumuman = Pengumuman::where('inkubator_id', Auth::user()->inkubator_id)->where(function($query){$query->where('publish', 1);})->get();
         $kategori = DB::table('priority')->get();
         $inkubator = DB::table('inkubator')->get();
-        $pengumuman = Pengumuman::where('publish', 1)->get();
+        // $pengumuman = Pengumuman::where()->get();
         return view('mentor.pengumuman', compact('pengumuman', 'kategori', 'inkubator'));
     }
 
@@ -45,7 +45,7 @@ class MentorController extends Controller
     }
     public function kategori($id)
     {
-        $pengumuman = Pengumuman::where('priority_id', $id)->latest()->get();
+        $pengumuman = Pengumuman::where([['priority_id',$id],['inkubator_id',\Auth::user()->inkubator_id],['publish', 1]])->latest()->get();
         $kategori = DB::table('priority')->get();
         return view('mentor.pengumuman', compact('pengumuman', 'kategori'));
     }
