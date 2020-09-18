@@ -14,8 +14,9 @@
 				
 			<div class="tab-content" id="myIconTabContent" style="padding: 1rem 0 !important; ">
 				<div class="tab-pane fade show active" id="homeIcon" role="tabpanel" aria-labelledby="home-icon-tab">
+						<a href="/inkubator/buatsurat"><li  class="btn btn-danger btn-sm " width="10%" >Buat Surat</li></a><br>
 					<table class="display table" id="masuk" style="width:100%">
-			<a href="/inkubator/buatsurat"><li  class="btn btn-danger btn-sm mt-2" width="10%" >Buat Surat</li></a>
+						
 						<thead>
 							<tr>
 							<th width="65%">Surat</th>
@@ -34,9 +35,9 @@
 										<p>{{ str_limit($p->perihal, $limit = 80, $end = '') }}</p>
 								</a>
 								</td>
-								<td><a class="badge badge-primary m-2 p-2" href="#">{{ $p->jenis_surat }}</a></td>
+								<td><a class="badge badge-primary m-2 p-2" href="/inkubator/disposisi/{{ $p->id }}">{{ $p->jenis_surat }}</a></td>
 								<td>{{ $p->created_at }}</td>
-								<td><a class="ul-link-action text-success" href="/inkubator/surat/edit/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="/inkubator/surat/delete/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
+								<td><a class="ul-link-action text-success" href="/inkubator/surat/edit/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="/inkubator/surat/delete/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a><a class="ul-link-action text-primary mr-1" href="/inkubator/disposisi/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Diposisikan !!!"><i class="text-20 i-Right"></i></a></td>
 							</tr>
 							@endif
 						@endforeach
@@ -44,8 +45,8 @@
 					</table>
 				</div>
 				<div class="tab-pane fade" id="profileIcon" role="tabpanel" aria-labelledby="profile-icon-tab">
+					<a href="/inkubator/buatsuratkeluar"><li  class="btn btn-danger btn-sm" width="10%" >Buat Surat keluar</li></a>
 					<table class="display table" id="keluar" style="width:100%">
-					<a href="/inkubator/buatsuratkeluar"><li  class="btn btn-danger btn-sm mt-2" width="10%" >Buat Surat</li></a>
 					<thead>
 						<tr>
 							<th width="65%">Surat</th>
@@ -64,9 +65,9 @@
 										<p>{{ str_limit($p->perihal, $limit = 80, $end = '') }}</p>
 							</a>
 							</td>
-							<td><a class="badge badge-danger m-2 p-2" href="#">{{ $p->jenis_surat }}</a></td>
+							<td><a class="badge badge-danger m-2 p-2" href="/inkubator/disposisi/{{ $p->id }}">{{ $p->jenis_surat }}</a></td>
 							<td>{{ $p->created_at }}</td>
-							<td><a class="ul-link-action text-success" href="/inkubator/surat/edit/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="/inkubator/surat/delete/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
+							<td><a class="ul-link-action text-success" href="/inkubator/surat/edit/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="/inkubator/surat/delete/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a><a class="ul-link-action text-primary mr-1" href="/inkubator/disposisi/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Diposisikan !!!"><i class="text-20 i-Right"></i></a></td>
 						</tr>
 						@endif
 					@endforeach

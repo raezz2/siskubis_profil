@@ -72,9 +72,6 @@
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
-
-
-          <!-- /.card -->
         </div>
         <!-- /.col -->
       </div>
