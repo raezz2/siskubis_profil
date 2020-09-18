@@ -46,15 +46,15 @@ class DisposisiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $gambar = Disposisi::create([
-            'surat_id' => $nama_file,
-            'user_id' => 
-            'author_id' =>
-            'inkubator_id' =>
-        ]);
-    }
+    // public function store(Request $request)
+    // {
+    //     $gambar = Disposisi::create([
+    //         'surat_id' => $nama_file,
+    //         'user_id' => 
+    //         'author_id' =>
+    //         'inkubator_id' =>
+    //     ]);
+    // }
 
     /**
      * Display the specified resource.

@@ -32,7 +32,7 @@
                     <div class="row">
                       <div class="col-sm-6">
                         <div class="form-group">
-                          <label for="nama">Judul</label>
+                          <h4 for="nama">Judul</h4>
                           <p>{{ $surat->title }}</p>
                           <input type="hidden" id="custId" name="custId" value="{{ $surat->title }}">
                         </div>
@@ -47,21 +47,22 @@
                           </select>
                           </div>
                       </div>
-
-                        <!-- <div class="col-sm-3">
-                        <div class="form-group">
-                          <label for="file">File</label>
-                          <div class="custom-file">
-                          <input type="" class="custom-file-input" id="exampleInputFile" name="file" required="required">
-                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                          </div> -->
+                      <div class="col-6">
+                          <h4>Dari</h4>
+                              <p>{{ $surat->dari }}</p>
+                      </div>
+                    
+                      <div class="col-12">
+                          <h4>Perihal</h4>
+                              <p>{{ $surat->perihal }}</p>
+                      </div>
+                      </div>
                         </div>
                         </div>
                       </div>
                     </div>
                     <div class="modal-footer">
                       <button class="btn btn-success" type="submit">Kirim</button>
-                      <button type="reset" class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Reset</button>
                     </div>
                   </form>
                 </div>
