@@ -10,6 +10,7 @@ use App\Pengumuman;
 use App\Priority;
 use File;
 use Illuminate\Support\Facades\Auth;
+use App\Post;
 
 
 class PengumumanController extends Controller
@@ -27,7 +28,7 @@ class PengumumanController extends Controller
     public function index()
     {
 
-        $pengumuman = Pengumuman::where('author_id',\Auth::user()->id)->get();
+        $pengumuman = Pengumuman::where('author_id', \Auth::user()->id)->get();
         $kategori = DB::table('priority')->get();
         $inkubator = DB::table('inkubator')->get();
         return view('pengumuman.index', compact('pengumuman', 'kategori', 'inkubator'));
@@ -151,5 +152,20 @@ class PengumumanController extends Controller
         }
         \Session::flash('sukses', 'Berhasil Merubah Status Pengumuman');
         return redirect('inkubator/pengumuman');
+    }
+
+    public function search(Request $request)
+    {
+
+        $keyword = $request->get('keyword');
+
+
+        if ($keyword) {
+            $pengumuman = pengumuman::where('title', 'like', '%' . $keyword . '%')->get();
+        }
+
+        $kategori = DB::table('priority')->get();
+        $inkubator = DB::table('inkubator')->get();
+        return view('pengumuman.index', compact('pengumuman', 'kategori', 'inkubator', 'keyword'));
     }
 }

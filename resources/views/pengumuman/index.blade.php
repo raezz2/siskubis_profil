@@ -12,7 +12,11 @@
 					<!-- modal-->
 					<a href="/inkubator/pengumuman/tambah"><button class="btn btn-outline-secondary btn-block mb-4" type="button" data-toggle="modal">Tambah Pengumuman</button></a>
 					<!-- end:modal-->
-					<input class="form-control form-control-rounded col-md-12" id="exampleFormControlInput1" type="text" placeholder="Search Tenant..." />
+					<form action="/inkubator/pengumuman/search" method="GET">
+						<input value="{{ Request::get('keyword') }}" name="keyword" class="form-control form-control-rounded col-md-12" id="exampleFormControlInput1" type="text" placeholder="Search Tenant..." />
+						<br>
+						<button type="submit" id="submitButton" class="btn btn-primary btn-block" style="width: 100px;">Search</button>
+					</form>
 					<br>
 					<div class="list-group" id="list-tab" role="tablist"><a class="list-group-item list-group-item-action border-0 active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home"><i class="nav-icon i-Business-Mens"></i> Semua Pengumuman</a>
 						<a class="list-group-item list-group-item-action border-0" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile"><i class="nav-icon i-Conference"></i> Non Tenan</a>
@@ -45,7 +49,7 @@
 							<th width="5%">Action</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="dynamic-row">
 						@foreach($pengumuman as $p)
 						<tr>
 							<td>
@@ -173,6 +177,24 @@
 		order: [
 			[2, 'DESC']
 		]
+	});
+
+	$('body').on('keyup', '#search', function() {
+		var searchQuest = $(this).val();
+
+		$.ajax({
+			method: 'POST',
+			url: '{{ route("inkubator.pengumuman") }}',
+			dataType: 'json',
+			data: {
+				'_token': '{{ csrf_token() }}',
+				searchQuest: searchQuest,
+			},
+
+			succcess: function(res) {
+				console.log(res)
+			}
+		});
 	});
 </script>
 @endsection
