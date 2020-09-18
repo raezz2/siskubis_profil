@@ -11,10 +11,17 @@
 				<li class="nav-item"><a class="nav-link" id="profile-icon-tab" data-toggle="tab" href="#profileIcon" role="tab" aria-controls="profileIcon" aria-selected="false"><i class="nav-icon i-Home1 mr-1"></i> Surat Keluar</a></li>
 			</ul>
 			@include('layouts.alert', ['$errors' => $errors])
-				
+			<div class="row justify-content-end mt-2"  >
+				<div class="mr-2">
+					<a href="/inkubator/buatsurat"><li  class="btn btn-success btn-sm " width="10%" >Buat Surat</li></a>
+					</div>
+					<div class="mr-3">
+					<a href="/inkubator/buatsuratkeluar"><li  class="btn btn-danger btn-sm" width="10%" >Buat Surat keluar</li></a>
+				</div>
+			</div>
 			<div class="tab-content" id="myIconTabContent" style="padding: 1rem 0 !important; ">
 				<div class="tab-pane fade show active" id="homeIcon" role="tabpanel" aria-labelledby="home-icon-tab">
-						<a href="/inkubator/buatsurat"><li  class="btn btn-danger btn-sm " width="10%" >Buat Surat</li></a><br>
+						<!-- <a href="/inkubator/buatsurat"><li  class="btn btn-danger btn-sm " width="10%" >Buat Surat</li></a><br> -->
 					<table class="display table" id="masuk" style="width:100%">
 						
 						<thead>
@@ -45,7 +52,7 @@
 					</table>
 				</div>
 				<div class="tab-pane fade" id="profileIcon" role="tabpanel" aria-labelledby="profile-icon-tab">
-					<a href="/inkubator/buatsuratkeluar"><li  class="btn btn-danger btn-sm" width="10%" >Buat Surat keluar</li></a>
+					
 					<table class="display table" id="keluar" style="width:100%">
 					<thead>
 						<tr>
