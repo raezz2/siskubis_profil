@@ -46,7 +46,8 @@
               <p>{{ $p->title }}</p>
             </div>
             <div class="col-6">
-            <a class="ul-link-action text-success" href="/inkubator/disposisi/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a>
+            <a class="btn btn-primary" href="/inkubator/disposisi/{{ $p->id }}" role="button">Disposisi</a>
+
             </div>
             <div class="col-12">
                 <h4>Perihal</h4>
