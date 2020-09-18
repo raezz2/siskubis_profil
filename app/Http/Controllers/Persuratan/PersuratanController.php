@@ -192,19 +192,28 @@ class PersuratanController extends Controller
         
     }
 
-    public function disposisiupdate( $id, Request $request)
+    public function disposisiupdate( Request $request, Surat $surat)
     {
-        $surat = Surat::where('id', $id)->get();
-        $disposisi =Disposisi::create([
+        
+
+        Surat::where('id', $surat->id)
+        ->update([
+            'kepada'=> $request->kepada,
+            ]);
+
+        DB::table('surat_disposisi')->insert([
+
             'user_id' => $request->kepada,
             'surat_id' => $surat->id,
             'author_id' => $surat->author_id,
             'inkubator_id' => 1,
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s'),
         ]);
-        Surat::where('id', $surat->id)
-        ->update([
-            'kepada'=> $request->kepada,
-        ]);
+
+        Session::flash('success', 'Surat berhasil disposisi');
+
+        return redirect('inkubator/surat');
 
     }
 }
