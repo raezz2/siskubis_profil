@@ -23,8 +23,8 @@
 						</thead>
 						<tbody>
 						@foreach($disposisi as $d)
-						@if ( $d->inkubator_id == Auth::user()->inkubator_id)
-							@if ($d->user_id == Auth::user()->id )
+						@if ( $d->inkubator_id == Auth::user()->inkubator_id )
+							@if ( $d->user_id == Auth::user()->id )
 							
 							<tr>
 								<td>
