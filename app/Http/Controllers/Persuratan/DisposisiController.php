@@ -15,18 +15,32 @@ class DisposisiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function indexsuratmasuk()
+    public function mentorsuratmasuk()
     {
         $disposisi = Disposisi::get();
 
-        return view('inbox.index', compact('disposisi'));
+        return view('mentor.surat.index', compact('disposisi'));
     }
 
-    public function indexsuratkeluar()
+    public function mentorsuratkeluar()
     {
         $disposisi = Disposisi::get();
 
-        return view('inbox.keluar', compact('disposisi'));
+        return view('mentor.surat.keluar', compact('disposisi'));
+    }
+
+    public function tenantsuratmasuk()
+    {
+        $disposisi = Disposisi::get();
+
+        return view('Tenant.surat.index', compact('disposisi'));
+    }
+
+    public function tenantsuratkeluar()
+    {
+        $disposisi = Disposisi::get();
+
+        return view('Tenant.surat.keluar', compact('disposisi'));
     }
 
     /**

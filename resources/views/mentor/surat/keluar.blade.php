@@ -28,14 +28,14 @@
 							
 							<tr>
 								<td>
-								<a href="/tenant/suratmasuk/{{ $d->surat->id }}">
+								<a href="/mentor/suratmasuk/{{ $d->surat->id }}">
 										<strong>{{ $d->surat->title }}</strong>
 										<p>{{ str_limit($d->surat->perihal, $limit = 80, $end = '') }}</p>
 								</a>
 								</td>
 								<td><a class="badge badge-primary m-2 p-2" href="#">{{ $d->surat->jenis_surat }}</a></td>
 								<td>{{ $d->surat->created_at }}</td>
-								<td><a class="ul-link-action text-success" href="/inkubator/surat/edit/{{ $d->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="/mentor/surat/hapus/{{ $d->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
+								<td><a class="ul-link-action text-success" href="/mentor/surat/edit/{{ $d->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="/mentor/surat/hapus/{{ $d->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
 							</tr>
 							
 							@endif

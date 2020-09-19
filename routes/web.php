@@ -67,16 +67,16 @@ Route::group(['prefix'=>'inkubator','middleware' => ['role:inkubator']], functio
 Route::group(['prefix'=>'mentor','middleware' => ['role:mentor']], function () {
     Route::get('/', 'Mentor\HomeController@index')->name('mentor.home');
 	Route::get('/chat', 'Chat\ChatController@index')->name('mentor.chat');
-	Route::get('/suratmasuk', 'Persuratan\DisposisiController@indexsuratmasuk');
-	Route::get('/suratkeluar', 'Persuratan\DisposisiController@indexsuratkeluar');
+	Route::get('/suratmasuk', 'Persuratan\DisposisiController@mentorsuratmasuk');
+	Route::get('/suratkeluar', 'Persuratan\DisposisiController@mentorsuratkeluar');
 	Route::get('/surat/hapus/{disposisi}', 'Persuratan\DisposisiController@destroy');
 });
 
 Route::group(['prefix'=>'tenant','middleware' => ['role:tenant']], function () {
     Route::get('/', 'Tenant\HomeController@index')->name('tenant.home');
 	Route::get('/chat', 'Chat\ChatController@index')->name('tenant.chat');
-	Route::get('/suratmasuk', 'Persuratan\DisposisiController@indexsuratmasuk');
-	Route::get('/suratkeluar', 'Persuratan\DisposisiController@indexsuratkeluar');
+	Route::get('/suratmasuk', 'Persuratan\DisposisiController@tenantsuratmasuk');
+	Route::get('/suratkeluar', 'Persuratan\DisposisiController@tenantsuratkeluar');
 	Route::get('/surat/hapus/{disposisi}', 'Persuratan\DisposisiController@destroy');
 });
 
