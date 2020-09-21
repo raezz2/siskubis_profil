@@ -25,8 +25,6 @@
                         <select class="form-control" name="inkubator">
                             <option selected="" disabled="">Pilih Inkubator</option>
                             @foreach ($inkubator as $i)
-                            <option value="{{ $i->id }}" {{($p->inkubator_id == $i->id) ? 'selected' : ''}}>Kategori Umum</option>
-                            
                             <option value="{{ $i->id }}" {{($p->inkubator_id == $i->id) ? 'selected' : ''}}>{{ $i->nama }}</option>
                             @endforeach
                         </select>
@@ -68,8 +66,8 @@
         ]
     });
 </script>
-<script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>        
+<script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
 <script>
-    CKEDITOR.replace( 'pengumuman' );
+    CKEDITOR.replace('pengumuman');
 </script>
 @endsection

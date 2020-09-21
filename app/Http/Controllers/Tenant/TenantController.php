@@ -61,7 +61,7 @@ class TenantController extends Controller
 
 
         if ($keyword) {
-            $pengumuman = pengumuman::where('title', 'like', '%' . $keyword . '%')->get();
+            $pengumuman = pengumuman::where([['title', 'like', '%' . $keyword . '%'], ['inkubator_id', \Auth::user()->inkubator_id], ['publish', 1]])->get();
         }
 
         $kategori = DB::table('priority')->get();

@@ -60,7 +60,7 @@ class MentorController extends Controller
 
 
         if ($keyword) {
-            $pengumuman = Pengumuman::where('title', 'like', '%' . $keyword . '%')->get();
+            $pengumuman = Pengumuman::where([['title', 'like', '%' . $keyword . '%'], ['inkubator_id', \Auth::user()->inkubator_id], ['publish', 1]])->get();
         }
 
         $kategori = DB::table('priority')->get();

@@ -160,7 +160,7 @@ class PengumumanController extends Controller
 
 
         if ($keyword) {
-            $pengumuman = pengumuman::where('title', 'like', '%' . $keyword . '%')->get();
+            $pengumuman = pengumuman::where([['title', 'like', '%' . $keyword . '%'], ['author_id', \Auth::user()->id]])->get();
         }
 
         $kategori = DB::table('priority')->get();
