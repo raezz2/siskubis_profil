@@ -14,7 +14,7 @@
                         <br>
                         <br>
                         <div>
-                            <p style="text-align: justify; text-indent: 0.5in;">{{$p->pengumuman}}
+                            <p style="text-align: justify; text-indent: 0.5in;">{!! $p->pengumuman !!}
                             </p>
                         </div>
                         <div class="card-body">

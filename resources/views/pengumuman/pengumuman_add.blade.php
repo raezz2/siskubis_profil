@@ -51,7 +51,7 @@
                     </div>
                     <div class="form-group">
 
-                        <textarea class="form-control @error('pengumuman') is-invalid @enderror" rows=" 3" placeholder="Pengumuman ...." name="pengumuman">{{old('pengumuman')}}</textarea>
+                        <textarea class="form-control @error('pengumuman') is-invalid @enderror" rows=" 3" placeholder="Pengumuman ...." name="pengumuman" id="pengumuman">{{old('pengumuman')}}</textarea>
 
                         @if($errors->has('pengumuman'))
                         <div class="text-danger">
@@ -83,4 +83,8 @@
                     </div>
                 </form>
             </div>
+            <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
+            <script>
+                        CKEDITOR.replace( 'pengumuman' );
+                </script>
             @endsection

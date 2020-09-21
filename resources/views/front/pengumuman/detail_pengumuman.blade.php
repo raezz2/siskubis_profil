@@ -127,7 +127,7 @@
                             </figure>
                         </div>
 
-                        <p style="text-align:justify; text-indent: 0.5in;">{{ $p->pengumuman }}</p>
+                        <p style="text-align:justify; text-indent: 0.5in;">{!! $p->pengumuman !!}</p>
 
                     </div>
                     @endforeach

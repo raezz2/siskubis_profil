@@ -14,7 +14,7 @@
                             </div>
                             <p class="btn btn-inverse">Diposkan pada {{$p->created_at}}
                             </p>
-                            <p style="text-align:justify; text-indent: 0.5in;">{{$p->pengumuman}}</p>
+                            <p style="text-align:justify; text-indent: 0.5in;">{!! $p->pengumuman !!}</p>
                             <div style="clear:both;"></div>
                             @endforeach
                         </div>

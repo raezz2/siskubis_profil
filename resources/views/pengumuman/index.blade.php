@@ -14,8 +14,6 @@
 					<!-- end:modal-->
 					<form action="/inkubator/pengumuman/search" method="GET">
 						<input value="{{ Request::get('keyword') }}" name="keyword" class="form-control form-control-rounded col-md-12" id="exampleFormControlInput1" type="text" placeholder="Search Tenant..." />
-						<br>
-						<button type="submit" id="submitButton" class="btn btn-primary btn-block" style="width: 100px;">Search</button>
 					</form>
 					<br>
 					<div class="list-group" id="list-tab" role="tablist"><a class="list-group-item list-group-item-action border-0 active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home"><i class="nav-icon i-Business-Mens"></i> Semua Pengumuman</a>
@@ -54,7 +52,7 @@
 							<td>
 								<a href="/inkubator/pengumuman/{{ $p->slug }}">
 									<strong>{{ $p->title }}</strong>
-									<p>{{ str_limit($p->pengumuman), '100' }}</p>
+									<p>{!! str_limit($p->pengumuman) !!}</p>
 								</a>
 							</td>
 							<td>

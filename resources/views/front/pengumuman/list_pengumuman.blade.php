@@ -23,7 +23,7 @@
                                 </div>
                                 <h1><a href="/pengumuman/{{ $p->slug}} ">{{ $p->title }}</a></h1>
                                 <p>
-                                    {{ str_limit($p->pengumuman), '100' }}
+                                    {!! str_limit($p->pengumuman) !!}
                                 </p>
                                 <footer>
                                     <a class="btn btn-primary more" href="/pengumuman/{{ $p->slug}} ">
