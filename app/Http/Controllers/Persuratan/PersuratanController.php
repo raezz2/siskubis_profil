@@ -10,6 +10,7 @@ use App\User;
 use App\Surat;
 use Session;
 use App\Disposisi;
+use App\Priority;
 
 class PersuratanController extends Controller
 {
@@ -25,24 +26,28 @@ class PersuratanController extends Controller
      */
     public function index()
     {
-        $surat = DB::table('surat')->get();
+        $surat = Surat::all();
+        $priority = DB::table('priority')->get();
 
-        return view('surat.index', compact('surat'));
+        return view('surat.index', compact('surat','priority'));
     }
 
     public function create()
     {
-        $user = DB::table('users')->get();
+        $surat = Surat::all();
+        $priority = DB::table('priority')->get();
 
-        return view ('surat.form', compact('user'));
+        return view ('surat.form', compact('user','priority'));
         
     }
 
     public function createkeluar()
     {
+        $surat = Surat::all();
+        $priority = DB::table('priority')->get();
         $user = DB::table('users')->get();
 
-        return view ('surat.formkeluar', compact('user'));
+        return view ('surat.formkeluar', compact('user','priority'));
         
     }
 
@@ -60,6 +65,7 @@ class PersuratanController extends Controller
             'dokumen' => $request->file->getClientOriginalName(),
             'jenis_surat' => 1,
             'author_id' => Auth::user()->id,
+            'priority_id' => $request->priority,
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s'),
         ]);
@@ -91,6 +97,7 @@ class PersuratanController extends Controller
             'dokumen' => $request->file->getClientOriginalName(),
             'jenis_surat' => 2,
             'author_id' => Auth::user()->id,
+            'priority_id' => $request->priority,
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s'),
         ]);
@@ -132,12 +139,14 @@ class PersuratanController extends Controller
     public function edit($id)
     {
         $surat = Surat::findOrFail($id);
+        $priority = DB::table('priority')->get();
         
         $user = DB::table('users')->get();
         // $surat = Surat::where('id', '!=', $id)->orderBy('name', 'asc')->get();
 
         $this->data['surat'] = $surat;
         $this->data['user'] = $user;
+        $this->data['priority'] = $priority;
         return view('surat.edit', $this->data);
     }
 

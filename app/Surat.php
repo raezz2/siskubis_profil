@@ -17,6 +17,11 @@ class Surat extends Model
         // return $this->hasMany('App\User');
     }
 
+    public function priority()
+    {
+        return $this->belongsTo('App\Priority');
+    }
+
     
 }
 
