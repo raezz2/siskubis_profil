@@ -18,7 +18,7 @@
                             <td>
                                 <a href="/user/pengumuman/{{ $p->slug }}">
                                     <strong>{{ $p->title }}</strong>
-                                    <p>{{ str_limit($p->pengumuman), '100' }}</p>
+                                    <p>{!! str_limit($p->pengumuman) !!}</p>
 
                                 </a>
                             </td>

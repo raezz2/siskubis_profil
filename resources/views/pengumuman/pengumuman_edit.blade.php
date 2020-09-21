@@ -24,14 +24,15 @@
                     <div class="form-group">
                         <select class="form-control" name="inkubator">
                             <option selected="" disabled="">Pilih Inkubator</option>
-                            <option value="0">Kategori Umum</option>
                             @foreach ($inkubator as $i)
+                            <option value="{{ $i->id }}" {{($p->inkubator_id == $i->id) ? 'selected' : ''}}>Kategori Umum</option>
+                            
                             <option value="{{ $i->id }}" {{($p->inkubator_id == $i->id) ? 'selected' : ''}}>{{ $i->nama }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" rows="3" placeholder="Pengumuman ...." name="pengumuman">{{ $p->pengumuman }}</textarea>
+                        <textarea class="form-control" rows="3" placeholder="Pengumuman ...." name="pengumuman" id="pengumuman">{{ $p->pengumuman }}</textarea>
                     </div>
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="exampleInputFile" name="file">
@@ -66,5 +67,9 @@
             [2, 'DESC']
         ]
     });
+</script>
+<script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>        
+<script>
+    CKEDITOR.replace( 'pengumuman' );
 </script>
 @endsection
