@@ -36,6 +36,7 @@ class PersuratanController extends Controller
     {
         $surat = Surat::all();
         $priority = DB::table('priority')->get();
+        $user = DB::table('users')->get();
 
         return view ('surat.form', compact('user','priority'));
         
@@ -57,30 +58,43 @@ class PersuratanController extends Controller
             'file' => 'mimes:pdf,jpg,png,jpeg',
         ]);
 
-        DB::table('surat')->insert([
-            'title' => $request->judul,
-            'dari' => Auth::user()->email,
-            'kepada' => $request->kepada,
-            'perihal' => $request->perihal,
-            'dokumen' => $request->file->getClientOriginalName(),
-            'jenis_surat' => 1,
-            'author_id' => Auth::user()->id,
-            'priority_id' => $request->priority,
-            'created_at'=>date('Y-m-d H:i:s'),
-            'updated_at'=>date('Y-m-d H:i:s'),
-        ]);
-
-        $file = $request->file;
-    	$tujuan_upload = 'file/dokumen';
-        $file->move($tujuan_upload,$file->getClientOriginalName());
         
-        if ($file) {
-            Session::flash('success', 'Surat Terkirim');
-        } else {
-            Session::flash('error', 'Surat Gagal Terkirim');
-        }
+        if ($request->has('file')) {
+            $dokumen = $request->file('file');
+            $name = Auth::user()->name . '_' .time();
+            $fileName = $name . '.' . $dokumen->getClientOriginalName();
+
+            $folder = 'file/dokumen';
+            // $filePath = $dokumen->storeAs( $fileName, 'public');
+            $filePath = $dokumen->move($folder, $fileName, 'public');
+
+            DB::table('surat')->insert([
+                'title' => $request->judul,
+                'dari' => Auth::user()->email,
+                'kepada' => $request->kepada,
+                'perihal' => $request->perihal,
+                'jenis_surat' => 1,
+                'dokumen' => $fileName,
+                'author_id' => Auth::user()->id,
+                'priority_id' => $request->priority,
+                'created_at'=>date('Y-m-d H:i:s'),
+                'updated_at'=>date('Y-m-d H:i:s'),
+            ]);
+    
+
+        // $file = $request->file;
+    	// $tujuan_upload = 'file/dokumen';
+        // $file->move($tujuan_upload,$file->getClientOriginalName());
+
+        
+            if ($filePath) {
+                Session::flash('success', 'Surat Terkirim');
+            } else {
+                Session::flash('error', 'Surat Gagal Terkirim');
+            }
 
         return redirect ('inkubator/surat');
+        }
     }
 
     public function storekeluar (Request $request)
