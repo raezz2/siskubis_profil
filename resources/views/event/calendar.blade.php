@@ -91,7 +91,7 @@ function initEvent() {
 	  // use the element's text as the event title
 	  color: $(this).css('background-color'),
 	  stick: true, // maintain when user navigates (see docs on the renderEvent method)
-	  @role('inkubator'),
+	  @role('inkubator')
 	  url: "{{ route('inkubator.event.create') }}",
 	  @endrole  
 	}); // make the event draggable using jQuery UI

@@ -1,7 +1,23 @@
 @extends('layouts.app')
 
-
+<style>
+  .dropzoneDragArea {
+    background-color: #fbfdff;
+    border: 1px dashed #c0ccda;
+    border-radius: 6px;
+    padding: 60px;
+    text-align: center;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+.dropzone{
+  box-shadow: 0px 2px 20px 0px #f2f2f2;
+  border-radius: 10px;
+}
+</style>
 @section('content')
+
+
 <div class="card">
     <div class="card-body">
         <form action="/inkubator/event/store" method="post" autocomplete="off" enctype="multipart/form-data">
@@ -16,19 +32,24 @@
             @enderror
           </div>
           <div class="form-group">
-            <label for="foto">Foto</label>
-            <div class="input-group mb-3">
-              <div class="custom-file">
-                <label class="custom-file-label" for="foto">Choose file</label>
+           <label for="foto">Foto</label>
+                    <div class="input-group mb-3">
+            <div class="custom-file">
+              <label class="custom-file-label" for="foto">Choose file</label>
                 <input class="custom-file-input" id="foto" type="file"  name="foto"/>
-              </div>
             </div>
+          </div>
+        {{-- </div>
+          <div class="row mb-4">
+            <div class="col-md-6 mb-4">
+          <div class="dropzone dropzone-previews" id="my-awesome-dropzone"></div>
             @error('foto')
             <div class="mt-2 text-danger">
               {{ $message }}
             </div>
             @enderror
-          </div>
+            </div>
+          </div> --}} 
           <div class="form-group">
             <label for="event">Event</label>
             <textarea name="event" id="event" class="form-control"></textarea>
@@ -83,7 +104,7 @@
         </div>
           <br>
           <div class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary">Tambah</button>
+            <button type="submit" class="btn btn-primary" id="#submit-all">Tambah</button>
           </div>
         </form>
     </div>
@@ -94,5 +115,27 @@
   <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
   <script>
       CKEDITOR.replace('event');
+
+  // Dropzone.autoDiscover = false;
+	// jQuery(document).ready(function() {
+
+	//   $("div#my-awesome-dropzone").dropzone({
+  //     maxFilesize: 3,  // 3 mb
+  //     acceptedFiles: ".jpeg,.jpg,.png",
+  //     url: "/inkubator/event/store"
+      
+      
+	//   });
+
+  // });
+  
+
+  // $(document).on('click', '.remove_image', function(){
+  //   var name = $(this).attr('id');
+  //   $.ajax({
+  //     url:"/inkubator/event/{event:slug}/delete",
+  //     data:{name : name},
+  //   })
+  // });
   </script>
 @endsection
