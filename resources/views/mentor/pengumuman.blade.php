@@ -9,14 +9,17 @@
             <div class="card-body">
                 <div class="ul-contact-list">
                     <div class="contact-close-mobile-icon float-right mb-2"><i class="i-Close-Window text-15 font-weight-600"></i></div>
-                    <input class="form-control form-control-rounded col-md-12" id="exampleFormControlInput1" type="text" placeholder="Search Tenant..." />
+                    <form action="/mentor/pengumuman/search" method="GET">
+                        <input value="{{ Request::get('keyword') }}" name="keyword" class="form-control form-control-rounded col-md-12" id="exampleFormControlInput1" type="text" placeholder="Search Tenant..." />
+                        <br>
+                        <button type="submit" id="submitButton" class="btn btn-primary btn-block" style="width: 100px;">Search</button>
+                    </form>
                     <br>
                     <div class="list-group" id="list-tab" role="tablist"><a class="list-group-item list-group-item-action border-0 active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home"><i class="nav-icon i-Business-Mens"></i> Semua Pengumuman</a>
                         <a class="list-group-item list-group-item-action border-0" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile"><i class="nav-icon i-Conference"></i> Non Tenan</a>
                         <label class="text-muted font-weight-600 py-8" for="">MEMBERS INKUBATOR</label>
                         <select class="form-control form-control-rounded">
                             <option>All Inkubator</option>
-                            <option></option>
                         </select>
                         </br>
                         <a class="list-group-item list-group-item-action border-0" id="list-profile-list" href="/mentor/pengumuman/" role="tab" aria-controls="home" id="myList"><i class="nav-icon i-Business-Mens"></i>All Kategori</a>

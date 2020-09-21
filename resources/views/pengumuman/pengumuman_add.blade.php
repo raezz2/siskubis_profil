@@ -40,7 +40,6 @@
                         <select class="form-control @error('inkubator') is-invalid @enderror" name=" inkubator" value="{{ old('$p->inkubator_id') == $i->id ? 'selected' : null }}">
                             <option selected="" disabled="">Pilih Inkubator</option>
                             <option value="0">Kategori Umum</option>
-
                             <option value="{{ $i->id }}" {{ old('inkubator') == $i->id ? 'selected':''}}>{{ $i->nama }}</option>
                             @endforeach
                         </select>

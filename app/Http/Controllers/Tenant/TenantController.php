@@ -33,7 +33,9 @@ class TenantController extends Controller
 
     public function pengumuman()
     {
-        $pengumuman = Pengumuman::where('inkubator_id', Auth::user()->inkubator_id)->where(function($query){$query->where('publish', 1);})->get();
+        $pengumuman = Pengumuman::where('inkubator_id', Auth::user()->inkubator_id)->where(function ($query) {
+            $query->where('publish', 1);
+        })->get();
         $kategori = DB::table('priority')->get();
         $inkubator = DB::table('inkubator')->get();
         return view('tenant.pengumuman', compact('pengumuman', 'kategori', 'inkubator'));
@@ -47,8 +49,23 @@ class TenantController extends Controller
 
     public function kategori($id)
     {
-        $pengumuman = Pengumuman::where([['priority_id',$id],['inkubator_id',\Auth::user()->inkubator_id],['publish', 1]])->latest()->get();
+        $pengumuman = Pengumuman::where([['priority_id', $id], ['inkubator_id', \Auth::user()->inkubator_id], ['publish', 1]])->latest()->get();
         $kategori = DB::table('priority')->get();
         return view('tenant.pengumuman', compact('pengumuman', 'kategori'));
+    }
+
+    public function search(Request $request)
+    {
+
+        $keyword = $request->get('keyword');
+
+
+        if ($keyword) {
+            $pengumuman = pengumuman::where('title', 'like', '%' . $keyword . '%')->get();
+        }
+
+        $kategori = DB::table('priority')->get();
+        $inkubator = DB::table('inkubator')->get();
+        return view('tenant.pengumuman', compact('pengumuman', 'kategori', 'inkubator', 'keyword'));
     }
 }

@@ -23,7 +23,6 @@
 						<label class="text-muted font-weight-600 py-8" for="">MEMBERS INKUBATOR</label>
 						<select class="form-control form-control-rounded">
 							<option>All Inkubator</option>
-							<option></option>
 						</select>
 						</br>
 						<a class="list-group-item list-group-item-action border-0" id="list-home-list" href="/inkubator/pengumuman" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>All Kategori</a>
@@ -139,6 +138,8 @@
 </div> end of form-input -->
 @endsection
 @section('css')
+<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+<link href="{{asset('theme/css/main.css')}}" rel="stylesheet" />
 <link rel="stylesheet" href="{{asset('theme/css/plugins/datatables.min.css')}}" />
 @endsection
 @section('js')
@@ -147,6 +148,7 @@
 <script src="{{asset('theme/js/scripts/datatables.script.min.js')}}"></script>
 <script src="{{asset('theme/js/plugins/datatables.min.js')}}"></script>
 <script src="{{asset('theme/js/scripts/tooltip.script.min.js')}}"></script>
+<script src="{{asset('theme/js/extention/choices.js')}}"></script>
 <script>
 	$(document).ready(function() {
 		var flash = "{{ Session::get('sukses')}}";

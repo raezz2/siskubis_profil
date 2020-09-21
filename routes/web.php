@@ -67,6 +67,7 @@ Route::group(['prefix' => 'mentor', 'middleware' => ['role:mentor']], function (
 	Route::get('/', 'Mentor\HomeController@index')->name('mentor.home');
 	Route::get('/chat', 'Chat\ChatController@index')->name('mentor.chat');
 	Route::get('/pengumuman', 'Mentor\MentorController@pengumuman');
+	Route::get('/pengumuman/search', 'Mentor\MentorController@search');
 	Route::get('/pengumuman/{slug}', 'Mentor\MentorController@show');
 	Route::get('/kategori/{id}', 'Mentor\MentorController@kategori');
 });
@@ -75,6 +76,7 @@ Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function (
 	Route::get('/', 'Tenant\HomeController@index')->name('tenant.home');
 	Route::get('/chat', 'Chat\ChatController@index')->name('tenant.chat');
 	Route::get('/pengumuman', 'Tenant\TenantController@pengumuman');
+	Route::get('/pengumuman/search', 'Tenant\TenantController@search');
 	Route::get('/pengumuman/{slug}', 'Tenant\TenantController@show');
 	Route::get('/kategori/{id}', 'Tenant\TenantController@kategori');
 });
