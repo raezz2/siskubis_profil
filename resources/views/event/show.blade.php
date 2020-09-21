@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
     <div class="col-md-4">
-        <div class="card bg-dark text-white o-hidden mb-4"><img class="card-img" src="{{ asset("storage/" . $event->foto) }}" alt="Card image">
+        <div class="card bg-dark text-white o-hidden mb-4"><img style="height: 310px" class="card-img" src="{{ asset("storage/" . $event->foto) }}" alt="Card image">
             {{-- <div class="card-img-overlay">
                 <div class="text-center pt-4">
                     <h5 class="card-title mb-2 text-white">Card title</h5>
@@ -48,7 +48,7 @@
                     Detail Event
                 </div>
                 <p>
-                  {{ $event->event }}
+                  {!! $event->event !!}
                 </p>
             </div>
         </div>

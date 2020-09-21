@@ -3,16 +3,12 @@
 namespace App\Http\Controllers\Event;
 
 use Auth;
-use Redirect;
-use Response;
 use App\Event;
 use App\Priority;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Http\Middleware\Authenticate;
-use Spatie\QueryBuilder\QueryBuilder;
-use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\{QueryBuilder, AllowedFilter};
 
 class EventController extends Controller
 {
@@ -29,16 +25,44 @@ class EventController extends Controller
      */
     public function index()
     {
-        // $event = Event::latest()->paginate(5);
         $priority = Priority::orderBy('name', 'ASC')->get();
         $event = QueryBuilder::for(Event::class)
             ->allowedFilters([
                 AllowedFilter::partial('title'),
                 AllowedFilter::exact('priority', 'priority_id'),
                 AllowedFilter::exact('publish', 'publish'),
+                AllowedFilter::scope('between', 'dateBetween'),
             ])
             ->latest()->paginate(10);
         return view('event.index', compact('event', 'priority'));
+    }
+
+    public function indexMentor()
+    {
+        $priority = Priority::orderBy('name', 'ASC')->get();
+        $event = QueryBuilder::for(Event::class)
+            ->allowedFilters([
+                AllowedFilter::partial('title'),
+                AllowedFilter::exact('priority', 'priority_id'),
+                AllowedFilter::exact('publish', 'publish'),
+                AllowedFilter::scope('between', 'dateBetween'),
+            ])->where('inkubator_id', '=', Auth::user()->inkubator_id)
+            ->latest()->paginate(10);
+        return view('event.index', compact('event', 'priority'));
+    }
+
+    public function indexTenant()
+    {
+        $user_id = Auth::user()->id;
+        $tenant_user = DB::table('tenant_user')->where('user_id', '=', $user_id)->first();
+        $tenant = DB::table('tenant')->where('id', '=', $tenant_user->tenant_id)->first();
+        $event = Event::where([
+            'inkubator_id', '=', Auth::user()->inkubator_id,
+            'priority', '=', $tenant->priority,
+            'publish', '=', 1,
+        ])->latest()->paginate(10);
+
+        return view('/event/index', compact('event'));
     }
 
     public function calendar()
@@ -49,13 +73,7 @@ class EventController extends Controller
 
     public function show(Event $event)
     {
-
         return view('event.show', compact('event'));
-    }
-
-    public function createmodal()
-    {
-        return view('event.modal', compact('event'));
     }
 
     public function create()
@@ -66,10 +84,9 @@ class EventController extends Controller
 
     public function store()
     {
-
         $attr = request()->validate([
             'title' => 'required|min:3',
-            'foto' => 'required',
+            'foto' => 'image|mimes:jpg,png,jpeg|max:2048',
             'priority_id' => 'required',
             'event' => 'required',
             'publish' => 'required',
@@ -104,9 +121,14 @@ class EventController extends Controller
 
         $attr = request()->validate([
             'title' => 'required|min:3',
+            'foto' => 'image|mimes:jpg,png,jpeg|max:2048',
             'priority_id' => 'required',
             'event' => 'required',
             'publish' => 'required',
+            'tgl_mulai' => 'required',
+            'waktu_mulai' => 'required',
+            'tgl_selesai' => 'required',
+            'waktu_selesai' => 'required',
         ]);
 
         if (request()->file('foto')) {
@@ -140,49 +162,4 @@ class EventController extends Controller
         $event = Event::where('title', 'like', "%$title%")->where('priority_id', '=', $priority_id)->where('publish', '=', $publish)->paginate(10);
         return view('/event/index', compact('event', 'priority'));
     }
-
-    // // ? ini fungsi untuk fullcalendar
-    // public function indexCalendar()
-    // {
-    //     if(request()->ajax())
-    //     {
-    //         $start = (!empty($_GET["start"])) ? ($_GET["start"]) : ('');
-    //         $end = (!empty($_GET["end"])) ? ($_GET["end"]) : ('');
-
-    //         $data = Event::whereDate('start', '>=', $start)->whereDate('end', '<=', $end)->get(['id', 'title', 'tgl_mulai', 'tgl_selesai']);
-    //         return Response::json($data);
-    //     }
-    //     return view('event.calendar');
-    // }
-
-    // public function createCalendar(Request $request)
-    // {
-    //     $insertAttr = [
-    //         'title' => $request->title,
-    //         'tgl_mulai' => $request->start,
-    //         'tgl_selesai' => $request->end
-    //     ];
-    //     $event = Event::insert($insertAttr);
-    //     return Response::json($event);
-    // }
-
-    // public function updateCalendar(Request $request)
-    // {
-    //     $where = array('id' => $request->id);
-    //     $updateAttr = [
-    //         'title' => $request->title,
-    //         'tgl_mulai' => $request->start,
-    //         'tgl_selesai' => $request->end,
-    //     ];
-    //     $event = Event::where($where)->update($updateAttr);
-
-    //     return Response::json($event);
-    // }
-
-    // public function destroyCalendar(Request $request)
-    // {
-    //     $event = Event::where('id', $request->id)->delete();
-
-    //     return Response::json($event);
-    // }
 }

@@ -18,21 +18,21 @@
         </div>
           <div class="form-group">
             <label for="event">Event</label>
-            <textarea name="event" class="form-control" id="event" rows="5">{{ old('event') ?? $event->event }}</textarea>
+            <textarea name="event" id="event" class="form-control">{{ old('event') ?? $event->event }}</textarea>
           </div>
           <div class="row">
             <div class="form-group col-md-6">
               <label for="tgl_mulai">Tanggal Mulai :</label>
               <div class="input-group">
-                <input type="date" name="tgl_mulai" class="form-control" value="{{ old('tgl_mulai') ?? $event->tgl_mulai }}">
-                <input type="time" name="waktu_mulai" class="form-control" value="{{ old('waktu_mulai') ?? $event->waktu_mulai }}">
+                <input type="date" name="tgl_mulai" class="form-control" value="{{ $event->tgl_mulai->toDateString() }}">
+                <input type="time" name="waktu_mulai" class="form-control" value="{{ $event->waktu_mulai->toTimeString() }}">
               </div>
             </div>
             <div class="form-group col-md-6">
               <label for="tgl_selesai">Tanggal Selesai</label>
               <div class="input-group">
-                <input type="date" name="tgl_selesai" class="form-control" value="{{ old('tgl_selesai') ?? $event->tgl_selesai }}">
-                <input type="time" name="waktu_selesai" class="form-control" value="{{ old('waktu_selesai') ?? $event->waktu_selesai }}">
+                <input type="date" name="tgl_selesai" class="form-control" value="{{ $event->tgl_selesai->toDateString() }}">
+                <input type="time" name="waktu_selesai" class="form-control" value="{{ $event->waktu_selesai->toTimeString() }}">
               </div>
             </div>
           </div>
@@ -61,4 +61,11 @@
         </form>
     </div>
 </div>
+@endsection
+
+@section('js')
+  <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+  <script>
+      CKEDITOR.replace('event');
+  </script>
 @endsection

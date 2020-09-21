@@ -23,6 +23,7 @@
 				</div>
 			  </div>
 			</div>
+			@role('inkubator')
 			<div class="card-body">
 				<div class="create_event_wrap">
 					<form class="js-form-add-event">
@@ -55,6 +56,7 @@
 					</p>
 				</div>
 			</div>
+			@endrole
 		</div>
 	</div>
 	<div class="col-md-9">
@@ -89,7 +91,9 @@ function initEvent() {
 	  // use the element's text as the event title
 	  color: $(this).css('background-color'),
 	  stick: true, // maintain when user navigates (see docs on the renderEvent method)
+	  @role('inkubator'),
 	  url: "{{ route('inkubator.event.create') }}",
+	  @endrole  
 	}); // make the event draggable using jQuery UI
 
 	$(this).draggable({

@@ -23,19 +23,19 @@
                 <input class="custom-file-input" id="foto" type="file"  name="foto"/>
               </div>
             </div>
-            @error('title')
+            @error('foto')
             <div class="mt-2 text-danger">
-              Please Choose Your File
+              {{ $message }}
             </div>
-        @enderror
+            @enderror
           </div>
           <div class="form-group">
             <label for="event">Event</label>
-            <textarea name="event" class="form-control" id="event" rows="5"></textarea>
+            <textarea name="event" id="event" class="form-control"></textarea>
             @error('event')
-                <div class="mt-2 text-danger">
-                  {{ $message }}
-                </div>
+            <div class="mt-2 text-danger">
+              {{ $message }}
+            </div>
             @enderror
           </div>
           <div class="row">
@@ -90,4 +90,9 @@
 </div>
 @endsection
 
-
+@section('js')
+  <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+  <script>
+      CKEDITOR.replace('event');
+  </script>
+@endsection

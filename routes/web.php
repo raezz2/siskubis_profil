@@ -70,7 +70,7 @@ Route::group(['prefix' => 'mentor', 'middleware' => ['role:mentor']], function (
 	Route::get('/chat', 'Chat\ChatController@index')->name('mentor.chat');
 
 	// ! route event start
-	Route::get('/event', 'Event\EventController@index')->name('mentor.event-list');
+	Route::get('/event', 'Event\EventController@indexMentor')->name('mentor.event-list');
 	Route::get('/event/calendar', 'Event\EventController@calendar')->name('mentor.event-calendar');
 	Route::get('/event/{event:slug}', 'Event\EventController@show');
 	Route::get('search', 'Event\EventController@search')->name('search.event');
@@ -81,7 +81,7 @@ Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function (
 	Route::get('/chat', 'Chat\ChatController@index')->name('tenant.chat');
 
 	// ! route event start
-	Route::get('/event', 'Event\EventController@index')->name('tenant.event-list');
+	Route::get('/event', 'Event\EventController@indexTenant')->name('tenant.event-list');
 	Route::get('/event/calendar', 'Event\EventController@calendar')->name('tenant.event-calendar');
 	Route::get('/event/{event:slug}', 'Event\EventController@show');
 	Route::get('search', 'Event\EventController@search')->name('search.event');
