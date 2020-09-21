@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Disposisi;
 use Session;
+use App\Surat;
 
 class DisposisiController extends Controller
 {
@@ -24,9 +25,10 @@ class DisposisiController extends Controller
 
     public function mentorsuratkeluar()
     {
-        $disposisi = Disposisi::get();
 
-        return view('mentor.surat.keluar', compact('disposisi'));
+        $surat = Surat::get();
+
+        return view('mentor.surat.keluar', compact('surat'));
     }
 
     public function tenantsuratmasuk()
@@ -38,9 +40,9 @@ class DisposisiController extends Controller
 
     public function tenantsuratkeluar()
     {
-        $disposisi = Disposisi::get();
+        $surat = Surat::get();
 
-        return view('Tenant.surat.keluar', compact('disposisi'));
+        return view('Tenant.surat.keluar', compact('surat'));
     }
 
     /**

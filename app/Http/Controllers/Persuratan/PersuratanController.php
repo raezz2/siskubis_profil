@@ -218,5 +218,78 @@ class PersuratanController extends Controller
 
 
     }
-    
+    public function mentorstore (Request $request)
+    {
+        $request->validate([
+            'file' => 'mimes:pdf,jpg,png,jpeg',
+        ]);
+
+        DB::table('surat')->insert([
+            'title' => $request->judul,
+            'dari' => Auth::user()->email,
+            'kepada' => $request->kepada,
+            'perihal' => $request->perihal,
+            'dokumen' => $request->file->getClientOriginalName(),
+            'jenis_surat' => 1,
+            'author_id' => Auth::user()->id,
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s'),
+        ]);
+
+        $file = $request->file;
+    	$tujuan_upload = 'file/dokumen';
+        $file->move($tujuan_upload,$file->getClientOriginalName());
+        
+        if ($file) {
+            Session::flash('success', 'Surat Terkirim');
+        } else {
+            Session::flash('error', 'Surat Gagal Terkirim');
+        }
+
+        return redirect ('/mentor/suratkeluar');
+    }
+    public function tenantstore (Request $request)
+    {
+        $request->validate([
+            'file' => 'mimes:pdf,jpg,png,jpeg',
+        ]);
+
+        DB::table('surat')->insert([
+            'title' => $request->judul,
+            'dari' => Auth::user()->email,
+            'kepada' => $request->kepada,
+            'perihal' => $request->perihal,
+            'dokumen' => $request->file->getClientOriginalName(),
+            'jenis_surat' => 1,
+            'author_id' => Auth::user()->id,
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s'),
+        ]);
+
+        $file = $request->file;
+    	$tujuan_upload = 'file/dokumen';
+        $file->move($tujuan_upload,$file->getClientOriginalName());
+        
+        if ($file) {
+            Session::flash('success', 'Surat Terkirim');
+        } else {
+            Session::flash('error', 'Surat Gagal Terkirim');
+        }
+
+        return redirect ('/tenant/suratkeluar');
+    }
+    public function detail ($id)
+    {
+        $surat = Surat::where('surat.id', $id)
+        ->leftJoin('profil_user',['profil_user.user_id' => 'surat.kepada'])
+        ->leftjoin('users',['surat.kepada'=>'users.id'])
+        ->select('surat.*','profil_user.nama','users.email')
+        ->get();
+        $user = User::where('email', $id )->get();
+
+        //dd($surat, $user);
+        // return response()->json($surat);
+        return view ('inbox.detail', compact('surat', 'user'));
+
+    }
 }
