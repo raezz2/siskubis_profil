@@ -56,7 +56,7 @@
                       </div>
                       <div class="col-sm-6">
                       <div class="form-group">
-                          <label for="picker1">Priority</label>
+                          <label for="picker1">Kategori</label>
                           <select class="form-control" name="priority">
                           @foreach ($priority as $p)
                               <option value="{{ $p->id }}">{{ $p->name }}</option>
@@ -68,7 +68,7 @@
                         <label for="alamat">Buat Surat</label>
                             <div class="input-group">
                               <div class="input-group-prepend"></div>
-                              <textarea name="perihal" class="form-control" aria-label="With textarea"></textarea>
+                              <textarea name="perihal" class="form-control" aria-label="With textarea" id="perihal"></textarea>
                             </div>
                           </div>
                         <div class="col-sm-3">
@@ -124,5 +124,9 @@
 		$('#keluar').DataTable({
 			responsive:true,
 		});
+    </script>
+    <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
+    <script>
+      CKEDITOR.replace( 'perihal' );
     </script>
 @endsection

@@ -57,7 +57,7 @@
                       </div>
                       <div class="col-sm-6">
                       <div class="form-group">
-                          <label for="picker1">Priority</label>
+                          <label for="picker1">Kategori</label>
                           <select class="form-control" name="priority">
                           @foreach ($priority as $p)
                               <option value="{{ $p->id }}">{{ $p->name }}</option>

@@ -39,7 +39,7 @@
 								<td>
 								<a href="/inkubator/surat/{{ $p->id }}">
 										<strong>{{ $p->title }}</strong>
-										<p>{{ str_limit($p->perihal, $limit = 80, $end = '') }}</p>
+										<p>{!! str_limit($p->perihal, $limit = 80, $end = '') !!}</p>
 								</a>
 								</td>
 								<td>
@@ -79,7 +79,7 @@
 							<td>
 							<a href="/inkubator/surat/{{ $p->id }}">
 									<strong>{{ $p->title }}</strong>
-										<p>{{ str_limit($p->perihal, $limit = 80, $end = '') }}</p>
+										<p>{!! str_limit($p->perihal, $limit = 80, $end = '') !!}</p>
 							</a>
 							</td>
 							<td>@if ($p->priority_id == 1)
