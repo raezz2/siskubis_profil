@@ -97,14 +97,13 @@ class PengumumanController extends Controller
         $foto = Pengumuman::find($id)->where('foto', $id)->first();
         $kategori = DB::table('priority')->get();
         $inkubator = DB::table('inkubator')->get();
-        $file = $pengumuman->foto;
         DB::table('pengumuman')->where('id', $request->id)->update([
             'title' => $request->title,
             'slug' => Str::slug($request->get('title')),
             'priority_id' => $request->kategori,
             'inkubator_id' => $request->inkubator,
             'pengumuman' => $request->pengumuman,
-            'foto'       => $request->foto,
+            'foto'       => $request->file->getClientOriginalName(),
             'author_id' => Auth::user()->id,
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
