@@ -36,10 +36,9 @@
                         @endif
                     </div>
                     <div class="form-group">
-                        @foreach ($inkubator as $i)
-                        <select class="form-control @error('inkubator') is-invalid @enderror" name=" inkubator" value="{{ old('$p->inkubator_id') == $i->id ? 'selected' : null }}">
+                        <select class="form-control @error('inkubator') is-invalid @enderror" name=" inkubator">
                             <option selected="" disabled="">Pilih Inkubator</option>
-                            <option value="0">Kategori Umum</option>
+                            @foreach ($inkubator as $i)
                             <option value="{{ $i->id }}" {{ old('inkubator') == $i->id ? 'selected':''}}>{{ $i->nama }}</option>
                             @endforeach
                         </select>
