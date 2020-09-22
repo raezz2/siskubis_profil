@@ -49,12 +49,13 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 	Route::get('/event/calendar', 'Event\EventController@calendar')->name('inkubator.event-calendar');
 	Route::get('/pengumuman', 'Pengumuman\PengumumanController@index')->name('inkubator.pengumuman');
 	Route::get('/pengumuman/search', 'Pengumuman\PengumumanController@search');
-	Route::get('/pengumuman/tambah', 'Pengumuman\PengumumanController@tambah');
+	Route::get('/pengumuman/tambah', 'Pengumuman\PengumumanController@tambah')->name('inkubator.tambah');
 	Route::post('/pengumuman/store', 'Pengumuman\PengumumanController@store');
 	Route::get('/pengumuman/{slug}', 'Pengumuman\PengumumanController@show');
 	Route::get('/pengumuman/edit/{id}', 'Pengumuman\PengumumanController@edit');
 	Route::put('/pengumuman/update/{id}', 'Pengumuman\PengumumanController@update');
 	Route::get('/pengumuman/hapus/{id}', 'Pengumuman\PengumumanController@hapus');
+	Route::get('/kategori', 'Pengumuman\KategoriController@index')->name('inkubator.kategori');
 	Route::get('/kategori/{id}', 'Pengumuman\KategoriController@kategori');
 	Route::get('/kategori/search', 'Pengumuman\KategoriController@search');
 	Route::get('/pengumuman/status/{id}', 'Pengumuman\PengumumanController@status');

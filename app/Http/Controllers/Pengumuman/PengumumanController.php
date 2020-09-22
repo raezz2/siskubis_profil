@@ -51,7 +51,8 @@ class PengumumanController extends Controller
             'pengumuman' => 'required',
             'file' => 'required|file|mimes:png,jpeg,jpg,pdf',
         ]);
-
+        $file = $request->file;
+        $filename = time() . Str::slug($request->get('title')) . '.' . $file->getClientOriginalExtension();
         DB::table('pengumuman')->insert([
             'title' => $request->title,
             'slug' => Str::slug($request->get('title')),
@@ -59,14 +60,14 @@ class PengumumanController extends Controller
             'inkubator_id' => $request->inkubator,
             'pengumuman' => $request->pengumuman,
             'author_id' => \Auth::user()->id,
-            'foto' => $request->file->getClientOriginalName(),
+            'foto' => $filename,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
 
-        $file = $request->file;
+
         $tujuan_upload = 'img/pengumuman';
-        $file->move($tujuan_upload, $file->getClientOriginalName());
+        $file->move($tujuan_upload, $filename);
 
         // \Session::flash('sukses', 'Berhasil Menambahkan Data Pengumuman');
         return redirect('/inkubator/pengumuman')->with('success', 'Menambahkan Data Pengumuman');

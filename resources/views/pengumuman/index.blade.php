@@ -23,20 +23,20 @@
 				<div class="ul-contact-list">
 					<div class="contact-close-mobile-icon float-right mb-2"><i class="i-Close-Window text-15 font-weight-600"></i></div>
 					<!-- modal-->
-					<a href="/inkubator/pengumuman/tambah"><button class="btn btn-outline-secondary btn-block mb-4" type="button" data-toggle="modal">Tambah Pengumuman</button></a>
+					<a href="{{route('inkubator.tambah')}}"><button class="btn btn-outline-secondary btn-block mb-4" type="button" data-toggle="modal">Tambah Pengumuman</button></a>
 					<!-- end:modal-->
 					<form action="/inkubator/pengumuman/search" method="GET">
 						<input value="{{ Request::get('keyword') }}" name="keyword" class="form-control form-control-rounded col-md-12" id="exampleFormControlInput1" type="text" placeholder="Search Tenant..." />
 					</form>
 					<br>
-					<div class="list-group" id="list-tab" role="tablist"><a class="list-group-item list-group-item-action border-0 active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home"><i class="nav-icon i-Business-Mens"></i> Semua Pengumuman</a>
+					<div class="list-group" id="list-tab" role="tablist"><a class="list-group-item list-group-item-action border-0" id="list-home-list" href="/inkubator/pengumuman" role="tab" aria-controls="home"><i class="nav-icon i-Business-Mens"></i> Semua Pengumuman</a>
 						<a class="list-group-item list-group-item-action border-0" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile"><i class="nav-icon i-Conference"></i> Non Tenan</a>
 						<label class="text-muted font-weight-600 py-8" for="">MEMBERS INKUBATOR</label>
 						<select class="form-control form-control-rounded">
 							<option>All Inkubator</option>
 						</select>
 						</br>
-						<a class="list-group-item list-group-item-action border-0" id="list-home-list" href="/inkubator/pengumuman" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>All Kategori</a>
+						<a class="list-group-item list-group-item-action border-0" id="list-home-list" href="{{route('inkubator.kategori')}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>All Kategori</a>
 						@foreach($kategori as $y)
 						<a class="list-group-item list-group-item-action border-0" id="list-home-list" href="/inkubator/kategori/{{ $y->id }}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
 						@endforeach
