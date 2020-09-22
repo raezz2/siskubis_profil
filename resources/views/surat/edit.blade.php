@@ -76,7 +76,7 @@
                         <div class="form-group">
                           <label for="file">File</label>
                           <div class="custom-file">
-                            <input type="file" class="custom-file-input form-control" id="exampleInputFile" name="file" required="required">
+                            <input type="file" class="custom-file-input form-control" id="exampleInputFile" name="file">
                             <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                           </div>
                         </div>

@@ -11,6 +11,7 @@ use App\Surat;
 use Session;
 use App\Disposisi;
 use App\Priority;
+use File;
 
 class PersuratanController extends Controller
 {
@@ -164,25 +165,37 @@ class PersuratanController extends Controller
         return view('surat.edit', $this->data);
     }
 
-    public function update(Request $request, Surat $surat)
+    public function update(Request $request, $id)
     {
+
+        $surat = Surat::find($id);
+        $filename = $surat->dokumen;
+    
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filename = Auth::user()->name.'_' .time() . '.' . $file->getClientOriginalName();
+            $file->move('file/dokumen', $filename);
+            File::delete('file/dokumen' . $surat->dokumen);
+        }
+
         Surat::where('id', $surat->id)
         ->update ([
             'title' => $request->judul,
             'dari' => Auth::user()->email,
             'kepada' => $request->kepada,
             'perihal' => $request->perihal,
-            'dokumen' => $request->file->getClientOriginalName(),
+            'dokumen' => $filename,
             'author_id' => Auth::user()->id,
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s'),
         ]);
 
-        $file = $request->file;
-    	$tujuan_upload = 'file/dokumen';
-        $file->move($tujuan_upload,$file->getClientOriginalName());
+
+        // $file = $request->file;
+    	// $tujuan_upload = 'file/dokumen';
+        // $file->move($tujuan_upload,$file->getClientOriginalName());
         
-        if ($file) {
+        if ($filename) {
             Session::flash('success', 'Surat Berhasil Dirubah');
         } else {
             Session::flash('error', 'Surat Gagal Dirubah');
