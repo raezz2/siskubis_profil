@@ -175,8 +175,8 @@ class PengumumanController extends Controller
 
         if ($keyword) {
             $pengumuman = pengumuman::where([['title', 'like', '%' . $keyword . '%'], ['author_id', \Auth::user()->id]])->get();
-        } else{
-            return redirect('inkubator/pengumuman');    
+        } else {
+            return redirect('inkubator/pengumuman');
         }
 
         $kategori = DB::table('priority')->get();

@@ -56,6 +56,7 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 	Route::put('/pengumuman/update/{id}', 'Pengumuman\PengumumanController@update');
 	Route::get('/pengumuman/hapus/{id}', 'Pengumuman\PengumumanController@hapus');
 	Route::get('/kategori/{id}', 'Pengumuman\KategoriController@kategori');
+	Route::get('/kategori/search', 'Pengumuman\KategoriController@search');
 	Route::get('/pengumuman/status/{id}', 'Pengumuman\PengumumanController@status');
 	Route::get('/berita', 'Berita\BeritaController@index')->name('inkubator.berita');
 	Route::get('/chat', 'Chat\ChatController@index')->name('inkubator.chat');
