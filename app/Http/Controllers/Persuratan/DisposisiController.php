@@ -116,7 +116,7 @@ class DisposisiController extends Controller
             Session::flash('success', 'Surat berhasil dihapus');
         }
 
-        return redirect('/mentor/suratmasuk');
+        return back();
     
     }
 }

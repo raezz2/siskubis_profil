@@ -54,7 +54,7 @@
                     
                       <div class="col-12">
                           <h4>Perihal</h4>
-                              <p>{{ $surat->perihal }}</p>
+                              <p>{!! $surat->perihal !!}</p>
                       </div>
                       </div>
                         </div>

@@ -57,6 +57,7 @@ class PersuratanController extends Controller
     {
         $request->validate([
             'file' => 'mimes:pdf,jpg,png,jpeg',
+            'judul' => 'required',
         ]);
 
         
@@ -248,7 +249,7 @@ class PersuratanController extends Controller
             'updated_at'=>date('Y-m-d H:i:s'),
         ]);
 
-        Session::flash('success', 'Surat berhasil disposisi');
+        Session::flash('disposisi', 'Surat berhasil disposisi');
 
         return redirect('inkubator/surat');
 

@@ -168,8 +168,20 @@
 				title: 'OK',
 				message: '{{ session('success') }}',
 				position: 'topRight',
+				transitionIn: 'fadeInUp',
 			});
+		@endif	
+	</script>
 
+	<script>
+		@if(Session::has('disposisi'))
+
+			iziToast.info({
+				title: 'OK',
+				message: '{{ session('disposisi') }}',
+				position: 'topRight',
+				transitionIn: 'fadeInUp',
+			});
 		@endif	
 	</script>
 @endsection
