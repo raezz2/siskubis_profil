@@ -1,5 +1,18 @@
 @extends('layouts.app')
 @section('content')
+@if(session('success'))
+<div class="alert alert-success" role="alert">
+	<strong>Berhasil!</strong> {{session('success')}}
+</div>
+@elseif(session('update'))
+<div class="alert alert-warning" role="alert">
+	<strong>Berhasil!</strong> {{session('update')}}
+</div>
+@elseif(session('delete'))
+<div class="alert alert-danger" role="alert">
+	<strong>Berhasil!</strong> {{session('delete')}}
+</div>
+@endif
 <div class="row">
 	<div class="col-md-3">
 		<div class="card">
@@ -148,30 +161,12 @@
 <script src="{{asset('theme/js/scripts/tooltip.script.min.js')}}"></script>
 <script src="{{asset('theme/js/extention/choices.js')}}"></script>
 <script>
-	$(document).ready(function() {
-		var flash = "{{ Session::get('sukses')}}";
-		if (flash) {
-			var pesan = "{{ Session::get('sukses')}}"
-			alert(pesan);
-		}
+	window.setTimeout(function() {
+		$(".alert").fadeTo(500, 0).slideUp(500, function() {
+			$(this).remove();
+		});
+	}, 1500);
 
-		$('.btn-refresh').click(function(e) {
-			e.preventDefault();
-			location.reload();
-		})
-	});
-	$(document).ready(function() {
-		var flash = "{{ Session::get('hapus')}}";
-		if (flash) {
-			var pesan = "{{ Session::get('hapus')}}"
-			alert(pesan);
-		}
-
-		$('.btn-refresh').click(function(e) {
-			e.preventDefault();
-			location.reload();
-		})
-	});
 	$('#ul-contact-list').DataTable({
 		responsive: true,
 		order: [
