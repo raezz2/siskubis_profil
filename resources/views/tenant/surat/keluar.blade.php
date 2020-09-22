@@ -29,10 +29,20 @@
 								<td>
 								<a href="/tenant/suratmasuk/{{ $s->id }}">
 										<strong>{{ $s->title }}</strong>
-										<p>{{ str_limit($s->perihal, $limit = 80, $end = '') }}</p>
+										<p>{!! str_limit($s->perihal, $limit = 80, $end = '') !!}</p>
 								</a>
 								</td>
-								<td><a class="badge badge-primary m-2 p-2" href="#">{{ $s->jenis_surat }}</a></td>
+								<td>
+								@if ($s->priority_id == 1)
+								<a class="badge badge-primary m-2 p-2" href="/inkubator/disposisi/{{ $s->id }}">{{ $s->priority->name }}</a></td>
+
+								@elseif ($s->priority_id == 2)
+								<a class="badge badge-warning m-2 p-2" href="/inkubator/disposisi/{{ $s->id }}">{{ $s->priority->name }}</a></td>
+								@elseif ($s->priority_id == 3)
+								<a class="badge badge-danger m-2 p-2" href="/inkubator/disposisi/{{ $s->id }}">{{ $s->priority->name }}</a></td>
+								@else 
+								<a class="badge badge-success m-2 p-2" href="/inkubator/disposisi/{{ $s->id }}">{{ $s->priority->name }}</a></td>
+								@endif
 								<td>{{ $s->created_at }}</td>
 								<td><a class="ul-link-action text-success" href="/tenant/surat/edit/{{ $s->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="/tenant/surat/hapus/{{ $s->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
 							</tr>

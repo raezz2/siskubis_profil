@@ -48,8 +48,8 @@
             </div>
             
             <div class="col-12">
-                <h4>Perihal</h4>
-                <textarea class="form-control" rows="3" style="height: 200px;">{{ $p->perihal }}</textarea>
+              <h4>Perihal</h4>
+                <p>{!! $p->perihal !!}</p>
             </div>
 
             <div class="col-12">

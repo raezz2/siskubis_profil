@@ -255,6 +255,7 @@ class PersuratanController extends Controller
             'dokumen' => $request->file->getClientOriginalName(),
             'jenis_surat' => 1,
             'author_id' => Auth::user()->id,
+            'priority_id' => $request->priority,
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s'),
         ]);
@@ -285,6 +286,7 @@ class PersuratanController extends Controller
             'dokumen' => $request->file->getClientOriginalName(),
             'jenis_surat' => 1,
             'author_id' => Auth::user()->id,
+            'priority_id' => $request->priority,
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s'),
         ]);
