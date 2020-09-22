@@ -68,8 +68,8 @@ class PengumumanController extends Controller
         $tujuan_upload = 'img/pengumuman';
         $file->move($tujuan_upload, $file->getClientOriginalName());
 
-        \Session::flash('sukses', 'Berhasil Menambahkan Data Pengumuman');
-        return redirect('/inkubator/pengumuman');
+        // \Session::flash('sukses', 'Berhasil Menambahkan Data Pengumuman');
+        return redirect('/inkubator/pengumuman')->with('success', 'Menambahkan Data Pengumuman');
     }
 
     public function show($slug)
@@ -135,8 +135,9 @@ class PengumumanController extends Controller
         // $file = $request->file;
         // $tujuan_upload = 'img/pengumuman';
         // $file->move($tujuan_upload, $file->getClientOriginalName());
-        return redirect('inkubator/pengumuman');
+        return redirect('inkubator/pengumuman')->with('update', 'Edit Data Pengumuman');
     }
+
     public function hapus($id)
     {
 
@@ -144,8 +145,7 @@ class PengumumanController extends Controller
         File::delete('img/pengumuman/' . $file->foto);
         DB::table('pengumuman')->where('id', $id)->delete();
 
-        \Session::flash('hapus', 'Berhasil Menghapus Data Pengumuman');
-        return redirect('inkubator/pengumuman');
+        return redirect('inkubator/pengumuman')->with('delete', 'Menghapus Data Pengumuman');
     }
 
     public function status($id)

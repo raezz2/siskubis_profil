@@ -7,11 +7,6 @@
                 <h4>{{$title}}</h4>
             </div>
             <div class="modal-body">
-                @if(session('pesan'))
-                <div class="alert alert-success alert-block">
-                    <b>Berhasil</b> : {{session('pesan')}}
-                </div>
-                @endif
                 <form action="/inkubator/pengumuman/store" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
@@ -84,6 +79,6 @@
             </div>
             <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
             <script>
-                        CKEDITOR.replace( 'pengumuman' );
-                </script>
+                CKEDITOR.replace('pengumuman');
+            </script>
             @endsection
