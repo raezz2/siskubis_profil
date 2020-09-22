@@ -106,8 +106,13 @@ class EventController extends Controller
 
         $attr['foto'] = $fotoUrl;
 
+        // session()->flash('success', 'Event Baru Telah Ditambah');
+        $notification = array(
+            'message' => 'Event Baru Berhasil Ditambah',
+            'alert-type' => 'success'
+        );
         Event::create($attr);
-        return redirect()->to('/inkubator/event');
+        return redirect()->to('/inkubator/event')->with($notification);
     }
 
     public function edit(Event $event)
@@ -141,15 +146,24 @@ class EventController extends Controller
         }
 
         $event->update($attr);
-
-        return redirect()->to('/inkubator/event');
+        // session()->flash('success', 'Event Baru Berhasil Diedit');
+        $notification = array(
+            'message' => 'Event Berhasil Diperbarui',
+            'alert-type' => 'success'
+        );
+        return redirect()->to('/inkubator/event')->with($notification);
     }
 
     public function destroy(Event $event)
     {
         \Storage::delete($event->foto);
         $event->delete();
-        return redirect()->to('/inkubator/event');
+        // session()->flash('error', 'Event Berhasil Dihapus');
+        $notification = array(
+            'message' => 'Event telah Dihapus',
+            'alert-type' => 'error'
+        );
+        return redirect()->to('/inkubator/event')->with($notification);
     }
 
     public function search(Request $request)

@@ -79,7 +79,7 @@
 {{-- <script src="{{ asset('theme/js/scripts/calendar.script.min.js')}}"></script> --}}
 
 <script>
-	$(document).ready(function () {
+$(document).ready(function () {
 
 /* initialize the external events
 		-----------------------------------------------------------------*/
@@ -91,7 +91,7 @@ function initEvent() {
 	  // use the element's text as the event title
 	  color: $(this).css('background-color'),
 	  stick: true, // maintain when user navigates (see docs on the renderEvent method)
-	  @role('inkubator'),
+	  @role('inkubator')
 	  url: "{{ route('inkubator.event.create') }}",
 	  @endrole  
 	}); // make the event draggable using jQuery UI
@@ -126,6 +126,8 @@ $('#calendar').fullCalendar({
   eventLimit: true,
   // allow "more" link when too many events
   drop: function drop() {
+	  let cek = $(this).data();
+	  console.log(cek);
 	// // is the "remove after drop" checkbox checked?
 	// if ($('#drop-remove').is(':checked')) {
 	//   // if so, remove the element from the "Draggable Events" list
@@ -134,6 +136,7 @@ $('#calendar').fullCalendar({
   },
   events: [
 	  @foreach($event as $e){
+		id: "{{ $e->id }}",
 		title: "{{ $e->title }}",
 		start: "{{ $e->tgl_mulai }}",
 		end: "{{ $e->tgl_selesai }}",
