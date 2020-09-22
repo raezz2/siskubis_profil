@@ -88,7 +88,7 @@ class PersuratanController extends Controller
 
         
             if ($filePath) {
-                Session::flash('success', 'Surat Terkirim');
+                Session::flash('success', 'Surat berhasil disimpan');
             } else {
                 Session::flash('error', 'Surat Gagal Terkirim');
             }
@@ -313,7 +313,6 @@ class PersuratanController extends Controller
         $user = User::where('email', $id )->get();
 
         //dd($surat, $user);
-        // return response()->json($surat);
         return view ('inbox.detail', compact('surat', 'user'));
 
     }

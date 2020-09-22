@@ -10,7 +10,6 @@
 				<li class="nav-item"><a class="nav-link active" id="home-icon-tab" data-toggle="tab" href="#homeIcon" role="tab" aria-controls="homeIcon" aria-selected="true"><i class="nav-icon i-Home1 mr-1"></i> Surat Masuk</a></li>
 				<li class="nav-item"><a class="nav-link" id="profile-icon-tab" data-toggle="tab" href="#profileIcon" role="tab" aria-controls="profileIcon" aria-selected="false"><i class="nav-icon i-Home1 mr-1"></i> Surat Keluar</a></li>
 			</ul>
-			@include('layouts.alert', ['$errors' => $errors])
 			<div class="row justify-content-end mt-2"  >
 				<div class="mr-2">
 					<a href="/inkubator/buatsurat"><li  class="btn btn-success btn-sm " width="10%" >Buat Surat</li></a>
@@ -54,7 +53,7 @@
 								<a class="badge badge-success m-2 p-2" href="/inkubator/disposisi/{{ $p->id }}">{{ $p->priority->name }}</a></td>
 								@endif
 								<td>{{ $p->created_at }}</td>
-								<td><a class="ul-link-action text-success" href="/inkubator/surat/edit/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="#" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2 delete"></i></a><a class="ul-link-action text-primary mr-1" href="/inkubator/disposisi/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Diposisikan !!!"><i class="text-20 i-Right"></i></a></td>
+								<td><a class="ul-link-action text-success" href="/inkubator/surat/edit/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="#" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2 delete" surat-id="{{ $p->id }}"></i></a><a class="ul-link-action text-primary mr-1" href="/inkubator/disposisi/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Diposisikan !!!"><i class="text-20 i-Right"></i></a></td>
 							</tr>
 							@endif
 						@endforeach
@@ -93,7 +92,7 @@
 								<a class="badge badge-success m-2 p-2" href="/inkubator/disposisi/{{ $p->id }}">{{ $p->priority->name }}</a></td>
 								@endif
 							<td>{{ $p->created_at }}</td>
-							<td><a class="ul-link-action text-success" href="/inkubator/surat/edit/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="#" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2 delete"></i></a><a class="ul-link-action text-primary mr-1" href="/inkubator/disposisi/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Diposisikan !!!"><i class="text-20 i-Right"></i></a></td>
+							<td><a class="ul-link-action text-success" href="/inkubator/surat/edit/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="#"  data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2 delete" surat-id="{{ $p->id }}"></i></a><a class="ul-link-action text-primary mr-1" href="/inkubator/disposisi/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Diposisikan !!!"><i class="text-20 i-Right"></i></a></td>
 						</tr>
 						@endif
 					@endforeach
@@ -132,6 +131,9 @@
     </script>
 	<script type="text/javascript">
 		$('.delete').click(function(){
+
+			var surat_id = $(this).attr('surat-id');
+
 			iziToast.question({
 			timeout: 20000,
 			close: false,
@@ -146,7 +148,7 @@
 			buttons: [
 				['<button><b>YES</b></button>', function (instance, toast) {
 		
-					instance.hide({ transitionOut: 'fadeOut' }, toast, 'button', window.location = '/inkubator/surat/delete/{{ $p->id }}');
+					instance.hide({ transitionOut: 'fadeOut' }, toast, 'button', window.location = "/inkubator/surat/"+ surat_id +"/delete ");
 		
 				}, true],
 				['<button>NO</button>', function (instance, toast) {
@@ -154,15 +156,21 @@
 					instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
 		
 				}],
-			],
-			onClosing: function(instance, toast, closedBy){
-				console.info('Closing | closedBy: ' + closedBy);
-			},
-			onClosed: function(instance, toast, closedBy){
-				console.info('Closed | closedBy: ' + closedBy);
-			}
+			]
 			});
 		});
+		
     </script>
+	<script>
+		@if(Session::has('success'))
+
+			iziToast.success({
+				title: 'OK',
+				message: '{{ session('success') }}',
+				position: 'topRight',
+			});
+
+		@endif	
+	</script>
 @endsection
 
