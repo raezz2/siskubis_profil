@@ -91,9 +91,13 @@
         @endrole
 	</div>
 	<div class="col-md-9">
+        <div class="form-row">
+    <div class="col-12">
+      @include('event.alert')
+    </div>
         <div id="task-manager-list">
             <!--  content area -->
-            <div class="content">
+            <div class="content"> 
                 <!--  task manager table -->
                 <div class="card" id="card">
 
@@ -101,8 +105,7 @@
                         <div class="search ul-task-manager__search-inline">
                             <nav class="navbar">
                                 <form class="form-inline">
-                                    <label class="col-sm-2 col-form-label mr-2" for="inputEmail3">Filter:</label>
-                                    <input class="form-control mr-sm-2" id="filterInput" type="search" placeholder="type to filter" aria-label="Search" />
+                                        
                                 </form>
                             </nav>
                             <label><span>Show:</span>
@@ -287,5 +290,36 @@
     }
 
     document.getElementById("filter").addEventListener("click", filterResults);
+
+    toastr.options = {
+  "debug": false,
+//   "positionClass": "toast-bottom-full-width",
+  "onclick": null,
+  "showMethod": "slideDown",
+  "hideMethod": "slideUp",
+  "timeOut": 5000,
+  "extendedTimeOut": 1000
+}
+
+    @if(Session::has('message'))
+    var type = "{{ Session::get('alert-type', 'info') }}";
+    switch(type){
+        case 'info':
+            toastr.info("{{ Session::get('message') }}");
+            break;
+        
+        case 'warning':
+            toastr.warning("{{ Session::get('message') }}");
+            break;
+
+        case 'success':
+            toastr.success("{{ Session::get('message') }}");
+            break;
+
+        case 'error':
+            toastr.error("{{ Session::get('message') }}");
+            break;
+    }
+  @endif
 </script>
 @endsection
