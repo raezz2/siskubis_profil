@@ -91,19 +91,33 @@ class PengumumanController extends Controller
 
     public function update($id, Request $request)
     {
+        $request->validate([
+            'title' => 'required',
+            'kategori' => 'required',
+            'inkubator' => 'required',
+            'pengumuman' => 'required',
+            'foto' => 'nullable|file|mimes:png,jpeg,jpg,pdf',
+        ]);
 
         $pengumuman = Pengumuman::find($id);
-        $pengumuman = Pengumuman::all();
-        $foto = Pengumuman::find($id)->where('foto', $id)->first();
         $kategori = DB::table('priority')->get();
         $inkubator = DB::table('inkubator')->get();
-        DB::table('pengumuman')->where('id', $request->id)->update([
+        $filename = $pengumuman->foto;
+
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $filename = time() . Str::slug($request->get('title')) . '.' . $file->getClientOriginalExtension();
+            $tujuan_upload = 'img/pengumuman';
+            $file->move($tujuan_upload, $filename);
+            File::delete('img/pengumuman/' . $pengumuman->foto);
+        }
+        $pengumuman->update([
             'title' => $request->title,
             'slug' => Str::slug($request->get('title')),
             'priority_id' => $request->kategori,
             'inkubator_id' => $request->inkubator,
             'pengumuman' => $request->pengumuman,
-            'foto'       => $request->file->getClientOriginalName(),
+            'foto'       => $filename,
             'author_id' => Auth::user()->id,
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
@@ -118,16 +132,16 @@ class PengumumanController extends Controller
 
         // $pengumuman->update($file);
         // $foto->save();
-        $file = $request->file;
-        $tujuan_upload = 'img/pengumuman';
-        $file->move($tujuan_upload, $file->getClientOriginalName());
+        // $file = $request->file;
+        // $tujuan_upload = 'img/pengumuman';
+        // $file->move($tujuan_upload, $file->getClientOriginalName());
         return redirect('inkubator/pengumuman');
     }
     public function hapus($id)
     {
 
         $file = DB::table('pengumuman')->where('id', $id)->first();
-        File::delete('img/film/' . $file->foto);
+        File::delete('img/pengumuman/' . $file->foto);
         DB::table('pengumuman')->where('id', $id)->delete();
 
         \Session::flash('hapus', 'Berhasil Menghapus Data Pengumuman');

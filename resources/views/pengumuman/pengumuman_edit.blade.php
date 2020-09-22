@@ -12,6 +12,7 @@
                     {{ method_field('PUT') }}
                     <div class="form-group">
                         <input class="form-control" type="text" value="{{ $p->title }}" placeholder="Title...." name="title">
+                        {{ $errors->first('title')}}
                     </div>
                     <div class="form-group">
                         <select class="form-control" name="kategori">
@@ -20,6 +21,7 @@
                             <option value="{{ $k->id }}" {{($p->priority_id == $k->id) ? 'selected' : ''}}>{{ $k->name }}</option>
                             @endforeach
                         </select>
+                        {{ $errors->first('kategori')}}
                     </div>
                     <div class="form-group">
                         <select class="form-control" name="inkubator">
@@ -28,13 +30,18 @@
                             <option value="{{ $i->id }}" {{($p->inkubator_id == $i->id) ? 'selected' : ''}}>{{ $i->nama }}</option>
                             @endforeach
                         </select>
+                        {{ $errors->first('inkubator')}}
                     </div>
                     <div class="form-group">
                         <textarea class="form-control" rows="3" placeholder="Pengumuman ...." name="pengumuman" id="pengumuman">{{ $p->pengumuman }}</textarea>
+                        {{ $errors->first('pengumuman')}}
                     </div>
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile" name="file">
-                        <label class="custom-file-label" for="exampleInputFile">{{ $p->foto }}</label>
+                        <label class="custom-file-label" for="exampleInputFile">Choose File</label>
+                        <input type="file" class="custom-file-input" id="exampleInputFile" name="foto">
+                        <object data="/img/pengumuman/{{ $p->foto }}" width="400px"></object>
+                        <input type="hidden" class="custom-file-input" id="hidden_image" name="hidden_image" value="{{ $p->foto }}">
+                        {{ $errors->first('foto')}}
                     </div>
                     <div class="modal-footer">
                         <a href="/inkubator/pengumuman/"><button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button></a>

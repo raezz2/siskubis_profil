@@ -62,7 +62,7 @@
                     <div class="custom-file">
 
                         <input type="file" class="custom-file-input @error('file') is-invalid @enderror" id=" exampleInputFile" name="file" value="{{ old('foto') }}">
-                        <label class="custom-file-label" for="exampleInputFile"></a>
+                        <label class="custom-file-label" for="exampleInputFile">Choose File</a>
 
                         </label>
 
