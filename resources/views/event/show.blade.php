@@ -30,11 +30,16 @@
                     <i class="i-Geo21 mr-2"></i> Ds. sanggrahan, Ngemplak, kab. Sleman, DI. Yogyakarta
                 </div>
                 <div class="mb-4">
-                    <i class="i-Calendar-4 mr-2"></i> 
+                    <i class="i-Calendar-4 mr-2"></i> {{ $event->tgl_mulai->format("d F Y") }} - {{ $event->tgl_selesai->format("d F Y") }} 
                 </div>
                 <div class="mb-4">
-                    <i class="i-Clock mr-2"></i>{{ $event->waktu_mulai }} - {{ $event->waktu_selesai }}
+                    <i class="i-Clock mr-2"></i> {{ $event->waktu_mulai->format("H:i") }} - {{ $event->waktu_selesai->format("H:i") }} WIB
                 </div>
+                @role('inkubator')
+                <div class="mb-4">
+                    <a href="/inkubator/event/{{ $event->slug }}/edit" class="btn btn-warning text-white">Edit This Event</a>
+                </div>
+                @endrole
             </div>
         </div>
     </div>
