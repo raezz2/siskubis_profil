@@ -93,7 +93,7 @@
 	<div class="col-md-9">
         <div class="form-row">
     <div class="col-12">
-      @include('event.alert')
+      {{-- @include('event.alert') --}}
     </div>
         <div id="task-manager-list">
             <!--  content area -->
@@ -142,11 +142,11 @@
                                 </thead>
                                 <tbody id="names">
                                     <!-- --------------------------- tr1 -------------------------------------------->
-                                    @foreach ($event as $item)
+                                    @foreach ($event as $key => $item)
                                         
                                     
                                     <tr id="names">
-                                        <th class="head-width" scope="row">{{ $item->id }}</th>
+                                        <th class="head-width" scope="row">{{ $event->firstItem() + $key }}</th>
                                         <td class="collection-item">
                                             @role('inkubator')
                                             <div class="font-weight-bold"><a href="/inkubator/event/{{ $item->slug }}">{{ $item->title }}</a></div>
@@ -196,7 +196,8 @@
                                         </td>
                                         
                                         @role('inkubator')
-                                        <td><a class="ul-link-action text-success" href="/inkubator/event/{{ $item->slug }}/edit" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="/inkubator/event/{{ $item->slug }}/delete" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
+                                        <td><a class="ul-link-action text-success" href="/inkubator/event/{{ $item->slug }}/edit" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1 hapus"  href="/inkubator/event/{{ $item->slug }}/delete" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a>
+                                        </td>
                                         @endrole
                                     </tr>
                                     @endforeach
@@ -297,7 +298,7 @@
   "onclick": null,
   "showMethod": "slideDown",
   "hideMethod": "slideUp",
-  "timeOut": 5000,
+  "timeOut": 2000,
   "extendedTimeOut": 1000
 }
 
@@ -321,5 +322,28 @@
             break;
     }
   @endif
+
+  $('.hapus').on('click', function (event) {
+    event.preventDefault();
+    const url = $(this).attr('href');
+    swal({
+    title: 'Apa Anda Yakin Menghapus ?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#0CC27E',
+      cancelButtonColor: '#FF586B',
+      confirmButtonText: 'Ya',
+      cancelButtonText: 'Batal',
+      confirmButtonClass: 'btn btn-success mr-5',
+      cancelButtonClass: 'btn btn-danger',
+      buttonsStyling: false
+    }).then(function(value) {
+        if (value) {
+            window.location.href = url;
+        }
+    });
+});
+
 </script>
 @endsection

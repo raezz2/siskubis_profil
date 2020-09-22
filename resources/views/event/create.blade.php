@@ -31,7 +31,7 @@
                 </div>
             @enderror
           </div>
-          <div class="form-group">
+          {{-- <div class="form-group">
            <label for="foto">Foto</label>
                     <div class="input-group mb-3">
             <div class="custom-file">
@@ -39,7 +39,7 @@
                 <input class="custom-file-input" id="foto" type="file"  name="foto"/>
             </div>
           </div>
-        {{-- </div>
+         </div> --}}
           <div class="row mb-4">
             <div class="col-md-6 mb-4">
           <div class="dropzone dropzone-previews" id="my-awesome-dropzone"></div>
@@ -49,7 +49,7 @@
             </div>
             @enderror
             </div>
-          </div> --}} 
+          </div>
           <div class="form-group">
             <label for="event">Event</label>
             <textarea name="event" id="event" class="form-control"></textarea>
@@ -116,26 +116,20 @@
   <script>
       CKEDITOR.replace('event');
 
-  // Dropzone.autoDiscover = false;
-	// jQuery(document).ready(function() {
+  Dropzone.autoDiscover = false;
+	jQuery(document).ready(function() {
 
-	//   $("div#my-awesome-dropzone").dropzone({
-  //     maxFilesize: 3,  // 3 mb
-  //     acceptedFiles: ".jpeg,.jpg,.png",
-  //     url: "/inkubator/event/store"
+	  $("div#my-awesome-dropzone").dropzone({
+      maxFilesize: 2,
+      maxFiles: 1,  // 3 mb
+      acceptedFiles: ".jpeg,.jpg,.png",
+      addRemoveLinks: true,
+      url: "/inkubator/event/store",
       
       
-	//   });
+	  });
 
-  // });
+  });
   
-
-  // $(document).on('click', '.remove_image', function(){
-  //   var name = $(this).attr('id');
-  //   $.ajax({
-  //     url:"/inkubator/event/{event:slug}/delete",
-  //     data:{name : name},
-  //   })
-  // });
   </script>
 @endsection
