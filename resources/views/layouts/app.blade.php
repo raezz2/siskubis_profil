@@ -11,6 +11,7 @@
 <link href="{{ asset('theme/css/plugins/perfect-scrollbar.css')}}" rel="stylesheet" />
 <link rel="stylesheet" href="{{ asset('theme/css/plugins/fontawesome-5.css')}}" />
 <link href="{{ asset('theme/css/plugins/metisMenu.min.css')}}" rel="stylesheet" />
+
 @yield('css')
 </head>
 <body class="text-left">
@@ -73,6 +74,7 @@
 <script src="{{ asset('theme/js/plugins/feather.min.js')}}"></script>
 <script src="{{ asset('theme/js/plugins/metisMenu.min.js')}}"></script>
 <script src="{{ asset('theme/js/scripts/layout-sidebar-vertical.min.js')}}"></script>
+
 @yield('js')
 
 <script>

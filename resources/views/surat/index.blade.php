@@ -54,7 +54,7 @@
 								<a class="badge badge-success m-2 p-2" href="/inkubator/disposisi/{{ $p->id }}">{{ $p->priority->name }}</a></td>
 								@endif
 								<td>{{ $p->created_at }}</td>
-								<td><a class="ul-link-action text-success" href="/inkubator/surat/edit/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="/inkubator/surat/delete/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a><a class="ul-link-action text-primary mr-1" href="/inkubator/disposisi/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Diposisikan !!!"><i class="text-20 i-Right"></i></a></td>
+								<td><a class="ul-link-action text-success" href="/inkubator/surat/edit/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="#" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2 delete"></i></a><a class="ul-link-action text-primary mr-1" href="/inkubator/disposisi/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Diposisikan !!!"><i class="text-20 i-Right"></i></a></td>
 							</tr>
 							@endif
 						@endforeach
@@ -93,7 +93,7 @@
 								<a class="badge badge-success m-2 p-2" href="/inkubator/disposisi/{{ $p->id }}">{{ $p->priority->name }}</a></td>
 								@endif
 							<td>{{ $p->created_at }}</td>
-							<td><a class="ul-link-action text-success" href="/inkubator/surat/edit/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="/inkubator/surat/delete/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a><a class="ul-link-action text-primary mr-1" href="/inkubator/disposisi/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Diposisikan !!!"><i class="text-20 i-Right"></i></a></td>
+							<td><a class="ul-link-action text-success" href="/inkubator/surat/edit/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="#" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2 delete"></i></a><a class="ul-link-action text-primary mr-1" href="/inkubator/disposisi/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Diposisikan !!!"><i class="text-20 i-Right"></i></a></td>
 						</tr>
 						@endif
 					@endforeach
@@ -110,6 +110,8 @@
 
 @section('css')
     <link rel="stylesheet" href="{{asset('theme/css/plugins/datatables.min.css')}}" />
+	<!-- Asset Alert iziToast -->
+	<link rel="stylesheet" href="{{asset('izitoast/dist/css/iziToast.min.css')}}">
 @endsection
 @section('js')
 	<script src="{{asset('theme/js/plugins/datatables.min.js')}}"></script>
@@ -117,6 +119,8 @@
     <script src="{{asset('theme/js/scripts/datatables.script.min.js')}}"></script>
 	<script src="{{asset('theme/js/plugins/datatables.min.js')}}"></script>
     <script src="{{asset('theme/js/scripts/tooltip.script.min.js')}}"></script>
+	<!-- Asset Alert iziToast -->
+	<script src="{{asset('izitoast/dist/js/iziToast.min.js')}}" type="text/javascript"></script>
     <script>
         $('#masuk').DataTable({
 			responsive:true,
@@ -126,4 +130,39 @@
 			responsive:true,
 		});
     </script>
+	<script type="text/javascript">
+		$('.delete').click(function(){
+			iziToast.question({
+			timeout: 20000,
+			close: false,
+			overlay: true,
+			displayMode: 'once',
+			id: 'question',
+			zindex: 999,
+			title: 'Hey',
+			message: 'Anda yakin ingin hapus surat ini?',
+			// position: 'bottomRight',bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
+			position: 'topCenter',
+			buttons: [
+				['<button><b>YES</b></button>', function (instance, toast) {
+		
+					instance.hide({ transitionOut: 'fadeOut' }, toast, 'button', window.location = '/inkubator/surat/delete/{{ $p->id }}');
+		
+				}, true],
+				['<button>NO</button>', function (instance, toast) {
+		
+					instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+		
+				}],
+			],
+			onClosing: function(instance, toast, closedBy){
+				console.info('Closing | closedBy: ' + closedBy);
+			},
+			onClosed: function(instance, toast, closedBy){
+				console.info('Closed | closedBy: ' + closedBy);
+			}
+			});
+		});
+    </script>
 @endsection
+
