@@ -10,6 +10,7 @@ use Session;
 use DB;
 use Auth;
 use App\Surat;
+use App\TenantUser;
 
 class DisposisiController extends Controller
 {
@@ -45,6 +46,20 @@ class DisposisiController extends Controller
         $surat = Surat::get();
 
         return view('Tenant.surat.keluar', compact('surat'));
+    }
+    public function usersuratmasuk()
+    {
+        $disposisi = Disposisi::get();
+        $tenant = TenantUser::get();
+
+        return view('user.surat.index', compact('disposisi','tenant'));
+    }
+
+    public function usersuratkeluar()
+    {
+        $surat = Surat::get();
+
+        return view('user.surat.keluar', compact('surat'));
     }
 
     /**

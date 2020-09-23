@@ -92,4 +92,7 @@ Route::group(['prefix'=>'tenant','middleware' => ['role:tenant']], function () {
 Route::group(['prefix'=>'user','middleware' => ['role:user']], function () {
     Route::get('/', 'User\HomeController@index')->name('user.home');
     Route::get('/chat', 'Chat\ChatController@index')->name('user.chat');
+	Route::get('/suratmasuk', 'Persuratan\DisposisiController@usersuratmasuk');
+	Route::get('/suratkeluar', 'Persuratan\DisposisiController@usersuratkeluar');
+	Route::get('/surat/{disposisi}/hapus', 'Persuratan\DisposisiController@destroy');
 });
