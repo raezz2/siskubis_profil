@@ -82,12 +82,6 @@ class PersuratanController extends Controller
                 'created_at'=>date('Y-m-d H:i:s'),
                 'updated_at'=>date('Y-m-d H:i:s'),
             ]);
-    
-
-        // $file = $request->file;
-    	// $tujuan_upload = 'file/dokumen';
-        // $file->move($tujuan_upload,$file->getClientOriginalName());
-
         
             if ($filePath) {
                 Session::flash('success', 'Surat berhasil disimpan');
@@ -103,38 +97,40 @@ class PersuratanController extends Controller
     {
         $request->validate([
             'file' => 'mimes:pdf,jpg,png,jpeg',
-        ]);
-
-        DB::table('surat')->insert([
-            'title' => $request->judul,
-            'dari' => Auth::user()->email,
-            'kepada' => $request->kepada,
-            'perihal' => $request->perihal,
-            'dokumen' => $request->file->getClientOriginalName(),
-            'jenis_surat' => 2,
-            'author_id' => Auth::user()->id,
-            'priority_id' => $request->priority,
-            'created_at'=>date('Y-m-d H:i:s'),
-            'updated_at'=>date('Y-m-d H:i:s'),
+            'judul' => 'required',
         ]);
 
         
-        $file = $request->file('dokumen');
-        $name = time();
-        $fileName = $name . '.' . $file->getClientOriginalName();
+        if ($request->has('file')) {
+            $dokumen = $request->file('file');
+            $name = Auth::user()->name . '_' .time();
+            $fileName = $name . '.' . $dokumen->getClientOriginalName();
 
-        $tujuan_upload = 'file/dokumen';
-        $filestore = $file->move($tujuan_upload, $fileName, 'public');
+            $folder = 'file/dokumen';
+            // $filePath = $dokumen->storeAs( $fileName, 'public');
+            $filePath = $dokumen->move($folder, $fileName, 'public');
+
+            DB::table('surat')->insert([
+                'title' => $request->judul,
+                'dari' => Auth::user()->email,
+                'kepada' => $request->kepada,
+                'perihal' => $request->perihal,
+                'jenis_surat' => 2,
+                'dokumen' => $fileName,
+                'author_id' => Auth::user()->id,
+                'priority_id' => $request->priority,
+                'created_at'=>date('Y-m-d H:i:s'),
+                'updated_at'=>date('Y-m-d H:i:s'),
+            ]);
         
-    
-        if ($filestore) {
-            Session::flash('success', 'Surat Terkirim');
-        } else {
-            Session::flash('error', 'Surat Gagal Terkirim');
-        }
-        
+            if ($filePath) {
+                Session::flash('success', 'Surat berhasil disimpan');
+            } else {
+                Session::flash('error', 'Surat Gagal Terkirim');
+            }
 
         return redirect ('inkubator/surat');
+        }
     }
 
     public function show ($id)
@@ -208,7 +204,8 @@ class PersuratanController extends Controller
             Session::flash('success', 'Surat berhasil dihapus');
         }
 
-        return redirect('/inkubator/surat');
+        // return redirect('/inkubator/surat');
+        return back();
     }
 
     public function disposisi($id)
@@ -216,7 +213,6 @@ class PersuratanController extends Controller
         $surat = Surat::findOrFail($id);
         
         $user = DB::table('users')->get();
-        // $surat = Surat::where('id', '!=', $id)->orderBy('name', 'asc')->get();
 
         $this->data['surat'] = $surat;
         $this->data['user'] = $user;
@@ -254,63 +250,79 @@ class PersuratanController extends Controller
     {
         $request->validate([
             'file' => 'mimes:pdf,jpg,png,jpeg',
+            'judul' => 'required',
         ]);
 
-        DB::table('surat')->insert([
-            'title' => $request->judul,
-            'dari' => Auth::user()->email,
-            'kepada' => $request->kepada,
-            'perihal' => $request->perihal,
-            'dokumen' => $request->file->getClientOriginalName(),
-            'jenis_surat' => 1,
-            'author_id' => Auth::user()->id,
-            'priority_id' => $request->priority,
-            'created_at'=>date('Y-m-d H:i:s'),
-            'updated_at'=>date('Y-m-d H:i:s'),
-        ]);
-
-        $file = $request->file;
-    	$tujuan_upload = 'file/dokumen';
-        $file->move($tujuan_upload,$file->getClientOriginalName());
         
-        if ($file) {
-            Session::flash('success', 'Surat Terkirim');
-        } else {
-            Session::flash('error', 'Surat Gagal Terkirim');
-        }
+        if ($request->has('file')) {
+            $dokumen = $request->file('file');
+            $name = Auth::user()->name . '_' .time();
+            $fileName = $name . '.' . $dokumen->getClientOriginalName();
+
+            $folder = 'file/dokumen';
+            // $filePath = $dokumen->storeAs( $fileName, 'public');
+            $filePath = $dokumen->move($folder, $fileName, 'public');
+
+            DB::table('surat')->insert([
+                'title' => $request->judul,
+                'dari' => Auth::user()->email,
+                'kepada' => $request->kepada,
+                'perihal' => $request->perihal,
+                'jenis_surat' => 1,
+                'dokumen' => $fileName,
+                'author_id' => Auth::user()->id,
+                'priority_id' => $request->priority,
+                'created_at'=>date('Y-m-d H:i:s'),
+                'updated_at'=>date('Y-m-d H:i:s'),
+            ]);
+        
+            if ($filePath) {
+                Session::flash('success', 'Surat berhasil disimpan');
+            } else {
+                Session::flash('error', 'Surat Gagal Terkirim');
+            }
 
         return redirect ('/mentor/suratkeluar');
+        }
     }
     public function tenantstore (Request $request)
     {
         $request->validate([
             'file' => 'mimes:pdf,jpg,png,jpeg',
+            'judul' => 'required',
         ]);
 
-        DB::table('surat')->insert([
-            'title' => $request->judul,
-            'dari' => Auth::user()->email,
-            'kepada' => $request->kepada,
-            'perihal' => $request->perihal,
-            'dokumen' => $request->file->getClientOriginalName(),
-            'jenis_surat' => 1,
-            'author_id' => Auth::user()->id,
-            'priority_id' => $request->priority,
-            'created_at'=>date('Y-m-d H:i:s'),
-            'updated_at'=>date('Y-m-d H:i:s'),
-        ]);
-
-        $file = $request->file;
-    	$tujuan_upload = 'file/dokumen';
-        $file->move($tujuan_upload,$file->getClientOriginalName());
         
-        if ($file) {
-            Session::flash('success', 'Surat Terkirim');
-        } else {
-            Session::flash('error', 'Surat Gagal Terkirim');
-        }
+        if ($request->has('file')) {
+            $dokumen = $request->file('file');
+            $name = Auth::user()->name . '_' .time();
+            $fileName = $name . '.' . $dokumen->getClientOriginalName();
 
-        return redirect ('/tenant/suratkeluar');
+            $folder = 'file/dokumen';
+            // $filePath = $dokumen->storeAs( $fileName, 'public');
+            $filePath = $dokumen->move($folder, $fileName, 'public');
+
+            DB::table('surat')->insert([
+                'title' => $request->judul,
+                'dari' => Auth::user()->email,
+                'kepada' => $request->kepada,
+                'perihal' => $request->perihal,
+                'jenis_surat' => 1,
+                'dokumen' => $fileName,
+                'author_id' => Auth::user()->id,
+                'priority_id' => $request->priority,
+                'created_at'=>date('Y-m-d H:i:s'),
+                'updated_at'=>date('Y-m-d H:i:s'),
+            ]);
+        
+            if ($filePath) {
+                Session::flash('success', 'Surat berhasil disimpan');
+            } else {
+                Session::flash('error', 'Surat Gagal Terkirim');
+            }
+
+        return redirect ('tenant/suratkeluar');
+        }
     }
     public function detail ($id)
     {

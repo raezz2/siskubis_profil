@@ -8,7 +8,6 @@
 			<ul class="nav nav-tabs" id="myIconTab" role="tablist">
 			<h3 class="" style="margin: 0 20px 0px 0px;padding: 5px;">Surat Keluar</h3>
 			</ul>
-			@include('layouts.alert', ['$errors' => $errors])
 				<a href="/tenant/buatsurat"><li  class="btn btn-danger btn-sm mt-2" width="10%" >Buat Surat</li></a>
 			<div class="tab-content" id="myIconTabContent" style="padding: 1rem 0 !important; ">
 				<div class="tab-pane fade show active" id="homeIcon" role="tabpanel" aria-labelledby="home-icon-tab">
@@ -34,17 +33,17 @@
 								</td>
 								<td>
 								@if ($s->priority_id == 1)
-								<a class="badge badge-primary m-2 p-2" href="/inkubator/disposisi/{{ $s->id }}">{{ $s->priority->name }}</a></td>
+								<a class="badge badge-primary m-2 p-2" href="">{{ $s->priority->name }}</a></td>
 
 								@elseif ($s->priority_id == 2)
-								<a class="badge badge-warning m-2 p-2" href="/inkubator/disposisi/{{ $s->id }}">{{ $s->priority->name }}</a></td>
+								<a class="badge badge-warning m-2 p-2" href="">{{ $s->priority->name }}</a></td>
 								@elseif ($s->priority_id == 3)
-								<a class="badge badge-danger m-2 p-2" href="/inkubator/disposisi/{{ $s->id }}">{{ $s->priority->name }}</a></td>
+								<a class="badge badge-danger m-2 p-2" href="">{{ $s->priority->name }}</a></td>
 								@else 
-								<a class="badge badge-success m-2 p-2" href="/inkubator/disposisi/{{ $s->id }}">{{ $s->priority->name }}</a></td>
+								<a class="badge badge-success m-2 p-2" href="">{{ $s->priority->name }}</a></td>
 								@endif
 								<td>{{ $s->created_at }}</td>
-								<td><a class="ul-link-action text-success" href="/tenant/surat/edit/{{ $s->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="/tenant/surat/hapus/{{ $s->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
+								<td><a class="ul-link-action text-success" href="/tenant/surat/edit/{{ $s->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1 delete"  data-toggle="tooltip" data-placement="top" surat-id="{{ $s->id }}" title="Want To Delete !!!"><i class="i-Eraser-2" ></i></a></td>
 							</tr>
 							
 							@endif
@@ -63,6 +62,8 @@
 
 @section('css')
     <link rel="stylesheet" href="{{asset('theme/css/plugins/datatables.min.css')}}" />
+	<!-- Asset Alert iziToast -->
+	<link rel="stylesheet" href="{{asset('izitoast/dist/css/iziToast.min.css')}}">
 @endsection
 @section('js')
 	<script src="{{asset('theme/js/plugins/datatables.min.js')}}"></script>
@@ -70,6 +71,8 @@
     <script src="{{asset('theme/js/scripts/datatables.script.min.js')}}"></script>
 	<script src="{{asset('theme/js/plugins/datatables.min.js')}}"></script>
     <script src="{{asset('theme/js/scripts/tooltip.script.min.js')}}"></script>
+	<!-- Asset Alert iziToast -->
+	<script src="{{asset('izitoast/dist/js/iziToast.min.js')}}" type="text/javascript"></script>
     <script>
         $('#masuk').DataTable({
 			responsive:true,
@@ -79,4 +82,50 @@
 			responsive:true,
 		});
     </script>
+	<!-- Alert iziToast -->
+	<script type="text/javascript">
+		$('.delete').click(function(){
+
+			var surat_id = $(this).attr('surat-id');
+
+			// alert(surat_id);
+
+			iziToast.question({
+			timeout: 20000,
+			close: false,
+			overlay: true,
+			displayMode: 'once',
+			id: 'question',
+			zindex: 999,
+			title: 'Hey',
+			message: 'Anda yakin ingin hapus surat ini?',
+			// position: 'bottomRight',bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
+			position: 'topCenter',
+			buttons: [
+				['<button><b>YES</b></button>', function (instance, toast) {
+		
+					instance.hide({ transitionOut: 'fadeOut' }, toast, 'button', window.location = "/tenant/surat/"+ surat_id +"/delete");
+		
+				}, true],
+				['<button>NO</button>', function (instance, toast) {
+		
+					instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+		
+				}],
+			]
+			});
+		});
+		
+    </script>
+	<script>
+		@if(Session::has('success'))
+
+			iziToast.success({
+				title: 'OK',
+				message: '{{ session('success') }}',
+				position: 'topRight',
+				transitionIn: 'fadeInUp',
+			});
+		@endif	
+	</script>
 @endsection
