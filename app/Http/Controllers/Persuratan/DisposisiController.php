@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 use App\Disposisi;
 use Session;
+use DB;
+use Auth;
 use App\Surat;
 
 class DisposisiController extends Controller
@@ -18,7 +20,7 @@ class DisposisiController extends Controller
      */
     public function mentorsuratmasuk()
     {
-        $disposisi = Disposisi::get();
+        $disposisi = Disposisi::all();
 
         return view('mentor.surat.index', compact('disposisi'));
     }
@@ -87,7 +89,16 @@ class DisposisiController extends Controller
      */
     public function edit($id)
     {
-        //
+        $surat = Surat::findOrFail($id);
+        $priority = DB::table('priority')->get();
+        
+        $user = DB::table('users')->get();
+        // $surat = Surat::where('id', '!=', $id)->orderBy('name', 'asc')->get();
+
+        $this->data['surat'] = $surat;
+        $this->data['user'] = $user;
+        $this->data['priority'] = $priority;
+        return view('mentor.surat.edit', $this->data);
     }
 
     /**
@@ -99,7 +110,34 @@ class DisposisiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $surat = Surat::find($id);
+        $filename = $surat->dokumen;
+    
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filename = Auth::user()->name.'_' .time() . '.' . $file->getClientOriginalName();
+            $file->move('file/dokumen', $filename);
+            File::delete('file/dokumen' . $surat->dokumen);
+        }
+
+        Surat::where('id', $surat->id)
+        ->update ([
+            'title' => $request->judul,
+            'dari' => Auth::user()->email,
+            'kepada' => $request->kepada,
+            'perihal' => $request->perihal,
+            'dokumen' => $filename,
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s'),
+        ]);
+        
+        if ($filename) {
+            Session::flash('success', 'Surat Berhasil Dirubah');
+        } else {
+            Session::flash('error', 'Surat Gagal Dirubah');
+        }
+
+    	return redirect('mentor/suratmasuk');
     }
 
     /**

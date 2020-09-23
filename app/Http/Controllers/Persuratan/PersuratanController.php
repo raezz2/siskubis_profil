@@ -190,11 +190,6 @@ class PersuratanController extends Controller
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s'),
         ]);
-
-
-        // $file = $request->file;
-    	// $tujuan_upload = 'file/dokumen';
-        // $file->move($tujuan_upload,$file->getClientOriginalName());
         
         if ($filename) {
             Session::flash('success', 'Surat Berhasil Dirubah');

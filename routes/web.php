@@ -72,7 +72,9 @@ Route::group(['prefix'=>'mentor','middleware' => ['role:mentor']], function () {
 	Route::get('/buatsurat', 'Persuratan\PersuratanController@create');
 	Route::post('/kirimsurat', 'Persuratan\PersuratanController@mentorstore');
 	Route::get('/suratmasuk/{surat}', 'Persuratan\PersuratanController@detail');
-	Route::get('/surat/hapus/{disposisi}', 'Persuratan\DisposisiController@destroy');
+	Route::get('/surat/{disposisi}/hapus', 'Persuratan\DisposisiController@destroy');
+	Route::get('/surat/edit/{surat}', 'Persuratan\DisposisiController@edit');
+	Route::patch('/surat/{surat}', 'Persuratan\DisposisiController@update');
 
 });
 
