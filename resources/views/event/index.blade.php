@@ -333,7 +333,7 @@
       showCancelButton: true,
       confirmButtonColor: '#0CC27E',
       cancelButtonColor: '#FF586B',
-      confirmButtonText: 'Ya',
+      confirmButtonText: 'Hapus',
       cancelButtonText: 'Batal',
       confirmButtonClass: 'btn btn-success mr-5',
       cancelButtonClass: 'btn btn-danger',
