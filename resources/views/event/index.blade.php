@@ -297,7 +297,7 @@
   "onclick": null,
   "showMethod": "slideDown",
   "hideMethod": "slideUp",
-  "timeOut": 5000,
+  "timeOut": 2000,
   "extendedTimeOut": 1000
 }
 
@@ -342,5 +342,6 @@
             window.location.href = url;
         }
     });
+  });
 </script>
 @endsection
