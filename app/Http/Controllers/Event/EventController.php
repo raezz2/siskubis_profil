@@ -118,7 +118,6 @@ class EventController extends Controller
 
     public function update(Event $event)
     {
-
         $attr = request()->validate([
             'title' => 'required|min:3',
             'foto' => 'image|mimes:jpg,png,jpeg|max:2048',
@@ -141,7 +140,6 @@ class EventController extends Controller
         }
 
         $event->update($attr);
-        // session()->flash('success', 'Event Baru Berhasil Diedit');
         $notification = array(
             'message' => 'Event Berhasil Diperbarui',
             'alert-type' => 'success'
@@ -153,22 +151,11 @@ class EventController extends Controller
     {
         \Storage::delete($event->foto);
         $event->delete();
-        // session()->flash('error', 'Event Berhasil Dihapus');
         $notification = array(
             'message' => 'Event telah Dihapus',
             'alert-type' => 'error'
         );
         return redirect()->to('/inkubator/event')->with($notification);
     }
-
-    public function search(Request $request)
-    {
-        $priority = Priority::get();
-        $title = request('title');
-        $priority_id = request('priority');
-        $publish = request('publish');
-
-        $event = Event::where('title', 'like', "%$title%")->where('priority_id', '=', $priority_id)->where('publish', '=', $publish)->paginate(10);
-        return view('/event/index', compact('event', 'priority'));
-    }
+    
 }
