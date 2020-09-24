@@ -85,6 +85,7 @@ Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function (
 	Route::get('/event/calendar', 'Event\EventController@calendar')->name('tenant.event-calendar');
 	Route::get('/event/{event:slug}', 'Event\EventController@show');
 	Route::get('search', 'Event\EventController@search')->name('search.event');
+	Route::get('/test', 'Event\EventController@test');
 });
 
 Route::group(['prefix' => 'user', 'middleware' => ['role:user']], function () {
