@@ -10,12 +10,15 @@
             <label for="title">Title</label>
             <input type="text" name="title" class="form-control" id="title" placeholder="title" value="{{ old('title') ?? $event->title }}">
           </div>
-          <div class="input-group mb-3">
-            <div class="custom-file">
-              <label class="custom-file-label" for="foto">Choose file</label>
-                <input class="custom-file-input" id="foto" type="file"  name="foto" value="{{ old('foto') ?? $event->foto }}"/>
+          <div class="form-group">
+            <label for="foto">File</label>
+            <div class="input-group mb-3">
+              <div class="custom-file">
+                <label class="custom-file-label" for="foto">Choose file</label>
+                  <input class="custom-file-input" id="foto" type="file"  name="foto" value="{{ old('foto') ?? $event->foto }}"/>
+              </div>
             </div>
-        </div>
+          </div>
           <div class="form-group">
             <label for="event">Event</label>
             <textarea name="event" id="event" class="form-control">{{ old('event') ?? $event->event }}</textarea>
@@ -67,5 +70,13 @@
   <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
   <script>
       CKEDITOR.replace('event');
+  </script>
+  <script>
+    $('#foto').on('change',function(){
+                //get the file name
+                var fileName = $(this).val();
+                //replace the "Choose a file" label
+                $(this).next('.custom-file-label').html(fileName);
+            })
   </script>
 @endsection
