@@ -109,13 +109,16 @@
                                 </form>
                             </nav>
                             <label><span>Show:</span>
-                                <select>
-                                    <option value="15">15</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                    <option value="75">75</option>
-                                    <option value="100">100</option>
+                                <select class="form-control" id="sort" name="sort">
+                                    @foreach($event as $key => $item)
+                                        <option value="{{ $key + 1 }}">
+                                            {{ $key + 1 }}
+                                        </option>
+                                    @endforeach
                                 </select>
+                                {{-- <select>
+                                    <option value="">1</option>
+                                </select>  --}}
                             </label>
                         </div>
                         <div class="table-responsive">
@@ -206,7 +209,8 @@
                     </div>
                     <div class="card-footer text-muted">
                         <div class="row align-items-center">
-                            <div class="col"><span>Showing 1 to 25 of 25 entries</span></div>
+                            <div class="col"><span>Showing {{ $event->firstItem() }} to {{ $event->lastItem() }}
+                                of total {{$event->total()}} entries</span></div>
                             {{-- <div class="d-flex justify-content-end">
                                     
                             </div> --}}
@@ -229,6 +233,12 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 <script>
+
+document.getElementById('sort').onchange = function() { 
+        window.location = "/inkubator/event&items=" + this.value; 
+    }; 
+
+
     $(function() {
         $('input[name="daterange"]').daterangepicker({
         opens: 'right',
@@ -342,6 +352,7 @@
             window.location.href = url;
         }
     });
+
   });
 </script>
 @endsection

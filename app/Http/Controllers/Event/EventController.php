@@ -24,7 +24,8 @@ class EventController extends Controller
      */
     public function index()
     {
-        $priority = Priority::orderBy('name', 'ASC')->get();
+        // $items = $request->items ?? 4;
+        $priority = Priority::orderBy('name', 'ASC', 'sort')->get();
         $event = QueryBuilder::for(Event::class)
             ->allowedFilters([
                 AllowedFilter::partial('title'),
