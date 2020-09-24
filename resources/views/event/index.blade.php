@@ -196,7 +196,7 @@
                                         </td>
                                         
                                         @role('inkubator')
-                                        <td><a class="ul-link-action text-success" href="/inkubator/event/{{ $item->slug }}/edit" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="/inkubator/event/{{ $item->slug }}/delete" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
+                                        <td><a class="ul-link-action text-success" href="/inkubator/event/{{ $item->slug }}/edit" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1 hapus"  href="/inkubator/event/{{ $item->slug }}/delete" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a>
                                         @endrole
                                     </tr>
                                     @endforeach
@@ -321,5 +321,26 @@
             break;
     }
   @endif
+  
+  $('.hapus').on('click', function (event) {
+    event.preventDefault();
+    const url = $(this).attr('href');
+    swal({
+    title: 'Apa Anda Yakin Menghapus ?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#0CC27E',
+      cancelButtonColor: '#FF586B',
+      confirmButtonText: 'Hapus',
+      cancelButtonText: 'Batal',
+      confirmButtonClass: 'btn btn-success mr-5',
+      cancelButtonClass: 'btn btn-danger',
+      buttonsStyling: false
+    }).then(function(value) {
+        if (value) {
+            window.location.href = url;
+        }
+    });
 </script>
 @endsection
