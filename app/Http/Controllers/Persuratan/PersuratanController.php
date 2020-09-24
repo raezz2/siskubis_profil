@@ -236,7 +236,7 @@ class PersuratanController extends Controller
             'user_id' => $request->kepada,
             'surat_id' => $surat->id,
             'author_id' => $surat->author_id,
-            'inkubator_id' => 1,
+            'inkubator_id' => Auth::user()->inkubator_id,
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s'),
         ]);

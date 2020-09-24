@@ -29,7 +29,7 @@
 								<td>
 								<a href="/mentor/suratmasuk/{{ $d->surat->id }}">
 										<strong>{{ $d->surat->title }}</strong>
-										<p>{{ str_limit($d->surat->perihal, $limit = 80, $end = '') }}</p>
+										<p>{!! str_limit($d->surat->perihal, $limit = 80, $end = '') !!}</p>
 								</a>
 								</td>
 								<td>
