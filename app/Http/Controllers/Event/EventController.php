@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Event;
 
 use Auth;
+use App\{Event, Priority};
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\{Event, Priority, Tenant, Inkbator, User};
 use Spatie\QueryBuilder\{QueryBuilder, AllowedFilter};
 
 class EventController extends Controller
@@ -52,28 +51,14 @@ class EventController extends Controller
 
     public function indexTenant()
     {
-        // $user_id = Auth::user()->id;
-        // $tenant_user = DB::table('tenant_user')->where('user_id', '=', $user_id)->first();
-        // $tenant = DB::table('tenant')->where('id', '=', $tenant_user->tenant_id)->first();
-        $tenant = Auth::user()->tenants()->first();
+        $tenant = Auth::user()->tenants()->first()->priority;
         $event = Event::where([
             ['inkubator_id', '=', Auth::user()->inkubator_id],
-            ['priority_id', '=', $tenant->priority],
+            ['priority_id', '=', $tenant],
             ['publish', '=', 1]
         ])->latest()->paginate(10);
 
         return view('/event/index', compact('event'));
-    }
-
-    public function test()
-    {
-        $tenant = Auth::user()->tenants()->first();
-        $event = Event::where([
-            ['inkubator_id', '=', Auth::user()->inkubator_id],
-            ['priority_id', '=', $tenant->priority],
-            ['publish', '=', 1]
-        ])->latest()->paginate(10);
-        dd($event);
     }
 
     public function calendar()
@@ -109,20 +94,19 @@ class EventController extends Controller
 
         $slug = \Str::slug(request('title'));
         $attr['slug'] = $slug;
-        $attr['author_id'] = Auth::user()->id;
         $attr['inkubator_id'] = Auth::user()->inkubator_id;
 
         $foto = request()->file('foto');
         $fotoUrl = $foto->storeAs("/image/event", "{$slug}.{$foto->extension()}");
-
         $attr['foto'] = $fotoUrl;
 
-        // session()->flash('success', 'Event Baru Telah Ditambah');
+        auth()->user()->events()->create($attr);
+
         $notification = array(
             'message' => 'Event Baru Berhasil Ditambah',
             'alert-type' => 'success'
         );
-        Event::create($attr);
+
         return redirect()->to('/inkubator/event')->with($notification);
     }
 
