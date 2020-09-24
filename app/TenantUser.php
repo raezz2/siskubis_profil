@@ -13,7 +13,7 @@ class TenantUser extends Model
         
         return $this->belongsTo('App\User');
     }
-    public function tenant(){
+    public function tenants(){
 
         return $this->belongsTo('App\Tenant');
     }

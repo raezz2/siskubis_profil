@@ -11,6 +11,7 @@ use DB;
 use Auth;
 use App\Surat;
 use App\TenantUser;
+use App\Tenant;
 
 class DisposisiController extends Controller
 {
@@ -37,8 +38,15 @@ class DisposisiController extends Controller
     public function tenantsuratmasuk()
     {
         $disposisi = Disposisi::get();
+        $tenant = Auth::user()->tenants()->first();
 
-        return view('Tenant.surat.index', compact('disposisi'));
+        $disposisi = Disposisi::where([
+            ['inkubator_id', '=', Auth::user()->inkubator_id],
+        ])->latest()->paginate(10);
+
+
+
+        return view('Tenant.surat.index', compact('disposisi','tenant') );
     }
 
     public function tenantsuratkeluar()

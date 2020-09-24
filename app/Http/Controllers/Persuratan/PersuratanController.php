@@ -82,6 +82,7 @@ class PersuratanController extends Controller
                 'created_at'=>date('Y-m-d H:i:s'),
                 'updated_at'=>date('Y-m-d H:i:s'),
             ]);
+            
         
             if ($filePath) {
                 Session::flash('success', 'Surat berhasil disimpan');

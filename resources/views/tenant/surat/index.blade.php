@@ -22,13 +22,12 @@
 						</thead>
 						<tbody>
 						@foreach($disposisi as $d)
-						@if ( $d->inkubator_id == Auth::user()->inkubator_id )
-							@if ( $d->user_id == Auth::user()->id )
+							@if ( $d->surat->priority_id == $tenant->priority )
 							
 							<tr>
 								<td>
 								<a href="/tenant/suratmasuk/{{ $d->surat->id }}">
-										<strong>{{ $d->surat->title }}</strong>
+										<strong>{{ $d->surat->title}}</strong>
 										<p>{!! str_limit($d->surat->perihal, $limit = 80, $end = '') !!}</p>
 								</a>
 								</td>
@@ -48,7 +47,6 @@
 							</tr>
 							
 							@endif
-						@endif
 						@endforeach
 						</tbody>
 					</table>

@@ -42,7 +42,7 @@ class User extends Authenticatable
         // return $this->hasMany('App\Surat');
         return $this->belongsToMany('App\Surat');
     }
-    public function tenant()
+    public function tenants()
     {
         return $this->belongsToMany('App\Tenant');
     }
