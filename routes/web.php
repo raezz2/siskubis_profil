@@ -66,7 +66,7 @@ Route::group(['prefix' => 'mentor', 'middleware' => ['role:mentor']], function (
 
 	// ! route event mentor
 	Route::get('/event', 'Event\EventController@indexMentor')->name('mentor.event-list');
-	Route::get('/event/calendar', 'Event\EventController@calendar')->name('mentor.event-calendar');
+	Route::get('/event/calendar', 'Event\EventController@calendarMentor')->name('mentor.event-calendar');
 	Route::get('/event/{event:slug}', 'Event\EventController@show');
 });
 
@@ -76,7 +76,7 @@ Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function (
 
 	// ! route event tenant
 	Route::get('/event', 'Event\EventController@indexTenant')->name('tenant.event-list');
-	Route::get('/event/calendar', 'Event\EventController@calendar')->name('tenant.event-calendar');
+	Route::get('/event/calendar', 'Event\EventController@calendarTenant')->name('tenant.event-calendar');
 	Route::get('/event/{event:slug}', 'Event\EventController@show');
 });
 

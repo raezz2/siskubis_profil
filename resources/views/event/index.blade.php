@@ -140,11 +140,11 @@
                                 </thead>
                                 <tbody id="names">
                                     <!-- --------------------------- tr1 -------------------------------------------->
-                                    @foreach ($event as $item)
+                                    @foreach ($event as $key => $item)
                                         
                                     
                                     <tr id="names">
-                                        <th class="head-width" scope="row">{{ $item->id }}</th>
+                                        <th class="head-width" scope="row">{{ $event->firstItem() + $key }}</th>
                                         <td class="collection-item">
                                             @role('inkubator')
                                             <div class="font-weight-bold"><a href="/inkubator/event/{{ $item->slug }}">{{ $item->title }}</a></div>
@@ -296,14 +296,14 @@
     document.getElementById("filter").addEventListener("click", filterResults);
 
     toastr.options = {
-  "debug": false,
-//   "positionClass": "toast-bottom-full-width",
-  "onclick": null,
-  "showMethod": "slideDown",
-  "hideMethod": "slideUp",
-  "timeOut": 2000,
-  "extendedTimeOut": 1000
-}
+        "debug": false,
+        //   "positionClass": "toast-bottom-full-width",
+        "onclick": null,
+        "showMethod": "slideDown",
+        "hideMethod": "slideUp",
+        "timeOut": 2000,
+        "extendedTimeOut": 1000
+    }
 
     @if(Session::has('message'))
     var type = "{{ Session::get('alert-type', 'info') }}";
@@ -324,28 +324,28 @@
             toastr.error("{{ Session::get('message') }}");
             break;
     }
-  @endif
+    @endif
   
-  $('.hapus').on('click', function (event) {
-    event.preventDefault();
-    const url = $(this).attr('href');
-    swal({
-    title: 'Apa Anda Yakin Menghapus ?',
-      text: "You won't be able to revert this!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#0CC27E',
-      cancelButtonColor: '#FF586B',
-      confirmButtonText: 'Hapus',
-      cancelButtonText: 'Batal',
-      confirmButtonClass: 'btn btn-success mr-5',
-      cancelButtonClass: 'btn btn-danger',
-      buttonsStyling: false
-    }).then(function(value) {
-        if (value) {
-            window.location.href = url;
-        }
+    $('.hapus').on('click', function (event) {
+        event.preventDefault();
+        const url = $(this).attr('href');
+        swal({
+        title: 'Apa Anda Yakin Menghapus ?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#0CC27E',
+            cancelButtonColor: '#FF586B',
+            confirmButtonText: 'Hapus',
+            cancelButtonText: 'Batal',
+            confirmButtonClass: 'btn btn-success mr-5',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false
+        }).then(function(value) {
+            if (value) {
+                window.location.href = url;
+            }
+        });
     });
-  });
 </script>
 @endsection
