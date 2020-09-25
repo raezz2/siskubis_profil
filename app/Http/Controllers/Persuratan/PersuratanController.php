@@ -183,6 +183,7 @@ class PersuratanController extends Controller
             'title' => $request->judul,
             'dari' => Auth::user()->email,
             'kepada' => $request->kepada,
+            'priority_id' => $request->priority,
             'perihal' => $request->perihal,
             'dokumen' => $filename,
             'author_id' => Auth::user()->id,

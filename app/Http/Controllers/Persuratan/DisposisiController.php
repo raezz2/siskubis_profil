@@ -51,7 +51,7 @@ class DisposisiController extends Controller
         $surat = Surat::get();
 
         $disposisi = Disposisi::where([
-            ['inkubator_id', '=', Auth::user()->inkubator_id],
+            ['inkubator_id', '=', $tenant->inkubator_id],
         ])->latest()->paginate(10);
 
         $surat = Surat::where([
