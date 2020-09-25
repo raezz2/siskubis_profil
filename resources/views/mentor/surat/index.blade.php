@@ -8,7 +8,7 @@
 			<ul class="nav nav-tabs" id="myIconTab" role="tablist">
 			<h3 class="" style="margin: 0 20px 0px 0px;padding: 5px;">Surat Masuk</h3>
 			</ul>
-				<a href="/tenant/buatsurat"><li  class="btn btn-danger btn-sm mt-2" width="10%" >Buat Surat</li></a>
+				<a href="/mentor/buatsurat"><li  class="btn btn-danger btn-sm mt-2" width="10%" >Buat Surat</li></a>
 			<div class="tab-content" id="myIconTabContent" style="padding: 1rem 0 !important; ">
 				<div class="tab-pane fade show active" id="homeIcon" role="tabpanel" aria-labelledby="home-icon-tab">
 					<table class="display table" id="masuk" style="width:100%">
@@ -29,7 +29,7 @@
 								<td>
 								<a href="/mentor/suratmasuk/{{ $d->surat->id }}">
 										<strong>{{ $d->surat->title }}</strong>
-										<p>{{ str_limit($d->surat->perihal, $limit = 80, $end = '') }}</p>
+										<p>{!! str_limit($d->surat->perihal, $limit = 80, $end = '') !!}</p>
 								</a>
 								</td>
 								<td>
@@ -49,6 +49,31 @@
 							
 							@endif
 						@endif
+						@endforeach
+						@foreach($surat as $s)
+							
+							<tr>
+								<td>
+								<a href="/tenant/suratmasuk/{{ $s->id }}">
+										<strong>{{ $s->title}}</strong>
+										<p>{!! str_limit($s->perihal, $limit = 80, $end = '') !!}</p>
+								</a>
+								</td>
+								<td>
+								@if ($s->priority_id == 1)
+								<a class="badge badge-primary m-2 p-2" href="/inkubator/disposisi/{{ $s->id }}">{{ $s->priority->name }}</a></td>
+
+								@elseif ($s->priority_id == 2)
+								<a class="badge badge-warning m-2 p-2" href="/inkubator/disposisi/{{ $s->id }}">{{ $s->priority->name }}</a></td>
+								@elseif ($s->priority_id == 3)
+								<a class="badge badge-danger m-2 p-2" href="/inkubator/disposisi/{{ $s->id }}">{{ $s->priority->name }}</a></td>
+								@else 
+								<a class="badge badge-success m-2 p-2" href="/inkubator/disposisi/{{ $s->id }}">{{ $s->priority->name }}</a></td>
+								@endif
+								<td>{{ $s->created_at }}</td>
+								<td><a class="ul-link-action text-success" href="/tenant/surat/edit/{{ $s->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1 delete"  data-toggle="tooltip" data-placement="top" disposisi-id="{{ $s->id }}" title="Want To Delete !!!"><i class="i-Eraser-2" ></i></a></td>
+							</tr>
+							
 						@endforeach
 						</tbody>
 					</table>

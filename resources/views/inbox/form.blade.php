@@ -34,13 +34,14 @@
                 </div>
                 <div class="row">
                 <div class="col-sm-12">
-                  <form action="kirimsurat" method="post"  enctype="multipart/form-data">
+                  <form action="kirimsuratkeluar" method="post"  enctype="multipart/form-data">
                     {{ csrf_field() }}
+                    @include('layouts.alert', ['$errors' => $errors])
                     <div class="row">
                       <div class="col-sm-6">
                         <div class="form-group">
                           <label for="nama">Judul</label>
-                          <input type="text" name="judul" class="form-control" placeholder="Judul" required="required">
+                          <input type="text" name="judul" class="form-control" placeholder="Judul">
                         </div>
                       </div>
                       <div class="col-sm-6">
@@ -53,18 +54,30 @@
                           </select>
                           </div>
                       </div>
+
+                      <div class="col-sm-6">
+                      <div class="form-group">
+                          <label for="picker1">Kategori</label>
+                          <select class="form-control" name="priority">
+                          @foreach ($priority as $p)
+                              <option value="{{ $p->id }}">{{ $p->name }}</option>
+                          @endforeach
+                          </select>
+                          </div>
+                      </div>
                       <div class="col-sm-12">
                         <label for="alamat">Buat Surat</label>
-                            <div class="input-group">
-                              <div class="input-group-prepend"></div>
-                              <textarea name="perihal" class="form-control" aria-label="With textarea"></textarea>
+                            <div class="input-group" >
+                              <div class="input-group-prepend">
+                              <textarea name="perihal" class="form-control" aria-label="With textarea " id="perihal"></textarea>
+                              </div>
                             </div>
                           </div>
                         <div class="col-sm-3">
                         <div class="form-group">
                           <label for="file">File</label>
                           <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="exampleInputFile" name="file" required="required">
+                            <input type="file" class="custom-file-input" id="exampleInputFile" name="file">
                             <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                           </div>
                         </div>
@@ -97,14 +110,19 @@
 
 
 @section('css')
-    <link rel="stylesheet" href="{{asset('theme/css/plugins/datatables.min.css')}}" />
+  <link rel="stylesheet" href="{{asset('theme/css/plugins/datatables.min.css')}}" />
+  <!-- Asset Alert iziToast -->
+	<link rel="stylesheet" href="{{asset('izitoast/dist/css/iziToast.min.css')}}">
 @endsection
 @section('js')
 	<script src="{{asset('theme/js/plugins/datatables.min.js')}}"></script>
-    <script src="{{asset('theme/js/scripts/contact-list-table.min.js')}}"></script>
-    <script src="{{asset('theme/js/scripts/datatables.script.min.js')}}"></script>
+  <script src="{{asset('theme/js/scripts/contact-list-table.min.js')}}"></script>
+  <script src="{{asset('theme/js/scripts/datatables.script.min.js')}}"></script>
 	<script src="{{asset('theme/js/plugins/datatables.min.js')}}"></script>
-    <script src="{{asset('theme/js/scripts/tooltip.script.min.js')}}"></script>
+  <script src="{{asset('theme/js/scripts/tooltip.script.min.js')}}"></script>
+
+    <!-- Asset Alert iziToast -->
+	<script src="{{asset('izitoast/dist/js/iziToast.min.js')}}" type="text/javascript"></script>
     <script>
         $('#masuk').DataTable({
 			responsive:true,
@@ -113,5 +131,23 @@
 		$('#keluar').DataTable({
 			responsive:true,
 		});
+    </script>
+    <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
+    <script>
+      CKEDITOR.replace( 'perihal' );
+    </script>
+    
+    <script>
+      @if ($errors->any())
+      @foreach ($errors->all() as $error)
+              
+      iziToast.error({
+        title: 'Error',
+        message: '{{ $error }}',
+        position: 'topRight',
+        
+      });
+            @endforeach
+      @endif
     </script>
 @endsection

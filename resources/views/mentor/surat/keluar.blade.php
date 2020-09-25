@@ -8,7 +8,7 @@
 			<ul class="nav nav-tabs" id="myIconTab" role="tablist">
 			<h3 class="" style="margin: 0 20px 0px 0px;padding: 5px;">Surat Keluar</h3>
 			</ul>
-				<a href="/mentor/buatsurat"><li  class="btn btn-danger btn-sm mt-2" width="10%" >Buat Surat</li></a>
+				<a href="/mentor/buatsuratkeluar"><li  class="btn btn-danger btn-sm mt-2" width="10%" >Buat Surat</li></a>
 			<div class="tab-content" id="myIconTabContent" style="padding: 1rem 0 !important; ">
 				<div class="tab-pane fade show active" id="homeIcon" role="tabpanel" aria-labelledby="home-icon-tab">
 					<table class="display table" id="masuk" style="width:100%">
@@ -22,8 +22,6 @@
 						</thead>
 						<tbody>
 						@foreach($surat as $s)
-							@if ( $s->author_id == Auth::user()->id )
-							
 							<tr>
 								<td>
 								<a href="/mentor/suratmasuk/{{ $s->id }}">
@@ -45,8 +43,6 @@
 								<td>{{ $s->created_at }}</td>
 								<td><a class="ul-link-action text-success" href="/mentor/surat/edit/{{ $s->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1 delete"  data-toggle="tooltip" data-placement="top" surat-id="{{ $s->id }}" title="Want To Delete !!!"><i class="i-Eraser-2" ></i></a></td>
 							</tr>
-							
-							@endif
 						@endforeach
 						</tbody>
 					</table>

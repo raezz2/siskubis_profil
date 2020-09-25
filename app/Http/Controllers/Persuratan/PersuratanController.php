@@ -11,7 +11,7 @@ use App\Surat;
 use Session;
 use App\Disposisi;
 use App\Priority;
-use File;
+use Role;
 
 class PersuratanController extends Controller
 {
@@ -58,6 +58,7 @@ class PersuratanController extends Controller
         $request->validate([
             'file' => 'mimes:pdf,jpg,png,jpeg',
             'judul' => 'required',
+            'perihal' => 'required',
         ]);
 
         
@@ -99,6 +100,7 @@ class PersuratanController extends Controller
         $request->validate([
             'file' => 'mimes:pdf,jpg,png,jpeg',
             'judul' => 'required',
+            'perihal' => 'required',
         ]);
 
         
@@ -130,7 +132,7 @@ class PersuratanController extends Controller
                 Session::flash('error', 'Surat Gagal Terkirim');
             }
 
-        return redirect ('inkubator/surat');
+            return redirect ('inkubator/surat');
         }
     }
 
@@ -236,7 +238,7 @@ class PersuratanController extends Controller
             'user_id' => $request->kepada,
             'surat_id' => $surat->id,
             'author_id' => $surat->author_id,
-            'inkubator_id' => 1,
+            'inkubator_id' => Auth::user()->inkubator_id,
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s'),
         ]);
@@ -246,84 +248,6 @@ class PersuratanController extends Controller
         return redirect('inkubator/surat');
 
 
-    }
-    public function mentorstore (Request $request)
-    {
-        $request->validate([
-            'file' => 'mimes:pdf,jpg,png,jpeg',
-            'judul' => 'required',
-        ]);
-
-        
-        if ($request->has('file')) {
-            $dokumen = $request->file('file');
-            $name = Auth::user()->name . '_' .time();
-            $fileName = $name . '.' . $dokumen->getClientOriginalName();
-
-            $folder = 'file/dokumen';
-            // $filePath = $dokumen->storeAs( $fileName, 'public');
-            $filePath = $dokumen->move($folder, $fileName, 'public');
-
-            DB::table('surat')->insert([
-                'title' => $request->judul,
-                'dari' => Auth::user()->email,
-                'kepada' => $request->kepada,
-                'perihal' => $request->perihal,
-                'jenis_surat' => 1,
-                'dokumen' => $fileName,
-                'author_id' => Auth::user()->id,
-                'priority_id' => $request->priority,
-                'created_at'=>date('Y-m-d H:i:s'),
-                'updated_at'=>date('Y-m-d H:i:s'),
-            ]);
-        
-            if ($filePath) {
-                Session::flash('success', 'Surat berhasil disimpan');
-            } else {
-                Session::flash('error', 'Surat Gagal Terkirim');
-            }
-
-        return redirect ('/mentor/suratkeluar');
-        }
-    }
-    public function tenantstore (Request $request)
-    {
-        $request->validate([
-            'file' => 'mimes:pdf,jpg,png,jpeg',
-            'judul' => 'required',
-        ]);
-
-        
-        if ($request->has('file')) {
-            $dokumen = $request->file('file');
-            $name = Auth::user()->name . '_' .time();
-            $fileName = $name . '.' . $dokumen->getClientOriginalName();
-
-            $folder = 'file/dokumen';
-            // $filePath = $dokumen->storeAs( $fileName, 'public');
-            $filePath = $dokumen->move($folder, $fileName, 'public');
-
-            DB::table('surat')->insert([
-                'title' => $request->judul,
-                'dari' => Auth::user()->email,
-                'kepada' => $request->kepada,
-                'perihal' => $request->perihal,
-                'jenis_surat' => 1,
-                'dokumen' => $fileName,
-                'author_id' => Auth::user()->id,
-                'priority_id' => $request->priority,
-                'created_at'=>date('Y-m-d H:i:s'),
-                'updated_at'=>date('Y-m-d H:i:s'),
-            ]);
-        
-            if ($filePath) {
-                Session::flash('success', 'Surat berhasil disimpan');
-            } else {
-                Session::flash('error', 'Surat Gagal Terkirim');
-            }
-
-        return redirect ('tenant/suratkeluar');
-        }
     }
     public function detail ($id)
     {
