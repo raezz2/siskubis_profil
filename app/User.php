@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Event;
 use App\Tenant;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -41,6 +42,11 @@ class User extends Authenticatable
 
     public function tenants()
     {
-        return $this->belongsToMany(Tenant::class, 'tenant_user', 'user_id', 'tenant_id');
+        return $this->belongsToMany(Tenant::class);
+    }
+
+    public function events()
+    {
+        return $this->hasMany(Event::class, 'author_id');
     }
 }

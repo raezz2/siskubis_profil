@@ -22,7 +22,7 @@
                 </div>
                 <div class="d-flex align-items-center border-bottom-dotted-dim pb-3 mb-3"><img  style="border-radius: 50% !important" class="avatar-md rounded mr-3" src="https://dummyimage.com/75x75/cfcfcf/fff" alt="">
                     <div class="flex-grow-1">
-                        <h6 class="m-0">David Hopkins</h6>
+                        <h6 class="m-0">{{ $event->author->name }}</h6>
                         <p class="m-0 text-small text-muted">tukang posting event inkubator.</p>
                     </div>
                 </div>

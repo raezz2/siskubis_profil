@@ -24,7 +24,15 @@ class EventRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|min:3',
+            'foto' => 'image|mimes:jpg,png,jpeg|max:2048',
+            'priority_id' => 'required',
+            'event' => 'required',
+            'publish' => 'required',
+            'tgl_mulai' => 'required',
+            'waktu_mulai' => 'required',
+            'tgl_selesai' => 'required',
+            'waktu_selesai' => 'required',
         ];
     }
 }

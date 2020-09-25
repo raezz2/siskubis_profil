@@ -109,23 +109,11 @@
                                 </form>
                             </nav>
                             <label><span>Show:</span>
-                                {{-- <select class="form-control" id="sort" name="sort">
-                                    @foreach($event as $key => $item)
-                                        <option value="{{ $key + 1 }}">
-                                            {{ $key + 1 }}
-                                        </option>
-                                    @endforeach
-                                </select> --}}
-                                {{-- <select>
-                                    <option value="10">10</option>
-                                    <option value="20">20</option>
-                                    <option value="30">30</option>
-                                </select>  --}}
                                 <select id="pagination">
                                              <option value="5" @if($items == 5) selected @endif >5</option>
                                              <option value="10" @if($items == 10) selected @endif >10</option>
                                              <option value="25" @if($items == 25) selected @endif >25</option>
-                                        </select>
+                                </select>
                             </label>
                         </div>
                         <div class="table-responsive">
@@ -217,7 +205,7 @@
                     <div class="card-footer text-muted">
                         <div class="row align-items-center">
                             <div class="col"><span>Showing {{ $event->firstItem() }} to {{ $event->lastItem() }}
-                                of total {{$event->total()}} entries</span></div>
+                                of total {{$event->total()}} entries</span></div></span></div>
                             {{-- <div class="d-flex justify-content-end">
                                     
                             </div> --}}
@@ -241,11 +229,10 @@
 
 <script>
 
-document.getElementById('pagination').onchange = function() { 
+    document.getElementById('pagination').onchange = function() { 
           window.location = "{!! $event->url(1) !!}&items=" + this.value;  
     }; 
-
-
+    
     $(function() {
         $('input[name="daterange"]').daterangepicker({
         opens: 'right',
@@ -309,14 +296,14 @@ document.getElementById('pagination').onchange = function() {
     document.getElementById("filter").addEventListener("click", filterResults);
 
     toastr.options = {
-  "debug": false,
-//   "positionClass": "toast-bottom-full-width",
-  "onclick": null,
-  "showMethod": "slideDown",
-  "hideMethod": "slideUp",
-  "timeOut": 2000,
-  "extendedTimeOut": 1000
-}
+        "debug": false,
+        //   "positionClass": "toast-bottom-full-width",
+        "onclick": null,
+        "showMethod": "slideDown",
+        "hideMethod": "slideUp",
+        "timeOut": 2000,
+        "extendedTimeOut": 1000
+    }
 
     @if(Session::has('message'))
     var type = "{{ Session::get('alert-type', 'info') }}";
@@ -337,27 +324,28 @@ document.getElementById('pagination').onchange = function() {
             toastr.error("{{ Session::get('message') }}");
             break;
     }
-  @endif
+    @endif
   
-  $('.hapus').on('click', function (event) {
-    event.preventDefault();
-    const url = $(this).attr('href');
-    swal({
-    title: 'Apa Anda Yakin Menghapus ?',
-      text: "You won't be able to revert this!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#0CC27E',
-      cancelButtonColor: '#FF586B',
-      confirmButtonText: 'Hapus',
-      cancelButtonText: 'Batal',
-      confirmButtonClass: 'btn btn-success mr-5',
-      cancelButtonClass: 'btn btn-danger',
-      buttonsStyling: false
-    }).then(function(value) {
-        if (value) {
-            window.location.href = url;
-        }
+    $('.hapus').on('click', function (event) {
+        event.preventDefault();
+        const url = $(this).attr('href');
+        swal({
+        title: 'Apa Anda Yakin Menghapus ?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#0CC27E',
+            cancelButtonColor: '#FF586B',
+            confirmButtonText: 'Hapus',
+            cancelButtonText: 'Batal',
+            confirmButtonClass: 'btn btn-success mr-5',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false
+        }).then(function(value) {
+            if (value) {
+                window.location.href = url;
+            }
+        });
     });
 
   });

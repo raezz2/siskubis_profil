@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Priority;
+use App\Inkubator;
 use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
@@ -19,6 +20,16 @@ class Event extends Model
     public function scopeDateBetween($query, $start, $end)
     {
         return $query->whereBetween('tgl_mulai', [$start, $end]);
+    }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function inkubator()
+    {
+        return $this->belongsTo(Inkubator::class);
     }
 
 }

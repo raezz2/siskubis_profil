@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Event;
 
 use Auth;
+use App\{Event, Priority};
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\{Event, Priority, Tenant, Inkbator, User};
+use App\Http\Requests\EventRequest;
 use Spatie\QueryBuilder\{QueryBuilder, AllowedFilter};
 
 class EventController extends Controller
@@ -37,7 +37,7 @@ class EventController extends Controller
         return view('event.index', compact('event', 'priority', 'items'));
     }
 
-    public function indexMentor()
+    public function indexMentor(Request $request)
     {
         $items = $request->items ?? 10;
         $priority = Priority::orderBy('name', 'ASC')->get();
@@ -52,11 +52,8 @@ class EventController extends Controller
         return view('event.index', compact('event', 'priority', 'items'));
     }
 
-    public function indexTenant()
+    public function indexTenant(Request $request)
     {
-        // $user_id = Auth::user()->id;
-        // $tenant_user = DB::table('tenant_user')->where('user_id', '=', $user_id)->first();
-        // $tenant = DB::table('tenant')->where('id', '=', $tenant_user->tenant_id)->first();
         $items = $request->items ?? 10;
         $tenant = Auth::user()->tenants()->first();
         $event = Event::where([
@@ -68,20 +65,26 @@ class EventController extends Controller
         return view('/event/index', compact('event', 'items'));
     }
 
-    public function test()
+    public function calendar()
+    {
+        $event = Event::all();
+        return view('event.calendar', compact('event'));
+    }
+
+    public function calendarMentor()
+    {
+        $event = Event::where('inkubator_id', '=', Auth::user()->inkubator_id)->get();
+        return view('event.calendar', compact('event'));
+    }
+
+    public function calendarTenant()
     {
         $tenant = Auth::user()->tenants()->first();
         $event = Event::where([
             ['inkubator_id', '=', Auth::user()->inkubator_id],
             ['priority_id', '=', $tenant->priority],
             ['publish', '=', 1]
-        ])->latest()->paginate(10);
-        dd($event);
-    }
-
-    public function calendar()
-    {
-        $event = Event::all();
+        ])->get();
         return view('event.calendar', compact('event'));
     }
 
@@ -96,36 +99,25 @@ class EventController extends Controller
         return view('event.create', compact('priority'));
     }
 
-    public function store()
+    public function store(EventRequest $request)
     {
-        $attr = request()->validate([
-            'title' => 'required|min:3',
-            'foto' => 'image|mimes:jpg,png,jpeg|max:2048',
-            'priority_id' => 'required',
-            'event' => 'required',
-            'publish' => 'required',
-            'tgl_mulai' => 'required',
-            'waktu_mulai' => 'required',
-            'tgl_selesai' => 'required',
-            'waktu_selesai' => 'required',
-        ]);
+        $attr = $request->all();
 
         $slug = \Str::slug(request('title'));
         $attr['slug'] = $slug;
-        $attr['author_id'] = Auth::user()->id;
         $attr['inkubator_id'] = Auth::user()->inkubator_id;
 
         $foto = request()->file('foto');
         $fotoUrl = $foto->storeAs("/image/event", "{$slug}.{$foto->extension()}");
-
         $attr['foto'] = $fotoUrl;
 
-        // session()->flash('success', 'Event Baru Telah Ditambah');
+        auth()->user()->events()->create($attr);
+
         $notification = array(
             'message' => 'Event Baru Berhasil Ditambah',
             'alert-type' => 'success'
         );
-        Event::create($attr);
+
         return redirect()->to('/inkubator/event')->with($notification);
     }
 
@@ -135,22 +127,11 @@ class EventController extends Controller
         return view('event.edit', compact('event', 'priority'));
     }
 
-    public function update(Event $event)
+    public function update(EventRequest $request, Event $event)
     {
+        $attr = $request->all();
 
-        $attr = request()->validate([
-            'title' => 'required|min:3',
-            'foto' => 'image|mimes:jpg,png,jpeg|max:2048',
-            'priority_id' => 'required',
-            'event' => 'required',
-            'publish' => 'required',
-            'tgl_mulai' => 'required',
-            'waktu_mulai' => 'required',
-            'tgl_selesai' => 'required',
-            'waktu_selesai' => 'required',
-        ]);
-
-        if (request()->file('foto')) {
+        if ($request->file('foto')) {
             \Storage::delete($event->foto);
             $foto = request()->file('foto');
             $fotoUrl = $foto->storeAs("image/event", "{$event->slug}.{$foto->extension()}");
@@ -160,7 +141,6 @@ class EventController extends Controller
         }
 
         $event->update($attr);
-        // session()->flash('success', 'Event Baru Berhasil Diedit');
         $notification = array(
             'message' => 'Event Berhasil Diperbarui',
             'alert-type' => 'success'
@@ -172,22 +152,10 @@ class EventController extends Controller
     {
         \Storage::delete($event->foto);
         $event->delete();
-        // session()->flash('error', 'Event Berhasil Dihapus');
         $notification = array(
             'message' => 'Event telah Dihapus',
             'alert-type' => 'error'
         );
         return redirect()->to('/inkubator/event')->with($notification);
-    }
-
-    public function search(Request $request)
-    {
-        $priority = Priority::get();
-        $title = request('title');
-        $priority_id = request('priority');
-        $publish = request('publish');
-
-        $event = Event::where('title', 'like', "%$title%")->where('priority_id', '=', $priority_id)->where('publish', '=', $publish)->paginate(10);
-        return view('/event/index', compact('event', 'priority'));
     }
 }
