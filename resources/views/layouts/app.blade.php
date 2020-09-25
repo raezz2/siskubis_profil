@@ -75,8 +75,6 @@
 <script src="{{ asset('theme/js/plugins/feather.min.js')}}"></script>
 <script src="{{ asset('theme/js/plugins/metisMenu.min.js')}}"></script>
 <script src="{{ asset('theme/js/scripts/layout-sidebar-vertical.min.js')}}"></script>
-<script src="{{ asset('theme/js/plugins/dropzone.min.js')}}"></script>
-<script src="{{ asset('theme/js/scripts/dropzone.script.min.js')}}"></script>
 <script src="{{ asset('theme/js/plugins/toastr.min.js')}}"></script>
 <script src="{{ asset('theme/js/script/toastr.script.min.js')}}"></script>
 <script src="{{ asset('theme/js/plugins/sweetalert2.min.js')}}"></script>

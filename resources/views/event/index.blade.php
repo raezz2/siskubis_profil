@@ -109,16 +109,23 @@
                                 </form>
                             </nav>
                             <label><span>Show:</span>
-                                <select class="form-control" id="sort" name="sort">
+                                {{-- <select class="form-control" id="sort" name="sort">
                                     @foreach($event as $key => $item)
                                         <option value="{{ $key + 1 }}">
                                             {{ $key + 1 }}
                                         </option>
                                     @endforeach
-                                </select>
+                                </select> --}}
                                 {{-- <select>
-                                    <option value="">1</option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
                                 </select>  --}}
+                                <select id="pagination">
+                                             <option value="5" @if($items == 5) selected @endif >5</option>
+                                             <option value="10" @if($items == 10) selected @endif >10</option>
+                                             <option value="25" @if($items == 25) selected @endif >25</option>
+                                        </select>
                             </label>
                         </div>
                         <div class="table-responsive">
@@ -160,7 +167,7 @@
                                             @role('tenant')
                                             <div class="font-weight-bold"><a href="/tenant/event/{{ $item->slug }}">{{ $item->title }}</a></div>
                                             @endrole
-                                            <div class="text-muted">{!! Str::limit($item->event, 100) !!}</div>
+                                            <div class="text-muted">{!! Str::limit($item->event, 50) !!}</div>
                                         </td>
                                         <td class="custom-align">
                                             <div class="btn-group">
@@ -234,8 +241,8 @@
 
 <script>
 
-document.getElementById('sort').onchange = function() { 
-        window.location = "/inkubator/event&items=" + this.value; 
+document.getElementById('pagination').onchange = function() { 
+          window.location = "{!! $event->url(1) !!}&items=" + this.value;  
     }; 
 
 
