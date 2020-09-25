@@ -21,8 +21,9 @@ class EventController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
+        $items = $request->items ?? 10;
         $priority = Priority::orderBy('name', 'ASC')->get();
         $event = QueryBuilder::for(Event::class)
             ->allowedFilters([
@@ -31,8 +32,8 @@ class EventController extends Controller
                 AllowedFilter::exact('publish', 'publish'),
                 AllowedFilter::scope('between', 'dateBetween'),
             ])
-            ->latest()->paginate(10);
-        return view('event.index', compact('event', 'priority'));
+            ->latest()->paginate($items);
+        return view('event.index', compact('event', 'priority', 'items'));
     }
 
     public function indexMentor()
