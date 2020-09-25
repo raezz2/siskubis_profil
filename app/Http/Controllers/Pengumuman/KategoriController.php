@@ -21,13 +21,13 @@ class KategoriController extends Controller
         $pengumuman = Pengumuman::where('author_id', \Auth::user()->id)->get();
         $kategori = DB::table('priority')->get();
         $inkubator = DB::table('inkubator')->get();
-        return view('pengumuman.index', compact('pengumuman', 'kategori', 'inkubator'));
+        return view('pengumuman.kategori', compact('pengumuman', 'kategori', 'inkubator'));
     }
     public function kategori($id)
     {
         $pengumuman = Pengumuman::where([['priority_id', $id], ['author_id', \Auth::user()->id]])->latest()->get();
         $kategori = DB::table('priority')->get();
-        return view('pengumuman.index', compact('pengumuman', 'kategori'));
+        return view('pengumuman.kategori', compact('pengumuman', 'kategori'));
     }
     public function search(Request $request)
     {
@@ -35,7 +35,7 @@ class KategoriController extends Controller
         $keyword = $request->get('keyword');
 
         if ($keyword) {
-            $pengumuman = Pengumuman::where([['title', 'like', '%' . $keyword . '%'], ['priority_id', $id], ['author_id', \Auth::user()->id]])->get();
+            $pengumuman = Pengumuman::where([['title', 'like', '%' . $keyword . '%'],  ['author_id', \Auth::user()->id]])->get();
         } else {
 
             return redirect('inkubator/pengumuman');
@@ -43,6 +43,6 @@ class KategoriController extends Controller
 
         $kategori = DB::table('priority')->get();
         $inkubator = DB::table('inkubator')->get();
-        return view('pengumuman.index', compact('pengumuman', 'kategori', 'inkubator', 'keyword'));
+        return view('pengumuman.kategori', compact('pengumuman', 'kategori', 'inkubator', 'keyword'));
     }
 }

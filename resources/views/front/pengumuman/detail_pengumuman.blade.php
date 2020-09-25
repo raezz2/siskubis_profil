@@ -122,8 +122,8 @@
                     <div class="main">
                         <div class="featured">
                             <figure>
-                            <object data="/img/pengumuman/{{ $p->foto }}" width="700" height="500"></object>
-                            <figcaption>Image by pexels.com</figcaption>
+                                <img class="zoom-dark" src="/img/pengumuman/{{ $p->foto }}" width="700" height="500"></img>
+                                <figcaption>Image by pexels.com</figcaption>
                             </figure>
                         </div>
 

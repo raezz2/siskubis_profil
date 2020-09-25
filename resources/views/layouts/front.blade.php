@@ -626,6 +626,8 @@
 	<!-- JS -->
 	<script src="{{asset('assets/js/jquery.js')}}"></script>
 	<script src="{{asset('assets/js/jquery.migrate.js')}}"></script>
+	<script src="{{asset('assets/js/medium-zoom.min.js')}}"></script>
+	<script src="{{asset('assets/js/main.js')}}"></script>
 	<script src="{{asset('assets/scripts/bootstrap/bootstrap.min.js')}}"></script>
 	<script>
 		var $target_end = $(".best-of-the-week");
