@@ -164,8 +164,8 @@ class PengumumanController extends Controller
                 'publish' => 1
             ]);
         }
-        \Session::flash('sukses', 'Berhasil Merubah Status Pengumuman');
-        return redirect('inkubator/pengumuman');
+        // \Session::flash('sukses', 'Berhasil Merubah Status Pengumuman');
+        return redirect('inkubator/pengumuman')->with('status', 'Berhasil Merubah Status Pengumuman');
     }
 
     public function search(Request $request)

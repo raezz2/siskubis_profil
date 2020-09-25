@@ -7,7 +7,7 @@
                 <h4>{{$title}}</h4>
             </div>
             <div class="modal-body">
-                <form action="/inkubator/pengumuman/store" method="post" enctype="multipart/form-data">
+                <form action="{{route('inkubator.store')}}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <input class="form-control @error('title') is-invalid @enderror" type="text" placeholder="Title...." name="title" value="{{ old('title') }}" />
