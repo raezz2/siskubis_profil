@@ -12,6 +12,10 @@
 <div class="alert alert-danger" role="alert">
 	<strong>Berhasil!</strong> {{session('delete')}}
 </div>
+@elseif(session('status'))
+<div class="alert alert-success" role="alert">
+	<strong>Berhasil!</strong> {{session('status')}}
+</div>
 @endif
 <div class="row">
 	<div class="col-md-3">
@@ -23,7 +27,7 @@
 				<div class="ul-contact-list">
 					<div class="contact-close-mobile-icon float-right mb-2"><i class="i-Close-Window text-15 font-weight-600"></i></div>
 					<!-- modal-->
-					<a href="{{route('inkubator.tambah')}}"><button class="btn btn-outline-secondary btn-block mb-4" type="button" data-toggle="modal">Tambah Pengumuman</button></a>
+					<button class="btn btn-outline-secondary btn-block mb-4" type="button" data-toggle="modal" data-target="#exampleModal" name="create_record" id="create_record">Tambah Pengumuman</button>
 					<!-- end:modal-->
 					<form action="/inkubator/pengumuman/search" method="GET">
 						<input value="{{ Request::get('keyword') }}" name="keyword" class="form-control form-control-rounded col-md-12" id="exampleFormControlInput1" type="text" placeholder="Search Tenant..." />
@@ -117,45 +121,87 @@
 		</div>
 	</div>
 </div><!-- end of main-content -->
-<!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel">New Tenant</h5>
 				<button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<form>
+				<form method="post" id="sample_form" action="{{route('inkubator.store')}}" enctype="multipart/form-data">
+				@csrf
 					<div class="form-group">
-						<input class="form-control" type="text" placeholder="Title...." name="title" />
-					</div>
+					<label class="control-lable">Title</label>
+                        <input class="form-control @error('title') is-invalid @enderror" type="text" placeholder="Title...." name="title" id="title"value="{{ old('title') }}" />
+                        @if($errors->has('title'))
+                        <div class="text-danger">
+                            {{ $errors->first('title')}}
+                        </div>
+                        @endif
+                    </div>
 					<div class="form-group">
-						<select class="form-control">
-							<option value="">Pilih Kategori</option>
-							<option value="1"></option>
-							<option value="2"></option>
-							<option value="3"></option>
-						</select>
-					</div>
+					<label class="control-lable">Kategori</label>
+                        <select class="form-control @error('kategori') is-invalid @enderror" name="kategori" id="kategori">
+                            <option selected="" disabled="">Pilih Kategori</option>
+                            @foreach ($kategori as $k)
+                            <option value="{{ $k->id }}" {{ old('kategori') == $k->id ? 'selected':''}}>{{ $k->name }}</option>
+                            @endforeach
+                        </select>
+                        @if($errors->has('kategori'))
+                        <div class="text-danger">
+                            {{ $errors->first('kategori')}}
+                        </div>
+                        @endif
+                    </div>
 					<div class="form-group">
-						<textarea class="form-control" rows="3" placeholder="Pengumuman ...." name="pengumuman"></textarea>
-					</div>
-					<div class="custom-file">
-						<input type="file" class="custom-file-input" id="exampleInputFile" name="file">
-						<label class="custom-file-label" for="exampleInputFile">Choose file</label>
-					</div>
+					<label class="control-lable">Inkubator</label>
+                        <select class="form-control @error('inkubator') is-invalid @enderror" name=" inkubator" id="inkubator">
+                            <option selected="" disabled="">Pilih Inkubator</option>
+                            @foreach ($inkubator as $i)
+                            <option value="{{ $i->id }}" {{ old('inkubator') == $i->id ? 'selected':''}}>{{ $i->nama }}</option>
+                            @endforeach
+                        </select>
+                        @if($errors->has('inkubator'))
+                        <div class="text-danger">
+                            {{ $errors->first('inkubator')}}
+                        </div>
+                        @endif
+                    </div>
+                    <div class="form-group">
+					<label class="control-lable">Pengumuman</label>
+                        <textarea class="form-control @error('pengumuman') is-invalid @enderror" rows=" 3" placeholder="Pengumuman ...." name="pengumuman" id="pengumuman">{{old('pengumuman')}}</textarea>
+
+                        @if($errors->has('pengumuman'))
+                        <div class="text-danger">
+                            {{ $errors->first('pengumuman')}}
+                        </div>
+                        @endif
+
+                    </div>
+                    <div class="custom-file">
+						<input type="file" class="custom-file-input @error('file') is-invalid @enderror" name="file" id="file" value="{{ old('foto') }}">
+                        <label class="custom-file-label" for="exampleInputFile">Choose File</a>
+
+                        </label>
+
+                        @if($errors->has('file'))
+                        <div class="text-danger">
+                            {{ $errors->first('file')}}
+                        </div>
+                        @endif
+
+                    </div>
+                    <div class="modal-footer">
+						<input type="hidden" name="hidden_id" id="hidden_id" />
+						<input type="submit" value="Simpan" class="btn btn-primary" />
+                        <a href="/inkubator/pengumuman/"><button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button></a>
+                    </div>
 				</form>
-			</div>
-			<div class="modal-footer">
-				<button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
-				<button class="btn btn-primary" type="button">
-					Save
-					changes
-				</button>
 			</div>
 		</div>
 	</div>
-</div> end of form-input -->
+</div>
 @endsection
 @section('css')
 <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
@@ -169,6 +215,10 @@
 <script src="{{asset('theme/js/plugins/datatables.min.js')}}"></script>
 <script src="{{asset('theme/js/scripts/tooltip.script.min.js')}}"></script>
 <script src="{{asset('theme/js/extention/choices.js')}}"></script>
+<script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('pengumuman');
+</script>
 <script>
 	window.setTimeout(function() {
 		$(".alert").fadeTo(500, 0).slideUp(500, function() {
