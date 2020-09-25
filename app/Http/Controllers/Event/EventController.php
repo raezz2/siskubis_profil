@@ -39,6 +39,7 @@ class EventController extends Controller
 
     public function indexMentor()
     {
+        $items = $request->items ?? 10;
         $priority = Priority::orderBy('name', 'ASC')->get();
         $event = QueryBuilder::for(Event::class)
             ->allowedFilters([
@@ -47,8 +48,8 @@ class EventController extends Controller
                 AllowedFilter::exact('publish', 'publish'),
                 AllowedFilter::scope('between', 'dateBetween'),
             ])->where('inkubator_id', '=', Auth::user()->inkubator_id)
-            ->latest()->paginate(10);
-        return view('event.index', compact('event', 'priority'));
+            ->latest()->paginate($items);
+        return view('event.index', compact('event', 'priority', 'items'));
     }
 
     public function indexTenant()
@@ -56,14 +57,15 @@ class EventController extends Controller
         // $user_id = Auth::user()->id;
         // $tenant_user = DB::table('tenant_user')->where('user_id', '=', $user_id)->first();
         // $tenant = DB::table('tenant')->where('id', '=', $tenant_user->tenant_id)->first();
+        $items = $request->items ?? 10;
         $tenant = Auth::user()->tenants()->first();
         $event = Event::where([
             ['inkubator_id', '=', Auth::user()->inkubator_id],
             ['priority_id', '=', $tenant->priority],
             ['publish', '=', 1]
-        ])->latest()->paginate(10);
+        ])->latest()->paginate($items);
 
-        return view('/event/index', compact('event'));
+        return view('/event/index', compact('event', 'items'));
     }
 
     public function test()

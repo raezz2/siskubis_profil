@@ -132,7 +132,7 @@
                             <table class="table table-bordered custom-sm-width" id="names">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
+                                        <th scope="col">No</th>
                                         <th scope="col">Event Description</th>
                                         <th scope="col">Priority</th>
                                         <th scope="col">Tanggal Mulai</th>
