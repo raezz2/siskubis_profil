@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="{{ asset('theme/css/plugins/fontawesome-5.css')}}" />
 <link href="{{ asset('theme/css/plugins/metisMenu.min.css')}}" rel="stylesheet" />
 <link href="{{ asset('theme/css/plugins/toastr.css')}}" rel="stylesheet" />
-<link rel="stylesheet" href="{{ asset('theme/css/plugins/sweetalert2.min.css')}}" />
+<link rel="stylesheet" href="{{ asset('theme/css/plugins/sweetalert2.min.css')}}" />  
 @yield('css')
 </head>
 <body class="text-left">

@@ -108,13 +108,13 @@
                                         
                                 </form>
                             </nav>
-                            <label><span>Show:</span>
+                            {{-- <label><span>Show:</span>
                                 <select id="pagination">
                                              <option value="5" @if($items == 5) selected @endif >5</option>
                                              <option value="10" @if($items == 10) selected @endif >10</option>
                                              <option value="25" @if($items == 25) selected @endif >25</option>
                                 </select>
-                            </label>
+                            </label> --}}
                         </div>
                         <div class="table-responsive">
                             <table class="table table-bordered custom-sm-width" id="names">
@@ -202,15 +202,6 @@
                             </table>
                         </div>
                     </div>
-                    <div class="card-footer text-muted">
-                        <div class="row align-items-center">
-                            <div class="col"><span>Showing {{ $event->firstItem() }} to {{ $event->lastItem() }}
-                                of total {{$event->total()}} entries</span></div></span></div>
-                            {{-- <div class="d-flex justify-content-end">
-                                    
-                            </div> --}}
-                                {{  $event->links()  }}
-                        </div>
                     </div>
                 </div>
                 <!--  end of task manager table -->
@@ -221,17 +212,29 @@
 </div>
 @endsection
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('theme/css/plugins/datatables.min.css')}}" />
+@endsection
+
 @section('js')
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
+<script src="{{ asset('theme/js/plugins/datatables.min.js')}}"></script>
+<script src="{{ asset('theme/js/scripts/datatables.script.min.js')}}"></script>
 <script>
 
-    document.getElementById('pagination').onchange = function() { 
-          window.location = "{!! $event->url(1) !!}&items=" + this.value;  
-    }; 
+$(document).ready( function () {
+    $('#names').DataTable(
+        {
+            "pagingType": "numbers",
+            "searching": false
+        }
+    );
+
+    
+});
     
     $(function() {
         $('input[name="daterange"]').daterangepicker({
@@ -347,7 +350,5 @@
             }
         });
     });
-
-  });
 </script>
 @endsection
