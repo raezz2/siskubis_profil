@@ -31,7 +31,7 @@ class DisposisiController extends Controller
         $this->data['disposisi'] = $disposisi;
         $this->data['surat'] = $surat;
 
-        return view('mentor.surat.index', $this->data);
+        return view('surat.mentor.index', $this->data);
     }
     //Menampilkan view Surat keluar untuk mentor
     public function mentorsuratkeluar()
@@ -41,7 +41,7 @@ class DisposisiController extends Controller
             ['jenis_surat', '=' , 'masuk' ],
         ])->get();
 
-        return view('mentor.surat.keluar', compact('surat'));
+        return view('surat.mentor.keluar', compact('surat'));
     }
     //Menampilkan view Surat masuk untuk Tenant
     public function tenantsuratmasuk()
@@ -64,7 +64,7 @@ class DisposisiController extends Controller
         $this->data['tenant'] = $tenant;
         $this->data['surat'] = $surat;
 
-        return view('Tenant.surat.index', $this->data );
+        return view('surat.tenant.index', $this->data );
     }
     //Menampilkan view Surat keluar untuk Tenant
     public function tenantsuratkeluar()
@@ -74,7 +74,7 @@ class DisposisiController extends Controller
             ['jenis_surat', '=' , 'masuk' ],
         ])->get();
 
-        return view('Tenant.surat.keluar', compact('surat'));
+        return view('surat.tenant.keluar', compact('surat'));
     }
     //Menampilkan view Surat keluar untuk User
     public function usersuratmasuk()
@@ -82,14 +82,14 @@ class DisposisiController extends Controller
         $disposisi = Disposisi::get();
         $tenant = TenantUser::get();
 
-        return view('user.surat.index', compact('disposisi','tenant'));
+        return view('surat.user.index', compact('disposisi','tenant'));
     }
 
     public function usersuratkeluar()
     {
         $surat = Surat::get();
 
-        return view('user.surat.keluar', compact('surat'));
+        return view('surat.user.keluar', compact('surat'));
     }
 
     /**
@@ -208,7 +208,7 @@ class DisposisiController extends Controller
         $priority = DB::table('priority')->get();
         $user = DB::table('users')->get();
 
-        return view ('inbox.form', compact('user','priority'));
+        return view ('surat.inbox.form', compact('user','priority'));
         
     }
     //Untuk membuat Surat pada mentor degan jenis surat masuk

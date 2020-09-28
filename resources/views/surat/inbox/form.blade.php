@@ -48,8 +48,10 @@
                       <div class="form-group">
                           <label for="picker1">Kepada</label>
                           <select class="form-control" name="kepada">
-                          @foreach ($user as $u)
+                          @foreach ($user as $u) 
+                          @if ($u->inkubator_id == Auth::user()->inkubator_id)
                               <option value="{{ $u->id }}">{{ $u->email }}</option>
+                              @endif
                           @endforeach
                           </select>
                           </div>

@@ -260,7 +260,7 @@ class PersuratanController extends Controller
         $user = User::where('email', $id )->get();
 
         //dd($surat, $user);
-        return view ('inbox.detail', compact('surat', 'user'));
+        return view ('surat.inbox.detail', compact('surat', 'user'));
 
     }
 }
