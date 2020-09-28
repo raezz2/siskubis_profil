@@ -69,7 +69,7 @@
                         <label for="alamat">Buat Surat</label>
                             <div class="input-group">
                               <div class="input-group-prepend"></div>
-                              <textarea name="perihal" class="form-control" aria-label="With textarea" value="{{ $surat->perihal }}">{{ $surat->perihal }}</textarea>
+                              <textarea name="perihal" class="form-control" aria-label="With textarea" id="perihal" value="{{ $surat->perihal }}">{{ $surat->perihal }}</textarea>
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -125,6 +125,12 @@
 			responsive:true,
 		});
     </script>
+
+    <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
+    <script>
+      CKEDITOR.replace( 'perihal' );
+    </script>
+
     <script>
         $("#file").change(function(){
         $("#custom-file-label").text(this.files[0].name);

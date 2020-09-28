@@ -86,13 +86,15 @@ Route::group(['prefix'=>'tenant','middleware' => ['role:tenant']], function () {
 	Route::get('/chat', 'Chat\ChatController@index')->name('tenant.chat');
 	Route::get('/suratmasuk', 'Persuratan\DisposisiController@tenantsuratmasuk');
 	Route::get('/suratkeluar', 'Persuratan\DisposisiController@tenantsuratkeluar');
-	Route::get('/buatsurat', 'Persuratan\PersuratanController@create');
+	Route::get('/buatsurat', 'Persuratan\DisposisiController@create');
 	Route::get('/buatsuratkeluar', 'Persuratan\DisposisiController@createkeluar');
 	Route::post('/kirimsurat', 'Persuratan\DisposisiController@tenantstore');
 	Route::post('/kirimsuratkeluar', 'Persuratan\DisposisiController@tenantstorekeluar');
 	Route::get('/suratmasuk/{surat}', 'Persuratan\PersuratanController@detail');
 	Route::get('/surat/{disposisi}/hapus', 'Persuratan\DisposisiController@destroy');
 	Route::get('/surat/{surat}/delete', 'Persuratan\PersuratanController@destroy');
+	Route::get('/surat/edit/{surat}', 'Persuratan\DisposisiController@edit');
+	Route::patch('/surat/{surat}', 'Persuratan\DisposisiController@update');
 });
 
 Route::group(['prefix'=>'user','middleware' => ['role:user']], function () {

@@ -11,7 +11,6 @@ use App\Surat;
 use Session;
 use App\Disposisi;
 use App\Priority;
-use Role;
 
 class PersuratanController extends Controller
 {

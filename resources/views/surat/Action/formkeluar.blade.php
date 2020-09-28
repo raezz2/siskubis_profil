@@ -34,7 +34,7 @@
                 </div>
                 <div class="row">
                 <div class="col-sm-12">
-                  <form action="kirimsurat" method="post"  enctype="multipart/form-data">
+                  <form action="kirimsuratkeluar" method="post"  enctype="multipart/form-data">
                     {{ csrf_field() }}
                     @include('layouts.alert', ['$errors' => $errors])
                     <div class="row">
@@ -48,10 +48,21 @@
                       <div class="form-group">
                           <label for="picker1">Kepada</label>
                           <select class="form-control" name="kepada">
-                          @foreach ($user as $u)
+                          @foreach ($user as $u) 
                           @if ($u->inkubator_id == Auth::user()->inkubator_id)
                               <option value="{{ $u->id }}">{{ $u->email }}</option>
                               @endif
+                          @endforeach
+                          </select>
+                          </div>
+                      </div>
+
+                      <div class="col-sm-6">
+                      <div class="form-group">
+                          <label for="picker1">Kategori</label>
+                          <select class="form-control" name="priority">
+                          @foreach ($priority as $p)
+                              <option value="{{ $p->id }}">{{ $p->name }}</option>
                           @endforeach
                           </select>
                           </div>
@@ -127,8 +138,8 @@
     <script>
       CKEDITOR.replace( 'perihal' );
     </script>
-
-<script>
+    
+    <script>
 		@if(Session::has('success'))
 
 			iziToast.success({
@@ -138,8 +149,8 @@
 				transitionIn: 'fadeInUp',
 			});
 		@endif	
-	</script>
-    
+  	</script>
+
     <script>
       @if ($errors->any())
       @foreach ($errors->all() as $error)

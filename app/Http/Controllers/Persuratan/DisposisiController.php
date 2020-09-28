@@ -12,6 +12,7 @@ use Auth;
 use App\Surat;
 use App\TenantUser;
 use App\Tenant;
+use File;
 
 class DisposisiController extends Controller
 {
@@ -99,8 +100,11 @@ class DisposisiController extends Controller
      */
     public function create()
     {
-        $disposisi = Disposisi::get();
+        $surat = Surat::all();
+        $priority = DB::table('priority')->get();
+        $user = DB::table('users')->get();
 
+        return view ('surat.Action.form', compact('user','priority'));
         
     }
 
@@ -143,7 +147,7 @@ class DisposisiController extends Controller
         $this->data['surat'] = $surat;
         $this->data['user'] = $user;
         $this->data['priority'] = $priority;
-        return view('mentor.surat.edit', $this->data);
+        return view('surat.Action.edit', $this->data);
     }
 
     /**
@@ -172,6 +176,7 @@ class DisposisiController extends Controller
             'kepada' => $request->kepada,
             'perihal' => $request->perihal,
             'dokumen' => $filename,
+            'author_id' => Auth::user()->id,
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s'),
         ]);
@@ -182,7 +187,7 @@ class DisposisiController extends Controller
             Session::flash('error', 'Surat Gagal Dirubah');
         }
 
-    	return redirect('mentor/suratmasuk');
+    	return back();
     }
 
     /**
@@ -208,7 +213,7 @@ class DisposisiController extends Controller
         $priority = DB::table('priority')->get();
         $user = DB::table('users')->get();
 
-        return view ('surat.inbox.form', compact('user','priority'));
+        return view ('surat.Action.formkeluar', compact('user','priority'));
         
     }
     //Untuk membuat Surat pada mentor degan jenis surat masuk
@@ -297,6 +302,8 @@ class DisposisiController extends Controller
     //Untuk membuat Surat pada tenant degan jenis surat masuk
     public function tenantstore (Request $request)
     {
+        $tenant = Auth::user()->tenants()->first();
+
         $request->validate([
             'file' => 'mimes:pdf,jpg,png,jpeg',
             'judul' => 'required',
@@ -321,7 +328,7 @@ class DisposisiController extends Controller
                 'jenis_surat' => 2,
                 'dokumen' => $fileName,
                 'author_id' => Auth::user()->id,
-                'priority_id' => $request->priority,
+                'priority_id' => $tenant->priority,
                 'created_at'=>date('Y-m-d H:i:s'),
                 'updated_at'=>date('Y-m-d H:i:s'),
             ]);
