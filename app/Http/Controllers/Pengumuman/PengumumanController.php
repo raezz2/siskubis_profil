@@ -136,7 +136,7 @@ class PengumumanController extends Controller
         // $file = $request->file;
         // $tujuan_upload = 'img/pengumuman';
         // $file->move($tujuan_upload, $file->getClientOriginalName());
-        return redirect('inkubator/pengumuman')->with('update', 'Edit Data Pengumuman');
+        return redirect('inkubator/pengumuman')->with(['update' => 'Edit Data Pengumuman']);
     }
 
     public function hapus($id)

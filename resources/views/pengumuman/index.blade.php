@@ -35,7 +35,7 @@
 					<br>
 					<div class="list-group" id="list-tab" role="tablist">
 						<a class=" list-group-item list-group-item-action border-0 {{ set_active('inkubator.pengumuman')}}" id="list-home-list" href="{{ route('inkubator.pengumuman')}}" role="tab" aria-controls="home"><i class="nav-icon i-Business-Mens"></i> Semua Pengumuman</a>
-						<a class="list-group-item list-group-item-action border-0" id="list-profile-list" href="#list-profile" role="tab" aria-controls="profile"><i class="nav-icon i-Conference"></i> Non Tenan</a>
+						<a class="list-group-item list-group-item-action border-0 {{ set_active('inkubator.pengumuman')}}" id="list-profile-list" href="{{ route('inkubator.pengumuman')}}" role="tab" aria-controls="profile"><i class="nav-icon i-Conference"></i> Non Tenan</a>
 						<label class="text-muted font-weight-600 py-8" for="">MEMBERS INKUBATOR</label>
 						<select class="form-control form-control-rounded">
 							<option>All Inkubator</option>
@@ -218,7 +218,7 @@
 <script src="{{asset('theme/js/extention/choices.js')}}"></script>
 <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
 <script src="{{asset('theme/js/plugins/sweetalert2.min.js')}}"></script>
-	<script src="{{asset('theme/js/scripts/sweetalert.script.js')}}"></script>
+<script src="{{asset('theme/js/scripts/sweetalert.script.js')}}"></script>
 <script>
     CKEDITOR.replace('pengumuman');
 </script>
@@ -240,7 +240,7 @@
 			const url = $(this).attr('href');
 			swal({
 				title: 'Apa Anda Yakin Menghapus ?',
-				text: "You won't be able to revert this!",
+				text: "Anda tidak akan dapat mengembalikan data ini",
 				type: 'warning',
 				showCancelButton: true,
 				confirmButtonColor: '#0CC27E',
@@ -252,7 +252,7 @@
 				buttonsStyling: false
 			}).then(function(value) {
 				if (value) {
-					window.location.href = url;
+					window.location.href = url;	
 				}
 			});
 		});
