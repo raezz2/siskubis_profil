@@ -34,7 +34,12 @@
                 </div>
                 <div class="row">
                 <div class="col-sm-12">
+                  @role ('tenant')
+                  <form action="/tenant/surat/{{ $surat->id}}" method="post"  enctype="multipart/form-data">
+                  @endrole
+                  @role ('mentor')
                   <form action="/mentor/surat/{{ $surat->id}}" method="post"  enctype="multipart/form-data">
+                  @endrole
                     @method('patch')
                     {{ csrf_field() }}
                     @include('layouts.alert', ['$errors' => $errors])
@@ -55,16 +60,6 @@
                           </select>
                           </div>
                       </div>
-                      <div class="col-sm-6">
-                      <div class="form-group">
-                          <label for="picker1">Kategori</label>
-                          <select class="form-control" name="priority">
-                          @foreach ($priority as $p)
-                              <option value="{{ $p->id }}">{{ $p->name }}</option>
-                          @endforeach
-                          </select>
-                          </div>
-                      </div>
                         <div class="col-sm-12">
                         <label for="alamat">Buat Surat</label>
                             <div class="input-group">
@@ -76,7 +71,7 @@
                         <div class="form-group">
                           <label for="file">File</label>
                           <div class="custom-file">
-                            <input type="file" class="custom-file-input form-control" id="exampleInputFile" name="file">
+                            <input type="file" class="custom-file-input form-control" id="exampleInputFile" name="file" required="required">
                             <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                           </div>
                         </div>
