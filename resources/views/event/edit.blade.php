@@ -70,13 +70,11 @@
   <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
   <script>
       CKEDITOR.replace('event');
-  </script>
-  <script>
-    $('#foto').on('change',function(){
-                //get the file name
-                var fileName = $(this).val();
-                //replace the "Choose a file" label
-                $(this).next('.custom-file-label').html(fileName);
-            })
+
+      $(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+</script>
   </script>
 @endsection
