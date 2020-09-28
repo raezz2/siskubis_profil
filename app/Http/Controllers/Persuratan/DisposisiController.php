@@ -157,7 +157,7 @@ class DisposisiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function tenantupdate(Request $request, $id)
     {
         $surat = Surat::find($id);
         $filename = $surat->dokumen;
@@ -187,7 +187,39 @@ class DisposisiController extends Controller
             Session::flash('error', 'Surat Gagal Dirubah');
         }
 
-    	return back();
+    	return redirect('/tenant/suratmasuk');
+    }
+    public function mentorupdate(Request $request, $id)
+    {
+        $surat = Surat::find($id);
+        $filename = $surat->dokumen;
+    
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filename = Auth::user()->name.'_' .time() . '.' . $file->getClientOriginalName();
+            $file->move('file/dokumen', $filename);
+            File::delete('file/dokumen' . $surat->dokumen);
+        }
+
+        Surat::where('id', $surat->id)
+        ->update ([
+            'title' => $request->judul,
+            'dari' => Auth::user()->email,
+            'kepada' => $request->kepada,
+            'perihal' => $request->perihal,
+            'dokumen' => $filename,
+            'author_id' => Auth::user()->id,
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s'),
+        ]);
+        
+        if ($filename) {
+            Session::flash('success', 'Surat Berhasil Dirubah');
+        } else {
+            Session::flash('error', 'Surat Gagal Dirubah');
+        }
+
+    	return redirect('/mentor/suratmasuk');
     }
 
     /**

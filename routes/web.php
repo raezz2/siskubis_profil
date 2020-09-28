@@ -77,7 +77,7 @@ Route::group(['prefix'=>'mentor','middleware' => ['role:mentor']], function () {
 	Route::get('/surat/{disposisi}/hapus', 'Persuratan\DisposisiController@destroy');
 	Route::get('/surat/{surat}/delete', 'Persuratan\PersuratanController@destroy');
 	Route::get('/surat/edit/{surat}', 'Persuratan\DisposisiController@edit');
-	Route::patch('/surat/{surat}', 'Persuratan\DisposisiController@update');
+	Route::patch('/surat/{surat}', 'Persuratan\DisposisiController@mentorupdate');
 	
 });
 
@@ -94,7 +94,7 @@ Route::group(['prefix'=>'tenant','middleware' => ['role:tenant']], function () {
 	Route::get('/surat/{disposisi}/hapus', 'Persuratan\DisposisiController@destroy');
 	Route::get('/surat/{surat}/delete', 'Persuratan\PersuratanController@destroy');
 	Route::get('/surat/edit/{surat}', 'Persuratan\DisposisiController@edit');
-	Route::patch('/surat/{surat}', 'Persuratan\DisposisiController@update');
+	Route::patch('/surat/{surat}', 'Persuratan\DisposisiController@tenantupdate');
 });
 
 Route::group(['prefix'=>'user','middleware' => ['role:user']], function () {

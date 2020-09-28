@@ -69,7 +69,7 @@
 								<a class="badge badge-success m-2 p-2" href="#">{{ $s->priority->name }}</a></td>
 								@endif
 								<td>{{ $s->created_at }}</td>
-								<td><a class="ul-link-action text-success" href="/tenant/surat/edit/{{ $s->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1 delete"  data-toggle="tooltip" data-placement="top" disposisi-id="{{ $s->id }}" title="Want To Delete !!!"><i class="i-Eraser-2" ></i></a></td>
+								<td><a class="ul-link-action text-success" href="/tenant/surat/edit/{{ $s->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1 hapus"  data-toggle="tooltip" data-placement="top" persuratan-id="{{ $s->id }}"  title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
 							</tr>
 							
 						@endforeach
@@ -130,6 +130,42 @@
 				['<button><b>YES</b></button>', function (instance, toast) {
 		
 					instance.hide({ transitionOut: 'fadeOut' }, toast, 'button', window.location = "/tenant/surat/"+ disposisi_id +"/hapus");
+		
+				}, true],
+				['<button>NO</button>', function (instance, toast) {
+		
+					instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+		
+				}],
+			]
+			});
+		});
+		
+    </script>
+
+	<!-- Alert iziToast -->
+	<script type="text/javascript">
+		$('.hapus').click(function(){
+
+			var surat_id = $(this).attr('persuratan-id');
+
+			// alert(surat_id);
+
+			iziToast.question({
+			timeout: 20000,
+			close: false,
+			overlay: true,
+			displayMode: 'once',
+			id: 'question',
+			zindex: 999,
+			title: 'Hey',
+			message: 'Anda yakin ingin hapus surat ini?',
+			// position: 'bottomRight',bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
+			position: 'topCenter',
+			buttons: [
+				['<button><b>YES</b></button>', function (instance, toast) {
+		
+					instance.hide({ transitionOut: 'fadeOut' }, toast, 'button', window.location = "/tenant/surat/"+ surat_id +"/delete");
 		
 				}, true],
 				['<button>NO</button>', function (instance, toast) {
