@@ -48,6 +48,7 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 	Route::get('/event', 'Event\EventController@index')->name('inkubator.event-list');
 	Route::get('/event/calendar', 'Event\EventController@calendar')->name('inkubator.event-calendar');
 	Route::get('/pengumuman', 'Pengumuman\PengumumanController@index')->name('inkubator.pengumuman');
+	Route::get('/pengumuman/nontenen', 'Pengumuman\PengumumanController@tenant')->name('inkubator.non-tenent');
 	Route::get('/pengumuman/search', 'Pengumuman\PengumumanController@search');
 	Route::get('/pengumuman/tambah', 'Pengumuman\PengumumanController@tambah')->name('inkubator.tambah');
 	Route::post('/pengumuman/store', 'Pengumuman\PengumumanController@store')->name('inkubator.store');
