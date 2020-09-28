@@ -35,7 +35,7 @@
 					<br>
 					<div class="list-group" id="list-tab" role="tablist">
 						<a class=" list-group-item list-group-item-action border-0 {{ set_active('inkubator.pengumuman')}}" id="list-home-list" href="{{ route('inkubator.pengumuman')}}" role="tab" aria-controls="home"><i class="nav-icon i-Business-Mens"></i> Semua Pengumuman</a>
-						<a class="list-group-item list-group-item-action border-0" id="list-profile-list" href="#list-profile" role="tab" aria-controls="profile"><i class="nav-icon i-Conference"></i> Non Tenan</a>
+						<a class="list-group-item list-group-item-action border-0 {{ set_active('inkubator.pengumuman')}}" id="list-profile-list" href="{{ route('inkubator.pengumuman')}}" role="tab" aria-controls="profile"><i class="nav-icon i-Conference"></i> Non Tenan</a>
 						<label class="text-muted font-weight-600 py-8" for="">MEMBERS INKUBATOR</label>
 						<select class="form-control form-control-rounded">
 							<option>All Inkubator</option>
@@ -59,6 +59,8 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- Display From Input -->
 	<div class="col-md-9">
 		<div class="card">
 			<div class="card-body">
@@ -108,8 +110,9 @@
 										@endif
 									</div>
 							</td>
-							<td><a class="ul-link-action text-success" data-toggle="tooltip" href="/inkubator/pengumuman/edit/{{ $p->id }}" data-placement="top" title="Edit"><i class="i-Edit"></i>
-									<a class="ul-link-action text-danger mr-1" href="/inkubator/pengumuman/hapus/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!">
+
+							<td><a class="ul-link-action text-success edit" data-toggle="modal" data-target="#editModal" data-id="{{ $p->id }}" name="edit_record" id="edit_record" href="{{ route('inkubator.edit-id', $p->id ) }}" data-placement="top" title="Edit"><i class="i-Edit"></i>
+									<a class="ul-link-action text-danger mr-1 delete" href="/inkubator/pengumuman/hapus/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!">
 										<i class="i-Eraser-2"></i></a>
 							</td>
 						</tr>
@@ -120,7 +123,10 @@
 			</div>
 		</div>
 	</div>
+	<!-- End Section Display From Input -->
 </div><!-- end of main-content -->
+
+<!-- Data Tabel Tambah Data Pengumuman -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
@@ -202,11 +208,68 @@
 		</div>
 	</div>
 </div>
+
+<!-- Data Tabel Edit Data Pengumuman -->
+<div class="modal fade editModal" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Edit Pengumuman</h5>
+				<button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body">
+				<form method="post" id="editForm" action="{{ route('inkubator.update-id', $p->id )}}"  enctype="multipart/form-data">
+				{{ csrf_field() }}
+                    {{ method_field('PUT') }}
+					<div class="form-group">
+                        <input class="form-control title" type="text" placeholder="Title...." name="title" id="title" value="{{ $p->title }}" />
+						{{ $errors->first('title')}}
+                    </div>
+					<div class="form-group">
+                        <select class="form-control kategori" name="kategori" id="kategori">
+                            <option selected="" disabled="">Pilih Kategori</option>
+                            @foreach ($kategori as $k)
+                            <option value="{{ $k->id }}" {{($p->priority_id == $k->id) ? 'selected' : ''}}>{{ $k->name }}</option>
+                            @endforeach
+                        </select>
+                        {{ $errors->first('kategori')}}
+                    </div>
+					<div class="form-group">
+                        <select class="form-control inkubator" name="inkubator" id="inkubator">
+                            <option selected="" disabled="">Pilih Inkubator</option>
+                            @foreach ($inkubator as $i)
+                            <option value="{{ $i->id }}" {{($p->inkubator_id == $i->id) ? 'selected' : ''}}>{{ $i->nama }}</option>
+                            @endforeach
+                        </select>
+                        {{ $errors->first('inkubator')}}
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control pengumuman" rows="3" placeholder="Pengumuman ...." name="pengumuman" id="pengumuman">{{ $p->pengumuman }}</textarea>
+                        {{ $errors->first('pengumuman')}}
+                    </div>
+                    <div class="custom-file ">
+                        <label class="custom-file-label" for="exampleInputFile">Choose File</label>
+                        <input type="file" class="custom-file-input file" id="exampleInputFile" name="foto" id="foto">
+                        <object data="/img/pengumuman/{{ $p->foto }}" width="400px"></object>
+                        <input type="hidden" class="custom-file-input" id="hidden_image" name="hidden_image" value="{{ $p->foto }}">
+                        {{ $errors->first('foto')}}
+                    </div>
+                    <div class="modal-footer">
+						<input type="hidden" name="id" id="id" value="{{ $p->id }}"/>
+                        <a href="/inkubator/pengumuman/"><button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button></a>
+						<input type="submit" value="Simpan" class="btn btn-primary"  />
+                    </div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 @endsection
 @section('css')
 <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
 <link href="{{asset('theme/css/main.css')}}" rel="stylesheet" />
 <link rel="stylesheet" href="{{asset('theme/css/plugins/datatables.min.css')}}" />
+<link rel="stylesheet" href="{{asset('theme/css/plugins/sweetalert2.min.css')}}" />
 @endsection
 @section('js')
 <script src="{{asset('theme/js/plugins/datatables.min.js')}}"></script>
@@ -216,10 +279,12 @@
 <script src="{{asset('theme/js/scripts/tooltip.script.min.js')}}"></script>
 <script src="{{asset('theme/js/extention/choices.js')}}"></script>
 <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
+<script src="{{asset('theme/js/plugins/sweetalert2.min.js')}}"></script>
+<script src="{{asset('theme/js/scripts/sweetalert.script.js')}}"></script>
 <script>
     CKEDITOR.replace('pengumuman');
 </script>
-<script>
+<script type="text/javascript">
 	window.setTimeout(function() {
 		$(".alert").fadeTo(500, 0).slideUp(500, function() {
 			$(this).remove();
@@ -232,5 +297,57 @@
 			[2, 'DESC']
 		]
 	});
+
+	$(document).ready(function() {
+
+		var table = $('#datatable').DataTable();
+
+		 //edit data
+			$('.edit').on("click",function() {
+				var id = $(this).attr('data-id');		 
+				$.ajax({						
+						url : "{{ route('inkubator.edit-id', $p->id ) }}",
+						type: "GET",
+						dataType: "JSON",
+						success: function(data)
+						{					
+							$('.id').val(data.id);
+							$('.title').val(data.title);
+							$('.kategori').val(data.kategori);
+							$('.inkubator').val(data.inkubator);
+							$('.pengumuman').val(data.pengumuman);
+							$('.file').val(data.file);
+
+							$('#editForm').attr('action', {{ route('inkubator.edit-id', $p->id ) }}+data[0]);						
+							$('.editModal').modal('show'); 							
+						}
+			});
+		// End Edit data
+
+		});
+</script>
+
+<script>
+	$('.delete').on("click",function(event){
+			event.preventDefault();
+			const url = $(this).attr('href');
+			swal({
+				title: 'Apa Anda Yakin Menghapus ?',
+				text: "Anda tidak akan dapat mengembalikan data ini",
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#0CC27E',
+				cancelButtonColor: '#FF586B',
+				confirmButtonText: 'Hapus',
+				cancelButtonText: 'Batal',
+				confirmButtonClass: 'btn btn-success mr-5',
+				cancelButtonClass: 'btn btn-danger',
+				buttonsStyling: false
+			}).then(function(value) {
+				if (value) {
+					window.location.href = url;	
+				}
+			});
+		});
 </script>
 @endsection
