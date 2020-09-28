@@ -109,7 +109,7 @@
 									</div>
 							</td>
 							<td><a class="ul-link-action text-success" data-toggle="tooltip" href="/inkubator/pengumuman/edit/{{ $p->id }}" data-placement="top" title="Edit"><i class="i-Edit"></i>
-									<a class="ul-link-action text-danger mr-1" rel="{{ $p->id }}" rel1="hapus" href="javaScript:" id="delete" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!">
+									<a class="ul-link-action text-danger mr-1 delete" href="/inkubator/pengumuman/hapus/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!">
 										<i class="i-Eraser-2"></i></a>
 							</td>
 						</tr>
@@ -207,7 +207,7 @@
 <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
 <link href="{{asset('theme/css/main.css')}}" rel="stylesheet" />
 <link rel="stylesheet" href="{{asset('theme/css/plugins/datatables.min.css')}}" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css"/>
+<link rel="stylesheet" href="{{asset('theme/css/plugins/sweetalert2.min.css')}}" />
 @endsection
 @section('js')
 <script src="{{asset('theme/js/plugins/datatables.min.js')}}"></script>
@@ -217,8 +217,8 @@
 <script src="{{asset('theme/js/scripts/tooltip.script.min.js')}}"></script>
 <script src="{{asset('theme/js/extention/choices.js')}}"></script>
 <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{{asset('theme/js/plugins/sweetalert2.min.js')}}"></script>
+	<script src="{{asset('theme/js/scripts/sweetalert.script.js')}}"></script>
 <script>
     CKEDITOR.replace('pengumuman');
 </script>
@@ -235,26 +235,25 @@
 			[2, 'DESC']
 		]
 	});
-</script>
-<script>
-$(document).ready(function(){
-			$('#delete').click(function(){
-					var id = $(this).attr('rel');
-					var deletefunction = $(this).attr('rel1');
-
-					swal({
-						title: "Are you sure?",
-						text: "Your will not be able to recover this imaginary file!",
-						type: "warning",
-						showCancelButton: true,
-						confirmButtonClass: "btn-danger",
-						confirmButtonText: "Yes, delete it!",
-						closeOnConfirm: false
-						},
-						function(){
-						window.location.href = "/pengumuman/"+deletefunction+"/"+id;
-						swal("Deleted!", "Your imaginary file has been deleted.", "success");
-					});
+	$('.delete').on("click",function(event){
+			event.preventDefault();
+			const url = $(this).attr('href');
+			swal({
+				title: 'Apa Anda Yakin Menghapus ?',
+				text: "You won't be able to revert this!",
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#0CC27E',
+				cancelButtonColor: '#FF586B',
+				confirmButtonText: 'Hapus',
+				cancelButtonText: 'Batal',
+				confirmButtonClass: 'btn btn-success mr-5',
+				cancelButtonClass: 'btn btn-danger',
+				buttonsStyling: false
+			}).then(function(value) {
+				if (value) {
+					window.location.href = url;
+				}
 			});
 		});
 </script>
