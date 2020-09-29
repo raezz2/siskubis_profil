@@ -20,7 +20,7 @@
             <div class="input-group mb-3">
               <div class="custom-file">
                 <label class="custom-file-label" for="foto">Choose file</label>
-                <input class="custom-file-input" id="foto" type="file"  name="foto"/>
+                <input class="custom-file-input" id="foto" type="file"  name="foto" accept="image/*" />
               </div>
             </div>
             @error('foto')

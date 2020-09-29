@@ -62,7 +62,7 @@ class EventController extends Controller
             ['publish', '=', 1]
         ])->latest()->paginate();
 
-        return view('/event/index', compact('event', 'items'));
+        return view('/event/index', compact('event'));
     }
 
     public function calendar()
