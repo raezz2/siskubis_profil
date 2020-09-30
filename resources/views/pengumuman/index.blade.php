@@ -35,8 +35,7 @@
 					<br>
 					<div class="list-group" id="list-tab" role="tablist">
 						<a class=" list-group-item list-group-item-action border-0 {{ set_active('inkubator.pengumuman')}}" id="list-home-list" href="{{ route('inkubator.pengumuman')}}" role="tab" aria-controls="home"><i class="nav-icon i-Business-Mens"></i> Semua Pengumuman</a>
-						<a class="list-group-item list-group-item-action border-0 {{ set_active('inkubator.non-tenant')}}" id="list-profile-list" href="{{ route('inkubator.non-tenant')}}" role="tab" aria-controls="profile"><i class="nav-icon i-Conference"></i> Non Tenan</a>
-						<label class="text-muted font-weight-600 py-8" for="">MEMBERS INKUBATOR</label>
+						<a class="list-group-item list-group-item-action border-0 {{ set_active('inkubator.non-tenant')}}" id="list-profile-list" href="{{ route('inkubator.non-tenant')}}" role="tab" aria-controls="profile"><i class="nav-icon i-Conference"></i> Non Tenan</a> <label class="text-muted font-weight-600 py-8" for="">MEMBERS INKUBATOR</label>
 						<select class="form-control form-control-rounded">
 							<option>All Inkubator</option>
 						</select>
@@ -44,13 +43,13 @@
 						<a class="list-group-item list-group-item-action border-0 {{ set_active('inkubator.kategori, $y->id)')}}" id="list-home-list" href="{{route('inkubator.kategori')}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>All Kategori</a>
 						@foreach($kategori as $y)
 						@if( $y->id == 1)
-						<a class="list-group-item list-group-item-action border-0 {{ set_active('inkubator.kategori-id', $y->id == 1 )}}" id="list-home-list" href="{{ route('inkubator.kategori-id', $y->id )}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
+						<a class="list-group-item list-group-item-action border-0 " id="list-home-list" href="{{ route('inkubator.kategori-id', $y->id )}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
 						@elseif( $y->id == 2)
-						<a class="list-group-item list-group-item-action border-0 {{ set_active('inkubator.kategori-id', $y->id == 2 )}}" id="list-home-list" href="{{ route('inkubator.kategori-id', $y->id )}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
+						<a class="list-group-item list-group-item-action border-0 " id="list-home-list" href="{{ route('inkubator.kategori-id', $y->id )}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
 						@elseif( $y->id == 3)
-						<a class="list-group-item list-group-item-action border-0 {{ set_active('inkubator.kategori-id', $y->id == 3 )}}" id="list-home-list" href="{{ route('inkubator.kategori-id', $y->id )}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
+						<a class="list-group-item list-group-item-action border-0 " id="list-home-list" href="{{ route('inkubator.kategori-id', $y->id )}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
 						@else($y->id == 4)
-						<a class="list-group-item list-group-item-action border-0 {{ set_active('inkubator.kategori-id', $y->id == 4 )}}" id="list-home-list" href="{{ route('inkubator.kategori-id', $y->id )}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
+						<a class="list-group-item list-group-item-action border-0 " id="list-home-list" href="{{ route('inkubator.kategori-id', $y->id )}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
 						@endif
 						@endforeach
 					</div>
@@ -125,78 +124,78 @@
 	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">New Tenant</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Tambah Pengumuman</h5>
 				<button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
 				<form method="post" id="sample_form" action="{{route('inkubator.store')}}" enctype="multipart/form-data">
-				@csrf
+					@csrf
 					<div class="form-group">
-					<label class="control-lable">Title</label>
-                        <input class="form-control @error('title') is-invalid @enderror" type="text" placeholder="Title...." name="title" id="title"value="{{ old('title') }}" />
-                        @if($errors->has('title'))
-                        <div class="text-danger">
-                            {{ $errors->first('title')}}
-                        </div>
-                        @endif
-                    </div>
+						<label class="control-lable">Title</label>
+						<input class="form-control @error('title') is-invalid @enderror" type="text" placeholder="Title...." name="title" id="title" value="{{ old('title') }}" />
+						@if($errors->has('title'))
+						<div class="text-danger">
+							{{ $errors->first('title')}}
+						</div>
+						@endif
+					</div>
 					<div class="form-group">
-					<label class="control-lable">Kategori</label>
-                        <select class="form-control @error('kategori') is-invalid @enderror" name="kategori" id="kategori">
-                            <option selected="" disabled="">Pilih Kategori</option>
-                            @foreach ($kategori as $k)
-                            <option value="{{ $k->id }}" {{ old('kategori') == $k->id ? 'selected':''}}>{{ $k->name }}</option>
-                            @endforeach
-                        </select>
-                        @if($errors->has('kategori'))
-                        <div class="text-danger">
-                            {{ $errors->first('kategori')}}
-                        </div>
-                        @endif
-                    </div>
+						<label class="control-lable">Kategori</label>
+						<select class="form-control @error('kategori') is-invalid @enderror" name="kategori" id="kategori">
+							<option selected="" disabled="">Pilih Kategori</option>
+							@foreach ($kategori as $k)
+							<option value="{{ $k->id }}" {{ old('kategori') == $k->id ? 'selected':''}}>{{ $k->name }}</option>
+							@endforeach
+						</select>
+						@if($errors->has('kategori'))
+						<div class="text-danger">
+							{{ $errors->first('kategori')}}
+						</div>
+						@endif
+					</div>
 					<div class="form-group">
-					<label class="control-lable">Inkubator</label>
-                        <select class="form-control @error('inkubator') is-invalid @enderror" name=" inkubator" id="inkubator">
-                            <option selected="" disabled="">Pilih Inkubator</option>
-                            @foreach ($inkubator as $i)
-                            <option value="{{ $i->id }}" {{ old('inkubator') == $i->id ? 'selected':''}}>{{ $i->nama }}</option>
-                            @endforeach
-                        </select>
-                        @if($errors->has('inkubator'))
-                        <div class="text-danger">
-                            {{ $errors->first('inkubator')}}
-                        </div>
-                        @endif
-                    </div>
-                    <div class="form-group">
-					<label class="control-lable">Pengumuman</label>
-                        <textarea class="form-control @error('pengumuman') is-invalid @enderror" rows=" 3" placeholder="Pengumuman ...." name="pengumuman" id="pengumuman">{{old('pengumuman')}}</textarea>
+						<label class="control-lable">Inkubator</label>
+						<select class="form-control @error('inkubator') is-invalid @enderror" name=" inkubator" id="inkubator">
+							<option selected="" disabled="">Pilih Inkubator</option>
+							@foreach ($inkubator as $i)
+							<option value="{{ $i->id }}" {{ old('inkubator') == $i->id ? 'selected':''}}>{{ $i->nama }}</option>
+							@endforeach
+						</select>
+						@if($errors->has('inkubator'))
+						<div class="text-danger">
+							{{ $errors->first('inkubator')}}
+						</div>
+						@endif
+					</div>
+					<div class="form-group">
+						<label class="control-lable">Pengumuman</label>
+						<textarea class="form-control @error('pengumuman') is-invalid @enderror" rows=" 3" placeholder="Pengumuman ...." name="pengumuman" id="pengumuman">{{old('pengumuman')}}</textarea>
 
-                        @if($errors->has('pengumuman'))
-                        <div class="text-danger">
-                            {{ $errors->first('pengumuman')}}
-                        </div>
-                        @endif
+						@if($errors->has('pengumuman'))
+						<div class="text-danger">
+							{{ $errors->first('pengumuman')}}
+						</div>
+						@endif
 
-                    </div>
-                    <div class="custom-file">
+					</div>
+					<div class="custom-file">
 						<input type="file" class="custom-file-input @error('file') is-invalid @enderror" name="file" id="file" value="{{ old('foto') }}">
-                        <label class="custom-file-label" for="exampleInputFile">Choose File</a>
+						<label class="custom-file-label" for="exampleInputFile">Choose File</a>
 
-                        </label>
+						</label>
 
-                        @if($errors->has('file'))
-                        <div class="text-danger">
-                            {{ $errors->first('file')}}
-                        </div>
-                        @endif
+						@if($errors->has('file'))
+						<div class="text-danger">
+							{{ $errors->first('file')}}
+						</div>
+						@endif
 
-                    </div>
-                    <div class="modal-footer">
+					</div>
+					<div class="modal-footer">
 						<input type="hidden" name="hidden_id" id="hidden_id" />
 						<input type="submit" value="Simpan" class="btn btn-primary" />
-                        <a href="/inkubator/pengumuman/"><button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button></a>
-                    </div>
+						<a href="/inkubator/pengumuman/"><button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button></a>
+					</div>
 				</form>
 			</div>
 		</div>
@@ -220,7 +219,7 @@
 <script src="{{asset('theme/js/plugins/sweetalert2.min.js')}}"></script>
 <script src="{{asset('theme/js/scripts/sweetalert.script.js')}}"></script>
 <script>
-    CKEDITOR.replace('pengumuman');
+	CKEDITOR.replace('pengumuman');
 </script>
 <script>
 	window.setTimeout(function() {
@@ -235,26 +234,26 @@
 			[2, 'DESC']
 		]
 	});
-	$('.delete').on("click",function(event){
-			event.preventDefault();
-			const url = $(this).attr('href');
-			swal({
-				title: 'Apa Anda Yakin Menghapus ?',
-				text: "Anda tidak akan dapat mengembalikan data ini",
-				type: 'warning',
-				showCancelButton: true,
-				confirmButtonColor: '#0CC27E',
-				cancelButtonColor: '#FF586B',
-				confirmButtonText: 'Hapus',
-				cancelButtonText: 'Batal',
-				confirmButtonClass: 'btn btn-success mr-5',
-				cancelButtonClass: 'btn btn-danger',
-				buttonsStyling: false
-			}).then(function(value) {
-				if (value) {
-					window.location.href = url;	
-				}
-			});
+	$('.delete').on("click", function(event) {
+		event.preventDefault();
+		const url = $(this).attr('href');
+		swal({
+			title: 'Apa Anda Yakin Menghapus ?',
+			text: "Anda tidak akan dapat mengembalikan data ini",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#0CC27E',
+			cancelButtonColor: '#FF586B',
+			confirmButtonText: 'Hapus',
+			cancelButtonText: 'Batal',
+			confirmButtonClass: 'btn btn-success mr-5',
+			cancelButtonClass: 'btn btn-danger',
+			buttonsStyling: false
+		}).then(function(value) {
+			if (value) {
+				window.location.href = url;
+			}
 		});
+	});
 </script>
 @endsection

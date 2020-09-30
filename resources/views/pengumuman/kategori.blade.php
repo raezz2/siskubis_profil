@@ -25,12 +25,10 @@
                     <!-- modal-->
                     <a href="{{route('inkubator.tambah')}}"><button class="btn btn-outline-secondary btn-block mb-4" type="button" data-toggle="modal">Tambah Pengumuman</button></a>
                     <!-- end:modal-->
-                    @foreach($kategori as $y)
-                    <form action="/inkubator/kategori/{{ $y->id }}/search" method="GET">
+                    <!-- <form action="/inkubator/kategori/search" method="GET">
                         <input value="{{ Request::get('keyword') }}" name="keyword" class="form-control form-control-rounded col-md-12" id="exampleFormControlInput1" type="text" placeholder="Search Tenant..." />
                     </form>
-                    <br>
-                    @endforeach
+                    <br> -->
                     <div class="list-group" id="list-tab" role="tablist"><a class="list-group-item list-group-item-action border-0" id="list-home-list" href="/inkubator/pengumuman" role="tab" aria-controls="home"><i class="nav-icon i-Business-Mens"></i> Semua Pengumuman</a>
                         <a class="list-group-item list-group-item-action border-0" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile"><i class="nav-icon i-Conference"></i> Non Tenan</a>
                         <label class="text-muted font-weight-600 py-8" for="">MEMBERS INKUBATOR</label>
@@ -41,13 +39,13 @@
                         <a class="list-group-item list-group-item-action border-0 {{ set_active('inkubator.kategori')}}" id="list-home-list" href="{{route('inkubator.kategori')}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>All Kategori</a>
                         @foreach($kategori as $y)
                         @if( $y->id == 1)
-                        <a class="list-group-item list-group-item-action border-0 {{ set_active('inkubator.kategori-id', $y->id == 1 )}}" id="list-home-list" href="{{ route('inkubator.kategori-id', $y->id )}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
+                        <a class="list-group-item list-group-item-action border-0 " id="list-home-list" href="{{ route('inkubator.kategori-id', $y->id )}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
                         @elseif( $y->id == 2)
-                        <a class="list-group-item list-group-item-action border-0 {{ set_active('inkubator.kategori-id', $y->id == 2 )}}" id="list-home-list" href="{{ route('inkubator.kategori-id', $y->id )}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
+                        <a class="list-group-item list-group-item-action border-0 " id="list-home-list" href="{{ route('inkubator.kategori-id', $y->id )}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
                         @elseif( $y->id == 3)
-                        <a class="list-group-item list-group-item-action border-0 {{ set_active('inkubator.kategori-id', $y->id == 3 )}}" id="list-home-list" href="{{ route('inkubator.kategori-id', $y->id )}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
+                        <a class="list-group-item list-group-item-action border-0 " id="list-home-list" href="{{ route('inkubator.kategori-id', $y->id )}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
                         @else($y->id == 4)
-                        <a class="list-group-item list-group-item-action border-0 {{ set_active('inkubator.kategori-id', $y->id == 4 )}}" id="list-home-list" href="{{ route('inkubator.kategori-id', $y->id )}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
+                        <a class="list-group-item list-group-item-action border-0 " id="list-home-list" href="{{ route('inkubator.kategori-id', $y->id )}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
                         @endif
                         @endforeach
                     </div>

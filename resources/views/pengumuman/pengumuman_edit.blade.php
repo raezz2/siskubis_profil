@@ -38,7 +38,7 @@
                     </div>
                     <div class="custom-file">
                         <label class="custom-file-label" for="exampleInputFile">Choose File</label>
-                        <input type="file" class="custom-file-input" id="exampleInputFile" name="foto">
+                        <input type="file" class="custom-file-input" id="exampleInputFile" name="foto" multiple>
                         <object data="/img/pengumuman/{{ $p->foto }}" width="400px"></object>
                         <input type="hidden" class="custom-file-input" id="hidden_image" name="hidden_image" value="{{ $p->foto }}">
                         {{ $errors->first('foto')}}
