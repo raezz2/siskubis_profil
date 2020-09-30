@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use File;
 use App\Pengumuman;
 use App\Priority;
 use App\Inkubator;
@@ -27,7 +28,17 @@ class KategoriController extends Controller
     {
         $pengumuman = Pengumuman::where([['priority_id', $id], ['author_id', \Auth::user()->id]])->latest()->get();
         $kategori = DB::table('priority')->get();
-        return view('pengumuman.kategori', compact('pengumuman', 'kategori'));
+        $inkubator = DB::table('inkubator')->get();
+        return view('pengumuman.kategori', compact('pengumuman', 'kategori','inkubator'));
+    }
+    public function hapus($id)
+    {
+
+        $file = DB::table('pengumuman')->where('id', $id)->first();
+        File::delete('img/pengumuman/' . $file->foto);
+        DB::table('pengumuman')->where('id', $id)->delete();
+
+        return redirect('inkubator/kategori')->with('delete', 'Menghapus Data Pengumuman');
     }
     public function search(Request $request)
     {
