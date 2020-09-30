@@ -46,7 +46,7 @@
               <p>{{ $p->title }}</p>
             </div>
             <div class="col-6">
-            <a class="btn btn-primary" href="/inkubator/disposisi/{{ $p->id }}" role="button">Disposisi</a>
+            <a class="btn btn-primary" href="{{ url('/inkubator/disposisi/'. $p->id )}}" role="button">Disposisi</a>
 
             </div>
             <div class="col-12">

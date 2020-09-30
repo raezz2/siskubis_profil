@@ -5,7 +5,7 @@
     <div class="breadcrumb">
         <h1>Persuratan</h1>
         <ul>
-            <li><a href="href">Form</a></li>
+            <li><a href="#">Form</a></li>
             <li>Persuratan</li>
         </ul>
     </div>
@@ -34,7 +34,7 @@
                 </div>
                 <div class="row">
                 <div class="col-sm-12">
-                  <form action="kirimsuratkeluar" method="post"  enctype="multipart/form-data">
+                  <form action="{{ url('kirimsuratkeluar')}}" method="post"  enctype="multipart/form-data">
                     {{ csrf_field() }}
                     @include('layouts.alert', ['$errors' => $errors])
                     <div class="row">

@@ -35,10 +35,10 @@
                 <div class="row">
                 <div class="col-sm-12">
                   @role ('tenant')
-                  <form action="/tenant/surat/{{ $surat->id}}" method="post"  enctype="multipart/form-data">
+                  <form action="{{ url('/tenant/surat/'. $surat->id)}}" method="post"  enctype="multipart/form-data">
                   @endrole
                   @role ('mentor')
-                  <form action="/mentor/surat/{{ $surat->id}}" method="post"  enctype="multipart/form-data">
+                  <form action="{{ url('/mentor/surat/'. $surat->id)}}" method="post"  enctype="multipart/form-data">
                   @endrole
                     @method('patch')
                     {{ csrf_field() }}

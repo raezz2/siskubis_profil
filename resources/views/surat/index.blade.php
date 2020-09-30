@@ -12,10 +12,10 @@
 			</ul>
 			<div class="row justify-content-end mt-2"  >
 				<div class="mr-2">
-					<a href="/inkubator/buatsurat"><li  class="btn btn-success btn-sm " width="10%" >Buat Surat</li></a>
+					<a href="{{ url('/inkubator/buatsurat')}}"><li  class="btn btn-success btn-sm " width="10%" >Buat Surat</li></a>
 					</div>
 					<div class="mr-3">
-					<a href="/inkubator/buatsuratkeluar"><li  class="btn btn-danger btn-sm" width="10%" >Buat Surat keluar</li></a>
+					<a href="{{ url('/inkubator/buatsuratkeluar')}}"><li  class="btn btn-danger btn-sm" width="10%" >Buat Surat keluar</li></a>
 				</div>
 			</div>
 			<div class="tab-content" id="myIconTabContent" style="padding: 1rem 0 !important; ">
@@ -36,24 +36,24 @@
 							@if ($p->jenis_surat == 'masuk')
 							<tr>
 								<td>
-								<a href="/inkubator/surat/{{ $p->id }}">
+								<a href="{{ url('/inkubator/surat/'. $p->id )}}">
 										<strong>{{ $p->title }}</strong>
 										<p>{!! str_limit($p->perihal, $limit = 80, $end = '') !!}</p>
 								</a>
 								</td>
 								<td>
 								@if ($p->priority_id == 1)
-								<a class="badge badge-primary m-2 p-2" href="/inkubator/disposisi/{{ $p->id }}">{{ $p->priority->name }}</a></td>
+								<a class="badge badge-primary m-2 p-2" href="#">{{ $p->priority->name }}</a></td>
 
 								@elseif ($p->priority_id == 2)
-								<a class="badge badge-warning m-2 p-2" href="/inkubator/disposisi/{{ $p->id }}">{{ $p->priority->name }}</a></td>
+								<a class="badge badge-warning m-2 p-2" href="#">{{ $p->priority->name }}</a></td>
 								@elseif ($p->priority_id == 3)
-								<a class="badge badge-danger m-2 p-2" href="/inkubator/disposisi/{{ $p->id }}">{{ $p->priority->name }}</a></td>
+								<a class="badge badge-danger m-2 p-2" href="#">{{ $p->priority->name }}</a></td>
 								@else 
-								<a class="badge badge-success m-2 p-2" href="/inkubator/disposisi/{{ $p->id }}">{{ $p->priority->name }}</a></td>
+								<a class="badge badge-success m-2 p-2" href="#">{{ $p->priority->name }}</a></td>
 								@endif
 								<td>{{ $p->created_at }}</td>
-								<td><a class="ul-link-action text-success" href="/inkubator/surat/edit/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="#" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2 delete" surat-id="{{ $p->id }}"></i></a><a class="ul-link-action text-primary mr-1" href="/inkubator/disposisi/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Diposisikan !!!"><i class="text-20 i-Right"></i></a></td>
+								<td><a class="ul-link-action text-success" href="{{ url('/inkubator/surat/edit/'. $p->id )}}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="#" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2 delete" surat-id="{{ $p->id }}"></i></a><a class="ul-link-action text-primary mr-1" href="/inkubator/disposisi/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Diposisikan !!!"><i class="text-20 i-Right"></i></a></td>
 							</tr>
 							@endif
 						@endforeach
@@ -76,23 +76,23 @@
 						@if ($p->jenis_surat == 'keluar')
 						<tr>
 							<td>
-							<a href="/inkubator/surat/{{ $p->id }}">
+							<a href="{{ url('/inkubator/surat/'. $p->id )}}">
 									<strong>{{ $p->title }}</strong>
 										<p>{!! str_limit($p->perihal, $limit = 80, $end = '') !!}</p>
 							</a>
 							</td>
 							<td>@if ($p->priority_id == 1)
-								<a class="badge badge-primary m-2 p-2" href="/inkubator/disposisi/{{ $p->id }}">{{ $p->priority->name }}</a>
+								<a class="badge badge-primary m-2 p-2" href="#">{{ $p->priority->name }}</a>
 
 								@elseif ($p->priority_id == 2)
-								<a class="badge badge-warning m-2 p-2" href="/inkubator/disposisi/{{ $p->id }}">{{ $p->priority->name }}</a>
+								<a class="badge badge-warning m-2 p-2" href="#">{{ $p->priority->name }}</a>
 								@elseif ($p->priority_id == 3)
-								<a class="badge badge-danger m-2 p-2" href="/inkubator/disposisi/{{ $p->id }}">{{ $p->priority->name }}</a>
+								<a class="badge badge-danger m-2 p-2" href="#">{{ $p->priority->name }}</a>
 								@else 
-								<a class="badge badge-success m-2 p-2" href="/inkubator/disposisi/{{ $p->id }}">{{ $p->priority->name }}</a></td>
+								<a class="badge badge-success m-2 p-2" href="#">{{ $p->priority->name }}</a></td>
 								@endif
 							<td>{{ $p->created_at }}</td>
-							<td><a class="ul-link-action text-success" href="/inkubator/surat/edit/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="#"  data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2 delete" surat-id="{{ $p->id }}"></i></a><a class="ul-link-action text-primary mr-1" href="/inkubator/disposisi/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Diposisikan !!!"><i class="text-20 i-Right"></i></a></td>
+							<td><a class="ul-link-action text-success" href="{{ url('/inkubator/surat/edit/'. $p->id )}}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="#"  data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2 delete" surat-id="{{ $p->id }}"></i></a><a class="ul-link-action text-primary mr-1" href="/inkubator/disposisi/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Diposisikan !!!"><i class="text-20 i-Right"></i></a></td>
 						</tr>
 						@endif
 					@endforeach
