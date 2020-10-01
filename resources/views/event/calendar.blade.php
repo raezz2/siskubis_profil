@@ -26,12 +26,6 @@
 			@role('inkubator')
 			<div class="card-body">
 				<div class="create_event_wrap">
-					<form class="js-form-add-event">
-						<div class="form-group">
-							<label for="newEvent">Create new Event</label>
-							<input class="form-control" id="newEvent" type="text" name="newEvent" placeholder="new Event" aria-describedby="helpId" />
-						</div>
-					</form>
 					<ul class="list-group" id="external-events">
 						<li class="list-group-item bg-success fc-event">
 							Hello World
@@ -95,7 +89,6 @@ function initEvent() {
 	  url: "{{ route('inkubator.event.create') }}",
 	  @endrole  
 	}); // make the event draggable using jQuery UI
-
 	$(this).draggable({
 	  zIndex: 999,
 	  revert: true,
@@ -105,6 +98,8 @@ function initEvent() {
 	});
   });
 }
+
+
 
 initEvent();
 /* initialize the calendar
@@ -157,6 +152,9 @@ $('#calendar').fullCalendar({
 	  @endforeach
   ]
 });
+
+
+
 // jQuery(".js-form-add-event").on("submit", function (e) {
 //   e.preventDefault();
 //   var data = $('#newEvent').val();
