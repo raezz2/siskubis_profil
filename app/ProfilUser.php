@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProfilUser extends Model
 {
-	protected $table ='pendamping';
+	protected $table ='profil_user';
    	protected $fillable = [
-       'inkubator_id', 'nama', 'jenkel', 'kontak', 'alamat', 'nik', 'foto', 'deskripsi', 'status'
+       'user_id', 'nama', 'jenkel', 'kontak', 'alamat', 'nik', 'foto', 'deskripsi', 'status'
     ];
 }

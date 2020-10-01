@@ -1,12 +1,11 @@
 @extends('layouts.app')
-
 @section('content')
-
-<div class="row">
+<div class="row"> 
 <div class="col-xl-8 col-lg-8">
 <div class="card">
 <div class="card-header container-fluid">
   <div class="row">
+
 	<div class="col-md-7">
 	  <h3>Berita</h3>
     </div>
@@ -19,7 +18,6 @@
   </div>
 </div>
 <div class="card-body">
-
 <div class="row row-xs">
 	<div class="col-md-4">
         <form action="{{ route('cariberita') }}" method="get" name="s" >
@@ -47,6 +45,7 @@
   <hr>
 	<div class="ul-widget__body">
 	<div class="ul-widget5">
+
 		@foreach ($berita as $b)
 		<div class="ul-widget5__item">
 			<div class="ul-widget5__content">

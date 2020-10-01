@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Berita;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Str;
 
 use App\Berita;
@@ -16,6 +17,7 @@ use DB;
 use Auth;
 use Validator;
 use File;
+
 
 class BeritaController extends Controller
 {
@@ -31,7 +33,6 @@ class BeritaController extends Controller
      */
     public function index()
     {
-
         $berita = Berita::with('profil_user')->orderBy('created_at','desc')->paginate(10);
         $umum = Berita::with('profil_user')->where('inkubator_id','0')->orderBy('created_at','ASC')->paginate(5);
 		$hasil = Komentar::paginate(5);
@@ -182,4 +183,5 @@ class BeritaController extends Controller
 
         return redirect()->back()->with(['success' => 'Komentar Ditambahkan']);
     }
+
 }
