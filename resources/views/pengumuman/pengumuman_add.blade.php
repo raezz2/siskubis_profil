@@ -69,10 +69,9 @@
 
                     </div>
                     <div class="modal-footer">
-                        <a href="/inkubator/pengumuman/"><button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button></a>
+                        <a href="/inkubator/pengumuman/"><button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button></a>
                         <button class="btn btn-primary" type="submit">
-                            Save
-                            changes
+                            Simpan
                         </button>
                     </div>
                 </form>

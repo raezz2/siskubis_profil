@@ -114,9 +114,11 @@
                     <header>
                         <h1>{{ $p->title }}</h1>
                         <ul class="details">
-                            <li>Posted on {{ date('d F Y', strtotime($p->created_at)) }}</li>
-                            <li><a>Pengumuman</a></li>
-                            <li>By <a href="#"></a></li>
+                            <li>Publish {{ date('d F Y', strtotime($p->created_at)) }}</li>
+                            <li><a href="{{ route('pengumuman')}}">Pengumuman</a></li>
+
+                            <li>By {{ $p->name}}<a href="#"></a></li>
+
                         </ul>
                     </header>
                     <div class="main">

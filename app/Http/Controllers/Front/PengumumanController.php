@@ -27,7 +27,7 @@ class PengumumanController extends Controller
      */
     public function index()
     {
-        $pengumuman = Pengumuman::where([['inkubator_id', 0],['publish', 1]])->latest()->get();
+        $pengumuman = Pengumuman::where([['inkubator_id', 0], ['publish', 1]])->latest()->get();
         $kategori = DB::table('priority')->get();
         $inkubator = DB::table('inkubator')->get();
         $users = DB::table('users')->get();
@@ -36,8 +36,15 @@ class PengumumanController extends Controller
 
     public function show($slug)
     {
-        $pengumuman = DB::table('pengumuman')->where('slug', $slug)->get();
+        $pengumuman = DB::table('pengumuman')
+            ->join('users', 'pengumuman.author_id', '=', 'users.id')
+            ->select('pengumuman.*', 'users.name')
+            ->where([
+                ['slug', $slug]
+            ])
+            ->get();
+
         $users = DB::table('users')->get();
-        return view('front/pengumuman/detail_pengumuman', compact('users','pengumuman'));
+        return view('front/pengumuman/detail_pengumuman', compact('users', 'pengumuman'));
     }
 }

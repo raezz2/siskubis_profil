@@ -11,19 +11,16 @@
                     <div class="contact-close-mobile-icon float-right mb-2"><i class="i-Close-Window text-15 font-weight-600"></i></div>
                     <form action="/tenant/pengumuman/search" method="GET">
                         <input value="{{ Request::get('keyword') }}" name="keyword" class="form-control form-control-rounded col-md-12" id="exampleFormControlInput1" type="text" placeholder="Search Tenant..." />
-                        <br>
-                        <button type="submit" id="submitButton" class="btn btn-primary btn-block" style="width: 100px;">Search</button>
                     </form>
                     <br>
-                    <div class="list-group" id="list-tab" role="tablist"><a class="list-group-item list-group-item-action border-0 active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home"><i class="nav-icon i-Business-Mens"></i> Semua Pengumuman</a>
-                        <a class="list-group-item list-group-item-action border-0" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile"><i class="nav-icon i-Conference"></i> Non Tenan</a>
+                    <div class="list-group" id="list-tab" role="tablist"><a class="list-group-item list-group-item-action border-0 {{ set_active('tenant.pengumuman' )}}" id="list-home-list" href="{{ route('tenant.pengumuman')}}" role="tab" aria-controls="home"><i class="nav-icon i-Business-Mens"></i> Semua Pengumuman</a>
+                        <a class="list-group-item list-group-item-action border-0 {{ set_active('tenant.non-tenant' )}}" id="list-profile-list" href="{{ route('tenant.non-tenant')}}" role="tab" aria-controls="profile"><i class="nav-icon i-Conference"></i> Non Tenan</a>
                         <label class="text-muted font-weight-600 py-8" for="">MEMBERS INKUBATOR</label>
                         <select class="form-control form-control-rounded">
                             <option>All Inkubator</option>
                             <option></option>
                         </select>
                         </br>
-                        <a class="list-group-item list-group-item-action border-0" id="list-profile-list" href="/tenant/pengumuman/" role="tab" aria-controls="home" id="myList"><i class="nav-icon i-Business-Mens"></i>All Kategori</a>
                         @foreach($kategori as $y)
                         <a class="list-group-item list-group-item-action border-0" id="list-profile-list" href="/tenant/kategori/{{ $y->id }}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
                         @endforeach

@@ -41,6 +41,15 @@ class TenantController extends Controller
         return view('tenant.pengumuman', compact('pengumuman', 'kategori', 'inkubator'));
     }
 
+    public function tenant()
+    {
+
+        $pengumuman = Pengumuman::where([['author_id', \Auth::user()->id], ['inkubator_id', 0]])->get();
+        $kategori = DB::table('priority')->get();
+        $inkubator = DB::table('inkubator')->get();
+        return view('tenant.pengumuman', compact('pengumuman', 'kategori', 'inkubator'));
+    }
+
     public function show($slug)
     {
         $pengumuman = DB::table('pengumuman')->where('slug', $slug)->get();

@@ -23,7 +23,7 @@
                 <div class="ul-contact-list">
                     <div class="contact-close-mobile-icon float-right mb-2"><i class="i-Close-Window text-15 font-weight-600"></i></div>
                     <!-- modal-->
-					<button class="btn btn-outline-secondary btn-block mb-4" type="button" data-toggle="modal" data-target="#exampleModal" name="create_record" id="create_record">Tambah Pengumuman</button>
+                    <button class="btn btn-outline-secondary btn-block mb-4" type="button" data-toggle="modal" data-target="#exampleModal" name="create_record" id="create_record">Tambah Pengumuman</button>
                     <!-- end:modal-->
                     <!-- <form action="/inkubator/kategori/search" method="GET">
                         <input value="{{ Request::get('keyword') }}" name="keyword" class="form-control form-control-rounded col-md-12" id="exampleFormControlInput1" type="text" placeholder="Search Tenant..." />
@@ -36,7 +36,7 @@
                             <option>All Inkubator</option>
                         </select>
                         </br>
-                        <a class="list-group-item list-group-item-action border-0 {{ set_active('inkubator.kategori')}}" id="list-home-list" href="{{route('inkubator.kategori')}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>All Kategori</a>
+                        <!-- <a class="list-group-item list-group-item-action border-0 {{ set_active('inkubator.kategori')}}" id="list-home-list" href="{{route('inkubator.kategori')}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>All Kategori</a> -->
                         @foreach($kategori as $y)
                         @if( $y->id == 1)
                         <a class="list-group-item list-group-item-action border-0 " id="list-home-list" href="{{ route('inkubator.kategori-id', $y->id )}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
@@ -104,7 +104,7 @@
                                     </div>
                             </td>
                             <td><a class="ul-link-action text-success" data-toggle="tooltip" href="/inkubator/pengumuman/edit/{{ $p->id }}" data-placement="top" title="Edit"><i class="i-Edit"></i>
-                            <a class="ul-link-action text-danger mr-1 delete" href="/inkubator/kategori/hapus/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!">
+                                    <a class="ul-link-action text-danger mr-1 delete" href="/inkubator/kategori/hapus/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!">
                                         <i class="i-Eraser-2"></i></a>
                             </td>
                         </tr>
@@ -117,26 +117,26 @@
     </div>
 </div><!-- end of main-content -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">New Tenant</h5>
-				<button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			</div>
-			<div class="modal-body">
-				<form method="post" id="sample_form" action="{{route('inkubator.store')}}" enctype="multipart/form-data">
-				@csrf
-					<div class="form-group">
-					<label class="control-lable">Title</label>
-                        <input class="form-control @error('title') is-invalid @enderror" type="text" placeholder="Title...." name="title" id="title"value="{{ old('title') }}" />
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New Tenant</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="sample_form" action="{{route('inkubator.store')}}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label class="control-lable">Title</label>
+                        <input class="form-control @error('title') is-invalid @enderror" type="text" placeholder="Title...." name="title" id="title" value="{{ old('title') }}" />
                         @if($errors->has('title'))
                         <div class="text-danger">
                             {{ $errors->first('title')}}
                         </div>
                         @endif
                     </div>
-					<div class="form-group">
-					<label class="control-lable">Kategori</label>
+                    <div class="form-group">
+                        <label class="control-lable">Kategori</label>
                         <select class="form-control @error('kategori') is-invalid @enderror" name="kategori" id="kategori">
                             <option selected="" disabled="">Pilih Kategori</option>
                             @foreach ($kategori as $k)
@@ -149,8 +149,8 @@
                         </div>
                         @endif
                     </div>
-					<div class="form-group">
-					<label class="control-lable">Inkubator</label>
+                    <div class="form-group">
+                        <label class="control-lable">Inkubator</label>
                         <select class="form-control @error('inkubator') is-invalid @enderror" name=" inkubator" id="inkubator">
                             <option selected="" disabled="">Pilih Inkubator</option>
                             @foreach ($inkubator as $i)
@@ -164,7 +164,7 @@
                         @endif
                     </div>
                     <div class="form-group">
-					<label class="control-lable">Pengumuman</label>
+                        <label class="control-lable">Pengumuman</label>
                         <textarea class="form-control @error('pengumuman') is-invalid @enderror" rows=" 3" placeholder="Pengumuman ...." name="pengumuman" id="pengumuman">{{old('pengumuman')}}</textarea>
 
                         @if($errors->has('pengumuman'))
@@ -175,7 +175,7 @@
 
                     </div>
                     <div class="custom-file">
-						<input type="file" class="custom-file-input @error('file') is-invalid @enderror" name="file" id="file" value="{{ old('foto') }}">
+                        <input type="file" class="custom-file-input @error('file') is-invalid @enderror" name="file" id="file" value="{{ old('foto') }}">
                         <label class="custom-file-label" for="exampleInputFile">Choose File</a>
 
                         </label>
@@ -188,14 +188,14 @@
 
                     </div>
                     <div class="modal-footer">
-						<input type="hidden" name="hidden_id" id="hidden_id" />
-						<input type="submit" value="Simpan" class="btn btn-primary" />
+                        <input type="hidden" name="hidden_id" id="hidden_id" />
+                        <input type="submit" value="Simpan" class="btn btn-primary" />
                         <a href="/inkubator/pengumuman/"><button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button></a>
                     </div>
-				</form>
-			</div>
-		</div>
-	</div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 @section('css')
@@ -218,38 +218,38 @@
     CKEDITOR.replace('pengumuman');
 </script>
 <script>
-	window.setTimeout(function() {
-		$(".alert").fadeTo(500, 0).slideUp(500, function() {
-			$(this).remove();
-		});
-	}, 1500);
+    window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function() {
+            $(this).remove();
+        });
+    }, 1500);
 
-	$('#ul-contact-list').DataTable({
-		responsive: true,
-		order: [
-			[2, 'DESC']
-		]
-	});
-	$('.delete').on("click",function(event){
-			event.preventDefault();
-			const url = $(this).attr('href');
-			swal({
-				title: 'Apa Anda Yakin Menghapus ?',
-				text: "Anda tidak akan dapat mengembalikan data ini",
-				type: 'warning',
-				showCancelButton: true,
-				confirmButtonColor: '#0CC27E',
-				cancelButtonColor: '#FF586B',
-				confirmButtonText: 'Hapus',
-				cancelButtonText: 'Batal',
-				confirmButtonClass: 'btn btn-success mr-5',
-				cancelButtonClass: 'btn btn-danger',
-				buttonsStyling: false
-			}).then(function(value) {
-				if (value) {
-					window.location.href = url;	
-				}
-			});
-		});
+    $('#ul-contact-list').DataTable({
+        responsive: true,
+        order: [
+            [2, 'DESC']
+        ]
+    });
+    $('.delete').on("click", function(event) {
+        event.preventDefault();
+        const url = $(this).attr('href');
+        swal({
+            title: 'Apa Anda Yakin Menghapus ?',
+            text: "Anda tidak akan dapat mengembalikan data ini",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#0CC27E',
+            cancelButtonColor: '#FF586B',
+            confirmButtonText: 'Hapus',
+            cancelButtonText: 'Batal',
+            confirmButtonClass: 'btn btn-success mr-5',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false
+        }).then(function(value) {
+            if (value) {
+                window.location.href = url;
+            }
+        });
+    });
 </script>
 @endsection

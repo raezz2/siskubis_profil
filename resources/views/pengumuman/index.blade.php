@@ -40,7 +40,7 @@
 							<option>All Inkubator</option>
 						</select>
 						</br>
-						<a class="list-group-item list-group-item-action border-0 {{ set_active('inkubator.kategori, $y->id)')}}" id="list-home-list" href="{{route('inkubator.kategori')}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>All Kategori</a>
+						<!-- <a class="list-group-item list-group-item-action border-0 {{ set_active('inkubator.kategori, $y->id)')}}" id="list-home-list" href="{{route('inkubator.kategori')}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>All Kategori</a> -->
 						@foreach($kategori as $y)
 						@if( $y->id == 1)
 						<a class="list-group-item list-group-item-action border-0 " id="list-home-list" href="{{ route('inkubator.kategori-id', $y->id )}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
