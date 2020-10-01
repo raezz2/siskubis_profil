@@ -8,7 +8,6 @@
                 <div class="side-nav">
                     <div class="main-menu">
                         <ul class="metismenu" id="menu">
-
                             <li class="Ul_li--hover"><a class="active" href="/user"><i class="i-Bar-Chart text-20 mr-2 "></i><span class="item-name text-15 ">Dashboard</span></a>
                                 
                             </li>

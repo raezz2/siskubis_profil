@@ -7,8 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Priority extends Model
 {
     protected $table = 'priority';
+
     public function surat()
     {
         return $this->hasMany('App\Surat');
+	}
+
+    public function event()
+    {
+        return $this->hasMany(Event::class);
     }
 }

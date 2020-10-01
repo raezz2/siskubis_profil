@@ -1,25 +1,18 @@
 <?php
-
 namespace App\Http\Controllers\Front;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Str;
 use App\Komentar;
 use App\User;
 use DB;
-
 use App\Berita;
-
-
 class IndexController extends Controller
 {
     public function __construct()
     {
     //    $this->middleware('auth');
     }
-
     /**
      * Show the application dashboard.
      *
@@ -27,7 +20,6 @@ class IndexController extends Controller
      */
     public function index()
     {
-
         $mainNews = Berita::with('beritaCategory')
                     ->orderBy('views','desc')
                     ->where('publish','=','1')
@@ -43,10 +35,8 @@ class IndexController extends Controller
                     ->where('publish','=','1')
                     ->where('inkubator_id','=','0')
                     ->paginate(7);
-
         return view('front.index', compact('mainNews','lastNews','popular'));
     }
-
     public function single($slug)
     {
         $berita = Berita::find($slug);
@@ -63,8 +53,6 @@ class IndexController extends Controller
                     ->orderBy('created_at','desc')
                     ->paginate(2);
         $recent = Berita::with('beritaCategory')->orderBy('created_at','desc')->paginate(4);
-
         return view('front.single', compact('berita','komentar','total_komentar','recommend','recent'));
-
     }
 }

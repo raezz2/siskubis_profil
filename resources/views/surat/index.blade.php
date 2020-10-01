@@ -73,7 +73,6 @@
 						</tr>
 					</thead>
 					<tbody>
-
 					@foreach($surat as $p)
 						@if ($p->jenis_surat == 'keluar')
 						<tr>
@@ -112,10 +111,8 @@
 
 @section('css')
     <link rel="stylesheet" href="{{asset('theme/css/plugins/datatables.min.css')}}" />
-
 	<!-- Asset Alert iziToast -->
 	<link rel="stylesheet" href="{{asset('izitoast/dist/css/iziToast.min.css')}}">
-
 @endsection
 @section('js')
 	<script src="{{asset('theme/js/plugins/datatables.min.js')}}"></script>
@@ -123,10 +120,8 @@
     <script src="{{asset('theme/js/scripts/datatables.script.min.js')}}"></script>
 	<script src="{{asset('theme/js/plugins/datatables.min.js')}}"></script>
     <script src="{{asset('theme/js/scripts/tooltip.script.min.js')}}"></script>
-
 	<!-- Asset Alert iziToast -->
 	<script src="{{asset('izitoast/dist/js/iziToast.min.js')}}" type="text/javascript"></script>
-
     <script>
         $('#masuk').DataTable({
 			responsive:true,

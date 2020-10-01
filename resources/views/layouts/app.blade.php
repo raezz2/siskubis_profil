@@ -11,7 +11,8 @@
 <link href="{{ asset('theme/css/plugins/perfect-scrollbar.css')}}" rel="stylesheet" />
 <link rel="stylesheet" href="{{ asset('theme/css/plugins/fontawesome-5.css')}}" />
 <link href="{{ asset('theme/css/plugins/metisMenu.min.css')}}" rel="stylesheet" />
-
+<link href="{{ asset('theme/css/plugins/toastr.css')}}" rel="stylesheet" />
+<link rel="stylesheet" href="{{ asset('theme/css/plugins/sweetalert2.min.css')}}" />  
 @yield('css')
 </head>
 <body class="text-left">
@@ -74,6 +75,11 @@
 <script src="{{ asset('theme/js/plugins/feather.min.js')}}"></script>
 <script src="{{ asset('theme/js/plugins/metisMenu.min.js')}}"></script>
 <script src="{{ asset('theme/js/scripts/layout-sidebar-vertical.min.js')}}"></script>
+<script src="{{ asset('theme/js/plugins/toastr.min.js')}}"></script>
+<script src="{{ asset('theme/js/script/toastr.script.min.js')}}"></script>
+<script src="{{ asset('theme/js/plugins/sweetalert2.min.js')}}"></script>
+<script src="{{ asset('theme/js/scripts/sweetalert2.script.min.js')}}"></script>
+
 
 @yield('js')
 
@@ -89,3 +95,4 @@ $(document).on('click','.menu-toggle',function (){
 </body>
 
 </html>
+

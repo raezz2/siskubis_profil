@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Persuratan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+
 use DB;
 use Auth;
 use App\User;
@@ -12,6 +13,7 @@ use App\Surat;
 use Session;
 use App\Disposisi;
 use App\Priority;
+
 
 
 class PersuratanController extends Controller
@@ -28,6 +30,7 @@ class PersuratanController extends Controller
      */
     public function index()
     {
+
 
         $surat = Surat::all();
         $priority = DB::table('priority')->get();

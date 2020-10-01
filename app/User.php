@@ -2,9 +2,11 @@
 
 namespace App;
 
+use App\Event;
+use App\Tenant;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
 
 class User extends Authenticatable
@@ -37,7 +39,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
     public function surat(){
         // return $this->hasMany('App\Surat');
         return $this->belongsToMany('App\Surat');
@@ -46,5 +47,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Tenant');
     }
-
+    public function events()
+    {
+        return $this->hasMany(Event::class, 'author_id');
+    }
 }

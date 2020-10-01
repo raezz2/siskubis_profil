@@ -28,7 +28,6 @@
 		<link rel="stylesheet" href="{{asset('assets/css/skins/all.css')}}">
 		<link rel="stylesheet" href="{{asset('assets/css/demo.css')}}">
 	</head>
-
 	<body class="skin-orange">
 		<header class="primary">
 			<div class="firstbar">
@@ -40,14 +39,12 @@
 									<img src="{{asset('assets/images/logo.png')}}" alt="Magz Logo">
 								</a>
 							</div>
-
 						</div>
 						<div class="col-md-6 col-sm-12">
 							<form class="search" autocomplete="off">
 								<div class="form-group">
 									<div class="input-group">
 										<input type="text" name="q" class="form-control" placeholder="Type something here">
-
 										<div class="input-group-btn">
 											<button class="btn btn-primary"><i class="ion-search"></i></button>
 										</div>
@@ -63,9 +60,7 @@
 										<li><a href="#">Aplikasi</a></li>
 									</ul>
 								</div>
-
 							</form>
-
 						</div>
 						<div class="col-md-3 col-sm-12 text-right">
 							<ul class="nav-icons">
@@ -76,7 +71,6 @@
 					</div>
 				</div>
 			</div>
-
 			<!-- Start nav -->
 			<nav class="menu">
 				<div class="container">
@@ -97,7 +91,6 @@
 							<li class="for-tablet"><a href="/login">Login</a></li>
 							<li class="for-tablet"><a href="/register">Register</a></li>
 							<li><a href="/">Home</a></li>
-
 							<li class="dropdown magz-dropdown"><a href="#">Event <i class="ion-ios-arrow-right"></i></a>
 								<ul class="dropdown-menu">
 									<li><a href="category.html">Internet</a></li>
@@ -164,9 +157,7 @@
 													<article class="article col-md-4 mini">
 														<div class="inner">
 															<figure>
-
 																<a href="{{route('single')}}">
-
 																	<img src="{{asset('assets/images/news/img10.jpg')}}" alt="Sample Article">
 																</a>
 															</figure>
@@ -175,18 +166,14 @@
 																	<div class="time">December 10, 2016</div>
 																	<div class="category"><a href="category.html">Healthy</a></div>
 																</div>
-
 																<h2><a href="{{route('single')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
-
 															</div>
 														</div>
 													</article>
 													<article class="article col-md-4 mini">
 														<div class="inner">
 															<figure>
-
 																<a href="{{route('single')}}">
-
 																	<img src="{{asset('assets/images/news/img11.jpg')}}" alt="Sample Article">
 																</a>
 															</figure>
@@ -195,18 +182,14 @@
 																	<div class="time">December 13, 2016</div>
 																	<div class="category"><a href="category.html">Lifestyle</a></div>
 																</div>
-
 																<h2><a href="{{route('single')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
-
 															</div>
 														</div>
 													</article>
 													<article class="article col-md-4 mini">
 														<div class="inner">
 															<figure>
-
 																<a href="{{route('single')}}">
-
 																	<img src="{{asset('assets/images/news/img14.jpg')}}" alt="Sample Article">
 																</a>
 															</figure>
@@ -215,20 +198,16 @@
 																	<div class="time">December 14, 2016</div>
 																	<div class="category"><a href="category.html">Travel</a></div>
 																</div>
-
 																<h2><a href="{{route('single')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
-
 															</div>
 														</div>
 													</article>
 												</div>
 											</div>
-
 										</div>
 									</div>
 								</div>
 							</li>
-
 							<li class="dropdown magz-dropdown magz-dropdown-megamenu"><a href="#">Start Up <i class="ion-ios-arrow-right"></i> <div class="badge">Hot</div></a>
 								<div class="dropdown-menu megamenu">
 									<div class="megamenu-inner">
@@ -257,9 +236,7 @@
 													<article class="article col-md-4 mini">
 														<div class="inner">
 															<figure>
-
 																<a href="{{route('single')}}">
-
 																	<img src="{{asset('assets/images/news/img10.jpg')}}" alt="Sample Article">
 																</a>
 															</figure>
@@ -268,18 +245,14 @@
 																	<div class="time">December 10, 2016</div>
 																	<div class="category"><a href="category.html">Healthy</a></div>
 																</div>
-
 																<h2><a href="{{route('single')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
-
 															</div>
 														</div>
 													</article>
 													<article class="article col-md-4 mini">
 														<div class="inner">
 															<figure>
-
 																<a href="{{route('single')}}">
-
 																	<img src="{{asset('assets/images/news/img11.jpg')}}" alt="Sample Article">
 																</a>
 															</figure>
@@ -288,18 +261,14 @@
 																	<div class="time">December 13, 2016</div>
 																	<div class="category"><a href="category.html">Lifestyle</a></div>
 																</div>
-
 																<h2><a href="{{route('single')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
-
 															</div>
 														</div>
 													</article>
 													<article class="article col-md-4 mini">
 														<div class="inner">
 															<figure>
-
 																<a href="{{route('single')}}">
-
 																	<img src="{{asset('assets/images/news/img14.jpg')}}" alt="Sample Article">
 																</a>
 															</figure>
@@ -308,20 +277,16 @@
 																	<div class="time">December 14, 2016</div>
 																	<div class="category"><a href="category.html">Travel</a></div>
 																</div>
-
 																<h2><a href="{{route('single')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
-
 															</div>
 														</div>
 													</article>
 												</div>
 											</div>
-
 										</div>
 									</div>
 								</div>
 							</li>
-
 							<li class="dropdown magz-dropdown magz-dropdown-megamenu"><a href="#">Scale Up <i class="ion-ios-arrow-right"></i> <div class="badge">Hot</div></a>
 								<div class="dropdown-menu megamenu">
 									<div class="megamenu-inner">
@@ -350,9 +315,7 @@
 													<article class="article col-md-4 mini">
 														<div class="inner">
 															<figure>
-
 																<a href="{{route('single')}}">
-
 																	<img src="{{asset('assets/images/news/img10.jpg')}}" alt="Sample Article">
 																</a>
 															</figure>
@@ -361,18 +324,14 @@
 																	<div class="time">December 10, 2016</div>
 																	<div class="category"><a href="category.html">Healthy</a></div>
 																</div>
-
 																<h2><a href="{{route('single')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
-
 															</div>
 														</div>
 													</article>
 													<article class="article col-md-4 mini">
 														<div class="inner">
 															<figure>
-
 																<a href="{{route('single')}}">
-
 																	<img src="{{asset('assets/images/news/img11.jpg')}}" alt="Sample Article">
 																</a>
 															</figure>
@@ -381,18 +340,14 @@
 																	<div class="time">December 13, 2016</div>
 																	<div class="category"><a href="category.html">Lifestyle</a></div>
 																</div>
-
 																<h2><a href="{{route('single')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
-
 															</div>
 														</div>
 													</article>
 													<article class="article col-md-4 mini">
 														<div class="inner">
 															<figure>
-
 																<a href="{{route('single')}}">
-
 																	<img src="{{asset('assets/images/news/img14.jpg')}}" alt="Sample Article">
 																</a>
 															</figure>
@@ -401,16 +356,13 @@
 																	<div class="time">December 14, 2016</div>
 																	<div class="category"><a href="category.html">Travel</a></div>
 																</div>
-
 																<h2><a href="{{route('single')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
-
 															</div>
 														</div>
 													</article>
 												</div>
 											</div>
 										</div>
-
 									</div>
 								</div>
 							</li>
@@ -442,9 +394,7 @@
 			</nav>
 			<!-- End nav -->
 		</header>
-
 	@yield('content')
-
 <!-- Start footer -->
 		<footer class="footer">
 			<div class="container">
@@ -496,7 +446,6 @@
 						</div>
 					</div>
 					<div class="col-md-3 col-sm-6 col-xs-12">
-
 						<div class="block">
                             <h1 class="block-title">Latest News</h1>
                             <div class="block-body"></div>
@@ -525,9 +474,7 @@
 								<h5>Belum ada berita</h5>
                         	@endforelse
                         </div>
-
                         <a href="#" class="btn btn-magz white btn-block">See All <i class="ion-ios-arrow-thin-right"></i></a>
-
 					</div>
 					<div class="col-md-3 col-xs-12 col-sm-6">
 						<div class="block">
@@ -615,14 +562,12 @@
 					<div class="col-md-12">
 						<div class="copyright">
 							COPYRIGHT &copy; SISKUBIS 2020. ALL RIGHT RESERVED.
-
 						</div>
 					</div>
 				</div>
 			</div>
 		</footer>
 		<!-- End Footer -->
-
 		<!-- JS -->
 		<script src="{{asset('assets/js/jquery.js')}}"></script>
 		<script src="{{asset('assets/js/jquery.migrate.js')}}"></script>
@@ -637,6 +582,4 @@
 		<script src="{{asset('assets/js/demo.js')}}"></script>
 		<script src="{{asset('assets/js/e-magz.js')}}"></script>
 	</body>
-
 </html>
-

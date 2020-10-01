@@ -15,7 +15,6 @@
 						<aside>
 							<h1 class="aside-title">Recent Post</h1>
 							<div class="aside-body">
-
 								@foreach($recent as $row)
 								<article class="article-mini">
 									<div class="inner">
@@ -29,14 +28,11 @@
 											<div class="detail">
 												<div class="category"><a href="#">{{ $row->beritaCategory->category }}</a></div>
 												<div class="time">{{ $row->created_at->format('M d, Y') }}</div>
-
 											</div>
 										</div>
 									</div>
 								</article>
-
 								@endforeach
-
 							</div>
 						</aside>
 						<aside>
@@ -60,7 +56,6 @@
 					<div class="col-md-8">
 						<ol class="breadcrumb">
 						  <li><a href="#">Home</a></li>
-
 						  <li class="active">{{ $berita->beritaCategory->category }}</li>
 						</ol>
 						<article class="article main-article">
@@ -80,7 +75,6 @@
 									</figure>
 								</div>
 								{!! $berita->berita !!}
-
 							</div>
 							<footer>
 								<div class="col">
@@ -143,7 +137,6 @@
 								<div class="job">Web Developer</div>
 								<h3 class="name">{{ $berita->profil_user->nama}}</h3>
 								<p>{{ $berita->profil_user->deskripsi }}</p>
-
 								<ul class="social trp sm">
 									<li>
 										<a href="#" class="facebook">
@@ -174,14 +167,11 @@
 						</div>
 						<div class="line"><div>You May Also Like</div></div>
 						<div class="row">
-
 							@forelse($recommend as $row)
-
 							<article class="article related col-md-6 col-sm-6 col-xs-12">
 								<div class="inner">
 									<figure>
 										<a href="#">
-
 											<img src="{{ asset('storage/berita/' . $row->foto) }}">
 										</a>
 									</figure>
@@ -190,12 +180,10 @@
 										<div class="detail">
 											<div class="category"><a href="#">{{ $row->beritaCategory->category }}</a></div>
 											<div class="time">{{ $row->created_at->format('M d, Y') }}</div>
-
 										</div>
 									</div>
 								</div>
 							</article>
-
 							@empty
 								<p>Belum ada berita terkait kategori ini</p>
 							@endforelse
@@ -234,7 +222,6 @@
 								</div>
 								<div class="form-group col-md-12">
 									<textarea class="form-control" name="komentar" placeholder="Write your response ..."></textarea>
-
 								</div>
 								<div class="form-group col-md-12">
 									<button class="btn btn-primary">Send Response</button>

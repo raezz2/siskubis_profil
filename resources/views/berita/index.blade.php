@@ -5,7 +5,6 @@
 <div class="card">
 <div class="card-header container-fluid">
   <div class="row">
-
 	<div class="col-md-7">
 	  <h3>Berita</h3>
     </div>
@@ -45,7 +44,6 @@
   <hr>
 	<div class="ul-widget__body">
 	<div class="ul-widget5">
-
 		@foreach ($berita as $b)
 		<div class="ul-widget5__item">
 			<div class="ul-widget5__content">
@@ -83,7 +81,6 @@
 	<ul class="pagination justify-content-center">
 		<li class="page-item">{{ $berita->links() }}</li>
 	</ul>
-
 	</div>
 </div>
 </div>
@@ -113,7 +110,6 @@
 			<li class="page-item">{{ $berita->links() }}</li>
 		</ul>
 	</div>
-
 	<div class="card">
 		<div class="card-body">
 			<div class="card-title mb-0">Recent Comments</div>
