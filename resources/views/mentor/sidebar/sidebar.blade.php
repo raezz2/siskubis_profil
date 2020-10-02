@@ -9,12 +9,13 @@
                     <div class="main-menu">
                         <ul class="metismenu" id="menu">
                             <li class="Ul_li--hover"><a class="active" href="#"><i class="i-Bar-Chart text-20 mr-2 text-muted"></i><span class="item-name text-15 text-muted">Dashboard</span></a>
-                                
+
                             </li>
                             <li class="Ul_li--hover"><a class="" href="#"><i class="i-Administrator text-20 mr-2 text-muted"></i><span class="item-name text-15 text-muted">Tenant</span></a>
 
                             </li>
 							<li class="Ul_li--hover"><a class="" href="#"><i class="i-Administrator text-20 mr-2 text-muted"></i><span class="item-name text-15 text-muted">Pendamping</span></a>
+
 
                             </li>
                             <li class="Ul_li--hover"><a class="has-arrow" href="#"><i class="i-Suitcase text-20 mr-2 text-muted"></i><span class="item-name text-15 text-muted">Produk</span></a>
@@ -85,6 +86,7 @@
                                 </ul>
                             </li>
                             <li class="Ul_li--hover"><a href="datatables.html"><i class="i-File-Horizontal-Text text-20 mr-2 text-muted"></i><span class="item-name text-15 text-muted">Laporan</span></a></li>
+
                             <li class="Ul_li--hover"><a class="has-arrow" href="#"><i class="i-File-Horizontal-Text text-20 mr-2 text-muted"></i><span class="item-name text-15 text-muted">Persuratan</span></a>
 							<ul class="mm-collapse">
                                     <li class="item-name"><a href="/mentor/suratmasuk"><i class="nav-icon i-Error-404-Window"></i><span class="item-name">Surat Masuk</span></a></li>
@@ -106,7 +108,10 @@
                                 </ul>
                             </li>
                             <li class="Ul_li--hover"><a class="" href="{{route('mentor.event-list')}}"><i class="i-File-Horizontal-Text text-20 mr-2 text-muted"></i><span class="item-name text-15 text-muted">Event</span></a></li>
+
                             <li class="Ul_li--hover"><a href="http://demos.ui-lib.com/gull-html-doc/"><i class="i-Safe-Box1 text-20 mr-2 text-muted"></i><span class="item-name text-15 text-muted">Backup</span></a></li>
+                            <li class="Ul_li--hover"><a class="" href="/mentor/pengumuman"><i class="i-File-Horizontal-Text text-20 mr-2 text-muted"></i><span class="item-name text-15 text-muted">Pengumuman</span></a>
+                            </li>
                         </ul>
                     </div>
                 </div>

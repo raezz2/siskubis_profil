@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -7,12 +8,14 @@ use App\Komentar;
 use App\User;
 use DB;
 use App\Berita;
+
 class IndexController extends Controller
 {
     public function __construct()
     {
     //    $this->middleware('auth');
     }
+
     /**
      * Show the application dashboard.
      *
@@ -56,3 +59,4 @@ class IndexController extends Controller
         return view('front.single', compact('berita','komentar','total_komentar','recommend','recent'));
     }
 }
+

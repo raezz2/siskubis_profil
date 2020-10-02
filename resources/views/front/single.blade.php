@@ -33,6 +33,7 @@
 									</div>
 								</article>
 								@endforeach
+
 							</div>
 						</aside>
 						<aside>
@@ -137,6 +138,7 @@
 								<div class="job">Web Developer</div>
 								<h3 class="name">{{ $berita->profil_user->nama}}</h3>
 								<p>{{ $berita->profil_user->deskripsi }}</p>
+
 								<ul class="social trp sm">
 									<li>
 										<a href="#" class="facebook">
@@ -167,7 +169,9 @@
 						</div>
 						<div class="line"><div>You May Also Like</div></div>
 						<div class="row">
+
 							@forelse($recommend as $row)
+
 							<article class="article related col-md-6 col-sm-6 col-xs-12">
 								<div class="inner">
 									<figure>

@@ -27,7 +27,11 @@
                                     <li class="item-name"><a href="/user/suratkeluar"><i class="nav-icon i-Male"></i><span class="item-name">Surat Keluar</span></a></li>
                                 </ul>
 							</li>
-						</ul>
+                            <li class="Ul_li--hover"><a class="" href="/user/pengumuman"><i class="i-File-Horizontal-Text text-20 mr-2 "></i><span class="item-name text-15 text">Pengumuman</span></a>
+                            </li>
+
+                        </ul>
+
                     </div>
                 </div>
                 <div class="ps__rail-x" style="left: 0px; bottom: 0px;">

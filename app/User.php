@@ -2,11 +2,17 @@
 
 namespace App;
 
+<<<<<<< HEAD
 use App\Event;
 use App\Tenant;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+=======
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+>>>>>>> pengumuman/master
 use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
 
 class User extends Authenticatable
@@ -20,6 +26,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name', 'email', 'password','inkubator_id'
+
     ];
 
     /**

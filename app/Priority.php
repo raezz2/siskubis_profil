@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Priority extends Model
 {
     protected $table = 'priority';
+    protected $fillable = [
+        'name'
+    ];
+
 
     public function surat()
     {
@@ -16,5 +20,10 @@ class Priority extends Model
     public function event()
     {
         return $this->hasMany(Event::class);
+
+
+    public function pengumuman()
+    {
+        return $this->hasMany('App\Pengumuman');
     }
 }
