@@ -33,14 +33,14 @@
 			<div class="firstbar">
 				<div class="container">
 					<div class="row">
-						<div class="col-md-3 col-sm-12">
+						<div class="col-md-4 col-sm-12">
 							<div class="brand">
 								<a href="index.html">
 									<img src="{{asset('assets/images/logo.png')}}" alt="Magz Logo">
 								</a>
 							</div>
 						</div>
-						<div class="col-md-6 col-sm-12">
+						<div class="col-md-8 col-sm-12">
 							<form class="search" autocomplete="off">
 								<div class="form-group">
 									<div class="input-group">
@@ -61,12 +61,6 @@
 									</ul>
 								</div>
 							</form>
-						</div>
-						<div class="col-md-3 col-sm-12 text-right">
-							<ul class="nav-icons">
-								<li><a href="/register"><i class="ion-person-add"></i><div>Register</div></a></li>
-								<li><a href="/login"><i class="ion-person"></i><div>Login</div></a></li>
-							</ul>
 						</div>
 					</div>
 				</div>
@@ -157,7 +151,7 @@
 													<article class="article col-md-4 mini">
 														<div class="inner">
 															<figure>
-																<a href="{{route('single')}}">
+																<a href="{{route('single','none')}}">
 																	<img src="{{asset('assets/images/news/img10.jpg')}}" alt="Sample Article">
 																</a>
 															</figure>
@@ -166,14 +160,14 @@
 																	<div class="time">December 10, 2016</div>
 																	<div class="category"><a href="category.html">Healthy</a></div>
 																</div>
-																<h2><a href="{{route('single')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
+																<h2><a href="{{route('single','none')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
 															</div>
 														</div>
 													</article>
 													<article class="article col-md-4 mini">
 														<div class="inner">
 															<figure>
-																<a href="{{route('single')}}">
+																<a href="{{route('single','none')}}">
 																	<img src="{{asset('assets/images/news/img11.jpg')}}" alt="Sample Article">
 																</a>
 															</figure>
@@ -182,14 +176,14 @@
 																	<div class="time">December 13, 2016</div>
 																	<div class="category"><a href="category.html">Lifestyle</a></div>
 																</div>
-																<h2><a href="{{route('single')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
+																<h2><a href="{{route('single','none')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
 															</div>
 														</div>
 													</article>
 													<article class="article col-md-4 mini">
 														<div class="inner">
 															<figure>
-																<a href="{{route('single')}}">
+																<a href="{{route('single','none')}}">
 																	<img src="{{asset('assets/images/news/img14.jpg')}}" alt="Sample Article">
 																</a>
 															</figure>
@@ -198,7 +192,7 @@
 																	<div class="time">December 14, 2016</div>
 																	<div class="category"><a href="category.html">Travel</a></div>
 																</div>
-																<h2><a href="{{route('single')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
+																<h2><a href="{{route('single','none')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
 															</div>
 														</div>
 													</article>
@@ -236,7 +230,7 @@
 													<article class="article col-md-4 mini">
 														<div class="inner">
 															<figure>
-																<a href="{{route('single')}}">
+																<a href="{{route('single','none')}}">
 																	<img src="{{asset('assets/images/news/img10.jpg')}}" alt="Sample Article">
 																</a>
 															</figure>
@@ -245,14 +239,14 @@
 																	<div class="time">December 10, 2016</div>
 																	<div class="category"><a href="category.html">Healthy</a></div>
 																</div>
-																<h2><a href="{{route('single')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
+																<h2><a href="{{route('single','none')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
 															</div>
 														</div>
 													</article>
 													<article class="article col-md-4 mini">
 														<div class="inner">
 															<figure>
-																<a href="{{route('single')}}">
+																<a href="{{route('single','none')}}">
 																	<img src="{{asset('assets/images/news/img11.jpg')}}" alt="Sample Article">
 																</a>
 															</figure>
@@ -261,14 +255,14 @@
 																	<div class="time">December 13, 2016</div>
 																	<div class="category"><a href="category.html">Lifestyle</a></div>
 																</div>
-																<h2><a href="{{route('single')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
+																<h2><a href="{{route('single','none')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
 															</div>
 														</div>
 													</article>
 													<article class="article col-md-4 mini">
 														<div class="inner">
 															<figure>
-																<a href="{{route('single')}}">
+																<a href="{{route('single','none')}}">
 																	<img src="{{asset('assets/images/news/img14.jpg')}}" alt="Sample Article">
 																</a>
 															</figure>
@@ -277,7 +271,7 @@
 																	<div class="time">December 14, 2016</div>
 																	<div class="category"><a href="category.html">Travel</a></div>
 																</div>
-																<h2><a href="{{route('single')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
+																<h2><a href="{{route('single','none')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
 															</div>
 														</div>
 													</article>
@@ -315,7 +309,7 @@
 													<article class="article col-md-4 mini">
 														<div class="inner">
 															<figure>
-																<a href="{{route('single')}}">
+																<a href="{{route('single','none')}}">
 																	<img src="{{asset('assets/images/news/img10.jpg')}}" alt="Sample Article">
 																</a>
 															</figure>
@@ -324,14 +318,14 @@
 																	<div class="time">December 10, 2016</div>
 																	<div class="category"><a href="category.html">Healthy</a></div>
 																</div>
-																<h2><a href="{{route('single')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
+																<h2><a href="{{route('single','none')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
 															</div>
 														</div>
 													</article>
 													<article class="article col-md-4 mini">
 														<div class="inner">
 															<figure>
-																<a href="{{route('single')}}">
+																<a href="{{route('single','none')}}">
 																	<img src="{{asset('assets/images/news/img11.jpg')}}" alt="Sample Article">
 																</a>
 															</figure>
@@ -340,14 +334,14 @@
 																	<div class="time">December 13, 2016</div>
 																	<div class="category"><a href="category.html">Lifestyle</a></div>
 																</div>
-																<h2><a href="{{route('single')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
+																<h2><a href="{{route('single','none')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
 															</div>
 														</div>
 													</article>
 													<article class="article col-md-4 mini">
 														<div class="inner">
 															<figure>
-																<a href="{{route('single')}}">
+																<a href="{{route('single','none')}}">
 																	<img src="{{asset('assets/images/news/img14.jpg')}}" alt="Sample Article">
 																</a>
 															</figure>
@@ -356,7 +350,7 @@
 																	<div class="time">December 14, 2016</div>
 																	<div class="category"><a href="category.html">Travel</a></div>
 																</div>
-																<h2><a href="{{route('single')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
+																<h2><a href="{{route('single','none')}}">Duis aute irure dolor in reprehenderit in voluptate</a></h2>
 															</div>
 														</div>
 													</article>
@@ -379,15 +373,30 @@
 									<li><a href="#"><i class="icon ion-heart"></i> Contact Us</a></li>
 								</ul>
 							</li>
+							@guest
 							<li class="dropdown magz-dropdown"><a href="#">My Account <i class="ion-ios-arrow-right"></i></a>
 								<ul class="dropdown-menu">
-									<li><a href="#"><i class="icon ion-person"></i>Dashboard</a></li>
+									<li><a href="/login"><i class="icon ion-person"></i>Login</a></li>
+									<li><a href="/register"><i class="icon ion-heart"></i>Register</a></li>
+								</ul>
+							</li>
+							@endguest
+							@auth
+							<li class="dropdown magz-dropdown"><a href="#">My Account <i class="ion-ios-arrow-right"></i></a>
+								<ul class="dropdown-menu">
+									<li><a href="{{route('dashboard')}}"><i class="icon ion-person"></i>Dashboard</a></li>
 									<li><a href="#"><i class="icon ion-heart"></i> Forum</a></li>
 									<li><a href="#"><i class="icon ion-settings"></i> Profile</a></li>
 									<li class="divider"></li>
-									<li><a href="#"><i class="icon ion-log-out"></i> Logout</a></li>
+									<li><a href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"><i class="icon ion-log-out"></i> Logout</a></li>
 								</ul>
+								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+									@csrf
+								</form>
 							</li>
+							@endauth
 						</ul>
 					</div>
 				</div>
@@ -430,9 +439,9 @@
 						</div>
 						<div class="line"></div>
 						<div class="block">
-							<h1 class="block-title">Newsletter</h1>
+							<h1 class="block-title">Buletin</h1>
 							<div class="block-body">
-								<p>By subscribing you will receive new articles in your email.</p>
+								<p>Dengan berlangganan Anda akan menerima artikel baru di email Anda.</p>
 								<form class="newsletter">
 									<div class="input-group">
 										<div class="input-group-addon">
@@ -440,7 +449,7 @@
 										</div>
 										<input type="email" class="form-control email" placeholder="Your mail">
 									</div>
-									<button class="btn btn-primary btn-block white">Subscribe</button>
+									<button class="btn btn-primary btn-block white">Langganan</button>
 								</form>
 							</div>
 						</div>

@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'Front\IndexController@index');
-Route::get('/single', 'Front\IndexController@single')->name('single');
+Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+Route::get('/single/{slug}', 'Front\IndexController@single')->name('single');
 Route::get('/pengumuman', 'Front\PengumumanController@index')->name('pengumuman');
 Route::get('/pengumuman/{slug}', 'Front\PengumumanController@show');
 
@@ -39,11 +40,17 @@ Route::group(['prefix'=>'inkubator','middleware' => ['role:inkubator']], functio
 
 	Route::get('/mentor', 'Mentor\MentorController@index')->name('inkubator.mentor');
 	Route::get('/produk', 'Produk\ProdukController@index')->name('inkubator.produk');
-	Route::get('/aktifitas', 'Produk\ProdukController@index')->name('inkubator.aktifitas');
-	Route::get('/keuangan', 'Produk\ProdukController@index')->name('inkubator.keuangan');
-	Route::get('/pencapaian', 'Produk\ProdukController@index')->name('inkubator.pencapaian');
-	Route::get('/laporan', 'Produk\ProdukController@index')->name('inkubator.laporan');
-
+	Route::get('/produk/{kategori}', 'Produk\ProdukController@kategori')->name('inkubator.produk-kategori');
+	Route::get('/produk/{kategori}/{id}', 'Produk\ProdukController@detail')->name('inkubator.produk-detail');
+	
+	Route::get('/aktifitas', 'Aktifitas\AktifitasController@index')->name('inkubator.aktifitas');
+	Route::get('/keuangan', 'Keuangan\KeuanganController@index')->name('inkubator.keuangan');
+	Route::get('/pencapaian', 'Pencapaian\PencapaianController@index')->name('inkubator.pencapaian');
+	Route::get('/laporan', 'Laporan\LaporanController@index')->name('inkubator.laporan');
+    Route::get('/chat', 'Chat\ChatController@index')->name('inkubator.chat');
+    Route::get('/pesan', 'Pesan\PesanController@index')->name('inkubator.pesan');
+	Route::get('/profile', 'Profile\ProfileUserController@index')->name('inkubator.profile-auth');
+	Route::get('/profile/{id}', 'Profile\ProfileUserController@index')->name('inkubator.profile-detail');
 
 	//route surat inkubator
 	Route::get('/surat', 'Persuratan\PersuratanController@index')->name('inkubator.surat');
@@ -94,9 +101,7 @@ Route::group(['prefix'=>'inkubator','middleware' => ['role:inkubator']], functio
     Route::post('/berita/komentar','Berita\BeritaController@komentar')->name('inkubator.komentarBerita');
     //End
     Route::get('/berita/kategori', 'Berita\KategoriController@kategori')->name('inkubator.kategori');
-    Route::get('/chat', 'Chat\ChatController@index')->name('inkubator.chat');
-    Route::get('/pesan', 'Pesan\PesanController@index')->name('inkubator.pesan');
-	Route::get('/profile', 'Profile\ProfileUserController@index')->name('inkubator.profile');
+
 	
 	//komentar
 	//Route::get('/{slug}', 'Berita\BeritaKomentarController@show');

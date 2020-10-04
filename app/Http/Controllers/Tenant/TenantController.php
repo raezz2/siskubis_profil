@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Priority;
 use File;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Auth;
 use App\Tenant;
 use DB;
@@ -34,10 +32,6 @@ class TenantController extends Controller
 		return view('tenant.index',$data);
     }
 	
-	public function kategori($kategori)
-    {
-        return view('tenant.'.$kategori);
-    }
 	public function detail($kategori,$id)
     {
         return view('tenant.'.$kategori);

@@ -2,17 +2,11 @@
 
 namespace App;
 
-<<<<<<< HEAD
 use App\Event;
 use App\Tenant;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-=======
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
->>>>>>> pengumuman/master
 use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
 
 class User extends Authenticatable
@@ -24,10 +18,13 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password','inkubator_id'
+    protected $table = "users";
+    protected $fillable = ['name', 'inkubator_id', 'email', 'email_verified_at', '	password', 'remember_token', 'created_at', 'updated_at'];
 
-    ];
+    public function pengumuman()
+    {
+        return $this->hasMany('App\Pengumuman');
+    }
 
     /**
      * The attributes that should be hidden for arrays.

@@ -118,12 +118,12 @@
 									<article class="article-mini">
 										<div class="inner">
 											<figure>
-												<a href="{{route('single')}}">
+												<a href="{{route('single','none')}}">
 													<img src="{{asset('assets/images/news/img09.jpg')}}" alt="Sample Article">
 												</a>
 											</figure>
 											<div class="padding">
-												<h1><a href="{{route('single')}}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
+												<h1><a href="{{route('single','none')}}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
 												<div class="detail">
 													<div class="category"><a href="category.html">Lifestyle</a></div>
 													<div class="time">December 22, 2016</div>
@@ -134,12 +134,12 @@
 									<article class="article-mini">
 										<div class="inner">
 											<figure>
-												<a href="{{route('single')}}">
+												<a href="{{route('single','none')}}">
 													<img src="{{asset('assets/images/news/img01.jpg')}}" alt="Sample Article">
 												</a>
 											</figure>
 											<div class="padding">
-												<h1><a href="{{route('single')}}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
+												<h1><a href="{{route('single','none')}}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
 												<div class="detail">
 													<div class="category"><a href="category.html">Lifestyle</a></div>
 													<div class="time">December 22, 2016</div>
@@ -150,12 +150,12 @@
 									<article class="article-mini">
 										<div class="inner">
 											<figure>
-												<a href="{{route('single')}}">
+												<a href="{{route('single','none')}}">
 													<img src="{{asset('assets/images/news/img05.jpg')}}" alt="Sample Article">
 												</a>
 											</figure>
 											<div class="padding">
-												<h1><a href="{{route('single')}}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
+												<h1><a href="{{route('single','none')}}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
 												<div class="detail">
 													<div class="category"><a href="category.html">Lifestyle</a></div>
 													<div class="time">December 22, 2016</div>
@@ -166,12 +166,12 @@
 									<article class="article-mini">
 										<div class="inner">
 											<figure>
-												<a href="{{route('single')}}">
+												<a href="{{route('single','none')}}">
 													<img src="{{asset('assets/images/news/img02.jpg')}}" alt="Sample Article">
 												</a>
 											</figure>
 											<div class="padding">
-												<h1><a href="{{route('single')}}">Fusce ullamcorper elit at felis cursus suscipit</a></h1>
+												<h1><a href="{{route('single','none')}}">Fusce ullamcorper elit at felis cursus suscipit</a></h1>
 												<div class="detail">
 													<div class="category"><a href="category.html">Travel</a></div>
 													<div class="time">December 21, 2016</div>
@@ -182,12 +182,12 @@
 									<article class="article-mini">
 										<div class="inner">
 											<figure>
-												<a href="{{route('single')}}">
+												<a href="{{route('single','none')}}">
 													<img src="{{asset('assets/images/news/img13.jpg')}}" alt="Sample Article">
 												</a>
 											</figure>
 											<div class="padding">
-												<h1><a href="{{route('single')}}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
+												<h1><a href="{{route('single','none')}}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
 												<div class="detail">
 													<div class="category"><a href="category.html">International</a></div>
 													<div class="time">December 20, 2016</div>
@@ -198,12 +198,12 @@
 									<article class="article-mini">
 										<div class="inner">
 											<figure>
-												<a href="{{route('single')}}">
+												<a href="{{route('single','none')}}">
 													<img src="{{asset('assets/images/news/img08.jpg')}}" alt="Sample Article">
 												</a>
 											</figure>
 											<div class="padding">
-												<h1><a href="{{route('single')}}">Aliquam et metus convallis tincidunt velit ut rhoncus dolor</a></h1>
+												<h1><a href="{{route('single','none')}}">Aliquam et metus convallis tincidunt velit ut rhoncus dolor</a></h1>
 												<div class="detail">
 													<div class="category"><a href="category.html">Computer</a></div>
 													<div class="time">December 19, 2016</div>
@@ -221,7 +221,7 @@
 							<article class="col-md-12 article-list">
 								<div class="inner">
 									<figure>
-										<a href="{{route('single')}}">
+										<a href="{{route('single','none')}}">
 											<img src="{{asset('assets/images/news/img11.jpg')}}" alt="Sample Article">
 										</a>
 									</figure>
@@ -232,13 +232,13 @@
 											</div>
 											<div class="time">December 19, 2016</div>
 										</div>
-										<h1><a href="{{route('single')}}">Donec consequat arcu at ultrices sodales quam erat aliquet diam</a></h1>
+										<h1><a href="{{route('single','none')}}">Donec consequat arcu at ultrices sodales quam erat aliquet diam</a></h1>
 										<p>
 										Donec consequat, arcu at ultrices sodales, quam erat aliquet diam, sit amet interdum libero nunc accumsan nisi.
 										</p>
 										<footer>
 											<a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>273</div></a>
-											<a class="btn btn-primary more" href="{{route('single')}}">
+											<a class="btn btn-primary more" href="{{route('single','none')}}">
 												<div>More</div>
 												<div><i class="ion-ios-arrow-thin-right"></i></div>
 											</a>
@@ -252,7 +252,7 @@
 										Sponsored
 									</div>
 									<figure>
-										<a href="{{route('single')}}">
+										<a href="{{route('single','none')}}">
 											<img src="{{asset('assets/images/news/img02.jpg')}}" alt="Sample Article">
 										</a>
 									</figure>
@@ -263,13 +263,13 @@
 											</div>
 											<div class="time">December 18, 2016</div>
 										</div>
-										<h1><a href="{{route('single')}}">Maecenas accumsan tortor ut velit pharetra mollis</a></h1>
+										<h1><a href="{{route('single','none')}}">Maecenas accumsan tortor ut velit pharetra mollis</a></h1>
 										<p>
 											Maecenas accumsan tortor ut velit pharetra mollis. Proin eu nisl et arcu iaculis placerat sollicitudin ut est. In fringilla dui.
 										</p>
 										<footer>
 											<a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>4209</div></a>
-											<a class="btn btn-primary more" href="{{route('single')}}">
+											<a class="btn btn-primary more" href="{{route('single','none')}}">
 												<div>More</div>
 												<div><i class="ion-ios-arrow-thin-right"></i></div>
 											</a>
@@ -280,7 +280,7 @@
 							<article class="col-md-12 article-list">
 								<div class="inner">
 									<figure>
-										<a href="{{route('single')}}">
+										<a href="{{route('single','none')}}">
 											<img src="{{asset('assets/images/news/img03.jpg')}}" alt="Sample Article">
 										</a>
 									</figure>
@@ -291,13 +291,13 @@
 											</div>
 											<div class="time">December 16, 2016</div>
 										</div>
-										<h1><a href="{{route('single')}}">Nulla facilisis odio quis gravida vestibulum Proin venenatis pellentesque arcu</a></h1>
+										<h1><a href="{{route('single','none')}}">Nulla facilisis odio quis gravida vestibulum Proin venenatis pellentesque arcu</a></h1>
 										<p>
 											Nulla facilisis odio quis gravida vestibulum. Proin venenatis pellentesque arcu, ut mattis nulla placerat et.
 										</p>
 										<footer>
 											<a href="#" class="love active"><i class="ion-android-favorite"></i> <div>302</div></a>
-											<a class="btn btn-primary more" href="{{route('single')}}">
+											<a class="btn btn-primary more" href="{{route('single','none')}}">
 												<div>More</div>
 												<div><i class="ion-ios-arrow-thin-right"></i></div>
 											</a>
@@ -308,7 +308,7 @@
 							<article class="col-md-12 article-list">
 								<div class="inner">
 									<figure>
-										<a href="{{route('single')}}">
+										<a href="{{route('single','none')}}">
 											<img src="{{asset('assets/images/news/img09.jpg')}}" alt="Sample Article">
 										</a>
 									</figure>
@@ -319,13 +319,13 @@
 											</div>
 											<div class="time">December 16, 2016</div>
 										</div>
-										<h1><a href="{{route('single')}}">Maecenas blandit ultricies lorem id tempor enim pulvinar at</a></h1>
+										<h1><a href="{{route('single','none')}}">Maecenas blandit ultricies lorem id tempor enim pulvinar at</a></h1>
 										<p>
 											Maecenas blandit ultricies lorem, id tempor enim pulvinar at. Curabitur sit amet tortor eu ipsum lacinia malesuada.
 										</p>
 										<footer>
 											<a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>783</div></a>
-											<a class="btn btn-primary more" href="{{route('single')}}">
+											<a class="btn btn-primary more" href="{{route('single','none')}}">
 												<div>More</div>
 												<div><i class="ion-ios-arrow-thin-right"></i></div>
 											</a>
@@ -341,17 +341,17 @@
 							<div class="aside-body">
 								<div class="featured-author">
 									<div class="featured-author-inner">
-										<div class="featured-author-cover" style="background-image: url('{{asset("assets/images/news/img15.jpg")}}');">
+										<div class="featured-author-cover" style="background-image: url('{{asset("img/inkubator/lppmuny2.jpg")}}');">
 											<div class="badges">
 												<div class="badge-item"><i class="ion-star"></i> Featured</div>
 											</div>
 											<div class="featured-author-center">
 												<figure class="featured-author-picture">
-													<img src="{{asset('assets/images/img01.jpg')}}" alt="Sample Article">
+													<img src="{{asset('img/inkubator/lppmuny.jpg')}}" alt="Sample Article">
 												</figure>
 												<div class="featured-author-info">
-													<h2 class="name">John Doe</h2>
-													<div class="desc">@JohnDoe</div>
+													<h2 class="name">LPPM UNY</h2>
+													<div class="desc">@lppmuny</div>
 												</div>
 											</div>
 										</div>
@@ -359,27 +359,27 @@
 											<div class="featured-author-count">
 												<div class="item">
 													<a href="#">
-														<div class="name">Posts</div>
+														<div class="name">Tenant</div>
 														<div class="value">208</div>														
 													</a>
 												</div>
 												<div class="item">
 													<a href="#">
-														<div class="name">Stars</div>
-														<div class="value">3,729</div>														
+														<div class="name">Produk</div>
+														<div class="value">300</div>														
 													</a>
 												</div>
 												<div class="item">
 													<a href="#">
 														<div class="icon">
-															<div>More</div>
+															<div>Detail</div>
 															<i class="ion-chevron-right"></i>
 														</div>														
 													</a>
 												</div>
 											</div>
 											<div class="featured-author-quote">
-												"Eur costrict mobsa undivani krusvuw blos andugus pu aklosah"
+												"Berperan kreatif, produktif dan adaptif dalam rangka mendukung UNY menuju universitas kependidikan kelas dunia."
 											</div>
 											<div class="block">
 												<h2 class="block-title">Photos</h2>
@@ -433,15 +433,15 @@
 								<form class="newsletter">
 									<div class="icon">
 										<i class="ion-ios-email-outline"></i>
-										<h1>Newsletter</h1>
+										<h1>Buletin</h1>
 									</div>
 									<div class="input-group">
-										<input type="email" class="form-control email" placeholder="Your mail">
+										<input type="email" class="form-control email" placeholder="Email anda">
 										<div class="input-group-btn">
 											<button class="btn btn-primary"><i class="ion-paper-airplane"></i></button>
 										</div>
 									</div>
-									<p>By subscribing you will receive new articles in your email.</p>
+									<p>Dengan berlangganan Anda akan menerima artikel baru di email Anda.</p>
 								</form>
 							</div>
 						</aside>
@@ -463,7 +463,7 @@
 									<article class="article-fw">
 										<div class="inner">
 											<figure>
-												<a href="{{route('single')}}">
+												<a href="{{route('single','none')}}">
 													<img src="{{asset('assets/images/news/img16.jpg')}}" alt="Sample Article">
 												</a>
 											</figure>
@@ -472,7 +472,7 @@
 													<div class="time">December 31, 2016</div>
 													<div class="category"><a href="category.html">Sport</a></div>
 												</div>
-												<h1><a href="{{route('single')}}">Donec congue turpis vitae mauris</a></h1>
+												<h1><a href="{{route('single','none')}}">Donec congue turpis vitae mauris</a></h1>
 												<p>
 													Donec congue turpis vitae mauris condimentum luctus. Ut dictum neque at egestas convallis. 
 												</p>
@@ -483,12 +483,12 @@
 									<article class="article-mini">
 										<div class="inner">
 											<figure>
-												<a href="{{route('single')}}">
+												<a href="{{route('single','none')}}">
 													<img src="{{asset('assets/images/news/img05.jpg')}}" alt="Sample Article">
 												</a>
 											</figure>
 											<div class="padding">
-												<h1><a href="{{route('single')}}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
+												<h1><a href="{{route('single','none')}}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
 												<div class="detail">
 													<div class="category"><a href="category.html">Lifestyle</a></div>
 													<div class="time">December 22, 2016</div>
@@ -499,12 +499,12 @@
 									<article class="article-mini">
 										<div class="inner">
 											<figure>
-												<a href="{{route('single')}}">
+												<a href="{{route('single','none')}}">
 													<img src="{{asset('assets/images/news/img02.jpg')}}" alt="Sample Article">
 												</a>
 											</figure>
 											<div class="padding">
-												<h1><a href="{{route('single')}}">Fusce ullamcorper elit at felis cursus suscipit</a></h1>
+												<h1><a href="{{route('single','none')}}">Fusce ullamcorper elit at felis cursus suscipit</a></h1>
 												<div class="detail">
 													<div class="category"><a href="category.html">Travel</a></div>
 													<div class="time">December 21, 2016</div>
@@ -515,12 +515,12 @@
 									<article class="article-mini">
 										<div class="inner">
 											<figure>
-												<a href="{{route('single')}}">
+												<a href="{{route('single','none')}}">
 													<img src="{{asset('assets/images/news/img10.jpg')}}" alt="Sample Article">
 												</a>
 											</figure>
 											<div class="padding">
-												<h1><a href="{{route('single')}}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
+												<h1><a href="{{route('single','none')}}">Duis aute irure dolor in reprehenderit in voluptate velit</a></h1>
 												<div class="detail">
 													<div class="category"><a href="category.html">Healthy</a></div>
 													<div class="time">December 20, 2016</div>
@@ -639,7 +639,7 @@
 					<article class="article">
 						<div class="inner">
 							<figure>
-								<a href="{{route('single')}}">
+								<a href="{{route('single','none')}}">
 									<img src="{{asset('assets/images/news/img03.jpg')}}" alt="Sample Article">
 								</a>
 							</figure>
@@ -648,7 +648,7 @@
 										<div class="time">December 11, 2016</div>
 										<div class="category"><a href="category.html">Travel</a></div>
 								</div>
-								<h2><a href="{{route('single')}}">tempor interdum Praesent tincidunt</a></h2>
+								<h2><a href="{{route('single','none')}}">tempor interdum Praesent tincidunt</a></h2>
 								<p>Praesent tincidunt, leo vitae congue molestie.</p>
 							</div>
 						</div>
@@ -656,7 +656,7 @@
 					<article class="article">
 						<div class="inner">
 							<figure>
-								<a href="{{route('single')}}">
+								<a href="{{route('single','none')}}">
 									<img src="{{asset('assets/images/news/img16.jpg')}}" alt="Sample Article">
 								</a>
 							</figure>
@@ -665,7 +665,7 @@
 									<div class="time">December 09, 2016</div>
 									<div class="category"><a href="category.html">Sport</a></div>
 								</div>
-								<h2><a href="{{route('single')}}">Maecenas porttitor sit amet turpis a semper</a></h2>
+								<h2><a href="{{route('single','none')}}">Maecenas porttitor sit amet turpis a semper</a></h2>
 								<p> Proin vulputate, urna id porttitor luctus, dui augue facilisis lacus.</p>
 							</div>
 						</div>
@@ -673,7 +673,7 @@
 					<article class="article">
 						<div class="inner">
 							<figure>
-								<a href="{{route('single')}}">
+								<a href="{{route('single','none')}}">
 									<img src="{{asset('assets/images/news/img15.jpg')}}" alt="Sample Article">
 								</a>
 							</figure>
@@ -682,7 +682,7 @@
 									<div class="time">December 26, 2016</div>
 									<div class="category"><a href="category.html">Lifestyle</a></div>
 								</div>
-								<h2><a href="{{route('single')}}">Fusce ac odio eu ex volutpat pellentesque</a></h2>
+								<h2><a href="{{route('single','none')}}">Fusce ac odio eu ex volutpat pellentesque</a></h2>
 								<p>Vestibulum ante ipsum primis in faucibus orci luctus</p>
 							</div>
 						</div>
@@ -690,7 +690,7 @@
 					<article class="article">
 						<div class="inner">
 							<figure>
-								<a href="{{route('single')}}">
+								<a href="{{route('single','none')}}">
 									<img src="{{asset('assets/images/news/img14.jpg')}}" alt="Sample Article">
 								</a>
 							</figure>
@@ -699,7 +699,7 @@
 									<div class="time">December 26, 2016</div>
 									<div class="category"><a href="category.html">Travel</a></div>
 								</div>
-								<h2><a href="{{route('single')}}">Nulla facilisis odio quis gravida vestibulum</a></h2>
+								<h2><a href="{{route('single','none')}}">Nulla facilisis odio quis gravida vestibulum</a></h2>
 								<p>Proin venenatis pellentesque arcu, ut mattis nulla placerat et.</p>
 							</div>
 						</div>
@@ -707,7 +707,7 @@
 					<article class="article">
 						<div class="inner">
 							<figure>
-								<a href="{{route('single')}}">
+								<a href="{{route('single','none')}}">
 									<img src="{{asset('assets/images/news/img01.jpg')}}" alt="Sample Article">
 								</a>
 							</figure>
@@ -716,7 +716,7 @@
 									<div class="time">December 26, 2016</div>
 									<div class="category"><a href="category.html">Travel</a></div>
 								</div>
-								<h2><a href="{{route('single')}}">Fusce Ullamcorper Elit At Felis Cursus Suscipit</a></h2>
+								<h2><a href="{{route('single','none')}}">Fusce Ullamcorper Elit At Felis Cursus Suscipit</a></h2>
 								<p>Proin venenatis pellentesque arcu, ut mattis nulla placerat et.</p>
 							</div>
 						</div>
@@ -724,7 +724,7 @@
 					<article class="article">
 						<div class="inner">
 							<figure>
-								<a href="{{route('single')}}">
+								<a href="{{route('single','none')}}">
 									<img src="{{asset('assets/images/news/img11.jpg')}}" alt="Sample Article">
 								</a>
 							</figure>
@@ -733,7 +733,7 @@
 									<div class="time">December 26, 2016</div>
 									<div class="category"><a href="category.html">Travel</a></div>
 								</div>
-								<h2><a href="{{route('single')}}">Donec consequat arcu at ultrices sodales</a></h2>
+								<h2><a href="{{route('single','none')}}">Donec consequat arcu at ultrices sodales</a></h2>
 								<p>Proin venenatis pellentesque arcu, ut mattis nulla placerat et.</p>
 							</div>
 						</div>

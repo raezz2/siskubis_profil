@@ -20,7 +20,7 @@ class Priority extends Model
     public function event()
     {
         return $this->hasMany(Event::class);
-
+	}
 
     public function pengumuman()
     {

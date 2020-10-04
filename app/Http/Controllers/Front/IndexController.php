@@ -42,7 +42,7 @@ class IndexController extends Controller
     }
     public function single($slug)
     {
-        $berita = Berita::find($slug);
+        //$berita = Berita::find($slug);
         $berita = Berita::with(['beritaCategory','profil_user'])->where('slug', $slug)->first();
         $view = $berita->views + 1;
         $berita->update([
