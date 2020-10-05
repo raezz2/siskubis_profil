@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="row"> 
+<div class="row">
 <div class="col-xl-8 col-lg-8">
 <div class="card">
 <div class="card-header container-fluid">
@@ -125,7 +125,7 @@
 					</div>
 					<div class="ul-widget-app__profile-status">
 					<span class="ul-widget-app__icons">
-					<!-- <a href="inkubator/berita/destroy/{{ $li->id }}" class="badge badge-pill badge-danger p-2 m-1">Delete</a> -->	
+					<!-- <a href="inkubator/berita/destroy/{{ $li->id }}" class="badge badge-pill badge-danger p-2 m-1">Delete</a> -->
 					</span>
 					<span class="text-mute">{{ date('d M Y',strtotime($li->created_at)) }}</span>
 					</div>
@@ -137,3 +137,4 @@
 </div>
 </div>
 @endsection
+@include('alert')
