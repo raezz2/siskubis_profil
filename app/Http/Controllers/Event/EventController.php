@@ -122,7 +122,7 @@ class EventController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect()->to('/inkubator/event')->with($notification);
+        return redirect()->back()->with($notification);
     }
 
     public function edit(Event $event)

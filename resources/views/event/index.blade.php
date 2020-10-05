@@ -27,7 +27,7 @@
             @role('inkubator')
 			<div class="card-body">
 				<div class="create_event_wrap">
-                    <a href="{{route('inkubator.event.create')}}"><button class="btn btn-outline-primary btn-block">Tambah Event</button></a>
+                    <button class="btn btn-outline-primary btn-block"data-toggle="modal" data-target="#inputModal">Tambah Event</button>
 				</div>
             </div>
             @endrole
@@ -47,7 +47,7 @@
                 <div class="form-group">
                     <label for="search">Pencarian</label>
                     <div class="input-group">
-                        <input type="text" name="title" id="title" class="form-control" placeholder="search" value="{{ request()->input('title') }}">
+                        <input type="text" name="title" class="form-control" placeholder="search" value="{{ request()->input('title') }}">
                     </div>
                 </div>
                 <div class="form-group">
@@ -167,11 +167,11 @@
                                             </div>
                                         </td>
                                         <td class="custom-align">
-                                            <div class="d-inline-flex align-items-center calendar align-middle"><i class="i-Calendar-4"></i><span>{{ $item->tgl_mulai->format("d M Y") }}</span></div>
+                                            <div class="d-inline-flex align-items-center calendar align-middle"><i class="i-Calendar-4"></i><span>{{ $item->tgl_mulai->format("d M Y") }}</span></div><br>
                                             <div class="d-inline-flex align-items-center calendar align-middle"><i class="i-Clock"></i><span>{{ $item->waktu_mulai->format("H:i") }}</span></div>
                                         </td>
                                         <td class="custom-align">
-                                            <div class="d-inline-flex align-items-center calendar align-middle"><i class="i-Calendar-4"></i><span>{{ $item->tgl_selesai->format("d M Y") }}</span></div>
+                                            <div class="d-inline-flex align-items-center calendar align-middle"><i class="i-Calendar-4"></i><span>{{ $item->tgl_selesai->format("d M Y") }}</span></div><br>
                                             <div class="d-inline-flex align-items-center calendar align-middle"><i class="i-Clock"></i><span>{{ $item->waktu_selesai->format("H:i") }}</span></div>
                                         </td>
                                         <td class="custom-align">
@@ -196,7 +196,108 @@
             </div>
             <!--  end of content area -->
         </div>
-	</div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="inputModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- form input modal -->
+                <form action="{{ route('inkubator.event.store') }}" method="post" autocomplete="off" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" name="title" class="form-control" placeholder="title" required>
+                        @error('title')
+                            <div class="mt-2 text-danger">
+                            {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="foto">Foto</label>
+                        <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <label class="custom-file-label" for="foto">Choose file</label>
+                            <input class="custom-file-input" id="foto" type="file"  name="foto" required accept="image/*" />
+                        </div>
+                        </div>
+                        @error('foto')
+                        <div class="mt-2 text-danger">
+                        {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="event">Event</label>
+                        <textarea name="event" id="event" required class="form-control"></textarea>
+                        @error('event')
+                        <div class="mt-2 text-danger">
+                        {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                        <label for="tgl_mulai">Tanggal Mulai :</label>
+                        <div class="input-group">
+                            <input type="date" name="tgl_mulai" class="form-control" id="tgl_mulai" required>
+                            <input type="time" name="waktu_mulai" class="form-control" id="waktu_mulai" required>
+                        </div>
+                        @error('tgl_mulai')
+                            <div class="mt-2 text-danger">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                        @error('waktu_mulai')
+                            <div class="mt-2 text-danger">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                        </div>
+                        <div class="form-group col-md-6">
+                        <label for="tgl_selesai">Tanggal Selesai</label>
+                        <div class="input-group">
+                            <input type="date" name="tgl_selesai" class="form-control" id="tgl_selesai" required>
+                            <input type="time" name="waktu_selesai" class="form-control" id="waktu_selesai" required>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                        <label for="priority">Priority</label>
+                        <select class="form-control" name="priority_id" id="priority_id">
+                            @foreach ($priority as $prio)
+                                <option value="{{ $prio->id }}">{{ $prio->name }}</option>
+                            @endforeach
+                        </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                        <label for="publish">Publish</label>
+                        <select name="publish" class="form-control" id="publish">
+                            <option value="1">Publish</option>
+                            <option value="0">Draft</option>
+                        </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal end -->
 </div>
 @endsection
 
@@ -207,7 +308,6 @@
 @endsection
 
 @section('js')
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
@@ -217,18 +317,32 @@
 <script src="{{ asset('theme/js/script/toastr.script.min.js')}}"></script>
 <script src="{{ asset('theme/js/plugins/sweetalert2.min.js')}}"></script>
 <script src="{{ asset('theme/js/scripts/sweetalert2.script.min.js')}}"></script>
+<script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+
 <script>
 
-$(document).ready( function () {
-    $('#names').DataTable(
-        {
-            "pagingType": "numbers",
-            "searching": false,
-            "scrollX": true
-        }
-    );
-});
+    $(document).ready( function () {
+        @if(Session::has('errors'))
+            $('#inputModal').modal('show');
+        @endif
+        $('#names').DataTable(
+            {
+                "pagingType": "numbers",
+                "searching": false,
+                "scrollX": true
+            }
+        );
+
+        $(".custom-file-input").on("change", function() {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+        CKEDITOR.replace('event');
+    });
     
+    // $('#btnModal').on('click', function(){
+    //     $('#inputModal').modal('show');
+    // });
     $(function() {
         $('input[name="daterange"]').daterangepicker({
         opens: 'right',
