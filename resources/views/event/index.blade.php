@@ -6,7 +6,7 @@
 			<div class="card-header container-fluid">
 			  <div class="row">
 				<div class="col-md-8">
-				  <h3>Event</h3>
+                    <h3>Event</h3>
 				</div>
 				<div class="col-md-4 btn-group">
                     @role('inkubator')
@@ -52,7 +52,7 @@
                 </div>
                 <div class="form-group">
                     <label for="daterange">Rentang tanggal</label>
-                    <input type="text" name="daterange" class="form-control" placeholder="set tanggal" value="{{ old('between') }}">
+                    <input type="text" name="daterange" class="form-control" placeholder="set tanggal">
                 </div>
                 <div class="form-group">
                     <label for="priority">Priority</label>
@@ -96,15 +96,7 @@
             <div class="content"> 
                 <!--  task manager table -->
                 <div class="card" id="card">
-
-                    <div class="card-body" id="card-body">
-                        <div class="search ul-task-manager__search-inline">
-                            <nav class="navbar">
-                                <form class="form-inline">
-                                        
-                                </form>
-                            </nav>
-                        </div>
+                    <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered custom-sm-width" id="names">
                                 <thead>
@@ -122,17 +114,10 @@
                                         @endrole
                                     </tr>
                                 </thead>
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th colspan="8">Last Week</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="names">
-                                    <!-- --------------------------- tr1 -------------------------------------------->
+                                <tbody>
+                                    <!-- --------------------------- table row -------------------------------------------->
                                     @foreach ($event as $key => $item)
-                                        
-                                    
-                                    <tr id="names">
+                                    <tr>
                                         <th class="head-width" scope="row">{{ $event->firstItem() + $key }}</th>
                                         <td class="collection-item">
                                             @role('inkubator')
@@ -191,7 +176,6 @@
                             </table>
                         </div>
                     </div>
-                    </div>
                 </div>
                 <!--  end of task manager table -->
             </div>
@@ -202,102 +186,101 @@
     <div class="modal fade" id="inputModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- form input modal -->
-                <form action="{{ route('inkubator.event.store') }}" method="post" autocomplete="off" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-group">
-                        <label for="title">Title</label>
-                        <input type="text" name="title" class="form-control" placeholder="title" required>
-                        @error('title')
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- form input modal -->
+                    <form action="{{ route('inkubator.event.store') }}" method="post" autocomplete="off" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" name="title" class="form-control" placeholder="title" required>
+                            @error('title')
+                                <div class="mt-2 text-danger">
+                                {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="foto">Foto</label>
+                            <div class="input-group mb-3">
+                                <div class="custom-file">
+                                    <label class="custom-file-label" for="foto">Choose file</label>
+                                    <input class="custom-file-input" id="foto" type="file"  name="foto" required accept="image/*" />
+                                </div>
+                            </div>
+                            @error('foto')
                             <div class="mt-2 text-danger">
                             {{ $message }}
                             </div>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="foto">Foto</label>
-                        <div class="input-group mb-3">
-                        <div class="custom-file">
-                            <label class="custom-file-label" for="foto">Choose file</label>
-                            <input class="custom-file-input" id="foto" type="file"  name="foto" required accept="image/*" />
+                            @enderror
                         </div>
-                        </div>
-                        @error('foto')
-                        <div class="mt-2 text-danger">
-                        {{ $message }}
-                        </div>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="event">Event</label>
-                        <textarea name="event" id="event" required class="form-control"></textarea>
-                        @error('event')
-                        <div class="mt-2 text-danger">
-                        {{ $message }}
-                        </div>
-                        @enderror
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                        <label for="tgl_mulai">Tanggal Mulai :</label>
-                        <div class="input-group">
-                            <input type="date" name="tgl_mulai" class="form-control" id="tgl_mulai" required>
-                            <input type="time" name="waktu_mulai" class="form-control" id="waktu_mulai" required>
-                        </div>
-                        @error('tgl_mulai')
+                        <div class="form-group">
+                            <label for="event">Event</label>
+                            <textarea name="event" id="event" required class="form-control"></textarea>
+                            @error('event')
                             <div class="mt-2 text-danger">
-                                {{ $message }}
+                            {{ $message }}
                             </div>
-                        @enderror
-                        @error('waktu_mulai')
-                            <div class="mt-2 text-danger">
-                                {{ $message }}
+                            @enderror
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="tgl_mulai">Tanggal Mulai :</label>
+                                <div class="input-group">
+                                    <input type="date" name="tgl_mulai" class="form-control" id="tgl_mulai" required>
+                                    <input type="time" name="waktu_mulai" class="form-control" id="waktu_mulai" required>
+                                </div>
+                                @error('tgl_mulai')
+                                <div class="mt-2 text-danger">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                                @error('waktu_mulai')
+                                <div class="mt-2 text-danger">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
-                        @enderror
+                            <div class="form-group col-md-6">
+                                <label for="tgl_selesai">Tanggal Selesai</label>
+                                <div class="input-group">
+                                    <input type="date" name="tgl_selesai" class="form-control" id="tgl_selesai" required>
+                                    <input type="time" name="waktu_selesai" class="form-control" id="waktu_selesai" required>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group col-md-6">
-                        <label for="tgl_selesai">Tanggal Selesai</label>
-                        <div class="input-group">
-                            <input type="date" name="tgl_selesai" class="form-control" id="tgl_selesai" required>
-                            <input type="time" name="waktu_selesai" class="form-control" id="waktu_selesai" required>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="priority">Priority</label>
+                                <select class="form-control" name="priority_id" id="priority_id">
+                                    @foreach ($priority as $prio)
+                                        <option value="{{ $prio->id }}">{{ $prio->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="publish">Publish</label>
+                                <select name="publish" class="form-control" id="publish">
+                                    <option value="1">Publish</option>
+                                    <option value="0">Draft</option>
+                                </select>
+                            </div>
                         </div>
+                        <br>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                        <label for="priority">Priority</label>
-                        <select class="form-control" name="priority_id" id="priority_id">
-                            @foreach ($priority as $prio)
-                                <option value="{{ $prio->id }}">{{ $prio->name }}</option>
-                            @endforeach
-                        </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                        <label for="publish">Publish</label>
-                        <select name="publish" class="form-control" id="publish">
-                            <option value="1">Publish</option>
-                            <option value="0">Draft</option>
-                        </select>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-
     <!-- Modal end -->
 </div>
 @endsection
