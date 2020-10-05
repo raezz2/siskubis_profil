@@ -3,16 +3,18 @@ namespace App\Http\Controllers\Berita;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\Berita;
+use App\Berita; 
 use App\kategori;
 use App\Inkubator;
 use App\profil_user;
 use App\Komentar;
+use Image;
 use App\User;
-use DB;
-use Auth;
-use Validator;
-use File;
+use App\BeritaLike;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\File;
+
 class BeritaController extends Controller
 {
     public function __construct()
@@ -62,9 +64,12 @@ class BeritaController extends Controller
             'foto'                  => 'required|image|mimes:jpg,png,jpeg',
         ]);
         if ($request->hasFile('foto')) {
-            $file = $request->file('foto');
-            $filename = time() . Str::slug($request->tittle) . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/berita', $filename);
+            $image = $request->file('foto');
+            $filename = time() . Str::slug($request->tittle) . '.' . $image->getClientOriginalExtension();
+            $image_resize = Image::make($image->getRealPath());
+            $image_resize->resize(900,585);
+            $image_resize->save(public_path('storage/berita/'.$filename));
+
             $berita = Berita::create([
                 'tittle'                => $request->tittle,
                 'slug'                  => Str::slug($request->tittle),
@@ -107,9 +112,11 @@ class BeritaController extends Controller
         $berita = Berita::find($id);
         $filename = $berita->foto;
         if ($request->hasFile('foto')) {
-            $file = $request->file('foto');
-            $filename = time() . Str::slug($request->tittle) . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/berita', $filename);
+            $image = $request->file('foto');
+            $filename = time() . Str::slug($request->tittle) . '.' . $image->getClientOriginalExtension();
+            $image_resize = Image::make($image->getRealPath());
+            $image_resize->resize(900,585);
+            $image_resize->save(public_path('storage/berita/'.$filename));
             File::delete(storage_path('app/public/berita/' . $produk->foto));
         }
         $berita->update([
