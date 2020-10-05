@@ -52,7 +52,7 @@
                 </div>
                 <div class="form-group">
                     <label for="daterange">Rentang tanggal</label>
-                    <input type="text" name="daterange" class="form-control" placeholder="set tanggal">
+                    <input type="text" name="daterange" class="form-control" placeholder="set tanggal" value="{{ old('between') }}">
                 </div>
                 <div class="form-group">
                     <label for="priority">Priority</label>
@@ -91,6 +91,7 @@
         @endrole
 	</div>
 	<div class="col-md-9">
+        <div id="task-manager-list">
             <!--  content area -->
             <div class="content"> 
                 <!--  task manager table -->

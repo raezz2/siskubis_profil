@@ -27,7 +27,7 @@ class EventController extends Controller
 
     public function index(Request $request)
     {
-
+        $date = $request->old('between');
         $priority = Priority::orderBy('name', 'ASC')->get();
         $event = QueryBuilder::for(Event::class)
             ->allowedFilters([
