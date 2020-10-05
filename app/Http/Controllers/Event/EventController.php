@@ -70,8 +70,9 @@ class EventController extends Controller
 
     public function calendar()
     {
+        $priority = Priority::all();
         $event = Event::all();
-        return view('event.calendar', compact('event'));
+        return view('event.calendar', compact('event', 'priority'));
     }
 
     public function calendarMentor()
@@ -160,6 +161,5 @@ class EventController extends Controller
             'alert-type' => 'error'
         );
         return redirect()->to('/inkubator/event')->with($notification);
-
     }
 }

@@ -8,7 +8,7 @@
           @csrf
           <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" name="title" class="form-control" id="title" placeholder="title">
+            <input type="text" name="title" class="form-control" id="title" placeholder="title" required>
             @error('title')
                 <div class="mt-2 text-danger">
                   {{ $message }}
@@ -20,7 +20,7 @@
             <div class="input-group mb-3">
               <div class="custom-file">
                 <label class="custom-file-label" for="foto">Choose file</label>
-                <input class="custom-file-input" id="foto" type="file"  name="foto" accept="image/*" />
+                <input class="custom-file-input" id="foto" type="file"  name="foto" accept="image/*" required/>
               </div>
             </div>
             @error('foto')
@@ -42,8 +42,8 @@
             <div class="form-group col-md-6">
               <label for="tgl_mulai">Tanggal Mulai :</label>
               <div class="input-group">
-                <input type="date" name="tgl_mulai" class="form-control" id="tgl_mulai">
-                <input type="time" name="waktu_mulai" class="form-control" id="waktu_mulai">
+                <input type="date" name="tgl_mulai" class="form-control" id="tgl_mulai" required>
+                <input type="time" name="waktu_mulai" class="form-control" id="waktu_mulai" required>
               </div>
               @error('tgl_mulai')
                   <div class="mt-2 text-danger">
@@ -59,8 +59,8 @@
             <div class="form-group col-md-6">
               <label for="tgl_selesai">Tanggal Selesai</label>
               <div class="input-group">
-                <input type="date" name="tgl_selesai" class="form-control" id="tgl_selesai">
-                <input type="time" name="waktu_selesai" class="form-control" id="waktu_selesa">
+                <input type="date" name="tgl_selesai" class="form-control" id="tgl_selesai" required>
+                <input type="time" name="waktu_selesai" class="form-control" id="waktu_selesa" required>
               </div>
             </div>
           </div>

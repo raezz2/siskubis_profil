@@ -91,11 +91,6 @@
         @endrole
 	</div>
 	<div class="col-md-9">
-        <div class="form-row">
-    {{-- <div class="col-12">
-      @include('event.alert')
-    </div> --}}
-        <div id="task-manager-list">
             <!--  content area -->
             <div class="content"> 
                 <!--  task manager table -->
@@ -108,13 +103,6 @@
                                         
                                 </form>
                             </nav>
-                            {{-- <label><span>Show:</span>
-                                <select id="pagination">
-                                             <option value="5" @if($items == 5) selected @endif >5</option>
-                                             <option value="10" @if($items == 10) selected @endif >10</option>
-                                             <option value="25" @if($items == 25) selected @endif >25</option>
-                                </select>
-                            </label> --}}
                         </div>
                         <div class="table-responsive">
                             <table class="table table-bordered custom-sm-width" id="names">
@@ -214,6 +202,8 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('theme/css/plugins/datatables.min.css')}}" />
+<link href="{{ asset('theme/css/plugins/toastr.css')}}" rel="stylesheet" />
+<link rel="stylesheet" href="{{ asset('theme/css/plugins/sweetalert2.min.css')}}" /> 
 @endsection
 
 @section('js')
@@ -223,13 +213,18 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script src="{{ asset('theme/js/plugins/datatables.min.js')}}"></script>
 <script src="{{ asset('theme/js/scripts/datatables.script.min.js')}}"></script>
+<script src="{{ asset('theme/js/plugins/toastr.min.js')}}"></script>
+<script src="{{ asset('theme/js/script/toastr.script.min.js')}}"></script>
+<script src="{{ asset('theme/js/plugins/sweetalert2.min.js')}}"></script>
+<script src="{{ asset('theme/js/scripts/sweetalert2.script.min.js')}}"></script>
 <script>
 
 $(document).ready( function () {
     $('#names').DataTable(
         {
             "pagingType": "numbers",
-            "searching": false
+            "searching": false,
+            "scrollX": true
         }
     );
 });
