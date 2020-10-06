@@ -63,8 +63,13 @@
 												<h4><a href="{{ route('single', $row->slug) }}">{{ Str::Limit($row->tittle, 40) }}</a></h4>
 												<p>{!! Str::Limit($row->berita, 150) !!}</p>
 												<footer>	
-													<a href="#" class="love"><i class="ion-android-favorite-outline"></i> <div>1263</div></a>
-													<a class="btn btn-primary more" href="#">
+													<a href="#" class="love">
+														<i class="ion-android-favorite-outline"></i> 
+														@php
+                                                			$berita_like = DB::table('berita_like')->where('berita_id',$row->id)->count();
+                                                		@endphp
+														<div>{{ $berita_like }}</div></a>
+													<a class="btn btn-primary more" href="{{ route('single', $row->slug) }}">
 														<div>More</div>
 														<div><i class="ion-ios-arrow-thin-right"></i></div>
 													</a>

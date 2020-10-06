@@ -8,6 +8,7 @@ use App\Komentar;
 use App\User;
 use DB;
 use App\Berita;
+use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller
 {
@@ -23,21 +24,36 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $mainNews = Berita::with('beritaCategory')
-                    ->orderBy('views','desc')
-                    ->where('publish','=','1')
-                    ->where('inkubator_id','=','0')
-                    ->paginate(1);
-        $lastNews = Berita::with('beritaCategory')
-                    ->orderBy('created_at','desc')
-                    ->where('publish','=','1')
-                    ->where('inkubator_id','=','0')
-                    ->paginate(4);
-        $popular = Berita::with('beritaCategory')
-                    ->orderBy('views','desc')
-                    ->where('publish','=','1')
-                    ->where('inkubator_id','=','0')
-                    ->paginate(7);
+        if (Auth::user()) {
+            $mainNews = Berita::with('beritaCategory')
+                        ->orderBy('views','desc')
+                        ->where('publish','=','1')
+                        ->paginate(1);
+            $lastNews = Berita::with('beritaCategory')
+                        ->orderBy('created_at','desc')
+                        ->where('publish','=','1')
+                        ->paginate(4);
+            $popular = Berita::with('beritaCategory')
+                        ->orderBy('views','desc')
+                        ->where('publish','=','1')
+                        ->paginate(7);
+        }else{
+            $mainNews = Berita::with('beritaCategory')
+                        ->orderBy('views','desc')
+                        ->where('publish','=','1')
+                        ->where('inkubator_id','=','0')
+                        ->paginate(1);
+            $lastNews = Berita::with('beritaCategory')
+                        ->orderBy('created_at','desc')
+                        ->where('publish','=','1')
+                        ->where('inkubator_id','=','0')
+                        ->paginate(4);
+            $popular = Berita::with('beritaCategory')
+                        ->orderBy('views','desc')
+                        ->where('publish','=','1')
+                        ->where('inkubator_id','=','0')
+                        ->paginate(7);
+        }
         return view('front.index', compact('mainNews','lastNews','popular'));
     }
     public function single($slug)

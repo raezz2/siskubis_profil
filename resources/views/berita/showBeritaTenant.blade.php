@@ -36,7 +36,7 @@
 
 						@if($likeExist == null)
 							<form id="likeForm" name="likeForm">
-							{{-- <form action="{{ route('inkubator.likeBerita') }}" method="post"> --}}
+							{{-- <form action="{{ route('tenant.likeBerita') }}" method="post"> --}}
 							{{ csrf_field() }}
 								<input type="text" name="user_id" value="{{ Auth::user()->id }}" hidden>
 								<input type="text" name="berita_id" value="{{ $berita->id }}" hidden>
@@ -80,7 +80,7 @@
 					<p>Belum Ada Komentar</p>
 				@endforelse
 				<br><br>
-				<form action="{{ route('inkubator.komentarBerita') }}" method="post" class="row">
+				<form action="{{ route('tenant.komentarBerita') }}" method="post" class="row">
 					{{ csrf_field() }}
 					<input type="hidden" name="id" value="id" class="form-control">
 					<input type="hidden" name="berita_id" value="{{ $berita->id }}" class="form-control">
@@ -113,7 +113,7 @@
 			<div class="ul-widget-app__profile-pic p-3"><img class="profile-picture avatar-lg" src="{{ asset('storage/berita/' . $row->foto) }}" alt="alt" /></div>
 			<div class="ul-widget-app__comment">
 				<div class="ul-widget-app__profile-title">
-					<a class="ul-widget4__title" href="{{ route('inkubator.showBerita', $row->slug) }}">{{ Str::limit($row->tittle, 40) }}</a>
+					<a class="ul-widget4__title" href="{{ route('tenant.showBerita', $row->slug) }}">{{ Str::limit($row->tittle, 40) }}</a>
 				</div>
 				<div class="ul-widget-app__profile-status">
 							@if($row->publish == 1)
@@ -164,7 +164,7 @@
                 $(this).css({"background-color": "#dc3545", "border-color": "#dc3545", "color": "white", "opacity": "100%"})
                 $.ajax({
                     data: $('#likeForm').serialize(),
-                    url: "{{ route('inkubator.likeBerita') }}",
+                    url: "{{ route('tenant.likeBerita') }}",
                     type: "POST",
                     dataType: 'json'
                 });
