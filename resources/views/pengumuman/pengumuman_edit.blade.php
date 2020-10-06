@@ -26,6 +26,7 @@
                     <div class="form-group">
                         <select class="form-control" name="inkubator">
                             <option selected="" disabled="">Pilih Inkubator</option>
+                            <option value="0"{{($p->inkubator_id == 0) ? 'selected' : ''}}>Umum / Non Tenant</option>
                             @foreach ($inkubator as $i)
                             <option value="{{ $i->id }}" {{($p->inkubator_id == $i->id) ? 'selected' : ''}}>{{ $i->nama }}</option>
                             @endforeach

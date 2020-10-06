@@ -132,7 +132,7 @@
 					@csrf
 					<div class="form-group">
 						<label class="control-lable">Title</label>
-						<input class="form-control @error('title') is-invalid @enderror" type="text" placeholder="Title...." name="title" id="title" value="{{ old('title') }}" />
+						<input class="form-control @error('title') is-invalid @enderror" type="text" placeholder="Title...." name="title" id="title" value="{{ old('title') }}" required/>
 						@if($errors->has('title'))
 						<div class="text-danger">
 							{{ $errors->first('title')}}
@@ -141,7 +141,7 @@
 					</div>
 					<div class="form-group">
 						<label class="control-lable">Kategori</label>
-						<select class="form-control @error('kategori') is-invalid @enderror" name="kategori" id="kategori">
+						<select class="form-control @error('kategori') is-invalid @enderror" name="kategori" id="kategori" required>
 							<option selected="" disabled="">Pilih Kategori</option>
 							@foreach ($kategori as $k)
 							<option value="{{ $k->id }}" {{ old('kategori') == $k->id ? 'selected':''}}>{{ $k->name }}</option>
@@ -155,8 +155,9 @@
 					</div>
 					<div class="form-group">
 						<label class="control-lable">Inkubator</label>
-						<select class="form-control @error('inkubator') is-invalid @enderror" name=" inkubator" id="inkubator">
+						<select class="form-control @error('inkubator') is-invalid @enderror" name=" inkubator" id="inkubator" required>
 							<option selected="" disabled="">Pilih Inkubator</option>
+							<option value="0">Umum / Non Tenant</option>
 							@foreach ($inkubator as $i)
 							<option value="{{ $i->id }}" {{ old('inkubator') == $i->id ? 'selected':''}}>{{ $i->nama }}</option>
 							@endforeach
@@ -169,7 +170,7 @@
 					</div>
 					<div class="form-group">
 						<label class="control-lable">Pengumuman</label>
-						<textarea class="form-control @error('pengumuman') is-invalid @enderror" rows=" 3" placeholder="Pengumuman ...." name="pengumuman" id="pengumuman">{{old('pengumuman')}}</textarea>
+						<textarea class="form-control @error('pengumuman') is-invalid @enderror" rows=" 3" placeholder="Pengumuman ...." name="pengumuman" id="pengumuman" required>{{old('pengumuman')}}</textarea>
 
 						@if($errors->has('pengumuman'))
 						<div class="text-danger">
@@ -179,7 +180,7 @@
 
 					</div>
 					<div class="custom-file">
-						<input type="file" class="custom-file-input @error('file') is-invalid @enderror" name="file" id="file" value="{{ old('foto') }}">
+						<input type="file" class="custom-file-input @error('file') is-invalid @enderror" name="file" id="file" value="{{ old('foto') }}" required>
 						<label class="custom-file-label" for="exampleInputFile">Choose File</a>
 
 						</label>
