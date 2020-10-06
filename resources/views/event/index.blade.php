@@ -47,12 +47,16 @@
                 <div class="form-group">
                     <label for="search">Pencarian</label>
                     <div class="input-group">
-                        <input type="text" name="titles" class="form-control" placeholder="search" value="{{ request()->filter['title'] ? request()->filter['title'] : '' }}">
+                        <input type="text" name="titles" class="form-control" placeholder="search" value="{{ $title != null ? $title : null }}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="daterange">Rentang tanggal</label>
-                    <input type="text" name="daterange" class="form-control" placeholder="set tanggal" value="tanggal">
+                    <input type="text" name="daterange" class="form-control" placeholder="set tanggal" 
+                    @if($exp != '')
+                        value="{!! \Carbon\Carbon::parse($exp['0'])->format('d M Y') !!} - {!! \Carbon\Carbon::parse($exp['1'])->format('d M Y') !!}"
+                    @endif
+                    >
                 </div>
                 <div class="form-group">
                     <label for="priority">Priority</label>
@@ -98,7 +102,7 @@
                 <div class="card" id="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered custom-sm-width" id="names">
+                            <table class="table table-bordered custom-sm-width table-striped" id="names" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
@@ -182,6 +186,7 @@
             <!--  end of content area -->
         </div>
     </div>
+    @role('inkubator')
     <!-- Modal -->
     <div class="modal fade" id="inputModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -282,6 +287,12 @@
         </div>
     </div>
     <!-- Modal end -->
+    @endrole
+</div>
+<div class="row">
+    <div class="card">
+        {{-- <div class="card-body">{{ $between }}</div> --}}
+    </div>
 </div>
 @endsection
 
@@ -312,7 +323,12 @@
         $('#names').DataTable(
             {
                 "pagingType": "numbers",
+                @role('tenant')
+                "searching": true,
+                @endrole
+                @role(['mentor', 'inkubator'])
                 "searching": false,
+                @endrole
                 "scrollX": true
             }
         );
@@ -331,8 +347,12 @@
         $('input[name="daterange"]').daterangepicker({
             opens: 'right',
             autoUpdateInput: false,
-            startDate: '10-21-2020',
-            endDate: '10-21-2020',
+            @role(['inkubator', 'mentor'])
+            @if($exp != null)
+                startDate: '{!! \Carbon\Carbon::parse($exp['0'])->format('m d Y') !!}',
+                endDate: '{!! \Carbon\Carbon::parse($exp['1'])->format('m d Y') !!}',
+            @endif
+            @endrole
             locale: {
             cancelLabel: 'Clear'
             },
@@ -341,7 +361,7 @@
         });
 
         $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
-            $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            $(this).val(picker.startDate.format('DD MMM YYYY') + ' - ' + picker.endDate.format('DD MMM YYYY'));
         });
 
         $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
