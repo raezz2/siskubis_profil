@@ -78,20 +78,20 @@ class DisposisiController extends Controller
         return view('surat.tenant.keluar', compact('surat'));
     }
     //Menampilkan view Surat keluar untuk User
-    public function usersuratmasuk()
-    {
-        $disposisi = Disposisi::get();
-        $tenant = TenantUser::get();
+    // public function usersuratmasuk()
+    // {
+    //     $disposisi = Disposisi::get();
+    //     $tenant = TenantUser::get();
 
-        return view('surat.user.index', compact('disposisi','tenant'));
-    }
+    //     return view('surat.user.index', compact('disposisi','tenant'));
+    // }
 
-    public function usersuratkeluar()
-    {
-        $surat = Surat::get();
+    // public function usersuratkeluar()
+    // {
+    //     $surat = Surat::get();
 
-        return view('surat.user.keluar', compact('surat'));
-    }
+    //     return view('surat.user.keluar', compact('surat'));
+    // }
 
     /**
      * Show the form for creating a new resource.

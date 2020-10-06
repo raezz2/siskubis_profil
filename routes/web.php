@@ -190,9 +190,9 @@ Route::group(['prefix'=>'user','middleware' => ['role:user']], function () {
     Route::get('/', 'User\HomeController@index')->name('user.home');
     Route::get('/chat', 'Chat\ChatController@index')->name('user.chat');
 	//route surat
-	Route::get('/suratmasuk', 'Persuratan\DisposisiController@usersuratmasuk');
-	Route::get('/suratkeluar', 'Persuratan\DisposisiController@usersuratkeluar');
-	Route::get('/surat/{disposisi}/hapus', 'Persuratan\DisposisiController@destroy');
+	// Route::get('/suratmasuk', 'Persuratan\DisposisiController@usersuratmasuk');
+	// Route::get('/suratkeluar', 'Persuratan\DisposisiController@usersuratkeluar');
+	// Route::get('/surat/{disposisi}/hapus', 'Persuratan\DisposisiController@destroy');
 	//route pengumuman
 	Route::get('/pengumuman', 'User\UserController@pengumuman');
 	Route::get('/pengumuman/{slug}', 'User\UserController@show');
