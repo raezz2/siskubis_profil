@@ -135,7 +135,7 @@ Route::group(['prefix'=>'mentor','middleware' => ['role:mentor']], function () {
 	//route surat mentor
 	Route::get('/suratmasuk', 'Persuratan\DisposisiController@mentorsuratmasuk');
 	Route::get('/suratkeluar', 'Persuratan\DisposisiController@mentorsuratkeluar');
-	Route::get('/buatsurat', 'Persuratan\PersuratanController@create');
+	Route::get('/buatsurat', 'Persuratan\DisposisiController@create');
 	Route::get('/buatsuratkeluar', 'Persuratan\DisposisiController@createkeluar');
 	Route::post('/kirimsurat', 'Persuratan\DisposisiController@mentorstore');
 	Route::post('/kirimsuratkeluar', 'Persuratan\DisposisiController@mentorstorekeluar');
@@ -144,7 +144,7 @@ Route::group(['prefix'=>'mentor','middleware' => ['role:mentor']], function () {
 	Route::get('/surat/{surat}/delete', 'Persuratan\PersuratanController@destroy');
 	Route::get('/surat/edit/{surat}', 'Persuratan\DisposisiController@edit');
 	Route::patch('/surat/{surat}', 'Persuratan\DisposisiController@mentorupdate');
-	
+
 	// ! route event mentor
 	Route::get('/event', 'Event\EventController@indexMentor')->name('mentor.event-list');
 	Route::get('/event/calendar', 'Event\EventController@calendarMentor')->name('mentor.event-calendar');
