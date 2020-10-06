@@ -63,17 +63,12 @@
 					</div>
 				</div>
 			</div>
-			<div class="ul-widget5__content">
-				<div class="ul-widget5__stats"><span class="ul-widget5__sales">{{ $b->views }} <i class="i-Eye"></i></span><span class="ul-widget5__sales">200 <i class="i-Speach-Bubble-3"></i></span></div>
-				<div class="ul-widget5__stats"><span class="ul-widget5__number">
-				<form action="{{ route('inkubator.destroyBerita', $b->id) }}" method="post">
-                	@csrf
-                	<input type="hidden" name="_method" value="DELETE">
-					<a class="ul-link-action text-success" href="{{ route('inkubator.editBerita', $b->id) }}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="i-Edit"></i></a>
-					<button type="submit" class="btn btn-link ul-link-action text-danger mr-1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Want To Delete !!!"><i class="i-Eraser-2"></i></button>
-				</form>
-				</span></div>
-			</div>
+			<div class="ul-widget5__stats">
+                <span class="ul-widget5__number">
+                    <a href="{{ route('inkubator.editBerita', $b->id) }}" class="ul-link-action text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit" style="float:left;"><i class="i-Edit"></i></a>
+                    <a href="{{ route('inkubator.destroyBerita', $b->id) }}" class="ul-link-action text-danger delete" data-toggle="tooltip" data-placement="top" title="" data-original-title="Want To Delete !!!" style="float:left;"><i class="i-Eraser-2"></i></a>
+                </span>
+            </div>
 		</div>
 		@endforeach
 	</div>
@@ -99,7 +94,14 @@
 				<div class="ul-widget-app__profile-title">
 					<a class="ul-widget4__title" href="{{ route('inkubator.showBerita', $row->slug) }}">{{ Str::limit($row->tittle, 40) }}</a>
 				</div>
-				<div class="ul-widget-app__profile-status"><span class="badge badge-pill badge-primary p-2 m-1">Pending</span><span class="ul-widget-app__icons"><a href="href"><i class="i-Approved-Window text-mute"></i></a><a href="href"><i class="i-Like text-mute"></i></a><a href="href"><i class="i-Heart1 text-mute"></i></a></span><span class="text-mute">{{ $row->created_at->format('d, M Y') }}</span></div>
+				<div class="ul-widget-app__profile-status">
+					@if($row->publish == 1)
+						<span class="badge badge-pill badge-success p-1 mr-2">Publish</span>
+					@else
+						<span class="badge badge-pill badge-danger p-1 mr-2">Draft</span>
+					@endif
+					<span class="text-mute">{{ $row->created_at->format('d, M Y') }}</span>
+				</div>
 			</div>
 		</div>
 		@empty
