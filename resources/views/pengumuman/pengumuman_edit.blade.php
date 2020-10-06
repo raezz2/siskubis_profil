@@ -37,7 +37,7 @@
                         {{ $errors->first('pengumuman')}}
                     </div>
                     <div class="custom-file">
-                        <label class="custom-file-label" for="exampleInputFile">Choose File</label>
+                        <label class="custom-file-label" for="exampleInputFile">{{$p->foto}}</label>
                         <input type="file" class="custom-file-input" id="exampleInputFile" name="foto" multiple>
                         <object data="/img/pengumuman/{{ $p->foto }}" width="400px"></object>
                         <input type="hidden" class="custom-file-input" id="hidden_image" name="hidden_image" value="{{ $p->foto }}">
@@ -71,6 +71,10 @@
             [2, 'DESC']
         ]
     });
+    $(".custom-file-input").on("change", function() {
+		var fileName = $(this).val().split("\\").pop();
+		$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+	});
 </script>
 <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
 <script>
