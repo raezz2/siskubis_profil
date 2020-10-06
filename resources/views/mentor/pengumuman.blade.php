@@ -9,7 +9,7 @@
             <div class="card-body">
                 <div class="ul-contact-list">
                     <div class="contact-close-mobile-icon float-right mb-2"><i class="i-Close-Window text-15 font-weight-600"></i></div>
-                    <form action="/mentor/pengumuman/search" method="GET">
+                    <form action="{{ route('mentor.search')}}" method="GET">
                         <input value="{{ Request::get('keyword') }}" name="keyword" class="form-control form-control-rounded col-md-12" id="exampleFormControlInput1" type="text" placeholder="Search Tenant..." />
                     </form>
                     <br>
@@ -21,7 +21,7 @@
                         </select>
                         </br>
                         @foreach($kategori as $y)
-                        <a class="list-group-item list-group-item-action border-0" id="list-profile-list" href="/mentor/kategori/{{ $y->id }}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
+                        <a class="list-group-item list-group-item-action border-0" id="list-profile-list" href="{{route('mentor.kategori-id', $y->id) }}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
                         @endforeach
                     </div>
                 </div>
@@ -44,14 +44,14 @@
                         @foreach($pengumuman as $p)
                         <tr>
                             <td>
-                                <a href="/mentor/pengumuman/{{ $p->slug }}">
+                                <a href="{{ route('mentor.slug', $p->slug ) }}">
                                     <strong>{{ $p->title }}</strong>
                                     <p>{!! str_limit($p->pengumuman) !!}</p>
                                 </a>
                             </td>
                             <td>
                                 @if($p->priority_id == 1)
-                                <a class="badge badge-success m-2 p-2" href="#">{{ $p->priority->name }}</a>
+                                <a class=" badge badge-success m-2 p-2" href="#">{{ $p->priority->name }}</a>
                                 @elseif($p->priority_id == 2)
                                 <a class="badge badge-danger m-2 p-2" href="#">{{ $p->priority->name }}</a>
                                 @elseif($p->priority_id == 3)

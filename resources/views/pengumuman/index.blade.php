@@ -252,7 +252,7 @@
 			}
 		});
 	});
-	$(document).ready(function(){
+	$(document).ready(function() {
 		@if(Session::has('errors'))
 		$('#exampleModal').modal('show');
 		@endif

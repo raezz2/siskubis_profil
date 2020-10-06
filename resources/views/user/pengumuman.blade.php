@@ -8,6 +8,7 @@
                     <thead>
                         <tr>
                             <th width="65%">Pengumuman</th>
+                            <th width="20%">Asset</th>
                             <th width="15%">Kategori</th>
                             <th width="15%">Tanggal</th>
                         </tr>
@@ -16,11 +17,14 @@
                         @foreach($pengumuman as $p)
                         <tr>
                             <td>
-                                <a href="/user/pengumuman/{{ $p->slug }}">
+                                <a href="{{ route('user.slug', $p->slug ) }}">
                                     <strong>{{ $p->title }}</strong>
                                     <p>{!! str_limit($p->pengumuman) !!}</p>
 
                                 </a>
+                            </td>
+                            <td>
+                                <img src="{{ asset('img/pengumuman/'. $p->foto ) }}" width="150" height="100" alt="">
                             </td>
                             <td>
                                 @if($p->priority_id == 1)

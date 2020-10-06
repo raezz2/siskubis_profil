@@ -16,7 +16,11 @@
                         <br>
                         <br>
                         <p style="text-align:justify; text-indent: 0.5in;">{!! $p->pengumuman !!}</p>
+<<<<<<< Updated upstream
                         <center><object data="{{asset('img/pengumuman/'. $p->foto ) }}" width="700" height="500"></object></center>
+=======
+                        <center><object data="{{ asset('img/pengumuman/'. $p->foto ) }}" width="700" height="500"></object></center>
+>>>>>>> Stashed changes
                         <div style="clear:both;"></div>
                         @endforeach
                     </tbody>

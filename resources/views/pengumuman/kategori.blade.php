@@ -29,7 +29,8 @@
                         <input value="{{ Request::get('keyword') }}" name="keyword" class="form-control form-control-rounded col-md-12" id="exampleFormControlInput1" type="text" placeholder="Search Tenant..." />
                     </form>
                     <br> -->
-                    <div class="list-group" id="list-tab" role="tablist"><a class="list-group-item list-group-item-action border-0" id="list-home-list" href="/inkubator/pengumuman" role="tab" aria-controls="home"><i class="nav-icon i-Business-Mens"></i> Semua Pengumuman</a>
+                    <div class="list-group" id="list-tab" role="tablist">
+                        <a class="list-group-item list-group-item-action border-0 {{ set_active('inkubator.pengumuman')}}" id="list-home-list" href="{{ route('inkubator.pengumuman') }}" role="tab" aria-controls="home"><i class="nav-icon i-Business-Mens"></i> Semua Pengumuman</a>
                         <a class="list-group-item list-group-item-action border-0" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile"><i class="nav-icon i-Conference"></i> Non Tenan</a>
                         <label class="text-muted font-weight-600 py-8" for="">MEMBERS INKUBATOR</label>
                         <select class="form-control form-control-rounded">
@@ -71,7 +72,7 @@
                         @foreach($pengumuman as $p)
                         <tr>
                             <td>
-                                <a href="/inkubator/pengumuman/{{ $p->slug }}">
+                                <a href="{{ route('inkubator.show', $p->slug )}}">
                                     <strong>{{ $p->title }}</strong>
                                     <p>{!! str_limit($p->pengumuman) !!}</p>
                                 </a>
@@ -98,6 +99,7 @@
                                     <div class="dropdown-menu ul-task-manager__dropdown-menu">
                                         @if($p->publish == 1)
                                         <a class="dropdown-item btn btn-danger" href="{{ route('inkubator.status-id', $p->id)}}">Draf</a>
+<<<<<<< Updated upstream
 										@else
 										<a class="dropdown-item btn btn-success" href="{{ route('inkubator.status-id', $p->id)}}">Publish</a>
 										@endif
@@ -107,6 +109,17 @@
 									<a class="ul-link-action text-danger mr-1 delete" href="{{ route('inkubator.delete', $p->id)}}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!">
 										<i class="i-Eraser-2"></i></a>
 							</td>
+=======
+                                        @else
+                                        <a class="dropdown-item btn btn-success" href="{{ route('inkubator.status-id', $p->id)}}">Publish</a>
+                                        @endif
+                                    </div>
+                            </td>
+                            <td><a class="ul-link-action text-success" data-toggle="tooltip" href="{{ route('inkubator.edit', $p->id )}}" data-placement="top" title="Edit"><i class="i-Edit"></i>
+                                    <a class="ul-link-action text-danger mr-1 delete" href="{{ route('inkubator.delete', $p->id )}}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!">
+                                        <i class="i-Eraser-2"></i></a>
+                            </td>
+>>>>>>> Stashed changes
                         </tr>
                         </tr>
                         @endforeach
