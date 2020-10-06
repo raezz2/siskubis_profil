@@ -99,27 +99,15 @@
                                     <div class="dropdown-menu ul-task-manager__dropdown-menu">
                                         @if($p->publish == 1)
                                         <a class="dropdown-item btn btn-danger" href="{{ route('inkubator.status-id', $p->id)}}">Draf</a>
-<<<<<<< Updated upstream
-										@else
-										<a class="dropdown-item btn btn-success" href="{{ route('inkubator.status-id', $p->id)}}">Publish</a>
-										@endif
-									</div>
-							</td>
-							<td><a class="ul-link-action text-success" data-toggle="tooltip" href="{{ route('inkubator.edit', $p->id)}}" data-placement="top" title="Edit"><i class="i-Edit"></i>
-									<a class="ul-link-action text-danger mr-1 delete" href="{{ route('inkubator.delete', $p->id)}}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!">
-										<i class="i-Eraser-2"></i></a>
-							</td>
-=======
                                         @else
                                         <a class="dropdown-item btn btn-success" href="{{ route('inkubator.status-id', $p->id)}}">Publish</a>
                                         @endif
                                     </div>
                             </td>
-                            <td><a class="ul-link-action text-success" data-toggle="tooltip" href="{{ route('inkubator.edit', $p->id )}}" data-placement="top" title="Edit"><i class="i-Edit"></i>
-                                    <a class="ul-link-action text-danger mr-1 delete" href="{{ route('inkubator.delete', $p->id )}}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!">
+                            <td><a class="ul-link-action text-success" data-toggle="tooltip" href="{{ route('inkubator.edit', $p->id)}}" data-placement="top" title="Edit"><i class="i-Edit"></i>
+                                    <a class="ul-link-action text-danger mr-1 delete" href="{{ route('inkubator.delete', $p->id)}}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!">
                                         <i class="i-Eraser-2"></i></a>
                             </td>
->>>>>>> Stashed changes
                         </tr>
                         </tr>
                         @endforeach

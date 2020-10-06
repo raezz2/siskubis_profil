@@ -83,32 +83,12 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 	Route::get('/pengumuman/tambah', 'Pengumuman\PengumumanController@tambah')->name('inkubator.tambah');
 	Route::post('/pengumuman/store', 'Pengumuman\PengumumanController@store')->name('inkubator.store');
 	Route::get('/pengumuman/{slug}', 'Pengumuman\PengumumanController@show')->name('inkubator.show');
-	Route::get('/pengumuman/edit/{id}', 'Pengumuman\PengumumanController@edit')->name('inkubator.edit');;
-<<<<<<< Updated upstream
+	Route::get('/pengumuman/edit/{id}', 'Pengumuman\PengumumanController@edit')->name('inkubator.edit');
 	Route::put('/pengumuman/update/{id}', 'Pengumuman\PengumumanController@update')->name('inkubator.update-id');
-=======
-	Route::put('/pengumuman/update/{id}', 'Pengumuman\PengumumanController@update')->name('inkubator.update-id');;
->>>>>>> Stashed changes
 	Route::get('/pengumuman/hapus/{id}', 'Pengumuman\PengumumanController@hapus')->name('inkubator.delete');
 	Route::get('/kategori', 'Pengumuman\KategoriController@index')->name('inkubator.kategori');
 	Route::get('/kategori/{id}', 'Pengumuman\KategoriController@kategori')->name('inkubator.kategori-id');
 	Route::get('/pengumuman/status/{id}', 'Pengumuman\PengumumanController@status')->name('inkubator.status-id');
-<<<<<<< Updated upstream
-	
-    Route::get('/berita', 'Berita\BeritaController@index')->name('inkubator.berita');
-    //Alvi Adnan Vazshola
-    Route::get('/berita/create', 'Berita\BeritaController@create')->name('inkubator.formBerita');
-    Route::post('/berita/store', 'Berita\BeritaController@store')->name('inkubator.storeBerita');
-    Route::delete('/berita/destroy/{berita}', 'Berita\BeritaController@destroy')->name('inkubator.destroyBerita');
-    Route::get('berita/edit/{id}','Berita\BeritaController@edit')->name('inkubator.editBerita');
-    Route::put('berita/update/{id}','Berita\BeritaController@update')->name('inkubator.updateBerita');
-    Route::get('/berita/{slug}', 'Berita\BeritaController@show')->name('inkubator.showBerita');
-    Route::post('/berita/komentar','Berita\BeritaController@komentar')->name('inkubator.komentarBerita');
-    //End
-    Route::get('/berita/kategori', 'Berita\KategoriController@kategori')->name('inkubator.kategori');
-
-	
-=======
 
 	Route::get('/berita', 'Berita\BeritaController@index')->name('inkubator.berita');
 	//Alvi Adnan Vazshola
@@ -122,8 +102,6 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 	//End
 	Route::get('/berita/kategori', 'Berita\KategoriController@kategori')->name('inkubator.kategori');
 
-
->>>>>>> Stashed changes
 	//komentar
 	//Route::get('/{slug}', 'Berita\BeritaKomentarController@show');
 	Route::post('/berita/comment', 'Berita\BeritaKomentarController@comment')->name('inkubator.berita.comment');
@@ -203,14 +181,9 @@ Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function (
 	// route pengumuman tenant
 	Route::get('/pengumuman', 'Tenant\TenantController@pengumuman')->name('tenant.pengumuman');
 	Route::get('/pengumuman/nontenant', 'Tenant\TenantController@tenant')->name('tenant.non-tenant');
-<<<<<<< Updated upstream
 	Route::get('/pengumuman/search', 'Tenant\TenantController@search')->name('tenant.search');
 	Route::get('/pengumuman/{slug}', 'Tenant\TenantController@show')->name('tenant.show');
-	Route::get('/kategori/{id}', 'Tenant\TenantController@kategori')->name('tenant.kategori-id');	
-=======
-	Route::get('/pengumuman/search', 'Tenant\TenantController@search');
-	Route::get('/pengumuman/{slug}', 'Tenant\TenantController@show');
->>>>>>> Stashed changes
+	Route::get('/kategori/{id}', 'Tenant\TenantController@kategori')->name('tenant.kategori-id');
 });
 
 Route::group(['prefix' => 'user', 'middleware' => ['role:user']], function () {
