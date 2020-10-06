@@ -15,20 +15,9 @@
                         </p>
                         <br>
                         <br>
-<<<<<<< Updated upstream
-                        <div>
-                            <p style="text-align: justify; text-indent: 0.5in;">{!! $p->pengumuman !!}
-                            </p>
-                        </div>
-                        <div class="card-body">
-                            <h5 style="text-align: center; ">Lampiran</h5>
-                            <img class="center" alt="image" height="auto" width="100%" src="{{asset('img/pengumuman/'. $p->foto) }}">
-                        </div>
-=======
                         <p style="text-align:justify; text-indent: 0.5in;">{!! $p->pengumuman !!}</p>
                         <center><object data="{{ asset('img/pengumuman/'. $p->foto ) }}" width="700" height="500"></object></center>
                         <div style="clear:both;"></div>
->>>>>>> Stashed changes
                         @endforeach
                     </tbody>
                 </table>

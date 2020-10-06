@@ -20,7 +20,6 @@ Route::get('/pengumuman', 'Front\PengumumanController@index')->name('pengumuman'
 Route::get('/pengumuman/{slug}', 'Front\PengumumanController@show');
 
 Auth::routes();
-
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {
 	Route::get('/', 'Admin\HomeController@index')->name('admin.home');
 	Route::get('/inkubator', 'Inkubator\InkubatorController@index')->name('admin.inkubator');
