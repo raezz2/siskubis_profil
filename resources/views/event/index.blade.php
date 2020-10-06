@@ -47,12 +47,12 @@
                 <div class="form-group">
                     <label for="search">Pencarian</label>
                     <div class="input-group">
-                        <input type="text" name="title" class="form-control" placeholder="search" value="{{ request()->input('title') }}">
+                        <input type="text" name="titles" class="form-control" placeholder="search" value="{{ request()->filter['title'] ? request()->filter['title'] : '' }}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="daterange">Rentang tanggal</label>
-                    <input type="text" name="daterange" class="form-control" placeholder="set tanggal">
+                    <input type="text" name="daterange" class="form-control" placeholder="set tanggal" value="tanggal">
                 </div>
                 <div class="form-group">
                     <label for="priority">Priority</label>
@@ -305,7 +305,7 @@
 
 <script>
 
-    $(document).ready( function () {
+    $(function () {
         @if(Session::has('errors'))
             $('#inputModal').modal('show');
         @endif
@@ -329,11 +329,13 @@
     // });
     $(function() {
         $('input[name="daterange"]').daterangepicker({
-        opens: 'right',
-        autoUpdateInput: false,
-        locale: {
-          cancelLabel: 'Clear'
-        },
+            opens: 'right',
+            autoUpdateInput: false,
+            startDate: '10-21-2020',
+            endDate: '10-21-2020',
+            locale: {
+            cancelLabel: 'Clear'
+            },
         }, function(start, end, label) {
         console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
         });
@@ -357,7 +359,7 @@
 
     function filterResults () {
         let priorityIds = getIds("priority");
-        let title = $('#title').val();
+        let title = $('input[name="titles"]').val();
         let publishStats = getIds("publish");
         let start = $('input[name="daterange"]').val();
 

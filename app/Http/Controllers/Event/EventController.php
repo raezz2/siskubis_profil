@@ -27,7 +27,12 @@ class EventController extends Controller
 
     public function index(Request $request)
     {
-        $date = $request->old('between');
+        if(request()->filter['between']){
+            $test = request()->filter['between'];
+            $between = explode(',', $test);
+        }else{
+            $between = '';
+        }
         $priority = Priority::orderBy('name', 'ASC')->get();
         $event = QueryBuilder::for(Event::class)
             ->allowedFilters([
@@ -37,7 +42,7 @@ class EventController extends Controller
                 AllowedFilter::scope('between', 'dateBetween'),
             ])
             ->latest()->paginate();
-        return view('event.index', compact('event', 'priority'));
+        return view('event.index', compact('event', 'priority', 'between'));
     }
 
     public function indexMentor(Request $request)
