@@ -29,7 +29,7 @@
 					<!-- modal-->
 					<button class="btn btn-outline-secondary btn-block mb-4" type="button" data-toggle="modal" data-target="#exampleModal" name="create_record" id="create_record">Tambah Pengumuman</button>
 					<!-- end:modal-->
-					<form action="/inkubator/pengumuman/search" method="GET">
+					<form action="{{ route('inkubator.search')}}" method="GET">
 						<input value="{{ Request::get('keyword') }}" name="keyword" class="form-control form-control-rounded col-md-12" id="exampleFormControlInput1" type="text" placeholder="Search Tenant..." />
 					</form>
 					<br>
@@ -75,7 +75,7 @@
 						@foreach($pengumuman as $p)
 						<tr>
 							<td>
-								<a href="/inkubator/pengumuman/{{ $p->slug }}">
+								<a href="{{ route('inkubator.show', $p->slug)}}">
 									<strong>{{ $p->title }}</strong>
 									<p>{!! str_limit($p->pengumuman) !!}</p>
 								</a>
@@ -101,14 +101,14 @@
 									@endif
 									<div class="dropdown-menu ul-task-manager__dropdown-menu">
 										@if($p->publish == 1)
-										<a class="dropdown-item btn btn-danger" href="{{ url('inkubator/pengumuman/status/'.$p->id)}}">Draf</a>
+										<a class="dropdown-item btn btn-danger" href="{{ route('inkubator.status-id', $p->id)}}">Draf</a>
 										@else
-										<a class="dropdown-item btn btn-success" href="{{ url('inkubator/pengumuman/status/'.$p->id)}}">Publish</a>
+										<a class="dropdown-item btn btn-success" href="{{ route('inkubator.status-id', $p->id)}}">Publish</a>
 										@endif
 									</div>
 							</td>
-							<td><a class="ul-link-action text-success" data-toggle="tooltip" href="/inkubator/pengumuman/edit/{{ $p->id }}" data-placement="top" title="Edit"><i class="i-Edit"></i>
-									<a class="ul-link-action text-danger mr-1 delete" href="/inkubator/pengumuman/hapus/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!">
+							<td><a class="ul-link-action text-success" data-toggle="tooltip" href="{{ route('inkubator.edit', $p->id)}}" data-placement="top" title="Edit"><i class="i-Edit"></i>
+									<a class="ul-link-action text-danger mr-1 delete" href="{{ route('inkubator.delete', $p->id)}}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!">
 										<i class="i-Eraser-2"></i></a>
 							</td>
 						</tr>
@@ -230,9 +230,6 @@
 
 	$('#ul-contact-list').DataTable({
 		responsive: true,
-		order: [
-			[2, 'DESC']
-		]
 	});
 	$('.delete').on("click", function(event) {
 		event.preventDefault();

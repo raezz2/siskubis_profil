@@ -7,7 +7,7 @@
                 <h4>{{$title}}</h4>
             </div>
             <div class="card-body">
-                <form action="/inkubator/pengumuman/update/{{ $p->id }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('inkubator.update-id', $p->id)}}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
                     <div class="form-group">

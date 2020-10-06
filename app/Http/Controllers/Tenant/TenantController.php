@@ -65,9 +65,10 @@ class TenantController extends Controller
 
     public function kategori($id)
     {
-        $pengumuman = Pengumuman::where([['priority_id', $id], ['inkubator_id', \Auth::user()->inkubator_id], ['publish', 1]])->latest()->get();
+        $pengumuman = Pengumuman::where([['priority_id', $id], ['inkubator_id', \Auth::user()->inkubator_id],['publish', 1]])->latest()->get();
         $kategori = DB::table('priority')->get();
         return view('tenant.pengumuman', compact('pengumuman', 'kategori'));
+
     }
 
     public function search(Request $request)
@@ -78,6 +79,8 @@ class TenantController extends Controller
 
         if ($keyword) {
             $pengumuman = pengumuman::where([['title', 'like', '%' . $keyword . '%'], ['inkubator_id', \Auth::user()->inkubator_id], ['publish', 1]])->get();
+        } else {
+            return redirect('tenant/pengumuman');
         }
 
         $kategori = DB::table('priority')->get();

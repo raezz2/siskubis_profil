@@ -19,7 +19,7 @@
                         </div>
                         <div class="card-body">
                             <h5 style="text-align: center; ">Lampiran</h5>
-                            <img class="center" alt="image" height="auto" width="100%" src="\img\pengumuman\{{ $p->foto }}">
+                            <img class="center" alt="image" height="auto" width="100%" src="{{asset('img/pengumuman/'. $p->foto) }}">
                         </div>
                         @endforeach
                     </tbody>

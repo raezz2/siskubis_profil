@@ -79,16 +79,16 @@ Route::group(['prefix'=>'inkubator','middleware' => ['role:inkubator']], functio
 	// route pengumuman inkubator
 	Route::get('/pengumuman', 'Pengumuman\PengumumanController@index')->name('inkubator.pengumuman');
 	Route::get('/pengumuman/nontenant', 'Pengumuman\PengumumanController@tenant')->name('inkubator.non-tenant');
-	Route::get('/pengumuman/search', 'Pengumuman\PengumumanController@search');
+	Route::get('/pengumuman/search', 'Pengumuman\PengumumanController@search')->name('inkubator.search');
 	Route::get('/pengumuman/tambah', 'Pengumuman\PengumumanController@tambah')->name('inkubator.tambah');
 	Route::post('/pengumuman/store', 'Pengumuman\PengumumanController@store')->name('inkubator.store');
-	Route::get('/pengumuman/{slug}', 'Pengumuman\PengumumanController@show');
-	Route::get('/pengumuman/edit/{id}', 'Pengumuman\PengumumanController@edit')->name('inkubator.edit-id');;
-	Route::put('/pengumuman/update/{id}', 'Pengumuman\PengumumanController@update')->name('inkubator.update-id');;
-	Route::get('/pengumuman/hapus/{id}', 'Pengumuman\PengumumanController@hapus');
+	Route::get('/pengumuman/{slug}', 'Pengumuman\PengumumanController@show')->name('inkubator.show');
+	Route::get('/pengumuman/edit/{id}', 'Pengumuman\PengumumanController@edit')->name('inkubator.edit');;
+	Route::put('/pengumuman/update/{id}', 'Pengumuman\PengumumanController@update')->name('inkubator.update-id');
+	Route::get('/pengumuman/hapus/{id}', 'Pengumuman\PengumumanController@hapus')->name('inkubator.delete');
 	Route::get('/kategori', 'Pengumuman\KategoriController@index')->name('inkubator.kategori');
 	Route::get('/kategori/{id}', 'Pengumuman\KategoriController@kategori')->name('inkubator.kategori-id');
-	Route::get('/pengumuman/status/{id}', 'Pengumuman\PengumumanController@status');
+	Route::get('/pengumuman/status/{id}', 'Pengumuman\PengumumanController@status')->name('inkubator.status-id');
 	
     Route::get('/berita', 'Berita\BeritaController@index')->name('inkubator.berita');
     //Alvi Adnan Vazshola
@@ -181,9 +181,9 @@ Route::group(['prefix'=>'tenant','middleware' => ['role:tenant']], function () {
 	// route pengumuman tenant
 	Route::get('/pengumuman', 'Tenant\TenantController@pengumuman')->name('tenant.pengumuman');
 	Route::get('/pengumuman/nontenant', 'Tenant\TenantController@tenant')->name('tenant.non-tenant');
-	Route::get('/pengumuman/search', 'Tenant\TenantController@search');
-	Route::get('/pengumuman/{slug}', 'Tenant\TenantController@show');
-	
+	Route::get('/pengumuman/search', 'Tenant\TenantController@search')->name('tenant.search');
+	Route::get('/pengumuman/{slug}', 'Tenant\TenantController@show')->name('tenant.show');
+	Route::get('/kategori/{id}', 'Tenant\TenantController@kategori')->name('tenant.kategori-id');	
 });
 
 Route::group(['prefix'=>'user','middleware' => ['role:user']], function () {
