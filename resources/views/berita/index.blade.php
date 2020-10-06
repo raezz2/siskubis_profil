@@ -127,7 +127,7 @@
 					<span class="ul-widget-app__icons">
 					<!-- <a href="inkubator/berita/destroy/{{ $li->id }}" class="badge badge-pill badge-danger p-2 m-1">Delete</a> -->
 					</span>
-					<span class="text-mute">{{ date('d M Y',strtotime($li->created_at)) }}</span>
+					<span class="text-mute">{{ \Carbon\Carbon::parse($li->created_at)->diffForHumans() }}</span>
 					</div>
 				</div>
 			</div>

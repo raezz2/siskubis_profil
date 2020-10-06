@@ -23,22 +23,30 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $mainNews = Berita::with('beritaCategory')
+        $mainNews= Berita::with('beritaCategory')
                     ->orderBy('views','desc')
                     ->where('publish','=','1')
                     ->where('inkubator_id','=','0')
                     ->paginate(1);
-        $lastNews = Berita::with('beritaCategory')
+        $lastNews= Berita::with('beritaCategory')
                     ->orderBy('created_at','desc')
                     ->where('publish','=','1')
                     ->where('inkubator_id','=','0')
                     ->paginate(4);
-        $popular = Berita::with('beritaCategory')
+        $justNews= Berita::with('beritaCategory')
+                    ->orderBy('created_at')
+                    ->where('publish','=','1')
+                    ->where('inkubator_id','=','0')
+                    ->paginate(4);
+        $popular= Berita::with('beritaCategory')
                     ->orderBy('views','desc')
                     ->where('publish','=','1')
                     ->where('inkubator_id','=','0')
                     ->paginate(7);
-        return view('front.index', compact('mainNews','lastNews','popular'));
+        $hasil  = Komentar::orderBy('created_at','desc')->paginate(5);
+
+
+        return view('front.index', compact('mainNews','lastNews','popular', 'hasil', 'justNews'));
     }
     public function single($slug)
     {

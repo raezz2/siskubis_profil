@@ -19,6 +19,10 @@ Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 Route::get('/single/{slug}', 'Front\IndexController@single')->name('single');
 Route::get('/pengumuman', 'Front\PengumumanController@index')->name('pengumuman');
 Route::get('/pengumuman/{slug}', 'Front\PengumumanController@show');
+Route::post('/single/komentar','Berita\BeritaController@komentar')->name('single.komentarBerita');
+Route::get('/all','Front\IndexController@all')->name('front.all');
+Route::get('/tag','Front\IndexController@all')->name('front.tag');
+Route::post('/single/like', 'Berita\BeritaController@likeStore')->name('single.likeBerita');
 
 Auth::routes();
 
@@ -102,24 +106,20 @@ Route::group(['prefix'=>'inkubator','middleware' => ['role:inkubator']], functio
     Route::post('/berita/komentar','Berita\BeritaController@komentar')->name('inkubator.komentarBerita');
     //End
     Route::get('/berita/kategori', 'Berita\KategoriController@kategori')->name('inkubator.kategori');
+    Route::get('/chat', 'Chat\ChatController@index')->name('inkubator.chat');
+    Route::get('/pesan', 'Pesan\PesanController@index')->name('inkubator.pesan');
+	Route::get('/profile', 'Profile\ProfileUserController@index')->name('inkubator.profile');
 
 
 	//komentar
-	//Route::get('/{slug}', 'Berita\BeritaKomentarController@show');
 	Route::post('/berita/comment', 'Berita\BeritaKomentarController@comment')->name('inkubator.berita.comment');
 	Route::get('/berita/destroy/{id}', 'Berita\BeritaKomentarController@destroy')->name('inkubator.berita.destroy');
 
 
-    /*========================================================== Kategori ===================================================================*/
-    // Route::resource('kategori', 'Berita\KategoriController')->except(['create', 'show']);
-
-    //Route::get('/berita/kategori', 'Berita\KategoriController@index')->name('inkubator.kategori.index');
-
+    //Kategori
     Route::get('/berita/kategori/create', 'Berita\KategoriController@create')->name('inkubator.kategori.create');
     Route::post('/berita/kategori/create','Berita\KategoriController@store');
-
     Route::get('/berita/kategori/{kategori}/edit', 'Berita\KategoriController@edit')->name('inkubator.kategori.edit');
-
     Route::patch('/berita/kategori/{kategori}/edit', 'Berita\KategoriController@update')->name('inkubator.kategori.update');
     Route::get('/berita/kategori/{kategori}/delete', 'Berita\KategoriController@destroy')->name('inkubator.kategori.destroy');
 

@@ -405,177 +405,203 @@
 		</header>
 	@yield('content')
 <!-- Start footer -->
-		<footer class="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-3 col-sm-6 col-xs-12">
-						<div class="block">
-							<h1 class="block-title">Company Info</h1>
-							<div class="block-body">
-								<figure class="foot-logo">
-									<img src="{{asset('assets/images/logo-light.png')}}" class="img-responsive" alt="Logo">
-								</figure>
-								<p class="brand-description">
-									Magz is a HTML5 &amp; CSS3 magazine template based on Bootstrap 3.
-								</p>
-								<a href="page.html" class="btn btn-magz white">About Us <i class="ion-ios-arrow-thin-right"></i></a>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 col-sm-6 col-xs-12">
-						<div class="block">
-							<h1 class="block-title">Popular Tags <div class="right"><a href="#">See All <i class="ion-ios-arrow-thin-right"></i></a></div></h1>
-							<div class="block-body">
-								<ul class="tags">
-									<li><a href="#">HTML5</a></li>
-									<li><a href="#">CSS3</a></li>
-									<li><a href="#">Bootstrap 3</a></li>
-									<li><a href="#">Web Design</a></li>
-									<li><a href="#">Creative Mind</a></li>
-									<li><a href="#">Standing On The Train</a></li>
-									<li><a href="#">at 6.00PM</a></li>
-								</ul>
-							</div>
-						</div>
-						<div class="line"></div>
-						<div class="block">
-							<h1 class="block-title">Buletin</h1>
-							<div class="block-body">
-								<p>Dengan berlangganan Anda akan menerima artikel baru di email Anda.</p>
-								<form class="newsletter">
-									<div class="input-group">
-										<div class="input-group-addon">
-											<i class="ion-ios-email-outline"></i>
-										</div>
-										<input type="email" class="form-control email" placeholder="Your mail">
-									</div>
-									<button class="btn btn-primary btn-block white">Langganan</button>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 col-sm-6 col-xs-12">
-						<div class="block">
-                            <h1 class="block-title">Latest News</h1>
-                            <div class="block-body"></div>
-                            @php
-                            	use App\Berita;
-                            	$lastNews = Berita::with('beritaCategory')
-                    						->orderBy('created_at','desc')
-                    						->where('publish','=','1')
-                    						->where('inkubator_id','=','0')
-                    						->paginate(4);
-                            @endphp
-                            @forelse($lastNews as $row)
-								<article class="article-mini">
-									<div class="inner">
-										<figure>
-											<a href="#">
-												<img src="{{ asset('storage/berita/' . $row->foto) }}" alt="Sample Article">
-											</a>
-										</figure>
-										<div class="padding">
-											<h1><a href="#">{{ Str::Limit($row->tittle,30) }}</a></h1>
-										</div>
-									</div>
-								</article>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="block">
+                    <h1 class="block-title">Company Info</h1>
+                    <div class="block-body">
+                        <figure class="foot-logo">
+                            <img src="{{asset('assets/images/logo-light.png')}}" class="img-responsive" alt="Logo">
+                        </figure>
+                        <p class="brand-description">
+                            Magz is a HTML5 &amp; CSS3 magazine template based on Bootstrap 3.
+                        </p>
+                        <a href="page.html" class="btn btn-magz white">About Us <i
+                                class="ion-ios-arrow-thin-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="block">
+                    <h1 class="block-title">Popular Tags <div class="right"><a href="#">See All <i
+                                    class="ion-ios-arrow-thin-right"></i></a></div>
+                    </h1>
+                    <div class="block-body">
+                        @php
+                        use App\kategori;
+                        $tagsNews = kategori::orderBy('category')->get();
+                        @endphp
+                        <ul class="tags">
+                            @forelse($tagsNews as $row)
+                            <li><a href="{{ route('front.tag') }}">{{ $row->category }}</a></li>
+
                             @empty
-								<h5>Belum ada berita</h5>
-                        	@endforelse
+                            <h5>Belum ada berita</h5>
+                            @endforelse
+                        </ul>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <div class="block">
+                    <h1 class="block-title">Newsletter</h1>
+                    <div class="block-body">
+                        <p>By subscribing you will receive new articles in your email.</p>
+                        <form class="newsletter">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="ion-ios-email-outline"></i>
+                                </div>
+                                <input type="email" class="form-control email" placeholder="Your mail">
+                            </div>
+                            <button class="btn btn-primary btn-block white">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+
+                <div class="block">
+                    <h1 class="block-title">Latest News</h1>
+                    <div class="block-body"></div>
+                    @php
+                    use App\Berita;
+                    $lastNews = Berita::with('beritaCategory')
+                    ->orderBy('created_at','desc')
+                    ->where('publish','=','1')
+                    ->where('inkubator_id','=','0')
+                    ->paginate(4);
+                    @endphp
+                    @forelse($lastNews as $row)
+                    <article class="article-mini">
+                        <div class="inner">
+                            <figure>
+                                <a href="{{ route('single', $row->slug) }}">
+                                    <img src="{{ asset('storage/berita/' . $row->foto) }}" alt="Sample Article">
+                                </a>
+                            </figure>
+                            <div class="padding">
+                                <h1><a
+                                        href="{{ route('single', $row->slug) }}">{{ Str::Limit($row->tittle,30) }}</a>
+                                </h1>
+                                <div class="detail">
+                                    <div class="category"><a href="#">{{ $row->beritaCategory->category }}</a></div>
+                                    <div class="time">{{ $row->created_at->format('M d, Y') }}</div>
+                                </div>
+                            </div>
                         </div>
-                        <a href="#" class="btn btn-magz white btn-block">See All <i class="ion-ios-arrow-thin-right"></i></a>
-					</div>
-					<div class="col-md-3 col-xs-12 col-sm-6">
-						<div class="block">
-							<h1 class="block-title">Follow Us</h1>
-							<div class="block-body">
-								<p>Follow us and stay in touch to get the latest news</p>
-								<ul class="social trp">
-									<li>
-										<a href="#" class="facebook">
-											<svg><rect width="0" height="0"/></svg>
-											<i class="ion-social-facebook"></i>
-										</a>
-									</li>
-									<li>
-										<a href="#" class="twitter">
-											<svg><rect width="0" height="0"/></svg>
-											<i class="ion-social-twitter-outline"></i>
-										</a>
-									</li>
-									<li>
-										<a href="#" class="youtube">
-											<svg><rect width="0" height="0"/></svg>
-											<i class="ion-social-youtube-outline"></i>
-										</a>
-									</li>
-									<li>
-										<a href="#" class="googleplus">
-											<svg><rect width="0" height="0"/></svg>
-											<i class="ion-social-googleplus"></i>
-										</a>
-									</li>
-									<li>
-										<a href="#" class="instagram">
-											<svg><rect width="0" height="0"/></svg>
-											<i class="ion-social-instagram-outline"></i>
-										</a>
-									</li>
-									<li>
-										<a href="#" class="tumblr">
-											<svg><rect width="0" height="0"/></svg>
-											<i class="ion-social-tumblr"></i>
-										</a>
-									</li>
-									<li>
-										<a href="#" class="dribbble">
-											<svg><rect width="0" height="0"/></svg>
-											<i class="ion-social-dribbble"></i>
-										</a>
-									</li>
-									<li>
-										<a href="#" class="linkedin">
-											<svg><rect width="0" height="0"/></svg>
-											<i class="ion-social-linkedin"></i>
-										</a>
-									</li>
-									<li>
-										<a href="#" class="skype">
-											<svg><rect width="0" height="0"/></svg>
-											<i class="ion-social-skype"></i>
-										</a>
-									</li>
-									<li>
-										<a href="#" class="rss">
-											<svg><rect width="0" height="0"/></svg>
-											<i class="ion-social-rss"></i>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<div class="line"></div>
-						<div class="block">
-							<div class="block-body no-margin">
-								<ul class="footer-nav-horizontal">
-									<li><a href="index.html">Home</a></li>
-									<li><a href="#">Partner</a></li>
-									<li><a href="contact.html">Contact</a></li>
-									<li><a href="page.html">About</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="copyright">
-							COPYRIGHT &copy; SISKUBIS 2020. ALL RIGHT RESERVED.
-						</div>
-					</div>
-				</div>
-			</div>
-		</footer>
+                    </article>
+                    @empty
+                    <h5>Belum ada berita</h5>
+                    @endforelse
+                </div>
+
+                <a href="#" class="btn btn-magz white btn-block">See All <i
+                        class="ion-ios-arrow-thin-right"></i></a>
+            </div>
+            <div class="col-md-3 col-xs-12 col-sm-6">
+                <div class="block">
+                    <h1 class="block-title">Follow Us</h1>
+                    <div class="block-body">
+                        <p>Follow us and stay in touch to get the latest news</p>
+                        <ul class="social trp">
+                            <li>
+                                <a href="#" class="facebook">
+                                    <svg>
+                                        <rect width="0" height="0" /></svg>
+                                    <i class="ion-social-facebook"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="twitter">
+                                    <svg>
+                                        <rect width="0" height="0" /></svg>
+                                    <i class="ion-social-twitter-outline"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="youtube">
+                                    <svg>
+                                        <rect width="0" height="0" /></svg>
+                                    <i class="ion-social-youtube-outline"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="googleplus">
+                                    <svg>
+                                        <rect width="0" height="0" /></svg>
+                                    <i class="ion-social-googleplus"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="instagram">
+                                    <svg>
+                                        <rect width="0" height="0" /></svg>
+                                    <i class="ion-social-instagram-outline"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="tumblr">
+                                    <svg>
+                                        <rect width="0" height="0" /></svg>
+                                    <i class="ion-social-tumblr"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="dribbble">
+                                    <svg>
+                                        <rect width="0" height="0" /></svg>
+                                    <i class="ion-social-dribbble"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="linkedin">
+                                    <svg>
+                                        <rect width="0" height="0" /></svg>
+                                    <i class="ion-social-linkedin"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="skype">
+                                    <svg>
+                                        <rect width="0" height="0" /></svg>
+                                    <i class="ion-social-skype"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="rss">
+                                    <svg>
+                                        <rect width="0" height="0" /></svg>
+                                    <i class="ion-social-rss"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <div class="block">
+                    <div class="block-body no-margin">
+                        <ul class="footer-nav-horizontal">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="#">Partner</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="page.html">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="copyright">
+                    COPYRIGHT &copy; SISKUBIS 2020. ALL RIGHT RESERVED.
+
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
 		<!-- End Footer -->
 		<!-- JS -->
 		<script src="{{asset('assets/js/jquery.js')}}"></script>
@@ -589,6 +615,8 @@
 		<script src="{{asset('assets/scripts/sweetalert/dist/sweetalert.min.js')}}"></script>
 		<script src="{{asset('assets/scripts/toast/jquery.toast.min.js')}}"></script>
 		<script src="{{asset('assets/js/demo.js')}}"></script>
-		<script src="{{asset('assets/js/e-magz.js')}}"></script>
+        <script src="{{asset('assets/js/e-magz.js')}}"></script>
+        <script src="../../public/js/sweetalert2.min.js"></script>
+        <script src="../../public/js/sweetalert2.script.min.js"></script>
 	</body>
 </html>
