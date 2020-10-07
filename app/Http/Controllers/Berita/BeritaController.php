@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
-
 class BeritaController extends Controller
 {
     public function __construct()
@@ -131,6 +130,8 @@ class BeritaController extends Controller
     public function destroy(Berita $berita)
     {
         $berita->delete();
+        $komentar = komentar::where('berita_id', $berita->id)->delete();
+        $like = BeritaLike::where('berita_id', $berita->id)->delete();
         File::delete(storage_path('app/public/berita/' . $berita->foto));
 
         $notification = array(
@@ -207,6 +208,7 @@ class BeritaController extends Controller
         $umum = Berita::with('profil_user')->where('inkubator_id','0')->orderBy('created_at','desc')->paginate(5);
 
         return view('berita.showBerita', compact('berita','umum','komentar','total_komentar','total_like'));
+      
     }
 
     public function showT($slug)

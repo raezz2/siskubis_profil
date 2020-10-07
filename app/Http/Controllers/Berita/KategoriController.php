@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 
-
 class KategoriController extends Controller
 {
 	public function create(){
@@ -22,6 +21,7 @@ class KategoriController extends Controller
 	}
 	public function store(){
 		Kategori::create([
+
             'category'      => request('category'),
         ]);
 
@@ -67,3 +67,4 @@ class KategoriController extends Controller
         return redirect(route('inkubator.kategori.create'))->with($notification);
 	}
 }
+

@@ -1,5 +1,6 @@
 @extends('layouts.front')
 @section('content')
+
 <section class="home">
     <div class="container">
         <div class="row">
@@ -527,3 +528,4 @@
     </div>
 </section>
 @endsection
+

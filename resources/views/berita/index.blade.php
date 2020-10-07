@@ -1,9 +1,17 @@
 @extends('layouts.app')
+@section('css')
+
+	<link rel="stylesheet" href="{{ asset('theme/css/plugins/sweetalert2.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('theme/css/plugins/toastr.min.css') }}" />
+
+@endsection
 @section('content')
+
 <div class="row">
 <div class="col-xl-8 col-lg-8">
 <div class="card">
 <div class="card-header container-fluid">
+
   <div class="row">
 	<div class="col-md-7">
 	  <h3>Berita</h3>
@@ -17,6 +25,7 @@
   </div>
 </div>
 <div class="card-body">
+
 <div class="row row-xs">
 	<div class="col-md-4">
         <form action="{{ route('cariberita') }}" method="get" name="s" >
@@ -31,8 +40,8 @@
 	 <div class="btn-group">
         <select name="status" class="btn btn-danger btn-block dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             <option value="3">All</option>
-            <option value="1">Publice</option>
-            <option value="0">Draf</option>
+            <option value="1">Publish</option>
+            <option value="0">Draft</option>
         </select>
 	  </div>
 	</div>
@@ -47,7 +56,7 @@
 		@foreach ($berita as $b)
 		<div class="ul-widget5__item">
 			<div class="ul-widget5__content">
-				<div class="ul-widget5__pic"><img src="{{ asset('storage/berita/' . $b->foto) }}" alt="Third slide" /></div>
+				<div class="ul-widget5__pic"><img src="{{ asset('storage/berita/' . $b->foto) }}" alt="{{ $b->slug }}" /></div>
 				<div class="ul-widget5__section">
 					<a class="ul-widget4__title" href="{{ route('inkubator.showBerita', $b->slug) }}">{{ Str::limit($b->tittle, 40) }}</a>
 					<p class="ul-widget5__desc">{!! Str::limit($b->berita, 47) !!}</p>
@@ -59,16 +68,28 @@
 								<span class="badge badge-pill badge-danger p-1 mr-2">Draft</span>
 							@endif
 						<span>Author : </span><span class="text-primary">{{ $b->profil_user->nama }}</span><br>
-						<span>Released : </span><span class="text-primary">{{ $b->created_at->format('d, M Y') }}</span>
+						<span>Released : </span><span class="text-primary">{{ $b->created_at->format('d F Y') }}</span>
 					</div>
 				</div>
 			</div>
-			<div class="ul-widget5__stats">
-                <span class="ul-widget5__number">
-                    <a href="{{ route('inkubator.editBerita', $b->id) }}" class="ul-link-action text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit" style="float:left;"><i class="i-Edit"></i></a>
-                    <a href="{{ route('inkubator.destroyBerita', $b->id) }}" class="ul-link-action text-danger delete" data-toggle="tooltip" data-placement="top" title="" data-original-title="Want To Delete !!!" style="float:left;"><i class="i-Eraser-2"></i></a>
-                </span>
-            </div>
+			<div class="ul-widget5__content">
+				<div class="ul-widget5__stats">
+					<span class="ul-widget5__sales">{{ $b->views }} <i class="i-Eye"></i></span>
+					<span class="ul-widget5__sales">
+						@php
+							$total_komentar = DB::table('berita_komentar')->where('berita_id',$b->id)->count();
+						@endphp
+						{{ $total_komentar }}
+						<i class="i-Speach-Bubble-3"></i>
+					</span>
+				</div>
+				<div class="ul-widget5__stats">
+                    <span class="ul-widget5__number">
+                        <a href="{{ route('inkubator.editBerita', $b->id) }}" class="ul-link-action text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit" style="float:left;"><i class="i-Edit"></i></a>
+                        <a href="{{ route('inkubator.destroyBerita', $b->id) }}" class="ul-link-action text-danger delete" data-toggle="tooltip" data-placement="top" title="" data-original-title="Want To Delete !!!" style="float:left;"><i class="i-Eraser-2"></i></a>
+                    </span>
+                </div>
+			</div>
 		</div>
 		@endforeach
 	</div>
@@ -76,6 +97,7 @@
 	<ul class="pagination justify-content-center">
 		<li class="page-item">{{ $berita->links() }}</li>
 	</ul>
+
 	</div>
 </div>
 </div>
@@ -89,7 +111,7 @@
 		<!--  row-comments -->
 		@forelse($umum as $row)
 		<div class="ul-widget-app__row-comments">
-			<div class="ul-widget-app__profile-pic p-3"><img class="profile-picture avatar-lg" src="{{ asset('storage/berita/' . $row->foto) }}" alt="alt" /></div>
+			<div class="ul-widget-app__profile-pic p-3"><img class="profile-picture avatar-lg" src="{{ asset('storage/berita/' . $row->foto) }}" alt="{{ $row->slug }}" /></div>
 			<div class="ul-widget-app__comment">
 				<div class="ul-widget-app__profile-title">
 					<a class="ul-widget4__title" href="{{ route('inkubator.showBerita', $row->slug) }}">{{ Str::limit($row->tittle, 40) }}</a>
@@ -112,6 +134,7 @@
 			<li class="page-item">{{ $berita->links() }}</li>
 		</ul>
 	</div>
+
 	<div class="card">
 		<div class="card-body">
 			<div class="card-title mb-0">Recent Comments</div>
