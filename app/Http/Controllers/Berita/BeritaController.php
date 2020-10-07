@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Berita;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use App\Berita;
-use App\kategori;
-use App\Inkubator;
-use App\profil_user;
-use App\Komentar;
 use Image;
 use App\User;
+use App\Berita;
+use App\kategori;
+use App\Komentar;
+use App\Inkubator;
 use App\BeritaLike;
+use App\profil_user;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 
 class BeritaController extends Controller
 {
@@ -208,6 +208,7 @@ class BeritaController extends Controller
         $umum = Berita::with('profil_user')->where('inkubator_id','0')->orderBy('created_at','desc')->paginate(5);
 
         return view('berita.showBerita', compact('berita','umum','komentar','total_komentar','total_like'));
+      
     }
 
     public function showT($slug)

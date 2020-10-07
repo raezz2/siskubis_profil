@@ -162,11 +162,4 @@
 </div>
 </div>
 @endsection
-@section('js')
-
-    <script src="{{ asset('theme/js/plugins/sweetalert2.min.js') }}"></script>
-    <script src="{{ asset('theme/js/plugins/sweetalert2.script.min.js') }}"></script>
-    <script src="{{ asset('theme/js/plugins/toastr.min.js') }}"></script>
-    <script src="{{ asset('theme/js/script/toastr.script.min.js') }}"></script>
-
-@endsection
+@include('alert')

@@ -6,6 +6,7 @@ use App\kategori;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+
 class KategoriController extends Controller
 {
 	public function create(){
@@ -19,7 +20,8 @@ class KategoriController extends Controller
 		return view('kategori.create',$data,$datas);
 	}
 	public function store(){
-		kategori::create([
+		Kategori::create([
+
             'category'      => request('category'),
         ]);
 
