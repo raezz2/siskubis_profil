@@ -42,6 +42,7 @@ class IndexController extends Controller
                         ->orderBy('views','desc')
                         ->where('publish','=','1')
                         ->paginate(7);
+            $hasil  = Komentar::orderBy('created_at','desc')->paginate(5);
         }else{
             $mainNews = Berita::with('beritaCategory')
                         ->orderBy('views','desc')
@@ -63,6 +64,7 @@ class IndexController extends Controller
                         ->where('publish','=','1')
                         ->where('inkubator_id','=','0')
                         ->paginate(7);
+            $hasil  = Komentar::orderBy('created_at','desc')->paginate(5);
         }
 
 
