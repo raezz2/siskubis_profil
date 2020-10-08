@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', 'Front\IndexController@index');
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 Route::get('/single/{slug}', 'Front\IndexController@single')->name('single');
+Route::post('/single/komentar','Berita\BeritaController@komentar')->name('single.komentarBerita');
 Route::post('/berita/like', 'Berita\BeritaController@likeStore')->name('single.likeBerita');
 Route::get('/pengumuman', 'Front\PengumumanController@index')->name('pengumuman');
 Route::get('/pengumuman/{slug}', 'Front\PengumumanController@show');

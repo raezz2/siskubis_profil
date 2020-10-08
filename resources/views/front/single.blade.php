@@ -78,14 +78,15 @@
 								{!! $berita->berita !!}
 							</div>
 							<footer>
-								<div class="col">
+								<div class="col-md-10">
+									@php
+									use App\kategori;
+									$tagsNews = kategori::orderBy('category')->get();
+									@endphp
 									<ul class="tags">
-										<li><a href="#">Free Themes</a></li>
-										<li><a href="#">Bootstrap 3</a></li>
-										<li><a href="#">Responsive Web Design</a></li>
-										<li><a href="#">HTML5</a></li>
-										<li><a href="#">CSS3</a></li>
-										<li><a href="#">Web Design</a></li>
+										@foreach($tagsNews as $row)
+										<li><a href="{{ route('front.tag') }}">{{ $row->category }}</a></li>
+										@endforeach
 									</ul>
 								</div>
 								<div class="col">
@@ -93,13 +94,13 @@
 										use App\BeritaLike;
 
 										$total_like = DB::table('berita_like')->where('berita_id',$row->id)->count();
-										$likeExist = BeritaLike::where('user_id','=', Auth::user()->id)->where('berita_id','=',$berita->id)->first();
+	$likeExist = BeritaLike::where('user_id','=', Auth::user()->id ?? '')->where('berita_id','=',$berita->id)->first();
 									@endphp
 
 						@if($likeExist == null)
 							<form action="{{ route('single.likeBerita') }}" method="post">
 							{{ csrf_field() }}
-								<input type="text" name="user_id" value="{{ Auth::user()->id }}" hidden>
+								<input type="text" name="user_id" value="{{ Auth::user()->id ?? '' }}" hidden>
 								<input type="text" name="berita_id" value="{{ $berita->id }}" hidden>
 								<button class="btn btn-sm btn-outline-primary" id="like" value="create">
 									<i class="ion-android-favorite-outline"></i>{{ $total_like }}
@@ -231,13 +232,12 @@
 											<h4 class="name">{{ $row->name}}</h4>
 											<span class="time">{{ \Carbon\Carbon::parse($row->created_at)->diffForHumans() }}</span>
 											<div class="description"><p>{{ $row->komentar}}</p></div>
-											<a href="inkubator/berita/destroy/{{ $row->id }}"  class ="right"><small>Delete</small></a>
 									</div>
 									</div>
 								</div>
 								@endforeach
 							</div>
-							<form action="inkubator.berita.comment" method="post" class="row">
+							<form action="{{ route('single.komentarBerita') }}" method="post" class="row">
 								{{ csrf_field() }}
 								<input type="hidden" name="id" value="id" class="form-control">
 								<input type="hidden" name="berita_id" value="{{ $berita->id }}" class="form-control">

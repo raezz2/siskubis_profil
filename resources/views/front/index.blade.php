@@ -249,35 +249,12 @@
                                         <h2 class="block-title">Photos</h2>
                                         <div class="block-body">
                                             <ul class="item-list-round" data-magnific="gallery">
+                                                @foreach($popular as $row)
                                                 <li>
-                                                    <a href="{{asset('assets/images/news/img06.jpg')}}"
-                                                        style="background-image: url('{{asset("assets/images/news/img06.jpg")}}');"></a>
+                                                    <a href="{{asset('storage/berita/' . $row->foto) }}"
+                                                        style="background-image: url('{{asset('storage/berita/' . $row->foto) }}');"></a>
                                                 </li>
-                                                <li><a href="{{asset('assets/images/news/img07.jpg')}}"
-                                                        style="background-image: url('{{asset("assets/images/news/img07.jpg")}}');"></a>
-                                                </li>
-                                                <li><a href="{{asset('assets/images/news/img08.jpg')}}"
-                                                        style="background-image: url('{{asset("assets/images/news/img08.jpg")}}');"></a>
-                                                </li>
-                                                <li><a href="{{asset('assets/images/news/img09.jpg')}}"
-                                                        style="background-image: url('{{asset("assets/images/news/img09.jpg")}}');"></a>
-                                                </li>
-                                                <li><a href="{{asset('assets/images/news/img10.jpg')}}"
-                                                        style="background-image: url('{{asset("assets/images/news/img10.jpg")}}');"></a>
-                                                </li>
-                                                <li><a href="{{asset('assets/images/news/img11.jpg')}}"
-                                                        style="background-image: url('{{asset("assets/images/news/img11.jpg")}}');"></a>
-                                                </li>
-                                                <li><a href="{{asset('assets/images/news/img12.jpg')}}"
-                                                        style="background-image: url('{{asset("assets/images/news/img12.jpg")}}');">
-                                                        <div class="more">+2</div>
-                                                    </a></li>
-                                                <li class="hidden"><a href="{{asset('assets/images/news/img13.jpg')}}"
-                                                        style="background-image: url('{{asset("assets/images/news/img13.jpg")}}');"></a>
-                                                </li>
-                                                <li class="hidden"><a href="{{asset('assets/images/news/img14.jpg')}}"
-                                                        style="background-image: url('{{asset("assets/images/news/img14.jpg")}}');"></a>
-                                                </li>
+                                                @endforeach
                                             </ul>
                                         </div>
                                     </div>
