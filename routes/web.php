@@ -96,7 +96,7 @@ Route::group(['prefix'=>'inkubator','middleware' => ['role:inkubator']], functio
 	Route::get('/kategori/{id}', 'Pengumuman\KategoriController@kategori')->name('inkubator.kategori-id');
 	Route::get('/pengumuman/status/{id}', 'Pengumuman\PengumumanController@status');
 
-    //Berita
+    // route berita inkubator
     Route::get('/berita', 'Berita\BeritaController@index')->name('inkubator.berita');
     Route::get('/berita/create', 'Berita\BeritaController@create')->name('inkubator.formBerita');
     Route::post('/berita/store', 'Berita\BeritaController@store')->name('inkubator.storeBerita');
@@ -108,19 +108,16 @@ Route::group(['prefix'=>'inkubator','middleware' => ['role:inkubator']], functio
     Route::get('/berita/kategori', 'Berita\KategoriController@kategori')->name('inkubator.kategori');
     Route::get('/chat', 'Chat\ChatController@index')->name('inkubator.chat');
     Route::get('/pesan', 'Pesan\PesanController@index')->name('inkubator.pesan');
-	  Route::get('/profile', 'Profile\ProfileUserController@index')->name('inkubator.profile');
-
+	Route::get('/profile', 'Profile\ProfileUserController@index')->name('inkubator.profile');
     Route::post('/berita/like', 'Berita\BeritaController@likeStore')->name('inkubator.likeBerita');
     Route::post('/berita/comment', 'Berita\BeritaKomentarController@comment')->name('inkubator.berita.comment');
     Route::get('/berita/destroy/{id}', 'Berita\BeritaKomentarController@destroy')->name('inkubator.berita.destroy');
-
     Route::get('/berita/kategori/create', 'Berita\KategoriController@create')->name('inkubator.kategori.create');
     Route::post('/berita/kategori/create','Berita\KategoriController@store');
     Route::get('/berita/kategori/{kategori}/edit', 'Berita\KategoriController@edit')->name('inkubator.kategori.edit');
     Route::patch('/berita/kategori/{kategori}/edit', 'Berita\KategoriController@update')->name('inkubator.kategori.update');
     Route::get('/berita/kategori/{kategori}/delete', 'Berita\KategoriController@destroy')->name('inkubator.kategori.destroy');
     Route::get('cariberita','Berita\BeritaController@search')->name('cariberita');
-    //END
 });
 
 
@@ -157,6 +154,12 @@ Route::group(['prefix'=>'mentor','middleware' => ['role:mentor']], function () {
 Route::group(['prefix'=>'tenant','middleware' => ['role:tenant']], function () {
 	Route::get('/', 'Tenant\HomeController@index')->name('tenant.home');
 	Route::get('/chat', 'Chat\ChatController@index')->name('tenant.chat');
+	// route berita tenant
+	Route::get('/berita', 'Berita\BeritaController@indexTenant')->name('tenant.berita');
+    Route::get('/berita/{slug}', 'Berita\BeritaController@showT')->name('tenant.showBerita');
+    Route::get('cariberita','Berita\BeritaController@searchTenant')->name('tenant.cariberita');
+    Route::post('/berita/komentar','Berita\BeritaController@komentar')->name('tenant.komentarBerita');
+    Route::post('/berita/like', 'Berita\BeritaController@likeStore')->name('tenant.likeBerita');
 	// route surat tenant
 	Route::get('/suratmasuk', 'Persuratan\DisposisiController@tenantsuratmasuk');
 	Route::get('/suratkeluar', 'Persuratan\DisposisiController@tenantsuratkeluar');
