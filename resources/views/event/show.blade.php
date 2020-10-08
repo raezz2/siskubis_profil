@@ -2,61 +2,54 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-4">
-        <div class="card bg-dark text-white o-hidden mb-4"><img style="height: 310px" class="card-img" src="{{ asset("storage/" . $event->foto) }}" alt="Card image">
-            {{-- <div class="card-img-overlay">
-                <div class="text-center pt-4">
-                    <h5 class="card-title mb-2 text-white">Card title</h5>
-                    <div class="separator border-top mb-2"></div>
-                    <p class="text-small font-italic">Last updated 3 mins ago</p>
-                </div>
-                <div class="p-1 text-left card-footer font-weight-light d-flex"><span class="mr-3 d-flex align-items-center"><i class="i-Speach-Bubble-6 mr-1"></i> 12</span><span class="d-flex align-items-center"><i class="i-Calendar-4 mr-2"></i>03.12.2018</span></div>
-            </div> --}}
-        </div>
-    </div>
-    <div class="col-md-8">
-        <div class="card container">
-            <div class="card-body">
-                <div class="card-title">
-                    <h2>{{ $event->title }}</h2>
-                </div>
-                <div class="d-flex align-items-center border-bottom-dotted-dim pb-3 mb-3"><img  style="border-radius: 50% !important" class="avatar-md rounded mr-3" src="https://dummyimage.com/75x75/cfcfcf/fff" alt="">
-                    <div class="flex-grow-1">
-                        <h6 class="m-0">{{ $event->author->name }}</h6>
-                        <p class="m-0 text-small text-muted">tukang posting event inkubator.</p>
+    <div class="col-lg-12 col-xl-12">
+        <div class="card o-hidden">
+            <div class="weather-card-1">
+                <div class="ul-weather-card__img-overlay">
+                    <div class="ul-weather-card__weather-time">
+                        <div class="text-white"><span class="display-5">{{ $event->title }}</span>
+                            <p>Created by {{ $event->author->name }}</p>
+                        </div>
                     </div>
                 </div>
-                <div class="mb-4">
-                    <i class="i-Geo21 mr-2"></i> Ds. sanggrahan, Ngemplak, kab. Sleman, DI. Yogyakarta
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-6 col-xl-6 text-center"">
+                            <i class="i-Calendar-4 mr-2"></i> {{ $event->tgl_mulai->format("d F Y") }} - {{ $event->tgl_selesai->format("d F Y") }} 
+                        </div>
+                        <div class="col-lg-6 col-xl-6 text-center"">
+                            <i class="i-Clock mr-2"></i> {{ $event->waktu_mulai->format("H:i") }} - {{ $event->waktu_selesai->format("H:i") }} WIB
+                        </div>
+                    </div>
                 </div>
-                <div class="mb-4">
-                    <i class="i-Calendar-4 mr-2"></i> {{ $event->tgl_mulai->format("d F Y") }} - {{ $event->tgl_selesai->format("d F Y") }} 
-                </div>
-                <div class="mb-4">
-                    <i class="i-Clock mr-2"></i> {{ $event->waktu_mulai->format("H:i") }} - {{ $event->waktu_selesai->format("H:i") }} WIB
-                </div>
-                @role('inkubator')
-                <div class="mb-4">
-                    <a href="/inkubator/event/{{ $event->slug }}/edit" class="btn btn-warning text-white">Edit This Event</a>
-                </div>
-                @endrole
             </div>
         </div>
     </div>
 </div>
 <hr>
-<div class="row">
+<div class="row mt-4">
     <div class="col">
         <div class="card">
+            <div class="card-header">
+                Detail Event
+            </div>
             <div class="card-body">
-                <div class="card-title">
-                    Detail Event
-                </div>
-                <p>
-                  {!! $event->event !!}
-                </p>
+                <p>{!! $event->event !!}</p>
             </div>
         </div>
     </div>
 </div>
+@endsection
+
+@section('css')
+    <style>
+        .ul-weather-card__img-overlay {
+    background: url("{{ asset("storage/" . $event->foto) }}");
+    background-size: cover;
+    height: 400px;
+    background-position-y: center;
+    background-repeat: no-repeat;
+}
+    </style>
+
 @endsection
