@@ -132,7 +132,7 @@
 					@csrf
 					<div class="form-group">
 						<label class="control-lable">Title</label>
-						<input class="form-control @error('title') is-invalid @enderror" type="text" placeholder="Title...." name="title" id="title" value="{{ old('title') }}" required/>
+						<input class="form-control @error('title') is-invalid @enderror" type="text" placeholder="Title...." name="title" id="title" value="{{ old('title') }}" required />
 						@if($errors->has('title'))
 						<div class="text-danger">
 							{{ $errors->first('title')}}
@@ -180,7 +180,9 @@
 
 					</div>
 					<div class="custom-file">
-						<input type="file" class="custom-file-input @error('file') is-invalid @enderror" name="file" id="file" value="{{ old('foto') }}" required>
+						<img id="image-preview" alt="image preview" />
+						<br />
+						<input type="file" class="custom-file-input @error('file') is-invalid @enderror" onchange="previewImage();" name="file" id="file" value="{{ old('foto') }}" required>
 						<label class="custom-file-label" for="exampleInputFile">Choose File</a>
 
 						</label>
@@ -208,6 +210,11 @@
 <link href="{{asset('theme/css/main.css')}}" rel="stylesheet" />
 <link rel="stylesheet" href="{{asset('theme/css/plugins/datatables.min.css')}}" />
 <link rel="stylesheet" href="{{asset('theme/css/plugins/sweetalert2.min.css')}}" />
+<style>
+	#image-preview {
+		display: none;
+	}
+</style>
 @endsection
 @section('js')
 <script src="{{asset('theme/js/plugins/datatables.min.js')}}"></script>
@@ -262,5 +269,15 @@
 		var fileName = $(this).val().split("\\").pop();
 		$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 	});
+
+	function previewImage() {
+		document.getElementById("image-preview").style.display = "block";
+		var oFReader = new FileReader();
+		oFReader.readAsDataURL(document.getElementById("file").files[0]);
+
+		oFReader.onload = function(oFREvent) {
+			document.getElementById("image-preview").src = oFREvent.target.result;
+		};
+	};
 </script>
 @endsection
