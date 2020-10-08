@@ -1,3 +1,4 @@
+@extends('layouts.app')
 @section('js')
 <script>
     toastr.options = {
