@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Komentar;
 use App\User;
-use DB;
 use App\Berita;
 use Illuminate\Support\Facades\Auth;
 
@@ -100,8 +99,8 @@ class IndexController extends Controller
         $berita->update([
             'views' => $view,
         ]);
-        $komentar = DB::table('berita_komentar')->where('berita_id',$berita->id)->orderBy('created_at','desc')->get();
-        $total_komentar = DB::table('berita_komentar')->where('berita_id',$berita->id)->count();
+        $komentar = Komentar::where('berita_id',$berita->id)->orderBy('created_at','desc')->get();
+        $total_komentar = Komentar::where('berita_id',$berita->id)->count();
         $recommend = Berita::with('beritaCategory')
                     ->where('berita_category_id', $berita->beritaCategory->id)
                     ->where('id','!=',$berita->id)

@@ -1,4 +1,9 @@
 @extends('layouts.front')
+@section('css')
+.love.active {
+  color: #F73F52;
+}
+@endsection
 @section('content')
 
 <section class="home">
@@ -34,7 +39,7 @@
                             <div class="overlay"></div>
                             <figure>
                                 <img src="{{ asset('storage/berita/' . $mn->foto) }}" alt="{{ $mn->tittle }}">
-                            </figure>
+                            </figure> 
                             <div class="details">
                                 <div class="category"><a href="#">{{ $mn->beritaCategory->category }}</a></div>
                                 <h1><a href="{{ route('single', $mn->slug) }}">{{ $mn->tittle }}</a></h1>
@@ -69,19 +74,40 @@
                                                 href="{{ route('single', $row->slug) }}">{{ Str::Limit($row->tittle, 30) }}</a>
                                         </h5>
                                         <p>{!! Str::Limit($row->berita, 120) !!}</p>
-                                        <footer>
-                                            <a href="#" class="love"><i class="ion-android-favorite-outline"></i>
-                                                @php
-                                                $berita_like =
-                                                DB::table('berita_like')->where('berita_id',$row->id)->count();
-                                                @endphp
-                                                <div>{{ $berita_like }}</div>
-                                            </a>
+
+<div class="row">
+    <div class="col-sm-8 love">
+                                            @php
+
+                                                $likeExist = DB::table('berita_like')->where('user_id','=', Auth::user()->id ?? '')->where('berita_id','=',$row->id)->first();
+                                                $total_like = DB::table('berita_like')->where('berita_id',$row->id)->count();
+                                            @endphp
+
+                                            @if($likeExist == null)
+                                                <form action="{{ route('single.likeBerita') }}" method="post">
+                                                {{ csrf_field() }}
+                                                    <input type="text" name="user_id" value="{{ Auth::user()->id ?? '' }}" hidden>
+                                                    <input type="text" name="berita_id" value="{{ $row->id }}" hidden>
+                                                    <button class="btn btn-link" style="text-decoration: none; color: #989898;" id="like" value="create">
+                                                        <i class="ion-android-favorite-outline"></i>
+                                                        {{ $total_like }}
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <button class="btn btn-link" id="dislike" value="create" style="text-decoration: none; color: #F73F52;">
+                                                    <i class="ion-android-favorite danger"></i>
+                                                    {{ $total_like }}
+                                                </button>
+                                            @endif
+    </div>
+    <div class="col-sm-auto">
                                             <a class="btn btn-primary more" href="{{ route('single', $row->slug) }}">
                                                 <div>More</div>
                                                 <div><i class="ion-ios-arrow-thin-right"></i></div>
                                             </a>
-                                        </footer>
+    </div>
+</div>
+                                        
                                     </div>
                                 </div>
                             </article>
@@ -177,17 +203,38 @@
                                 <h6><a href="{{ route('single', $row->slug) }}">{{ Str::Limit($row->tittle, 40) }}</a>
                                 </h6>
                                 <p>{!! Str::Limit($row->berita, 120) !!}</p>
-                                <footer>
-                                    <a href="#" class="love"><i class="ion-android-favorite-outline"></i>
-                                        @php
-                                        $berita_like = DB::table('berita_like')->where('berita_id',$row->id)->count();
-                                        @endphp
-                                        <div>{{ $berita_like }}</div>
-                                    </a>
-                                    <a class="btn btn-primary more" href="{{ route('single', $row->slug) }}">
-                                        <div>More</div>
-                                        <div><i class="ion-ios-arrow-thin-right"></i></div>
-                                    </a>
+                                <footer>           
+                                    <div class="row">
+                                        <div class="col-sm-1 love">
+                                            @php
+
+                                                $likeExist = DB::table('berita_like')->where('user_id','=', Auth::user()->id ?? '')->where('berita_id','=',$row->id)->first();
+                                                $total_like = DB::table('berita_like')->where('berita_id',$row->id)->count();
+                                            @endphp
+                                            @if($likeExist == null)
+                                                <form action="{{ route('single.likeBerita') }}" method="post">
+                                                {{ csrf_field() }}
+                                                    <input type="text" name="user_id" value="{{ Auth::user()->id ?? '' }}" hidden>
+                                                    <input type="text" name="berita_id" value="{{ $row->id }}" hidden>
+                                                    <button class="btn btn-link" style="text-decoration: none; color: #989898;" id="like" value="create">
+                                                        <i class="ion-android-favorite-outline"></i>
+                                                        {{ $total_like }}
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <button class="btn btn-link" id="dislike" value="create" style="text-decoration: none; color: #F73F52;">
+                                                    <i class="ion-android-favorite danger"></i>
+                                                    {{ $total_like }}
+                                                </button>
+                                            @endif
+                                        </div>
+                                        <div class="col-sm-auto">
+                                            <a class="btn btn-primary more" href="{{ route('single', $row->slug) }}">
+                                                <div>More</div>
+                                                <div><i class="ion-ios-arrow-thin-right"></i></div>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </footer>
                             </div>
                         </div>

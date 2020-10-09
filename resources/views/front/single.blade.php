@@ -94,7 +94,7 @@
 										use App\BeritaLike;
 
 										$total_like = DB::table('berita_like')->where('berita_id',$row->id)->count();
-	$likeExist = BeritaLike::where('user_id','=', Auth::user()->id ?? '')->where('berita_id','=',$berita->id)->first();
+										$likeExist = BeritaLike::where('user_id','=', Auth::user()->id ?? '')->where('berita_id','=',$berita->id)->first();
 									@endphp
 
 						@if($likeExist == null)
