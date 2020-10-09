@@ -132,7 +132,7 @@
 					@csrf
 					<div class="form-group">
 						<label class="control-lable">Title</label>
-						<input class="form-control @error('title') is-invalid @enderror" type="text" placeholder="Title...." name="title" id="title" value="{{ old('title') }}" required/>
+						<input class="form-control @error('title') is-invalid @enderror" type="text" placeholder="Title...." name="title" id="title" value="{{ old('title') }}" required />
 						@if($errors->has('title'))
 						<div class="text-danger">
 							{{ $errors->first('title')}}
@@ -179,6 +179,7 @@
 						@endif
 
 					</div>
+
 					<div class="input-group image-preview">
 						<input type="text" class="form-control image-preview-filename" disabled="disabled"> <!-- don't give a name === doesn't send on POST/GET -->
 						<span class="input-group-btn">
