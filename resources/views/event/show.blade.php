@@ -50,6 +50,16 @@
     background-position-y: center;
     background-repeat: no-repeat;
 }
+
+    .ul-weather-card__weather-time{
+        position: top; /* Position the background text */
+        bottom: 0; /* At the bottom. Use top:0 to append it to the top */
+        background: rgb(0, 0, 0); /* Fallback color */
+        background: rgba(0, 0, 0, 0.178); /* Black background with 0.5 opacity */
+        color: #f1f1f1; /* Grey text */
+        width: 100%; /* Full width */
+        padding: 20px; /* Some padding */
+    }
     </style>
 
 @endsection
