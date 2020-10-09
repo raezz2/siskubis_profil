@@ -179,10 +179,30 @@
 						@endif
 
 					</div>
-					<div class="custom-file">
-						<input type="file" class="custom-file-input @error('file') is-invalid @enderror" name="file" id="file" value="{{ old('foto') }}" required>
-						<label class="custom-file-label" for="exampleInputFile">Choose File</a>
-
+					<div class="input-group image-preview">
+						<input type="text" class="form-control image-preview-filename" disabled="disabled"> <!-- don't give a name === doesn't send on POST/GET -->
+						<span class="input-group-btn">
+							<!-- image-preview-clear button -->
+							<button type="button" class="btn btn-default image-preview-clear" style="display:none;">
+								<span class="glyphicon glyphicon-remove"></span> Clear
+							</button>
+							<!-- image-preview-input -->
+							<div class="btn btn-default image-preview-input">
+								<span class="glyphicon glyphicon-folder-open"></span>
+								<span class="image-preview-input-title">Browse</span>
+								<input type="file" class="custom-file-input @error('file') is-invalid @enderror" name="file" id="file" value="{{ old('foto') }}"/> <!-- rename it -->
+							</div>
+						</span>
+					</div>
+					@if($errors->has('file'))
+						<div class="text-danger">
+							{{ $errors->first('file')}}
+						</div>
+					@endif
+			<!-- /input-group image-preview [TO HERE]-->
+					<!-- <div class="custom-file input-group image-preview">
+						<input type="file" class="custom-file-input @error('file') is-invalid @enderror image-preview-filename" name="file" id="file" value="{{ old('foto') }}" required>
+						<label class="custom-file-label" for="exampleInputFile">Choose File</a> 
 						</label>
 
 						@if($errors->has('file'))
@@ -191,7 +211,7 @@
 						</div>
 						@endif
 
-					</div>
+					</div> -->
 					<div class="modal-footer">
 						<input type="hidden" name="hidden_id" id="hidden_id" />
 						<input type="submit" value="Simpan" class="btn btn-primary" />
@@ -208,6 +228,30 @@
 <link href="{{asset('theme/css/main.css')}}" rel="stylesheet" />
 <link rel="stylesheet" href="{{asset('theme/css/plugins/datatables.min.css')}}" />
 <link rel="stylesheet" href="{{asset('theme/css/plugins/sweetalert2.min.css')}}" />
+<style>
+.image-preview-input {
+    position: relative;
+	overflow: hidden;
+	margin: 0px;    
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;    
+}
+.image-preview-input input[type=file] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+.image-preview-input-title {
+    margin-left:2px;
+}
+</style>
 @endsection
 @section('js')
 <script src="{{asset('theme/js/plugins/datatables.min.js')}}"></script>
@@ -262,5 +306,66 @@
 		var fileName = $(this).val().split("\\").pop();
 		$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 	});
+
+	//JS FORM INPUT
+	
+	$(document).on('click', '#close-preview', function(){ 
+    $('.image-preview').popover('hide');
+    // Hover befor close the preview
+    $('.image-preview').hover(
+        function () {
+           $('.image-preview').popover('show');
+        }, 
+         function () {
+           $('.image-preview').popover('hide');
+        }
+    );    
+});
+
+$(function() {
+    // Create the close button
+    var closebtn = $('<button/>', {
+        type:"button",
+        text: 'x',
+        id: 'close-preview',
+        style: 'font-size: initial;',
+    });
+    closebtn.attr("class","close pull-right");
+    // Set the popover default content
+    $('.image-preview').popover({
+        trigger:'manual',
+        html:true,
+        title: "<strong>Preview</strong>"+$(closebtn)[0].outerHTML,
+        content: "There's no image",
+        placement:'bottom'
+    });
+    // Clear event
+    $('.image-preview-clear').click(function(){
+        $('.image-preview').attr("data-content","").popover('hide');
+        $('.image-preview-filename').val("");
+        $('.image-preview-clear').hide();
+        $('.image-preview-input input:file').val("");
+        $(".image-preview-input-title").text("Browse"); 
+    }); 
+    // Create the preview image
+    $(".image-preview-input input:file").change(function (){     
+        var object = $('<object/>', {
+            id: 'dynamic',
+            width:250,
+            height:200
+        });      
+        var file = this.files[0];
+        var reader = new FileReader();
+        // Set preview image into the popover data-content
+        reader.onload = function (e) {
+            $(".image-preview-input-title").text("Change");
+            $(".image-preview-clear").show();
+            $(".image-preview-filename").val(file.name);            
+            object.attr('data', e.target.result);
+            $(".image-preview").attr("data-content",$(object)[0].outerHTML).popover("show");
+        }        
+        reader.readAsDataURL(file);
+    });  
+});
 </script>
 @endsection
