@@ -29,7 +29,7 @@
 					<!-- modal-->
 					<button class="btn btn-outline-secondary btn-block mb-4" type="button" data-toggle="modal" data-target="#exampleModal" name="create_record" id="create_record">Tambah Pengumuman</button>
 					<!-- end:modal-->
-					<form action="/inkubator/pengumuman/search" method="GET">
+					<form action="{{ route('inkubator.search')}}" method="GET">
 						<input value="{{ Request::get('keyword') }}" name="keyword" class="form-control form-control-rounded col-md-12" id="exampleFormControlInput1" type="text" placeholder="Search Tenant..." />
 					</form>
 					<br>
@@ -75,7 +75,7 @@
 						@foreach($pengumuman as $p)
 						<tr>
 							<td>
-								<a href="/inkubator/pengumuman/{{ $p->slug }}">
+								<a href="{{ route('inkubator.show', $p->slug)}}">
 									<strong>{{ $p->title }}</strong>
 									<p>{!! str_limit($p->pengumuman) !!}</p>
 								</a>
@@ -101,14 +101,14 @@
 									@endif
 									<div class="dropdown-menu ul-task-manager__dropdown-menu">
 										@if($p->publish == 1)
-										<a class="dropdown-item btn btn-danger" href="{{ url('inkubator/pengumuman/status/'.$p->id)}}">Draf</a>
+										<a class="dropdown-item btn btn-danger" href="{{ route('inkubator.status-id', $p->id)}}">Draf</a>
 										@else
-										<a class="dropdown-item btn btn-success" href="{{ url('inkubator/pengumuman/status/'.$p->id)}}">Publish</a>
+										<a class="dropdown-item btn btn-success" href="{{ route('inkubator.status-id', $p->id)}}">Publish</a>
 										@endif
 									</div>
 							</td>
-							<td><a class="ul-link-action text-success" data-toggle="tooltip" href="/inkubator/pengumuman/edit/{{ $p->id }}" data-placement="top" title="Edit"><i class="i-Edit"></i>
-									<a class="ul-link-action text-danger mr-1 delete" href="/inkubator/pengumuman/hapus/{{ $p->id }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!">
+							<td><a class="ul-link-action text-success" data-toggle="tooltip" href="{{ route('inkubator.edit', $p->id)}}" data-placement="top" title="Edit"><i class="i-Edit"></i>
+									<a class="ul-link-action text-danger mr-1 delete" href="{{ route('inkubator.delete', $p->id)}}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!">
 										<i class="i-Eraser-2"></i></a>
 							</td>
 						</tr>
@@ -132,7 +132,7 @@
 					@csrf
 					<div class="form-group">
 						<label class="control-lable">Title</label>
-						<input class="form-control @error('title') is-invalid @enderror" type="text" placeholder="Title...." name="title" id="title" value="{{ old('title') }}" />
+						<input class="form-control @error('title') is-invalid @enderror" type="text" placeholder="Title...." name="title" id="title" value="{{ old('title') }}" required />
 						@if($errors->has('title'))
 						<div class="text-danger">
 							{{ $errors->first('title')}}
@@ -141,7 +141,7 @@
 					</div>
 					<div class="form-group">
 						<label class="control-lable">Kategori</label>
-						<select class="form-control @error('kategori') is-invalid @enderror" name="kategori" id="kategori">
+						<select class="form-control @error('kategori') is-invalid @enderror" name="kategori" id="kategori" required>
 							<option selected="" disabled="">Pilih Kategori</option>
 							@foreach ($kategori as $k)
 							<option value="{{ $k->id }}" {{ old('kategori') == $k->id ? 'selected':''}}>{{ $k->name }}</option>
@@ -155,8 +155,9 @@
 					</div>
 					<div class="form-group">
 						<label class="control-lable">Inkubator</label>
-						<select class="form-control @error('inkubator') is-invalid @enderror" name=" inkubator" id="inkubator">
+						<select class="form-control @error('inkubator') is-invalid @enderror" name=" inkubator" id="inkubator" required>
 							<option selected="" disabled="">Pilih Inkubator</option>
+							<option value="0">Umum / Non Tenant</option>
 							@foreach ($inkubator as $i)
 							<option value="{{ $i->id }}" {{ old('inkubator') == $i->id ? 'selected':''}}>{{ $i->nama }}</option>
 							@endforeach
@@ -169,7 +170,7 @@
 					</div>
 					<div class="form-group">
 						<label class="control-lable">Pengumuman</label>
-						<textarea class="form-control @error('pengumuman') is-invalid @enderror" rows=" 3" placeholder="Pengumuman ...." name="pengumuman" id="pengumuman">{{old('pengumuman')}}</textarea>
+						<textarea class="form-control @error('pengumuman') is-invalid @enderror" rows=" 3" placeholder="Pengumuman ...." name="pengumuman" id="pengumuman" required>{{old('pengumuman')}}</textarea>
 
 						@if($errors->has('pengumuman'))
 						<div class="text-danger">
@@ -178,10 +179,31 @@
 						@endif
 
 					</div>
-					<div class="custom-file">
-						<input type="file" class="custom-file-input @error('file') is-invalid @enderror" name="file" id="file" value="{{ old('foto') }}">
-						<label class="custom-file-label" for="exampleInputFile">Choose File</a>
 
+					<div class="input-group image-preview">
+						<input type="text" class="form-control image-preview-filename" disabled="disabled"> <!-- don't give a name === doesn't send on POST/GET -->
+						<span class="input-group-btn">
+							<!-- image-preview-clear button -->
+							<button type="button" class="btn btn-default image-preview-clear" style="display:none;">
+								<span class="glyphicon glyphicon-remove"></span> Clear
+							</button>
+							<!-- image-preview-input -->
+							<div class="btn btn-default image-preview-input">
+								<span class="glyphicon glyphicon-folder-open"></span>
+								<span class="image-preview-input-title">Browse</span>
+								<input type="file" class="custom-file-input @error('file') is-invalid @enderror" name="file" id="file" value="{{ old('foto') }}"/> <!-- rename it -->
+							</div>
+						</span>
+					</div>
+					@if($errors->has('file'))
+						<div class="text-danger">
+							{{ $errors->first('file')}}
+						</div>
+					@endif
+			<!-- /input-group image-preview [TO HERE]-->
+					<!-- <div class="custom-file input-group image-preview">
+						<input type="file" class="custom-file-input @error('file') is-invalid @enderror image-preview-filename" name="file" id="file" value="{{ old('foto') }}" required>
+						<label class="custom-file-label" for="exampleInputFile">Choose File</a> 
 						</label>
 
 						@if($errors->has('file'))
@@ -190,7 +212,7 @@
 						</div>
 						@endif
 
-					</div>
+					</div> -->
 					<div class="modal-footer">
 						<input type="hidden" name="hidden_id" id="hidden_id" />
 						<input type="submit" value="Simpan" class="btn btn-primary" />
@@ -207,6 +229,30 @@
 <link href="{{asset('theme/css/main.css')}}" rel="stylesheet" />
 <link rel="stylesheet" href="{{asset('theme/css/plugins/datatables.min.css')}}" />
 <link rel="stylesheet" href="{{asset('theme/css/plugins/sweetalert2.min.css')}}" />
+<style>
+.image-preview-input {
+    position: relative;
+	overflow: hidden;
+	margin: 0px;    
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;    
+}
+.image-preview-input input[type=file] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+.image-preview-input-title {
+    margin-left:2px;
+}
+</style>
 @endsection
 @section('js')
 <script src="{{asset('theme/js/plugins/datatables.min.js')}}"></script>
@@ -230,9 +276,6 @@
 
 	$('#ul-contact-list').DataTable({
 		responsive: true,
-		order: [
-			[2, 'DESC']
-		]
 	});
 	$('.delete').on("click", function(event) {
 		event.preventDefault();
@@ -255,10 +298,75 @@
 			}
 		});
 	});
-	$(document).ready(function(){
+	$(document).ready(function() {
 		@if(Session::has('errors'))
 		$('#exampleModal').modal('show');
 		@endif
 	});
+	$(".custom-file-input").on("change", function() {
+		var fileName = $(this).val().split("\\").pop();
+		$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+	});
+
+	//JS FORM INPUT
+	
+	$(document).on('click', '#close-preview', function(){ 
+    $('.image-preview').popover('hide');
+    // Hover befor close the preview
+    $('.image-preview').hover(
+        function () {
+           $('.image-preview').popover('show');
+        }, 
+         function () {
+           $('.image-preview').popover('hide');
+        }
+    );    
+});
+
+$(function() {
+    // Create the close button
+    var closebtn = $('<button/>', {
+        type:"button",
+        text: 'x',
+        id: 'close-preview',
+        style: 'font-size: initial;',
+    });
+    closebtn.attr("class","close pull-right");
+    // Set the popover default content
+    $('.image-preview').popover({
+        trigger:'manual',
+        html:true,
+        title: "<strong>Preview</strong>"+$(closebtn)[0].outerHTML,
+        content: "There's no image",
+        placement:'bottom'
+    });
+    // Clear event
+    $('.image-preview-clear').click(function(){
+        $('.image-preview').attr("data-content","").popover('hide');
+        $('.image-preview-filename').val("");
+        $('.image-preview-clear').hide();
+        $('.image-preview-input input:file').val("");
+        $(".image-preview-input-title").text("Browse"); 
+    }); 
+    // Create the preview image
+    $(".image-preview-input input:file").change(function (){     
+        var object = $('<object/>', {
+            id: 'dynamic',
+            width:250,
+            height:200
+        });      
+        var file = this.files[0];
+        var reader = new FileReader();
+        // Set preview image into the popover data-content
+        reader.onload = function (e) {
+            $(".image-preview-input-title").text("Change");
+            $(".image-preview-clear").show();
+            $(".image-preview-filename").val(file.name);            
+            object.attr('data', e.target.result);
+            $(".image-preview").attr("data-content",$(object)[0].outerHTML).popover("show");
+        }        
+        reader.readAsDataURL(file);
+    });  
+});
 </script>
 @endsection

@@ -7,7 +7,7 @@
                 <h4>{{$title}}</h4>
             </div>
             <div class="card-body">
-                <form action="/inkubator/pengumuman/update/{{ $p->id }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('inkubator.update-id', $p->id)}}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
                     <div class="form-group">
@@ -26,6 +26,7 @@
                     <div class="form-group">
                         <select class="form-control" name="inkubator">
                             <option selected="" disabled="">Pilih Inkubator</option>
+                            <option value="0"{{($p->inkubator_id == 0) ? 'selected' : ''}}>Umum / Non Tenant</option>
                             @foreach ($inkubator as $i)
                             <option value="{{ $i->id }}" {{($p->inkubator_id == $i->id) ? 'selected' : ''}}>{{ $i->nama }}</option>
                             @endforeach
@@ -37,7 +38,7 @@
                         {{ $errors->first('pengumuman')}}
                     </div>
                     <div class="custom-file">
-                        <label class="custom-file-label" for="exampleInputFile">Choose File</label>
+                        <label class="custom-file-label" for="exampleInputFile">{{$p->foto}}</label>
                         <input type="file" class="custom-file-input" id="exampleInputFile" name="foto" multiple>
                         <object data="/img/pengumuman/{{ $p->foto }}" width="400px"></object>
                         <input type="hidden" class="custom-file-input" id="hidden_image" name="hidden_image" value="{{ $p->foto }}">
@@ -71,6 +72,10 @@
             [2, 'DESC']
         ]
     });
+    $(".custom-file-input").on("change", function() {
+		var fileName = $(this).val().split("\\").pop();
+		$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+	});
 </script>
 <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
 <script>

@@ -16,7 +16,7 @@
                         <br>
                         <br>
                         <p style="text-align:justify; text-indent: 0.5in;">{!! $p->pengumuman !!}</p>
-                        <center><object data="/img/pengumuman/{{ $p->foto }}" width="700" height="500"></object></center>
+                        <center><object data="{{asset('img/pengumuman/'. $p->foto ) }}" width="700" height="500"></object></center>
                         <div style="clear:both;"></div>
                         @endforeach
                     </tbody>

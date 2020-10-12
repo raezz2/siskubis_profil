@@ -9,7 +9,7 @@
             <div class="card-body">
                 <div class="ul-contact-list">
                     <div class="contact-close-mobile-icon float-right mb-2"><i class="i-Close-Window text-15 font-weight-600"></i></div>
-                    <form action="/tenant/pengumuman/search" method="GET">
+                    <form action="{{ route('tenant.search')}}" method="GET">
                         <input value="{{ Request::get('keyword') }}" name="keyword" class="form-control form-control-rounded col-md-12" id="exampleFormControlInput1" type="text" placeholder="Search Tenant..." />
                     </form>
                     <br>
@@ -22,7 +22,7 @@
                         </select>
                         </br>
                         @foreach($kategori as $y)
-                        <a class="list-group-item list-group-item-action border-0" id="list-profile-list" href="/tenant/kategori/{{ $y->id }}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
+                        <a class="list-group-item list-group-item-action border-0" id="list-profile-list" href="{{ route('tenant.kategori-id', $y->id)}}" role="tab" aria-controls="home"><i class="nav-icon i-Arrow-Next"></i>{{ $y->name }}</a>
                         @endforeach
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                         @foreach($pengumuman as $p)
                         <tr>
                             <td>
-                                <a href="/tenant/pengumuman/{{ $p->slug }}">
+                                <a href="{{ route('tenant.show', $p->slug)}}">
                                     <strong>{{ $p->title }}</strong>
                                     <p>{!! str_limit($p->pengumuman) !!}</p>
                                 </a>
@@ -84,9 +84,6 @@
 <script>
     $('#ul-contact-list').DataTable({
         responsive: true,
-        order: [
-            [2, 'DESC']
-        ]
     });
 </script>
 @endsection
