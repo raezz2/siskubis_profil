@@ -27,6 +27,23 @@ class EventController extends Controller
 
     public function index(Request $request)
     {
+        if(request()->has('filter')){
+            if(array_key_exists('between', $request->filter)){
+                $test = request()->filter['between'];
+                $exp = explode(',', $test);
+            }else{
+                $exp = null;
+            }
+
+            if(array_key_exists('title', $request->filter)){
+                $title = request()->filter['title'];
+            }else{
+                $title = null;
+            }
+        }else{
+            $exp = null;
+            $title = null;
+        }
 
         $priority = Priority::orderBy('name', 'ASC')->get();
         $event = QueryBuilder::for(Event::class)
@@ -37,11 +54,28 @@ class EventController extends Controller
                 AllowedFilter::scope('between', 'dateBetween'),
             ])
             ->latest()->paginate();
-        return view('event.index', compact('event', 'priority'));
+        return view('event.index', compact('event', 'priority', 'exp', 'title'));
     }
 
     public function indexMentor(Request $request)
     {
+        if(request()->has('filter')){
+            if(array_key_exists('between', $request->filter)){
+                $test = request()->filter['between'];
+                $exp = explode(',', $test);
+            }else{
+                $exp = null;
+            }
+
+            if(array_key_exists('title', $request->filter)){
+                $title = request()->filter['title'];
+            }else{
+                $title = null;
+            }
+        }else{
+            $exp = null;
+            $title = null;
+        }
 
         $priority = Priority::orderBy('name', 'ASC')->get();
         $event = QueryBuilder::for(Event::class)
@@ -52,7 +86,7 @@ class EventController extends Controller
                 AllowedFilter::scope('between', 'dateBetween'),
             ])->where('inkubator_id', '=', Auth::user()->inkubator_id)
             ->latest()->paginate();
-        return view('event.index', compact('event', 'priority'));
+        return view('event.index', compact('event', 'priority', 'exp', 'title'));
     }
 
     public function indexTenant(Request $request)
@@ -68,10 +102,32 @@ class EventController extends Controller
         return view('/event/index', compact('event'));
     }
 
+    public function cekFilter()
+    {
+        if(request()->has('filter')){
+            if(array_key_exists('between', $request->filter)){
+                $test = request()->filter['between'];
+                $exp = explode(',', $test);
+            }else{
+                $exp = null;
+            }
+
+            if(array_key_exists('title', $request->filter)){
+                $title = request()->filter['title'];
+            }else{
+                $title = null;
+            }
+        }else{
+            $exp = null;
+            $title = null;
+        }
+    }
+
     public function calendar()
     {
+        $priority = Priority::all();
         $event = Event::all();
-        return view('event.calendar', compact('event'));
+        return view('event.calendar', compact('event', 'priority'));
     }
 
     public function calendarMentor()
@@ -121,7 +177,7 @@ class EventController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect()->to('/inkubator/event')->with($notification);
+        return redirect()->back()->with($notification);
     }
 
     public function edit(Event $event)
@@ -160,6 +216,5 @@ class EventController extends Controller
             'alert-type' => 'error'
         );
         return redirect()->to('/inkubator/event')->with($notification);
-
     }
 }

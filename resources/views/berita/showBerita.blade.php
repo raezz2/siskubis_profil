@@ -18,6 +18,47 @@
 				<img src="{{ asset('storage/berita/' . $berita->foto) }}" alt="{{ $berita->slug }}" class="w-100" height="350px">
 				<p class="text-justify">{!! $berita->berita !!}</p>
 			</div>
+			<footer>
+				<div class="row mb-3 container">
+					<div class="col-md-10">
+						<button type="button" class="btn btn-sm btn-outline-secondary">Free Themes</button>
+						<button type="button" class="btn btn-sm btn-outline-secondary">Bootstrap 3</button>
+						<button type="button" class="btn btn-sm btn-outline-secondary">Responsive Web Design</button>
+						<button type="button" class="btn btn-sm btn-outline-secondary">HTML5</button>
+						<button type="button" class="btn btn-sm btn-outline-secondary">CSS3</button>
+					</div>
+					<div class="col-md-2">
+						@php
+						use App\BeritaLike;
+
+						$likeExist = BeritaLike::where('user_id','=', Auth::user()->id)->where('berita_id','=',$berita->id)->first();
+						@endphp
+
+						@if($likeExist == null)
+							<form id="likeForm" name="likeForm">
+							{{-- <form action="{{ route('inkubator.likeBerita') }}" method="post"> --}}
+							{{ csrf_field() }}
+								<input type="text" name="user_id" value="{{ Auth::user()->id }}" hidden>
+								<input type="text" name="berita_id" value="{{ $berita->id }}" hidden>
+								<button class="btn btn-sm btn-outline-primary" id="like" value="create">
+	          						<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+	  									<path fill-rule="evenodd" d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+									</svg>
+									{{ $total_like }}
+								</button>
+							</form>
+						@else
+							<button class="btn btn-sm btn-danger" id="dislike" value="create">
+		          				<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  									<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+								</svg>
+								{{ $total_like }}
+							</button>
+							</form>
+						@endif
+					</div>
+				</div>
+			</footer>
 		</div>
 		<div class="card">
 			<div class="card-body">
@@ -75,7 +116,7 @@
 					<a class="ul-widget4__title" href="{{ route('inkubator.showBerita', $row->slug) }}">{{ Str::limit($row->tittle, 40) }}</a>
 				</div>
 				<div class="ul-widget-app__profile-status">
-							@if($berita->publish == 1)
+							@if($row->publish == 1)
 								<span class="badge badge-pill badge-success p-1 mr-2">Publish</span>
 							@else
 								<span class="badge badge-pill badge-danger p-1 mr-2">Draft</span>
@@ -95,8 +136,41 @@
 		</div>
 		<ul class="pagination justify-content-center">
 			<li class="page-item"></li>
-		</ul>	
+		</ul>
 	</div>
 </div>
 </div>
+@endsection
+@section('js')
+
+	<script type="text/javascript">
+
+        $(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('#like').click(function (e) {
+                e.preventDefault();
+
+                var _token      = $("input[name='_token']").val();
+                var berita_id   = $("input[name='berita_id']").val();
+                var user_id     = $("input[name='user_id']").val();
+
+                $(this).html('Liked');
+                $(this).prop('disabled', true);
+                $(this).css({"background-color": "#dc3545", "border-color": "#dc3545", "color": "white", "opacity": "100%"})
+                $.ajax({
+                    data: $('#likeForm').serialize(),
+                    url: "{{ route('inkubator.likeBerita') }}",
+                    type: "POST",
+                    dataType: 'json'
+                });
+            });
+        });
+
+    </script>
+
 @endsection

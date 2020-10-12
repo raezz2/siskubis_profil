@@ -2,40 +2,37 @@
 
 namespace App\Http\Controllers\Berita;
 
-use App\Http\Controllers\Controller;
+use App\kategori;
 use Illuminate\Http\Request;
-use App\Kategori;
+use App\Http\Controllers\Controller;
 
 
 class KategoriController extends Controller
 {
-	/*
-    public function index(){
-		$berita_category = Kategori::All();
-		$data = array(
-			'berita_category' => $berita_category,
-			'no'        => 1
-		);
-		return view('kategori.index',$data);
-	}
-	*/
 	public function create(){
-		$berita_category = Kategori::orderBy('category')->get();
+		$berita_category = kategori::orderBy('category')->get();
 		$datas = array(
 			'berita_category' => $berita_category,
-			'no'        => 1
-		);
+            'no'        => 1
+        );
 
 		$data = array('title'   => 'category');
 		return view('kategori.create',$data,$datas);
 	}
 	public function store(){
 		Kategori::create([
-			'category'      => request('category'),
-		]);
-		return redirect(route('inkubator.kategori.create'));
+
+            'category'      => request('category'),
+        ]);
+
+        $notification = array(
+            'message' => 'Kategori Berhasil Ditambahkan!',
+            'alert-type' => 'success'
+        );
+
+		return redirect(route('inkubator.kategori.create'))->with($notification);
 	}
-	public function edit(Kategori $kategori)
+	public function edit(kategori $kategori)
 	{
 		$data = array(
 			'title'       => 'Kategori',
@@ -44,17 +41,30 @@ class KategoriController extends Controller
 		return view('kategori.edit',$data);
 	}
 
-	public function update(Kategori $kategori)
+	public function update(kategori $kategori)
 	{
 		$kategori->update([
-			'category'      => request('category'),
-		]);
-		return redirect(route('inkubator.kategori.create'));
+            'category'      => request('category'),
+        ]);
+
+        $notification = array(
+            'message' => 'Kategori Berhasil Diedit!',
+            'alert-type' => 'success'
+        );
+
+		return redirect(route('inkubator.kategori.create'))->with($notification);
 	}
 
-	public function destroy(Kategori $kategori){
-    	$kategori->delete();
-    	
-        return redirect(route('inkubator.kategori.create'));
+	public function destroy(kategori $kategori){
+    	$kategori->delete([
+        ]);
+
+        $notification = array(
+            'message' => 'Kategori Berhasil Dihapus!',
+            'alert-type' => 'error'
+        );
+
+        return redirect(route('inkubator.kategori.create'))->with($notification);
 	}
 }
+

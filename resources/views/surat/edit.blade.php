@@ -3,21 +3,12 @@
 @section('content')
 <div class="main-content pt-4">
     <div class="breadcrumb">
-        <h1>Persuratan</h1>
+        <h1>Edit Surat</h1>
         <ul>
             <li><a href="#">Form</a></li>
             <li>Persuratan</li>
         </ul>
     </div>
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Edit Surat</h1>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
 
     <!-- Main content -->
     <section class="content">
@@ -65,13 +56,10 @@
                           </select>
                           </div>
                       </div>
-                        <div class="col-sm-12">
-                        <label for="alamat">Buat Surat</label>
-                            <div class="input-group">
-                              <div class="input-group-prepend"></div>
-                              <textarea name="perihal" class="form-control" aria-label="With textarea" id="perihal" value="{{ $surat->perihal }}">{{ $surat->perihal }}</textarea>
-                            </div>
-                        </div>
+                      <div class="col-sm-12">
+                      <label for="alamat">Buat Surat</label>
+                            <textarea name="perihal" class="form-control" aria-label="With textarea" id="perihal" value="{{ $surat->perihal }}">{{ $surat->perihal }}</textarea>
+                      </div>
                         <div class="col-sm-3">
                         <div class="form-group">
                           <label for="file">File</label>
