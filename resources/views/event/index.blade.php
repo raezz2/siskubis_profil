@@ -6,7 +6,7 @@
 			<div class="card-header container-fluid">
 			  <div class="row">
 				<div class="col-md-8">
-				  <h3>Event</h3>
+                    <h3>Event</h3>
 				</div>
 				<div class="col-md-4 btn-group">
                     @role('inkubator')
@@ -27,7 +27,7 @@
             @role('inkubator')
 			<div class="card-body">
 				<div class="create_event_wrap">
-                    <a href="{{route('inkubator.event.create')}}"><button class="btn btn-outline-primary btn-block">Tambah Event</button></a>
+                    <button class="btn btn-outline-primary btn-block"data-toggle="modal" data-target="#inputModal">Tambah Event</button>
 				</div>
             </div>
             @endrole
@@ -47,12 +47,16 @@
                 <div class="form-group">
                     <label for="search">Pencarian</label>
                     <div class="input-group">
-                        <input type="text" name="title" id="title" class="form-control" placeholder="search" value="{{ request()->input('title') }}">
+                        <input type="text" name="titles" class="form-control" placeholder="search" value="{{ $title != null ? $title : null }}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="daterange">Rentang tanggal</label>
-                    <input type="text" name="daterange" class="form-control" placeholder="set tanggal">
+                    <input type="text" name="daterange" class="form-control" placeholder="set tanggal" 
+                    @if($exp != '')
+                        value="{!! \Carbon\Carbon::parse($exp['0'])->format('d M Y') !!} - {!! \Carbon\Carbon::parse($exp['1'])->format('d M Y') !!}"
+                    @endif
+                    >
                 </div>
                 <div class="form-group">
                     <label for="priority">Priority</label>
@@ -91,21 +95,14 @@
         @endrole
 	</div>
 	<div class="col-md-9">
+        <div id="task-manager-list">
             <!--  content area -->
             <div class="content"> 
                 <!--  task manager table -->
                 <div class="card" id="card">
-
-                    <div class="card-body" id="card-body">
-                        <div class="search ul-task-manager__search-inline">
-                            <nav class="navbar">
-                                <form class="form-inline">
-                                        
-                                </form>
-                            </nav>
-                        </div>
+                    <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered custom-sm-width" id="names">
+                            <table class="table table-bordered custom-sm-width table-striped" id="names" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
@@ -121,17 +118,10 @@
                                         @endrole
                                     </tr>
                                 </thead>
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th colspan="8">Last Week</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="names">
-                                    <!-- --------------------------- tr1 -------------------------------------------->
+                                <tbody>
+                                    <!-- --------------------------- table row -------------------------------------------->
                                     @foreach ($event as $key => $item)
-                                        
-                                    
-                                    <tr id="names">
+                                    <tr>
                                         <th class="head-width" scope="row">{{ $event->firstItem() + $key }}</th>
                                         <td class="collection-item">
                                             @role('inkubator')
@@ -167,11 +157,11 @@
                                             </div>
                                         </td>
                                         <td class="custom-align">
-                                            <div class="d-inline-flex align-items-center calendar align-middle"><i class="i-Calendar-4"></i><span>{{ $item->tgl_mulai->format("d M Y") }}</span></div>
+                                            <div class="d-inline-flex align-items-center calendar align-middle"><i class="i-Calendar-4"></i><span>{{ $item->tgl_mulai->format("d M Y") }}</span></div><br>
                                             <div class="d-inline-flex align-items-center calendar align-middle"><i class="i-Clock"></i><span>{{ $item->waktu_mulai->format("H:i") }}</span></div>
                                         </td>
                                         <td class="custom-align">
-                                            <div class="d-inline-flex align-items-center calendar align-middle"><i class="i-Calendar-4"></i><span>{{ $item->tgl_selesai->format("d M Y") }}</span></div>
+                                            <div class="d-inline-flex align-items-center calendar align-middle"><i class="i-Calendar-4"></i><span>{{ $item->tgl_selesai->format("d M Y") }}</span></div><br>
                                             <div class="d-inline-flex align-items-center calendar align-middle"><i class="i-Clock"></i><span>{{ $item->waktu_selesai->format("H:i") }}</span></div>
                                         </td>
                                         <td class="custom-align">
@@ -190,13 +180,128 @@
                             </table>
                         </div>
                     </div>
-                    </div>
                 </div>
                 <!--  end of task manager table -->
             </div>
             <!--  end of content area -->
         </div>
-	</div>
+    </div>
+    @role('inkubator')
+    <!-- Modal -->
+    <div class="modal fade" id="inputModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- form input modal -->
+                    <form action="{{ route('inkubator.event.store') }}" method="post" autocomplete="off" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" name="title" class="form-control" placeholder="title" required>
+                            @error('title')
+                                <div class="mt-2 text-danger">
+                                {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="foto">Foto</label>
+                            <div class="input-group mb-3 image-preview">
+                                <input type="text" class="form-control image-preview-filename" disabled="disabled"> <!-- don't give a name === doesn't send on POST/GET -->
+                                <span class="input-group-btn">
+                                    <!-- image-preview-clear button -->
+                                    <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
+                                        <span class="glyphicon glyphicon-remove"></span> Clear
+                                    </button>
+                                    <!-- image-preview-input -->
+                                    <div class="btn btn-default image-preview-input">
+                                        <span class="glyphicon glyphicon-folder-open"></span>
+                                        <span class="image-preview-input-title">Browse</span>
+                                        <input type="file" accept="image/png, image/jpeg, image/gif" name="foto"/> <!-- rename it -->
+                                    </div>
+                                </span>
+                            </div>
+                            @error('foto')
+                            <div class="mt-2 text-danger">
+                            {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="event">Event</label>
+                            <textarea name="event" id="event" required class="form-control"></textarea>
+                            @error('event')
+                            <div class="mt-2 text-danger">
+                            {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="tgl_mulai">Tanggal Mulai :</label>
+                                <div class="input-group">
+                                    <input type="date" name="tgl_mulai" class="form-control" id="tgl_mulai" required>
+                                    <input type="time" name="waktu_mulai" class="form-control" id="waktu_mulai" required>
+                                </div>
+                                @error('tgl_mulai')
+                                <div class="mt-2 text-danger">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                                @error('waktu_mulai')
+                                <div class="mt-2 text-danger">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="tgl_selesai">Tanggal Selesai</label>
+                                <div class="input-group">
+                                    <input type="date" name="tgl_selesai" class="form-control" id="tgl_selesai" required>
+                                    <input type="time" name="waktu_selesai" class="form-control" id="waktu_selesai" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="priority">Priority</label>
+                                <select class="form-control" name="priority_id" id="priority_id">
+                                    @foreach ($priority as $prio)
+                                        <option value="{{ $prio->id }}">{{ $prio->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="publish">Publish</label>
+                                <select name="publish" class="form-control" id="publish">
+                                    <option value="1">Publish</option>
+                                    <option value="0">Draft</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal end -->
+    @endrole
+</div>
+<div class="row">
+    <div class="card">
+        {{-- <div class="card-body">{{ $between }}</div> --}}
+    </div>
 </div>
 @endsection
 
@@ -204,10 +309,36 @@
 <link rel="stylesheet" href="{{ asset('theme/css/plugins/datatables.min.css')}}" />
 <link href="{{ asset('theme/css/plugins/toastr.css')}}" rel="stylesheet" />
 <link rel="stylesheet" href="{{ asset('theme/css/plugins/sweetalert2.min.css')}}" /> 
+<style>
+  .container{
+    margin-top:20px;
+  }
+  .image-preview-input {
+    position: relative;
+  overflow: hidden;
+  margin: 0px;    
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;    
+  }
+  .image-preview-input input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  }
+  .image-preview-input-title {
+    margin-left:2px;
+  }
+</style>
 @endsection
 
 @section('js')
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
@@ -217,31 +348,56 @@
 <script src="{{ asset('theme/js/script/toastr.script.min.js')}}"></script>
 <script src="{{ asset('theme/js/plugins/sweetalert2.min.js')}}"></script>
 <script src="{{ asset('theme/js/scripts/sweetalert2.script.min.js')}}"></script>
+<script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+
 <script>
 
-$(document).ready( function () {
-    $('#names').DataTable(
-        {
-            "pagingType": "numbers",
-            "searching": false,
-            "scrollX": true
-        }
-    );
-});
+    $(function () {
+        @if(Session::has('errors'))
+            $('#inputModal').modal('show');
+        @endif
+        $('#names').DataTable(
+            {
+                "pagingType": "numbers",
+                @role('tenant')
+                "searching": true,
+                @endrole
+                @role(['mentor', 'inkubator'])
+                "searching": false,
+                @endrole
+                "scrollX": true
+            }
+        );
+
+        $(".custom-file-input").on("change", function() {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+        CKEDITOR.replace('event');
+    });
     
+    // $('#btnModal').on('click', function(){
+    //     $('#inputModal').modal('show');
+    // });
     $(function() {
         $('input[name="daterange"]').daterangepicker({
-        opens: 'right',
-        autoUpdateInput: false,
-        locale: {
-          cancelLabel: 'Clear'
-        },
+            opens: 'right',
+            autoUpdateInput: false,
+            @role(['inkubator', 'mentor'])
+            @if($exp != null)
+                startDate: '{!! \Carbon\Carbon::parse($exp['0'])->format('m d Y') !!}',
+                endDate: '{!! \Carbon\Carbon::parse($exp['1'])->format('m d Y') !!}',
+            @endif
+            @endrole
+            locale: {
+            cancelLabel: 'Clear'
+            },
         }, function(start, end, label) {
         console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
         });
 
         $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
-            $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            $(this).val(picker.startDate.format('DD MMM YYYY') + ' - ' + picker.endDate.format('DD MMM YYYY'));
         });
 
         $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
@@ -259,7 +415,7 @@ $(document).ready( function () {
 
     function filterResults () {
         let priorityIds = getIds("priority");
-        let title = $('#title').val();
+        let title = $('input[name="titles"]').val();
         let publishStats = getIds("publish");
         let start = $('input[name="daterange"]').val();
 
@@ -343,5 +499,65 @@ $(document).ready( function () {
             }
         });
     });
+</script>
+<script>
+$(document).on('click', '#close-preview', function(){ 
+  $('.image-preview').popover('hide');
+  // Hover befor close the preview
+  $('.image-preview').hover(
+      function () {
+          $('.image-preview').popover('show');
+      }, 
+        function () {
+          $('.image-preview').popover('hide');
+      }
+  );    
+});
+
+$(function() {
+  // Create the close button
+  var closebtn = $('<button/>', {
+      type:"button",
+      text: 'x',
+      id: 'close-preview',
+      style: 'font-size: initial;',
+  });
+  closebtn.attr("class","close pull-right");
+  // Set the popover default content
+  $('.image-preview').popover({
+      trigger:'manual',
+      html:true,
+      title: "<strong>Preview</strong>"+$(closebtn)[0].outerHTML,
+      content: "There's no image",
+      placement:'bottom'
+  });
+  // Clear event
+  $('.image-preview-clear').click(function(){
+      $('.image-preview').attr("data-content","").popover('hide');
+      $('.image-preview-filename').val("");
+      $('.image-preview-clear').hide();
+      $('.image-preview-input input:file').val("");
+      $(".image-preview-input-title").text("Browse"); 
+  }); 
+  // Create the preview image
+  $(".image-preview-input input:file").change(function (){     
+      var img = $('<img/>', {
+          id: 'dynamic',
+          width:250,
+          height:200
+      });      
+      var file = this.files[0];
+      var reader = new FileReader();
+      // Set preview image into the popover data-content
+      reader.onload = function (e) {
+          $(".image-preview-input-title").text("Change");
+          $(".image-preview-clear").show();
+          $(".image-preview-filename").val(file.name);            
+          img.attr('src', e.target.result);
+          $(".image-preview").attr("data-content",$(img)[0].outerHTML).popover("show");
+      }        
+      reader.readAsDataURL(file);
+  });  
+});
 </script>
 @endsection

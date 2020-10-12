@@ -15,9 +15,12 @@
             <div class="input-group mb-3">
               <div class="custom-file">
                 <label class="custom-file-label" for="foto">Choose file</label>
-                  <input class="custom-file-input" id="foto" type="file"  name="foto" value="{{ old('foto') ?? $event->foto }}" accept="image/*" />
+                  <input class="custom-file-input" id="foto" type="file"  name="foto" onchange="preview_image(event)" accept="image/*" />
               </div>
             </div>
+          </div>
+          <div class="wrapper">
+            <img id="output_image" class="img-fluid" src="{{ asset("storage/" . $event->foto) }}" alt="{{ $event->slug }}">
           </div>
           <div class="form-group">
             <label for="event">Event</label>
@@ -65,6 +68,21 @@
     </div>
 </div>
 @endsection
+ @section('css')
+     <style>
+    #wrapper
+      {
+      text-align:center;
+      margin:0 auto;
+      padding:0px;
+      width:995px;
+      }
+    #output_image
+      {
+      max-width:300px;
+      }
+      </style>
+ @endsection
 
 @section('js')
   <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
@@ -75,6 +93,17 @@
   var fileName = $(this).val().split("\\").pop();
   $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 });
+
+    function preview_image(event) 
+    {
+    var reader = new FileReader();
+    reader.onload = function()
+    {
+      var output = document.getElementById('output_image');
+      output.src = reader.result;
+    }
+    reader.readAsDataURL(event.target.files[0]);
+    }
 </script>
   </script>
 @endsection
