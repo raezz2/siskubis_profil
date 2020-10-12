@@ -26,7 +26,7 @@ class DisposisiController extends Controller
         $disposisi = Disposisi::all();
         $surat = Surat::where([
             ['author_id', '=', Auth::user()->id],
-            ['jenis_surat', '=', 'keluar'],
+            ['jenis_surat', '=', 'masuk'],
         ])->get();
 
         $this->data['disposisi'] = $disposisi;
@@ -39,7 +39,7 @@ class DisposisiController extends Controller
     {
         $surat = Surat::where([
             ['author_id', '=', Auth::user()->id],
-            ['jenis_surat', '=' , 'masuk' ],
+            ['jenis_surat', '=' , 'keluar' ],
         ])->get();
 
         return view('surat.mentor.keluar', compact('surat'));
@@ -58,7 +58,7 @@ class DisposisiController extends Controller
         $surat = Surat::where([
             ['author_id', '=', Auth::user()->id],
             ['priority_id', '=' , $tenant->priority ],
-            ['jenis_surat', '=' , 'keluar' ],
+            ['jenis_surat', '=' , 'masuk' ],
         ])->get();
 
         $this->data['disposisi'] = $disposisi;
@@ -72,26 +72,26 @@ class DisposisiController extends Controller
     {
         $surat = Surat::where([
             ['author_id', '=', Auth::user()->id],
-            ['jenis_surat', '=' , 'masuk' ],
+            ['jenis_surat', '=' , 'keluar' ],
         ])->get();
 
         return view('surat.tenant.keluar', compact('surat'));
     }
     //Menampilkan view Surat keluar untuk User
-    public function usersuratmasuk()
-    {
-        $disposisi = Disposisi::get();
-        $tenant = TenantUser::get();
+    // public function usersuratmasuk()
+    // {
+    //     $disposisi = Disposisi::get();
+    //     $tenant = TenantUser::get();
 
-        return view('surat.user.index', compact('disposisi','tenant'));
-    }
+    //     return view('surat.user.index', compact('disposisi','tenant'));
+    // }
 
-    public function usersuratkeluar()
-    {
-        $surat = Surat::get();
+    // public function usersuratkeluar()
+    // {
+    //     $surat = Surat::get();
 
-        return view('surat.user.keluar', compact('surat'));
-    }
+    //     return view('surat.user.keluar', compact('surat'));
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -272,7 +272,7 @@ class DisposisiController extends Controller
                 'dari' => Auth::user()->email,
                 'kepada' => $request->kepada,
                 'perihal' => $request->perihal,
-                'jenis_surat' => 2,
+                'jenis_surat' => 1,
                 'dokumen' => $fileName,
                 'author_id' => Auth::user()->id,
                 'priority_id' => $request->priority,
@@ -313,7 +313,7 @@ class DisposisiController extends Controller
                 'dari' => Auth::user()->email,
                 'kepada' => $request->kepada,
                 'perihal' => $request->perihal,
-                'jenis_surat' => 1,
+                'jenis_surat' => 2,
                 'dokumen' => $fileName,
                 'author_id' => Auth::user()->id,
                 'priority_id' => $request->priority,
@@ -357,7 +357,7 @@ class DisposisiController extends Controller
                 'dari' => Auth::user()->email,
                 'kepada' => $request->kepada,
                 'perihal' => $request->perihal,
-                'jenis_surat' => 2,
+                'jenis_surat' => 1,
                 'dokumen' => $fileName,
                 'author_id' => Auth::user()->id,
                 'priority_id' => $tenant->priority,
@@ -399,7 +399,7 @@ class DisposisiController extends Controller
                 'dari' => Auth::user()->email,
                 'kepada' => $request->kepada,
                 'perihal' => $request->perihal,
-                'jenis_surat' => 1,
+                'jenis_surat' => 2,
                 'dokumen' => $fileName,
                 'author_id' => Auth::user()->id,
                 'priority_id' => $request->priority,

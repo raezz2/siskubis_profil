@@ -130,7 +130,7 @@ Route::group(['prefix'=>'mentor','middleware' => ['role:mentor']], function () {
 	//route surat mentor
 	Route::get('/suratmasuk', 'Persuratan\DisposisiController@mentorsuratmasuk');
 	Route::get('/suratkeluar', 'Persuratan\DisposisiController@mentorsuratkeluar');
-	Route::get('/buatsurat', 'Persuratan\PersuratanController@create');
+	Route::get('/buatsurat', 'Persuratan\DisposisiController@create');
 	Route::get('/buatsuratkeluar', 'Persuratan\DisposisiController@createkeluar');
 	Route::post('/kirimsurat', 'Persuratan\DisposisiController@mentorstore');
 	Route::post('/kirimsuratkeluar', 'Persuratan\DisposisiController@mentorstorekeluar');
@@ -191,9 +191,9 @@ Route::group(['prefix'=>'user','middleware' => ['role:user']], function () {
     Route::get('/', 'User\HomeController@index')->name('user.home');
     Route::get('/chat', 'Chat\ChatController@index')->name('user.chat');
 	//route surat
-	Route::get('/suratmasuk', 'Persuratan\DisposisiController@usersuratmasuk');
-	Route::get('/suratkeluar', 'Persuratan\DisposisiController@usersuratkeluar');
-	Route::get('/surat/{disposisi}/hapus', 'Persuratan\DisposisiController@destroy');
+	// Route::get('/suratmasuk', 'Persuratan\DisposisiController@usersuratmasuk');
+	// Route::get('/suratkeluar', 'Persuratan\DisposisiController@usersuratkeluar');
+	// Route::get('/surat/{disposisi}/hapus', 'Persuratan\DisposisiController@destroy');
 	//route pengumuman
 	Route::get('/pengumuman', 'User\UserController@pengumuman');
 	Route::get('/pengumuman/{slug}', 'User\UserController@show');
