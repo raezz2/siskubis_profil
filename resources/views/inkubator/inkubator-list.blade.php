@@ -40,7 +40,7 @@
 			<td><a href="">
 					<div class="ul-widget-app__profile-pic"><img class="profile-picture avatar-sm mb-2 rounded-circle img-fluid" src="{{ asset('theme/images/faces/1.jpg')}}" alt="" /> Jhon Wick</div>
 				</a></td>
-			<td>jhonwick_23@gmail.com</td>
+			<td>roodeybaddbanged@gmail.com</td>
 			<td>+88012378478</td>
 			<td><a class="badge badge-primary m-2 p-2" href="#">Developer</a></td>
 			<td>20</td>
