@@ -8,31 +8,31 @@
 		<h3>Produk</h3>
 		</div>
 <div class="card-body">
-                <div class="form-group">
-                    <label for="search">Pencarian</label>
-                    <div class="input-group">
-                        <input type="text" name="title" id="title" class="form-control" placeholder="search" value="">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="priority">Priority</label>
-                                            <label class="checkbox checkbox-success">
-                            <input type="checkbox" name="priority" value="2"><span>Pra Start Up</span><span class="checkmark"></span>
-                        </label>
-                                            <label class="checkbox checkbox-success">
-                            <input type="checkbox" name="priority" value="1"><span>Proposal</span><span class="checkmark"></span>
-                        </label>
-                                            <label class="checkbox checkbox-success">
-                            <input type="checkbox" name="priority" value="4"><span>Scale Up</span><span class="checkmark"></span>
-                        </label>
-                                            <label class="checkbox checkbox-success">
-                            <input type="checkbox" name="priority" value="3"><span>Start Up</span><span class="checkmark"></span>
-                        </label>
-                                    </div>
-                <div class="form-group">
-                    <button id="filter" class="btn btn-primary">Filter</button>
-                </div>
+    <div class="form-group">
+        <a href="#"><button class="btn btn-primary custom-btn btn-sm">+ Tambah Produk</button></a>
+    </div>
+        <div class="form-group">
+            <label for="search">Pencarian</label>
+            <div class="input-group">
+                <input type="text" name="titles" class="form-control" placeholder="search" value="{{ $title != null ? $title : null }}">
             </div>
+        </div>
+            <div class="form-group">
+                <label for="priority">Priority</label>
+                @foreach ($priority as $item)
+                    <label class="checkbox checkbox-success">
+                        <input type="checkbox" name="priority" value="{{ $item->id }}"
+                            @if (in_array($item->id, explode(',', request()->input('filter.priority'))))
+                                checked
+                            @endif
+                        /><span>{{ $item->name }}</span><span class="checkmark"></span>
+                    </label>
+                @endforeach
+            </div>
+            <div class="form-group">
+                <button id="filter" class="btn btn-primary">Filter</button>
+            </div>
+        </div>
 	</div>
    </div>
 	<div class="col-md-9">
