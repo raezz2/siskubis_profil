@@ -196,10 +196,6 @@ Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function (
 	Route::get('/pengumuman/search', 'Tenant\TenantController@search')->name('tenant.search');
 	Route::get('/pengumuman/{slug}', 'Tenant\TenantController@show')->name('tenant.show');
     Route::get('/kategori/{id}', 'Tenant\TenantController@kategori')->name('tenant.kategori-id');
-    // route produk tenant
-    Route::get('/produk', 'Produk\ProdukController@index')->name('tenant.produk');
-	Route::get('/produk/{kategori}', 'Produk\ProdukController@kategori')->name('tenant.produk-kategori');
-	Route::get('/produk/{kategori}/{id}', 'Produk\ProdukController@detail')->name('tenant.produk-detail');
 });
 
 Route::group(['prefix' => 'user', 'middleware' => ['role:user']], function () {

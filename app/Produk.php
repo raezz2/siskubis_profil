@@ -10,7 +10,7 @@ class Produk extends Model
 
     public function tenant()
     {
-    	return $this->belongsTo('App\tenant','tenant_id','id');
+    	return $this->belongsTo('App\Tenant','tenant_id','id');
     }
 
     public function priority()
