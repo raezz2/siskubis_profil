@@ -12,14 +12,14 @@ use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
 class User extends Authenticatable
 {
     use Notifiable;
-	use HasRoleAndPermission;
+    use HasRoleAndPermission;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $table = "users";
-    protected $fillable = ['name', 'inkubator_id', 'email', 'email_verified_at', '	password', 'remember_token', 'created_at', 'updated_at'];
+    protected $fillable = ['name', 'inkubator_id', 'email', 'email_verified_at', 'password', 'remember_token', 'created_at', 'updated_at'];
 
     public function pengumuman()
     {
@@ -43,7 +43,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function surat(){
+    public function surat()
+    {
         // return $this->hasMany('App\Surat');
         return $this->belongsToMany('App\Surat');
     }

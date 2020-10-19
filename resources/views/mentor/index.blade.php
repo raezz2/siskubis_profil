@@ -77,11 +77,9 @@
 									<div class="form-group">
 										<label class="fw">Confirm Password</label>
 										 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-									</div>
-									
-									
+									</div>									
 									<div class="form-group row">
-										<div class="col-sm-10">
+										<div class="col-sm-10 float-right">
 											<button class="btn btn-success" type="submit">Tambah Pendamping</button>
 										</div>
 									</div>
