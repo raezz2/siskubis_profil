@@ -24,6 +24,7 @@ class ProdukController extends Controller
     public function index(Request $request)
     {
         if ( $request->user()->hasRole('inkubator') ) {
+            //$filter = Produk::with('tenant')->get();
             $produk = Produk::with('tenant','priority','produk_image')->paginate(12);
         }elseif($request->user()->hasRole('mentor')){
             $produk = Produk::paginate(12);
