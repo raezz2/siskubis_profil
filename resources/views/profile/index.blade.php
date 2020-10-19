@@ -177,41 +177,29 @@
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                                            <form>
+                                            <form action="" method="POST">
+                                                @csrf
                                                 <div class="form-group row">
-                                                    <label class="col-sm-2 col-form-label" for="inputEmail3">Email</label>
+                                                    <label class="col-sm-2 col-form-label" for="inputEmail3">Nama</label>
                                                     <div class="col-sm-10">
-                                                        <input class="form-control" id="inputEmail3" type="email" placeholder="Email">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-2 col-form-label" for="inputPassword3">Password</label>
-                                                    <div class="col-sm-10">
-                                                        <input class="form-control" id="inputPassword3" type="password" placeholder="Password">
+                                                        <input class="form-control" id="nama" type="text" placeholder="Email" name="nama">
                                                     </div>
                                                 </div>
                                                 <fieldset class="form-group">
                                                     <div class="row">
-                                                        <div class="col-form-label col-sm-2 pt-0">Radios</div>
+                                                        <div class="col-form-label col-sm-2 pt-0">Jenis Kelamin</div>
                                                         <div class="col-sm-10">
                                                             <div class="form-check">
                                                                 <input class="form-check-input" id="gridRadios1" type="radio" name="gridRadios" value="option1" checked="checked">
                                                                 <label class="form-check-label ml-3" for="gridRadios1">
-                                                                    First radio
+                                                                    Laki-Laki
 
                                                                 </label>
                                                             </div>
                                                             <div class="form-check">
                                                                 <input class="form-check-input" id="gridRadios2" type="radio" name="gridRadios" value="option2">
                                                                 <label class="form-check-label ml-3" for="gridRadios2">
-                                                                    Second radio
-
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check disabled">
-                                                                <input class="form-check-input" id="gridRadios3" type="radio" name="gridRadios" value="option3" disabled="disabled">
-                                                                <label class="form-check-label ml-3" for="gridRadios3">
-                                                                    Third disabled radio
+                                                                    Perempuan
 
                                                                 </label>
                                                             </div>
@@ -219,20 +207,51 @@
                                                     </div>
                                                 </fieldset>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-2">Checkbox</div>
+                                                    <label class="col-sm-2 col-form-label" for="inputEmail3">Kontak</label>
                                                     <div class="col-sm-10">
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" id="gridCheck1" type="checkbox">
-                                                            <label class="form-check-label ml-3" for="gridCheck1">
-                                                                Example checkbox
-
-                                                            </label>
-                                                        </div>
+                                                        <input class="form-control" id="nama" type="text" placeholder="Email" name="nama">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label" for="inputEmail3">Alamat</label>
                                                     <div class="col-sm-10">
-                                                        <button class="btn btn-primary" type="submit">Sign in</button>
+                                                        <input class="form-control" id="nama" type="text" placeholder="Email" name="nama">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label" for="inputEmail3">NIK</label>
+                                                    <div class="col-sm-10">
+                                                        <input class="form-control" id="nama" type="text" placeholder="Email" name="nama">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label" for="inputEmail3">Kontak</label>
+                                                    <div class="input-group mb-3">
+                                                      <div class="custom-file">
+                                                        <label class="custom-file-label" for="foto">Choose file</label>
+                                                        <input class="custom-file-input" id="foto" type="file"  name="foto" accept="image/*" required/>
+                                                      </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="event">Deskripsi</label>
+                                                    <textarea name="event" id="event" class="form-control"></textarea>
+                                                    @error('event')
+                                                    <div class="mt-2 text-danger">
+                                                      {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                  </div>
+                                                  <div class="form-group row">
+                                                    <label for="publish">Publish</label>
+                                                    <select name="publish" class="form-control" id="publish">
+                                                      <option value="1">Publish</option>
+                                                      <option value="0">Draft</option>
+                                                    </select>
+                                                  </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-10">
+                                                        <button class="btn btn-primary" type="submit">Update</button>
                                                     </div>
                                                 </div>
                                             </form>

@@ -126,6 +126,8 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 Route::group(['prefix' => 'mentor', 'middleware' => ['role:mentor']], function () {
 	Route::get('/', 'Mentor\HomeController@index')->name('mentor.home');
 	Route::get('/chat', 'Chat\ChatController@index')->name('mentor.chat');
+	Route::get('/mentor', 'Mentor\MentorController@index')->name('mentor.index');
+	Route::get('/profile', 'Profile\ProfileUserController@indexMentor')->name('mentor.profile-mentor');
 
 	//route surat mentor
 	Route::get('/suratmasuk', 'Persuratan\DisposisiController@mentorsuratmasuk');
@@ -176,6 +178,7 @@ Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function (
 	Route::patch('/surat/{surat}', 'Persuratan\DisposisiController@tenantupdate');
 	Route::get('/pesan', 'Pesan\PesanController@index')->name('inkubator.pesan');
 	Route::get('/profile', 'Profile\ProfileUserController@index')->name('inkubator.profile');
+
 	// ! route event tenant
 	Route::get('/event', 'Event\EventController@indexTenant')->name('tenant.event-list');
 	Route::get('/event/calendar', 'Event\EventController@calendarTenant')->name('tenant.event-calendar');

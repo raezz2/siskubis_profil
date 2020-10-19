@@ -11,7 +11,7 @@ use DB;
 
 class ProfileUserController extends Controller
 {
-	public function __construct()
+    public function __construct()
     {
         $this->middleware('auth');
     }
@@ -21,11 +21,22 @@ class ProfileUserController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-	 
+
     public function index()
     {
-		$data['data']=User::where(['users.inkubator_id'=>Auth::user()->inkubator_id,'users.id'=>3])->join('role_user',['users.id'=>'role_user.user_id'])->leftJoin('profil_user',['users.id'=>'profil_user.user_id'])->select('users.id as uid','profil_user.*')->first();
-        return view('profile.index',$data);
-		// return $data;
+        $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'users.id' => 3])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'profil_user.*')->first();
+        return view('profile.index', $data);
+        // return $data;
+    }
+
+    public function indexMentor()
+    {
+        $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'users.id' => 3])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'profil_user.*')->first();
+        return view('profile.index', $data);
+        // return $data;
+    }
+
+    public function create()
+    {
     }
 }
