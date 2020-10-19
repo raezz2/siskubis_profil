@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Produk;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Produk;
+use Auth;
 use App\{Event, Priority};
 use Spatie\QueryBuilder\{QueryBuilder, AllowedFilter};
-
 
 class ProdukController extends Controller
 {
@@ -22,34 +23,24 @@ class ProdukController extends Controller
      */
     public function index(Request $request)
     {
-        if(request()->has('filter')){
-            if(array_key_exists('between', $request->filter)){
-                $test = request()->filter['between'];
-                $exp = explode(',', $test);
-            }else{
-                $exp = null;
-            }
-
-            if(array_key_exists('title', $request->filter)){
-                $title = request()->filter['title'];
-            }else{
-                $title = null;
-            }
-        }else{
-            $exp = null;
-            $title = null;
+        if ( $request->user()->hasRole('inkubator') ) {
+            $produk = Produk::with('tenant','priority','produk_image')->paginate(12);
+        }elseif($request->user()->hasRole('mentor')){
+            $produk = Produk::paginate(12);
+            //$produk = Produk::where('mentor_id', Auth::user('id') )->paginate(12);
+        }elseif($request->user()->hasRole('tenant')){
+            $produk = Produk::paginate(12);
+            //$produk = Produk::where('tenant_id', Auth::user('id') )->paginate(12);
         }
 
-        $priority = Priority::orderBy('name', 'ASC')->get();
-        $event = QueryBuilder::for(Event::class)
-            ->allowedFilters([
-                AllowedFilter::partial('title'),
-                AllowedFilter::exact('priority', 'priority_id'),
-                AllowedFilter::exact('publish', 'publish'),
-                AllowedFilter::scope('between', 'dateBetween'),
-            ])
-            ->latest()->paginate();
-        return view('tenant.produk', compact('event', 'priority', 'exp', 'title'));
+        return view('produk.index', compact('produk'));
+    }
+	public function show($id)
+    {
+        $produk = Produk::find($id);
+        $produk = Produk::with(['tenant','produk_image'])->where('id', $id)->first();
+
+        return view('produk.detailProduk', compact('produk'));
     }
 	public function kategori($kategori)
     {

@@ -45,7 +45,10 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 	Route::get('/tenant/{kategori}/{id}', 'Tenant\TenantController@detail')->name('inkubator.tenant-detail');
 
 	Route::get('/mentor', 'Mentor\MentorController@index')->name('inkubator.mentor');
+
+	//ROute Produk Inkubator
 	Route::get('/produk', 'Produk\ProdukController@index')->name('inkubator.produk');
+	Route::get('/produk/{id}', 'Produk\ProdukController@show')->name('inkubator.detailProduk');
 	Route::get('/produk/{kategori}', 'Produk\ProdukController@kategori')->name('inkubator.produk-kategori');
 	Route::get('/produk/{kategori}/{id}', 'Produk\ProdukController@detail')->name('inkubator.produk-detail');
 
@@ -127,6 +130,9 @@ Route::group(['prefix' => 'mentor', 'middleware' => ['role:mentor']], function (
 	Route::get('/', 'Mentor\HomeController@index')->name('mentor.home');
 	Route::get('/chat', 'Chat\ChatController@index')->name('mentor.chat');
 
+	//Route produk mentor
+	Route::get('/produk', 'Produk\ProdukController@index')->name('mentor.produk');
+
 	//route surat mentor
 	Route::get('/suratmasuk', 'Persuratan\DisposisiController@mentorsuratmasuk');
 	Route::get('/suratkeluar', 'Persuratan\DisposisiController@mentorsuratkeluar');
@@ -156,6 +162,10 @@ Route::group(['prefix' => 'mentor', 'middleware' => ['role:mentor']], function (
 Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function () {
 	Route::get('/', 'Tenant\HomeController@index')->name('tenant.home');
 	Route::get('/chat', 'Chat\ChatController@index')->name('tenant.chat');
+
+	// route produk tenant
+	Route::get('/produk', 'Produk\ProdukController@index')->name('tenant.produk');
+
 	// route berita tenant
 	Route::get('/berita', 'Berita\BeritaController@indexTenant')->name('tenant.berita');
     Route::get('/berita/{slug}', 'Berita\BeritaController@showT')->name('tenant.showBerita');
