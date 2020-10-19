@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Produk;
 use Auth;
+use App\{Event, Priority};
+use Spatie\QueryBuilder\{QueryBuilder, AllowedFilter};
 
 class ProdukController extends Controller
 {
@@ -42,11 +44,24 @@ class ProdukController extends Controller
     }
 	public function kategori($kategori)
     {
-        return view('produk.index');
+        return view('tenant.produk');
     }
-	
+
 	public function detail($kategori,$id)
     {
-        return view('produk.index');
+        return view('tenant.produk');
+    }
+
+    public function indexTenant(Request $request)
+    {
+
+        $tenant = Auth::user()->tenants()->first();
+        $event = Event::where([
+            ['inkubator_id', '=', Auth::user()->inkubator_id],
+            ['priority_id', '=', $tenant->priority],
+            ['publish', '=', 1]
+        ])->latest()->paginate();
+
+        return view('tenant.produk', compact('event'));
     }
 }

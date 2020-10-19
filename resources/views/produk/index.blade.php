@@ -75,12 +75,14 @@
                         <button id="filter" class="btn btn-primary">Filter</button>
                     </div>
                 </div>
+
 	        </div>
         </div>
 	    <div class="col-md-9">
 	        <section class="product-cart">
                 <div class="row list-grid">
                     @forelse ($produk as $row)
+
                         <div class="list-item col-md-3">
                             <div class="card o-hidden mb-4 d-flex flex-column">
                                 <div class="list-thumb d-flex"><img alt="" src="{{ asset('img/produk/' . $row->produk_image->image) }}" /></div>
@@ -91,11 +93,13 @@
                                             {{ $row->title }}
                                         </div>
                                     </a>
+
                                     <p class="m-0 text-muted text-small w-15 w-sm-100">Harga Rp. {{ $row->harga_jual }}</p>
                                     <p class="m-0 text-muted text-small w-15 w-sm-100">{{ $row->tenant->title }}</p>
                                     <p class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-badges">
                                         <span class="badge badge-info">{{ $row->priority->name }}</span>
                                     </p>
+
                                     </div>
                                 </div>
                             </div>
