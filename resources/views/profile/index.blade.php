@@ -187,22 +187,16 @@
                                                 </div>
                                                 <fieldset class="form-group">
                                                     <div class="row">
-                                                        <div class="col-form-label col-sm-2 pt-0">Jenis Kelamin</div>
+                                                        <label class="col-sm-2 col-form-label" for="inputEmail3">Jenis Kelamin</label>
                                                         <div class="col-sm-10">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" id="gridRadios1" type="radio" name="gridRadios" value="option1" checked="checked">
-                                                                <label class="form-check-label ml-3" for="gridRadios1">
-                                                                    Laki-Laki
-
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" id="gridRadios2" type="radio" name="gridRadios" value="option2">
-                                                                <label class="form-check-label ml-3" for="gridRadios2">
-                                                                    Perempuan
-
-                                                                </label>
-                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                                                <label class="form-check-label" for="inlineCheckbox1">Laki-Laki</label>
+                                                              </div>
+                                                              <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                                                                <label class="form-check-label" for="inlineCheckbox2">Perempuan</label>
+                                                              </div>
                                                         </div>
                                                     </div>
                                                 </fieldset>
@@ -226,7 +220,7 @@
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-sm-2 col-form-label" for="inputEmail3">Kontak</label>
-                                                    <div class="input-group mb-3">
+                                                    <div class="col-sm-10">
                                                       <div class="custom-file">
                                                         <label class="custom-file-label" for="foto">Choose file</label>
                                                         <input class="custom-file-input" id="foto" type="file"  name="foto" accept="image/*" required/>
@@ -234,24 +228,28 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="event">Deskripsi</label>
+                                                    <label for="event" class="col-sm-2 col-form-label">Deskripsi</label>
+                                                    <div class="col-sm-10">
                                                     <textarea name="event" id="event" class="form-control"></textarea>
                                                     @error('event')
                                                     <div class="mt-2 text-danger">
                                                       {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    </div>
                                                   </div>
                                                   <div class="form-group row">
-                                                    <label for="publish">Publish</label>
+                                                    <label for="publish" class="col-sm-2 col-form-label">Publish</label>
+                                                    <div class="col-sm-10">
                                                     <select name="publish" class="form-control" id="publish">
                                                       <option value="1">Publish</option>
                                                       <option value="0">Draft</option>
                                                     </select>
+                                                    </div>
                                                   </div>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-10">
-                                                        <button class="btn btn-primary" type="submit">Update</button>
+                                                    <div class="col-sm-12">
+                                                        <button class="btn btn-primary float-right" type="submit">Update</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -263,4 +261,11 @@
                         </div>
                     </div>
                 </section>
+@endsection
+
+@section('js')
+<script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+    <script>
+         CKEDITOR.replace('event');
+    </script>
 @endsection
