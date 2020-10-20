@@ -31,9 +31,22 @@ class ProfileUserController extends Controller
 
     public function indexMentor()
     {
-        $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'users.id' => 3])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'profil_user.*')->first();
+        $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'users.id' => auth()->user()->id])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'profil_user.*')->first();
         // dd($data);
-        return view('profile.index', $data);
+        $dataProfil = ProfilUser::find(auth()->user()->id, 'user_id');
+        if($dataProfil)
+        {
+            $notification = array(
+                'message' => 'Event Baru Berhasil Ditambah',
+                'alert-type' => 'success'
+            );
+        } else{
+            $notification = array(
+                'message' => 'Event Baru Berhasil Ditambah',
+                'alert-type' => 'info'
+            );
+        }
+        return view('profile.index', $data)->with($notification);
         // return $data;
     }
 
