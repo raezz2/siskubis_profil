@@ -135,18 +135,16 @@
                     </div>
                     <div class="form-group">
                         <label for="priority">Priority</label>
-                        <label class="checkbox checkbox-success">
-                            <input type="checkbox" name="priority" value="2"><span>Pra Start Up</span><span class="checkmark"></span>
+                        @foreach ($priority as $item)
+                            <label class="checkbox checkbox-success">
+                                <input type="checkbox" name="priority" value="{{ $item->id }}"
+                                    @if (in_array($item->id, explode(',', request()->input('filter.priority'))))
+                                        checked
+                                    @endif 
+                                />
+                                <span>{{ $item->name }}</span><span class="checkmark"></span>
                         </label>
-                        <label class="checkbox checkbox-success">
-                            <input type="checkbox" name="priority" value="1"><span>Proposal</span><span class="checkmark"></span>
-                        </label>
-                        <label class="checkbox checkbox-success">
-                            <input type="checkbox" name="priority" value="4"><span>Scale Up</span><span class="checkmark"></span>
-                        </label>
-                        <label class="checkbox checkbox-success">
-                            <input type="checkbox" name="priority" value="3"><span>Start Up</span><span class="checkmark"></span>
-                        </label>
+                    @endforeach
                     </div>
                     <div class="form-group">
                         <button id="filter" class="btn btn-primary">Filter</button>
@@ -163,16 +161,19 @@
                                 <div class="list-thumb d-flex"><img alt="" src="{{ asset('img/produk/' . $row->produk_image->image) }}" /></div>
                                 <div class="flex-grow-1 d-bock">
                                     <div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center">
-                                    <a class="w-40 w-sm-100" href="{{ route('inkubator.detailProduk', $row->id) }}">
-                                        <div class="item-title">
-                                            {{ $row->title }}
-                                        </div>
-                                    </a>
-                                    <p class="m-0 text-muted text-small w-15 w-sm-100">Harga Rp. {{ $row->harga_jual }}</p>
-                                    <p class="m-0 text-muted text-small w-15 w-sm-100">{{ $row->tenant->title }}</p>
-                                    <p class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-badges">
-                                        <span class="badge badge-info">{{ $row->priority->name }}</span>
-                                    </p>
+                                        <a class="w-40 w-sm-100" href="{{ route('inkubator.detailProduk', $row->id) }}">
+                                            <div class="item-title">
+                                                {{ $row->title }}
+                                            </div>
+                                        </a>
+                                        <p class="m-0 text-muted text-small w-15 w-sm-100">Harga Rp. {{ $row->harga_jual }}</p>
+                                        <p class="m-0 text-muted text-small w-15 w-sm-100">{{ $row->tenant->title }}</p>
+                                        @role('tenant')
+                                            <a href="#" class="btn btn-sm btn-warning w-100 mt-3">UPDATE</a>
+                                        @endrole
+                                        <p class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-badges">
+                                            <span class="badge badge-info">{{ $row->priority->name }}</span>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
