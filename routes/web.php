@@ -165,7 +165,8 @@ Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function (
 	Route::get('/chat', 'Chat\ChatController@index')->name('tenant.chat');
 
 	// route produk tenant
-	Route::get('/produk', 'Produk\ProdukController@index')->name('tenant.produk');
+    Route::get('/produk', 'Produk\ProdukController@index')->name('tenant.produk');
+    Route::get('/produk/create', 'Produk\ProdukController@create')->name('tenant.formProduk');
 
 	// route berita tenant
 	Route::get('/berita', 'Berita\BeritaController@indexTenant')->name('tenant.berita');

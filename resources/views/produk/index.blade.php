@@ -22,16 +22,93 @@
                                     <div class="modal-body">
                                         <form action="#">
                                             <div class="form-group">
-                                                <input class="form-control" type="text" placeholder="Nama produk...." />
+                                                <input class="form-control" type="text" name="title" placeholder="Nama Produk" />
                                             </div>
                                             <div class="form-group">
-                                                <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Harga...." />
+                                                <input class="form-control" type="text" name="title" placeholder="Subtitle" />
                                             </div>
                                             <div class="form-group">
-                                                <input class="form-control" id="exampleInputPassword1" type="text" placeholder="phone...." />
+                                                <input class="form-control" name="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Harga Pokok" />
                                             </div>
                                             <div class="form-group">
-                                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="notes...."></textarea>
+                                                <input class="form-control" name="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Harga Jual" />
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <select name="publish" class="form-control custom-select" required>
+                                                         <option value="">Tag</option>
+                                                         <option value="1">Publish</option>
+                                                         <option value="0">Draft</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <select name="publish" class="form-control custom-select" required>
+                                                         <option value="">Kategori</option>
+                                                         <option value="1">Publish</option>
+                                                         <option value="0">Draft</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" name="exampleInputPassword1" type="text" placeholder="Spesifikasi" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" name="exampleInputPassword1" type="text" placeholder="Keterbaharuan" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" name="exampleInputPassword1" type="text" placeholder="Manfaat" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" name="exampleInputPassword1" type="text" placeholder="Keunggulan" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" name="exampleInputPassword1" type="text" placeholder="Teknologi" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" name="exampleInputPassword1" type="text" placeholder="Pengembangan" />
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea class="form-control" name="subtitle" rows="3" placeholder="Tentang Produk"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea class="form-control" name="subtitle" rows="3" placeholder="Latar Produk"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" name="exampleInputPassword1" type="text" placeholder="No Telphone" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" name="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Location" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" name="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Address" />
+                                            </div>
+                                            <div class="input-group">
+                                                <select name="priority" class="form-control custom-select" required hidden>
+                                                     <option value="">Priority</option>
+                                                     <option value="1">Pra Start Up</option>
+                                                     <option value="2">Proposal</option>
+                                                     <option value="3">Scale Up</option>
+                                                     <option value="4">Start Up</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <select name="publish" class="form-control custom-select" required>
+                                                         <option value="">User Id</option>
+                                                         <option value="1">Publish</option>
+                                                         <option value="0">Draft</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="foto">Uploda Proposal</label><br>
+                                                <input type="file" name="foto" value="{{ old('foto') }}" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="foto">Upload Foto</label><br>
+                                                <input type="file" name="foto" value="{{ old('foto') }}" required>
                                             </div>
                                         </form>
                                     </div>
