@@ -10,13 +10,13 @@
 <section class="ul-contact-detail">
                     <div class="row">
                         <div class="col-lg-4 col-xl-4">
-                            <div class="card o-hidden"><img class="d-block w-100" src="{{ asset('theme/images/faces/'.$data->foto)}}" alt="First slide">
+                            <div class="card o-hidden"><img class="d-block w-100" src="{{ asset('img/mentor/profile/'.$data->foto)}}" alt="First slide">
                                 <div class="card-body">
                                     <div class="ul-contact-detail__info">
                                         <div class="row">
                                             <div class="col-12 text-center">
                                                 <div class="ul-contact-detail__info-1">
-                                                    <h5><b>Saya Pengguna</b></h5><span>@sayapengguna</span>
+                                                    <h5><b>{{ $data->nama }}</b></h5><span>{{ auth()->user()->email }}</span>
                                                 </div>
                                             </div>
                                             <div class="col-6 text-center">
@@ -24,20 +24,20 @@
                                                     <h5>Umur</h5><span>36 Tahun</span>
                                                 </div>
                                                 <div class="ul-contact-detail__info-1">
-                                                    <h5>Jenis Kelamin</h5><span>Laki-laki</span>
+                                                    <h5>Jenis Kelamin</h5><span>{{ $data->jenkel }}</span>
                                                 </div>
                                             </div>
 											<div class="col-6 text-center">
                                                 <div class="ul-contact-detail__info-1">
-                                                    <h5>Phone</h5><span>08934545156</span>
+                                                    <h5>Phone</h5><span>{{ $data->kontak }}</span>
                                                 </div>
                                                 <div class="ul-contact-detail__info-1">
-                                                    <h5>Email</h5><span>sayapengguna@gmail.com</span>
+                                                    <h5>Email</h5><span>{{ auth()->user()->email }}</span>
                                                 </div>
                                             </div>
                                             <div class="col-12 text-center">
                                                 <div class="ul-contact-detail__info-1">
-                                                    <h5>Alamat</h5><span>Jalan Arteri Raya 17, RT 06 RW 07, Kelurahan Macanan, Kecamatan Bumiayu, Kota Surabaya, Jawa Timur, 224352</span>
+                                                    <h5>Alamat</h5><span>{{ $data->alamat }}</span>
                                                 </div>
                                             </div>
                                             <div class="col-12 text-center">
@@ -177,74 +177,96 @@
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                                            <form action="" method="POST">
+                                            <!-- FORM UPDATE MENTOR-PROFILE -->
+                                            <form action="{{ route('mentor.profile-update') }}" method="POST" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="form-group row">
-                                                    <label class="col-sm-2 col-form-label" for="inputEmail3">Nama</label>
+                                                    <label class="col-sm-2 col-form-label" for="nama">Nama</label>
                                                     <div class="col-sm-10">
-                                                        <input class="form-control" id="nama" type="text" placeholder="Email" name="nama">
+                                                        <input class="form-control" id="nama" type="text" placeholder="Nama" name="nama">
+                                                        @error('nama')
+                                                            error
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <fieldset class="form-group">
                                                     <div class="row">
-                                                        <label class="col-sm-2 col-form-label" for="inputEmail3">Jenis Kelamin</label>
+                                                        <label class="col-sm-2 col-form-label" for="jenkel">Jenis Kelamin</label>
                                                         <div class="col-sm-10">
                                                             <div class="form-check form-check-inline">
-                                                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                                                <label class="form-check-label" for="inlineCheckbox1">Laki-Laki</label>
+                                                                <input name="jenkel" class="form-check-input" type="radio" id="inlineradio1" value="L">
+                                                                <label class="form-check-label" for="inlineradio1">Laki-Laki</label>
                                                               </div>
                                                               <div class="form-check form-check-inline">
-                                                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                                                                <label class="form-check-label" for="inlineCheckbox2">Perempuan</label>
+                                                                <input name="jenkel" class="form-check-input" type="radio" id="inlineradio2" value="P">
+                                                                <label class="form-check-label" for="inlineradio2">Perempuan</label>
                                                               </div>
+                                                              @error('jenkel')
+                                                                  error
+                                                              @enderror
                                                         </div>
                                                     </div>
                                                 </fieldset>
                                                 <div class="form-group row">
-                                                    <label class="col-sm-2 col-form-label" for="inputEmail3">Kontak</label>
+                                                    <label class="col-sm-2 col-form-label" for="kontak">Kontak</label>
                                                     <div class="col-sm-10">
-                                                        <input class="form-control" id="nama" type="text" placeholder="Email" name="nama">
+                                                        <input class="form-control" id="kontak" type="text" placeholder="Kontak" name="kontak">
+                                                        @error('kontak')
+                                                            error
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-sm-2 col-form-label" for="inputEmail3">Alamat</label>
+                                                    <label class="col-sm-2 col-form-label" for="alamat">Alamat</label>
                                                     <div class="col-sm-10">
-                                                        <input class="form-control" id="nama" type="text" placeholder="Email" name="nama">
+                                                        <input class="form-control" id="alamat" type="text" placeholder="Alamat" name="alamat">
+                                                        @error('alamat')
+                                                            error
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-sm-2 col-form-label" for="inputEmail3">NIK</label>
                                                     <div class="col-sm-10">
-                                                        <input class="form-control" id="nama" type="text" placeholder="Email" name="nama">
+                                                        <input class="form-control" id="nik" type="text" placeholder="NIK" name="nik">
+                                                        @error('nik')
+                                                            error
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-sm-2 col-form-label" for="inputEmail3">Kontak</label>
+                                                    <label class="col-sm-2 col-form-label" for="Foto">Foto</label>
                                                     <div class="col-sm-10">
                                                       <div class="custom-file">
                                                         <label class="custom-file-label" for="foto">Choose file</label>
-                                                        <input class="custom-file-input" id="foto" type="file"  name="foto" accept="image/*" required/>
+                                                        <input class="custom-file-input" id="foto" type="file" name="foto" accept="image/*" required/>
+                                                        @error('foto')
+                                                            {{ $message }}
+                                                        @enderror
                                                       </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="event" class="col-sm-2 col-form-label">Deskripsi</label>
                                                     <div class="col-sm-10">
-                                                    <textarea name="event" id="event" class="form-control"></textarea>
-                                                    @error('event')
+                                                    <textarea name="deskripsi" id="deskripsi" class="form-control"></textarea>
+                                                    @error('deskripsi')
                                                     <div class="mt-2 text-danger">
-                                                      {{ $message }}
+                                                      error
                                                     </div>
                                                     @enderror
                                                     </div>
                                                   </div>
                                                   <div class="form-group row">
-                                                    <label for="publish" class="col-sm-2 col-form-label">Publish</label>
+                                                    <label for="status" class="col-sm-2 col-form-label">Status</label>
                                                     <div class="col-sm-10">
-                                                    <select name="publish" class="form-control" id="publish">
-                                                      <option value="1">Publish</option>
-                                                      <option value="0">Draft</option>
+                                                    <select name="status" class="form-control" id="status">
+                                                      <option value="1">1</option>
+                                                      <option value="0">0</option>
                                                     </select>
+                                                    @error('status')
+                                                        error
+                                                    @enderror
                                                     </div>
                                                   </div>
                                                 <div class="form-group row">
@@ -265,7 +287,13 @@
 
 @section('js')
 <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
-    <script>
-         CKEDITOR.replace('event');
-    </script>
+<script>
+        CKEDITOR.replace('deskripsi');
+</script>
+<script>
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
 @endsection

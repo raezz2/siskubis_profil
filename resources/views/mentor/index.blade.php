@@ -1,14 +1,14 @@
 @extends('layouts.app')
 @section('css')
-	<style>
-.item-divider {
-    height: 0;
-    margin: 0.5rem 0.5rem;
-    overflow: hidden;
-    border-left: 1px solid #979b9e;
-	border-right: 1px
-}
-	</style>
+<style>
+	.item-divider {
+		height: 0;
+		margin: 0.5rem 0.5rem;
+		overflow: hidden;
+		border-left: 1px solid #979b9e;
+		border-right: 1px
+	}
+</style>
 @endsection
 @section('content')
 <section class="ul-contact-page">
