@@ -31,7 +31,7 @@ class ProfileUserController extends Controller
 
     public function indexMentor()
     {
-        $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'users.id' => 3])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'profil_user.*')->first();
+        $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'users.id' => auth()->user()->id])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'profil_user.*')->first();
         // dd($data);
         return view('profile.index', $data);
         // return $data;
@@ -59,6 +59,10 @@ class ProfileUserController extends Controller
         $tujuan_upload = 'img/mentor/profile';
         $file->move($tujuan_upload, $filename);
 
-        return redirect()->back();
+        $notification = array(
+            'message' => 'User Berhasil Ditambahkan',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     }
 }

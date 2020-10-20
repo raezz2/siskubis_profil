@@ -285,6 +285,7 @@
                 </section>
 @endsection
 
+
 @section('js')
 <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
 <script>
@@ -295,5 +296,36 @@
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
+
+    toastr.options = {
+        "debug": false,
+        //   "positionClass": "toast-bottom-full-width",
+        "onclick": null,
+        "showMethod": "slideDown",
+        "hideMethod": "slideUp",
+        "timeOut": 2000,
+        "extendedTimeOut": 1000
+    }
+
+    @if(Session::has('message'))
+    var type = "{{ Session::get('alert-type', 'info') }}";
+    switch(type){
+        case 'info':
+            toastr.info("{{ Session::get('message') }}");
+            break;
+        
+        case 'warning':
+            toastr.warning("{{ Session::get('message') }}");
+            break;
+
+        case 'success':
+            toastr.success("{{ Session::get('message') }}");
+            break;
+
+        case 'error':
+            toastr.error("{{ Session::get('message') }}");
+            break;
+    }
+    @endif
 </script>
 @endsection

@@ -19,7 +19,7 @@ class RegisterMentorController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
-        
+
         $user = config('roles.models.defaultUser')::create([
             'name' => request('email'),
             'inkubator_id' => Auth::user()->inkubator_id,
@@ -30,6 +30,11 @@ class RegisterMentorController extends Controller
         $role = config('roles.models.role')::where('name', '=', 'Mentor')->first();  //choose the default role upon user creation.
         $user->attachRole($role);
 
-        return redirect()->back();
+        $notification = array(
+            'message' => 'User Berhasil Ditambahkan',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
     }
 }

@@ -77,6 +77,5 @@ class MentorController extends Controller
         $kategori = DB::table('priority')->get();
         $inkubator = DB::table('inkubator')->get();
         return view('mentor.pengumuman', compact('pengumuman', 'kategori', 'inkubator', 'keyword'));
-
     }
 }
