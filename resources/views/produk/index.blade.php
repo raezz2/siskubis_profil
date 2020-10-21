@@ -9,10 +9,10 @@
                         <h3>Produk</h3>
                     </div>
                     <div class="card-body">
-                        <button class="btn btn-outline-primary btn-block" data-toggle="modal" data-target="#formProduk">
+                        <a href="{{ route('tenant.formProduk') }}"><button class="btn btn-outline-primary btn-block" data-toggle="modal" data-target="#formProduk">
                             + Tambah Produk
                         </button>
-                        <div class="modal fade" id="formProduk" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        {{-- <div class="modal fade" id="formProduk" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -70,9 +70,6 @@
                                                 <input class="form-control" name="exampleInputPassword1" type="text" placeholder="Pengembangan" />
                                             </div>
                                             <div class="form-group">
-                                                <textarea class="form-control" name="subtitle" rows="3" placeholder="Tentang Produk"></textarea>
-                                            </div>
-                                            <div class="form-group">
                                                 <textarea class="form-control" name="subtitle" rows="3" placeholder="Latar Produk"></textarea>
                                             </div>
                                             <div class="form-group">
@@ -83,6 +80,9 @@
                                             </div>
                                             <div class="form-group">
                                                 <input class="form-control" name="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Address" />
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea class="form-control" name="subtitle" rows="3" placeholder="Tentang Produk"></textarea>
                                             </div>
                                             <div class="input-group">
                                                 <select name="priority" class="form-control custom-select" required hidden>
@@ -118,7 +118,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             @endrole
@@ -140,7 +140,7 @@
                                 <input type="checkbox" name="priority" value="{{ $item->id }}"
                                     @if (in_array($item->id, explode(',', request()->input('filter.priority'))))
                                         checked
-                                    @endif 
+                                    @endif
                                 />
                                 <span>{{ $item->name }}</span><span class="checkmark"></span>
                         </label>

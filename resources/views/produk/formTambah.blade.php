@@ -3,7 +3,7 @@
 <form action="{{ route('inkubator.storeBerita') }}" method="post" enctype="multipart/form-data" >
 @csrf
 	<div class="row">
-		<div class="col-xl-7 col-lg-7">
+		<div class="col-xl-6 col-lg-6">
 			<div class="card">
 				<div class="card-header container-fluid">
 	  				<div class="row">
@@ -18,7 +18,7 @@
                             <input class="form-control" type="text" name="title" placeholder="Nama Produk" />
                         </div>
                         <div class="form-group">
-                            <input class="form-control" type="text" name="title" placeholder="Subtitle" />
+                            <textarea class="form-control" name="subtitle" rows="3" placeholder="Subtitle"></textarea>
                         </div>
                         <div class="form-group">
                             <input class="form-control" name="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Harga Pokok" />
@@ -27,43 +27,55 @@
                             <input class="form-control" name="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Harga Jual" />
                         </div>
                         <div class="form-group">
-                            <input class="form-control" name="exampleInputPassword1" type="text" placeholder="Spesifikasi" />
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" name="exampleInputPassword1" type="text" placeholder="Keterbaharuan" />
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" name="exampleInputPassword1" type="text" placeholder="Manfaat" />
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" name="exampleInputPassword1" type="text" placeholder="Keunggulan" />
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" name="exampleInputPassword1" type="text" placeholder="Teknologi" />
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" name="exampleInputPassword1" type="text" placeholder="Pengembangan" />
-                        </div>
-                        <div class="form-group">
-                            <textarea class="form-control" name="subtitle" rows="3" placeholder="Tentang Produk"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <textarea class="form-control" name="subtitle" rows="3" placeholder="Latar Produk"></textarea>
-                        </div>
-                        <div class="form-group">
                             <input class="form-control" name="exampleInputPassword1" type="text" placeholder="No Telphone" />
                         </div>
                         <div class="form-group">
-                            <input class="form-control" name="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Location" />
+                            <textarea class="form-control" name="subtitle" rows="3" placeholder="Location"></textarea>
                         </div>
                         <div class="form-group">
-                            <input class="form-control" name="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Address" />
+                            <textarea class="form-control" name="subtitle" rows="7" placeholder="Address"></textarea>
                         </div>
                     </div>
                 </div>
             </div>
-		</div>
-		<div class="col-xl-4 col-lg-4">
+        </div>
+        <div class="col-xl-6 col-lg-6">
+			<div class="card mb-4">
+				<div class="card-header container-fluid">
+					<h3>Detail Produk</h3>
+                </div>
+                    <div class="card-body">
+                        <div class="ul-widget__body">
+                            <div class="form-group">
+                                <input class="form-control" name="exampleInputPassword1" type="text" placeholder="Spesifikasi" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" name="exampleInputPassword1" type="text" placeholder="Keterbaharuan" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" name="exampleInputPassword1" type="text" placeholder="Manfaat" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" name="exampleInputPassword1" type="text" placeholder="Keunggulan" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" name="exampleInputPassword1" type="text" placeholder="Teknologi" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" name="exampleInputPassword1" type="text" placeholder="Pengembangan" />
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" name="subtitle" rows="3" placeholder="Latar Produk"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" name="subtitle" rows="7" placeholder="Tentang Produk"></textarea>
+                            </div>
+                        </div>
+                    </div>
+			    </div>
+            </div>
+        </div>
+		<div class="col-xl-12 col-lg-4">
 			<div class="card mb-4">
 				<div class="card-header container-fluid">
 					<h3>Lainnya</h3>
@@ -166,7 +178,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+        </div>
 	</div>
 </form>
 
