@@ -2,7 +2,7 @@
 
 @section('breadcrumb')
 <div class="breadcrumb">
-	<h1 class="mr-2">Profil Pengguna</h1>
+    <h1 class="mr-2">Profil Pengguna</h1>
 </div>
 <div class="separator-breadcrumb border-top"></div>
 @endsection
@@ -24,7 +24,7 @@
                                                     <h5>Umur</h5><span>36 Tahun</span>
                                                 </div>
                                                 <div class="ul-contact-detail__info-1">
-                                                    <h5>Jenis Kelamin</h5><span>{{ $data->jenkel }}</span>
+                                                    <h5>Jenis Kelamin</h5><span>@if ($data->jenkel == 'L') Laki-laki @endif @if ($data->jenkel == 'P') Perempuan @endif</span>
                                                 </div>
                                             </div>
 											<div class="col-6 text-center">
@@ -289,9 +289,27 @@
 @section('js')
 <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
 <script>
-        CKEDITOR.replace('deskripsi');
-</script>
-<script>
+    CKEDITOR.replace('deskripsi');
+    @if(Session::has('message'))
+    var type = "{{ Session::get('alert-type', 'info') }}";
+    switch(type){
+        case 'info':
+            toastr.info("{{ Session::get('message') }}");
+            break;
+        
+        case 'warning':
+            toastr.warning("{{ Session::get('message') }}");
+            break;
+
+        case 'success':
+            toastr.success("{{ Session::get('message') }}");
+            break;
+
+        case 'error':
+            toastr.error("{{ Session::get('message') }}");
+            break;
+    }
+    @endif
     $(".custom-file-input").on("change", function() {
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
