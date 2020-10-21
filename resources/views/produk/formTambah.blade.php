@@ -59,24 +59,6 @@
                         <div class="form-group">
                             <input class="form-control" name="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Address" />
                         </div>
-                        <div class="input-group">
-                            <select name="priority" class="form-control custom-select" required hidden>
-                                <option value="">Priority</option>
-                                <option value="1">Pra Start Up</option>
-                                <option value="2">Proposal</option>
-                                <option value="3">Scale Up</option>
-                                <option value="4">Start Up</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <select name="publish" class="form-control custom-select" required>
-                                    <option value="">User Id</option>
-                                    <option value="1">Publish</option>
-                                    <option value="0">Draft</option>
-                                </select>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

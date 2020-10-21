@@ -22,4 +22,9 @@ class Produk extends Model
     {
     	return $this->belongsTo('App\ProdukImage','id','produk_id');
     }
+
+    public function produk_team()
+    {
+        return $this->belongTo('App\ProdukTeam','id','produk_id');
+    }
 }

@@ -164,19 +164,19 @@
       							<!--/.Controls-->
       								<ol class="carousel-indicators">
         								<li data-target="#carousel-thumb" data-slide-to="0" class="active"> 
-        									<img class="d-block w-100" style="height: 45.81px;" src="{{ asset('img/produk/' . $produk->produk_image->image) }}" class="img-fluid">
+        									<img class="d-block w-100" style="height: 40px; width: 150px" src="{{ asset('img/produk/' . $produk->produk_image->image) }}" class="img-fluid">
         								</li>
         								<li data-target="#carousel-thumb" data-slide-to="1">
-        									<img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Others/Carousel-thumbs/img%20(121).jpg" class="img-fluid">
+        									<img class="d-block w-100" style="height: 40px; width: 150px" src="{{ asset('img/produk/' . $produk->produk_image->image) }}" class="img-fluid">
         								</li>
         								<li data-target="#carousel-thumb" data-slide-to="2">
-        									<img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Others/Carousel-thumbs/img%20(31).jpg" class="img-fluid">
+        									<img class="d-block w-100" style="height: 40px; width: 150px" src="{{ asset('img/produk/' . $produk->produk_image->image) }}" class="img-fluid">
         								</li>
 										<li data-target="#carousel-thumb" data-slide-to="3">
-											<img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Others/Carousel-thumbs/img%20(31).jpg" class="img-fluid">
+											<img class="d-block w-100" style="height: 40px; width: 150px" src="{{ asset('img/produk/' . $produk->produk_image->image) }}" class="img-fluid">
 										</li>
 										<li data-target="#carousel-thumb" data-slide-to="2">
-											<img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Others/Carousel-thumbs/img%20(31).jpg" class="img-fluid">
+											<img class="d-block w-100" style="height: 40px; width: 150px" src="{{ asset('img/produk/' . $produk->produk_image->image) }}" class="img-fluid">
 										</li>
       								</ol>
     							</div>
@@ -198,7 +198,7 @@
 									</div>
 									<span class="review-no">41 reviews</span>
 								</div>
-								<p class="product-description">Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus posuere.</p>
+								<p class="product-description">{{ $produk->tentang }}</p>
 								<h4 class="price">current price: <span>Rp. {{ $produk->harga_jual }}</span></h4>
 								<p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
 							</div>						
@@ -272,13 +272,12 @@
 						<div class="tab-content ul-tab__content p-5" id="nav-tabContent">
 							<div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 								<div class="row">
-									<div class="col-lg-4 col-md-4 col-sm-12"><img src="https://siskubis.com/theme/images/mac_book.jpg" alt="alt" /></div>
+									<div class="col-lg-4 col-md-4 col-sm-12">
+										<img src="{{ asset('img/produk/' . $produk->produk_image->image) }}" alt="{{ $produk->produk_image->judul}}" />
+									</div>
 									<div class="col-lg-8 col-md-8 col-sm-12">
-										<h5 class="text-uppercase font-weight-700 text-muted mt-4 mb-2">Lorem Ipsum is simply dummy text of the printing</h5>
-										<p>
-											Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-
-										</p>
+										<h5 class="text-uppercase font-weight-700 text-muted mt-4 mb-2">{{ $produk->subtitle }}</h5>
+										<p>{{ $produk->tentang }}</p>
 										<div class="ul-product-detail__nested-card">
 											<div class="row text-center">
 												<div class="col-lg-4 col-sm-12 mb-2">
@@ -343,47 +342,27 @@
 							<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
 								<div class="ul-product-detail__nested-card mt-2">
 									<div class="row text-center">
-										<div class="col-lg-4 col-sm-12 mb-2">
+										@foreach( $produk_team as $row )
+										<div class="col-lg-3 col-sm-12 mb-2">
 											<div class="card">
+												<img src="{{ asset('img/produk/bussinesMan.svg') }}" class="card-img-top mt-2" alt="bussinesMan">
 												<div class="card-body">
 													<div class="ul-product-detail__border-box">
-														<div class="ul-product-detail--icon mb-2"><i class="i-Car text-success text-25 font-weight-500"></i></div>
-														<h5 class="heading">Quick Delivery</h5>
-														<p class="text-muted text-12">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+														<h5 class="heading">{{ $row->profil_user->nama }}</h5>
+														<p class="text-muted text-12">{{ $row->profil_user->deskripsi }}</p>
 													</div>
 												</div>
 											</div>
 										</div>
-										<div class="col-lg-4 col-sm-12 mb-2">
-											<div class="card">
-												<div class="card-body">
-													<div class="ul-product-detail__border-box">
-														<div class="ul-product-detail--icon mb-2"><i class="i-Car text-primary text-25 font-weight-500"></i></div>
-														<h5 class="heading">Quick Delivery</h5>
-														<p class="text-muted text-12">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-4 col-sm-12 mb-2">
-											<div class="card">
-												<div class="card-body">
-													<div class="ul-product-detail__border-box">
-														<div class="ul-product-detail--icon mb-2"><i class="i-Car text-danger text-25 font-weight-500"></i></div>
-														<h5 class="heading">Quick Delivery</h5>
-														<p class="text-muted text-12">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-													</div>
-												</div>
-											</div>
-										</div>
+										@endforeach
 									</div>
 								</div>
 							</div>
 							<div class="tab-pane fade" id="nav-brand" role="tabpanel" aria-labelledby="nav-contact-tab">
 								<div class="row">
 									<div class="col-lg-2"><img src="https://siskubis.com/theme/images/mac_book.jpg" alt="alt" /></div>
-									<div class="col-lg-6"><span class="badge badge-pill badge-danger p-2 m-1">Apple</span>
-										<h6 class="heading mt-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h6>
+									<div class="col-lg-6"><span class="badge badge-pill badge-danger p-2 m-1">{{ $produk->pengembangan }}</span>
+										<h6 class="heading mt-2">{{ $produk->subtitle }}</h6>
 										<p class="text-muted">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer</p>
 									</div>
 									<div class="col-lg-4">
