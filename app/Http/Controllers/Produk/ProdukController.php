@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Produk;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Produk;
+use App\Tenant;
 use Auth;
-use App\{Event, Priority};
+use App\ProdukImage;
+use Illuminate\Support\Facades\Validator;
 use Spatie\QueryBuilder\{QueryBuilder, AllowedFilter};
 
 class ProdukController extends Controller
@@ -27,11 +29,11 @@ class ProdukController extends Controller
             //$filter = Produk::with('tenant')->get();
             $produk = Produk::with('tenant','priority','produk_image')->paginate(12);
         }elseif($request->user()->hasRole('mentor')){
-            $produk = Produk::paginate(12);
+            $produk = Produk::with('tenant','priority','produk_image')->paginate(12);
             //$produk = Produk::where('mentor_id', Auth::user('id') )->paginate(12);
         }elseif($request->user()->hasRole('tenant')){
-            $produk = Produk::paginate(12);
-            //$produk = Produk::where('tenant_id', Auth::user('id') )->paginate(12);
+            $produk = Produk::with('tenant','priority','produk_image')->paginate(12);
+            $tenant = Auth::user()->tenants()->first();
         }
 
         return view('produk.index', compact('produk'));
@@ -43,6 +45,44 @@ class ProdukController extends Controller
 
         return view('produk.detailProduk', compact('produk'));
     }
+
+    public function create()
+    {
+        return view('produk.formTambah');
+    }
+
+    public function store(Request $request)
+    {
+        if ($request->hasFile('foto')) {
+            $image = $request->file('foto');
+            $filename = time() . Str::slug($request->tittle) . '.' . $image->getClientOriginalExtension();
+            $image_resize = Image::make($image->getRealPath());
+            $image_resize->resize(900,585);
+            $image_resize->save(public_path('storage/produk/'.$filename));
+            $produk = Produk::create([
+                'tittle'                => $request->tittle,
+                'harga'                 => $request->harga_jual,
+                'subtitle'              => $request->subtitle,
+                'phone'                 => $request->phone,
+                'publish'               => $request->publish,
+                'tenant_id'             => $request->tenant_id,
+                'priority_id'           => $request->priority_id,
+            ]);
+
+            $produk_image = ProdukImage::create([
+                'foto'                  => $filename->image,
+            ]);
+
+
+            // $notification = array(
+            //     'message' => 'Berita Berhasil Ditambahkan!',
+            //     'alert-type' => 'success'
+            // );
+
+            return redirect(route('tenant.produk'));
+        }
+    }
+
 	public function kategori($kategori)
     {
         return view('tenant.produk');
@@ -51,18 +91,5 @@ class ProdukController extends Controller
 	public function detail($kategori,$id)
     {
         return view('tenant.produk');
-    }
-
-    public function indexTenant(Request $request)
-    {
-
-        $tenant = Auth::user()->tenants()->first();
-        $event = Event::where([
-            ['inkubator_id', '=', Auth::user()->inkubator_id],
-            ['priority_id', '=', $tenant->priority],
-            ['publish', '=', 1]
-        ])->latest()->paginate();
-
-        return view('tenant.produk', compact('event'));
     }
 }
