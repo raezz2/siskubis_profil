@@ -34,13 +34,12 @@ class ProfileUserController extends Controller
         $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'users.id' => auth()->user()->id])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'profil_user.*')->first();
         // dd($data);
         $dataProfil = ProfilUser::find(auth()->user()->id, 'user_id');
-        if($dataProfil)
-        {
+        if ($dataProfil) {
             $notification = array(
                 'message' => 'Event Baru Berhasil Ditambah',
                 'alert-type' => 'success'
             );
-        } else{
+        } else {
             $notification = array(
                 'message' => 'Event Baru Berhasil Ditambah',
                 'alert-type' => 'info'
@@ -73,7 +72,7 @@ class ProfileUserController extends Controller
         $file->move($tujuan_upload, $filename);
 
         $notification = array(
-            'message' => 'User Berhasil Ditambahkan',
+            'message' => 'User Berhasil Diperbaruhi',
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);

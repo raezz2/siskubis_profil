@@ -183,7 +183,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-sm-2 col-form-label" for="nama">Nama</label>
                                                     <div class="col-sm-10">
-                                                        <input class="form-control" id="nama" type="text" placeholder="Nama" name="nama">
+                                                        <input class="form-control" id="nama" type="text" placeholder="Nama" name="nama" value="{{ old('nama') ?? $data->nama }}">
                                                         @error('nama')
                                                             error
                                                         @enderror
@@ -194,11 +194,11 @@
                                                         <label class="col-sm-2 col-form-label" for="jenkel">Jenis Kelamin</label>
                                                         <div class="col-sm-10">
                                                             <div class="form-check form-check-inline">
-                                                                <input name="jenkel" class="form-check-input" type="radio" id="inlineradio1" value="L">
+                                                                <input name="jenkel" class="form-check-input" type="radio" id="inlineradio1" value="L" {{ $data->jenkel == "L" ? ' checked ' : '' }}>
                                                                 <label class="form-check-label" for="inlineradio1">Laki-Laki</label>
                                                               </div>
                                                               <div class="form-check form-check-inline">
-                                                                <input name="jenkel" class="form-check-input" type="radio" id="inlineradio2" value="P">
+                                                                <input name="jenkel" class="form-check-input" type="radio" id="inlineradio2" value="P" {{ $data->jenkel == "P" ? ' checked ' : '' }}>
                                                                 <label class="form-check-label" for="inlineradio2">Perempuan</label>
                                                               </div>
                                                               @error('jenkel')
@@ -210,7 +210,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-sm-2 col-form-label" for="kontak">Kontak</label>
                                                     <div class="col-sm-10">
-                                                        <input class="form-control" id="kontak" type="text" placeholder="Kontak" name="kontak">
+                                                        <input class="form-control" id="kontak" type="text" placeholder="Kontak" name="kontak" value="{{ old('kontak') ?? $data->kontak }}">
                                                         @error('kontak')
                                                             error
                                                         @enderror
@@ -219,7 +219,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-sm-2 col-form-label" for="alamat">Alamat</label>
                                                     <div class="col-sm-10">
-                                                        <input class="form-control" id="alamat" type="text" placeholder="Alamat" name="alamat">
+                                                        <input class="form-control" id="alamat" type="text" placeholder="Alamat" name="alamat" value="{{ old('alamat') ?? $data->alamat }}">
                                                         @error('alamat')
                                                             error
                                                         @enderror
@@ -228,7 +228,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-sm-2 col-form-label" for="inputEmail3">NIK</label>
                                                     <div class="col-sm-10">
-                                                        <input class="form-control" id="nik" type="text" placeholder="NIK" name="nik">
+                                                        <input class="form-control" id="nik" type="text" placeholder="NIK" name="nik" value="{{ old('nik') ?? $data->nik }}">
                                                         @error('nik')
                                                             error
                                                         @enderror
@@ -249,7 +249,7 @@
                                                 <div class="form-group row">
                                                     <label for="event" class="col-sm-2 col-form-label">Deskripsi</label>
                                                     <div class="col-sm-10">
-                                                    <textarea name="deskripsi" id="deskripsi" class="form-control"></textarea>
+                                                    <textarea name="deskripsi" id="deskripsi" class="form-control">{!! old('deskripsi') ?? $data->deskripsi !!}</textarea>
                                                     @error('deskripsi')
                                                     <div class="mt-2 text-danger">
                                                       error
@@ -261,8 +261,8 @@
                                                     <label for="status" class="col-sm-2 col-form-label">Status</label>
                                                     <div class="col-sm-10">
                                                     <select name="status" class="form-control" id="status">
-                                                      <option value="1">1</option>
-                                                      <option value="0">0</option>
+                                                      <option value="1" {{ $data->status == 1 ? ' selected ' : '' }}>1</option>
+                                                      <option value="0" {{ $data->status == 0 ? ' selected ' : '' }}>0</option>
                                                     </select>
                                                     @error('status')
                                                         error
@@ -290,26 +290,7 @@
 <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
 <script>
     CKEDITOR.replace('deskripsi');
-    @if(Session::has('message'))
-    var type = "{{ Session::get('alert-type', 'info') }}";
-    switch(type){
-        case 'info':
-            toastr.info("{{ Session::get('message') }}");
-            break;
-        
-        case 'warning':
-            toastr.warning("{{ Session::get('message') }}");
-            break;
 
-        case 'success':
-            toastr.success("{{ Session::get('message') }}");
-            break;
-
-        case 'error':
-            toastr.error("{{ Session::get('message') }}");
-            break;
-    }
-    @endif
     $(".custom-file-input").on("change", function() {
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
