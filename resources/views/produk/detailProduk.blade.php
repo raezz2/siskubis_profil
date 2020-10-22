@@ -182,7 +182,7 @@
     							</div>
 							</div>
 							<div class="col-lg-2">
-								<img src="https://placehold.it/400x200&text=slide1" style="max-width:100%;height:auto" />
+								<img src="{{ asset('img/produk/' . $produk->produk_image->image) }}" style="max-width:100%;height:auto" />
 								<hr>
 								<p class="product-description">{{ $produk->subtitle }}</p>
 							</div>
@@ -360,7 +360,7 @@
 							</div>
 							<div class="tab-pane fade" id="nav-brand" role="tabpanel" aria-labelledby="nav-contact-tab">
 								<div class="row">
-									<div class="col-lg-2"><img src="https://siskubis.com/theme/images/mac_book.jpg" alt="alt" /></div>
+									<div class="col-lg-2"><img src="{{ asset('img/produk/' . $produk->produk_image->image) }}" alt="{{ $produk->produk_image->judul}}" /></div>
 									<div class="col-lg-6"><span class="badge badge-pill badge-danger p-2 m-1">{{ $produk->pengembangan }}</span>
 										<h6 class="heading mt-2">{{ $produk->subtitle }}</h6>
 										<p class="text-muted">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer</p>
