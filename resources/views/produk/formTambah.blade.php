@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<form action="{{ route('inkubator.storeBerita') }}" method="post" enctype="multipart/form-data" >
+<form action="{{ route('tenant.storeProduk') }}" method="post" enctype="multipart/form-data" >
 @csrf
 	<div class="row">
 		<div class="col-xl-6 col-lg-6">
@@ -102,6 +102,17 @@
 						</div>
                         {{-- <div class="form-group">
                             <label>User Id :</label>
+                            <div class="input-group">
+                                <select name="berita_category_id" class="form-control custom-select" required>
+                                 	<option value="">Pilih</option>
+                                    @foreach ($kategori_berita as $row)
+                                        <option value="{{ $row->id }}">{{ $row->category }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div> --}}
+                        {{-- <div class="form-group">
+                            <label>Produk Id :</label>
                             <div class="input-group">
                                 <select name="berita_category_id" class="form-control custom-select" required>
                                  	<option value="">Pilih</option>
