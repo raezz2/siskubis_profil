@@ -185,7 +185,7 @@
                                                     <div class="col-sm-10">
                                                         <input class="form-control" id="nama" type="text" placeholder="Nama" name="nama" value="{{ old('nama') ?? $data->nama }}">
                                                         @error('nama')
-                                                            error
+                                                            {{ $message }}
                                                         @enderror
                                                     </div>
                                                 </div>
@@ -202,7 +202,7 @@
                                                                 <label class="form-check-label" for="inlineradio2">Perempuan</label>
                                                               </div>
                                                               @error('jenkel')
-                                                                  error
+                                                                {{ $message }}
                                                               @enderror
                                                         </div>
                                                     </div>
@@ -212,7 +212,7 @@
                                                     <div class="col-sm-10">
                                                         <input class="form-control" id="kontak" type="text" placeholder="Kontak" name="kontak" value="{{ old('kontak') ?? $data->kontak }}">
                                                         @error('kontak')
-                                                            error
+                                                            {{ $message }}
                                                         @enderror
                                                     </div>
                                                 </div>
@@ -221,7 +221,7 @@
                                                     <div class="col-sm-10">
                                                         <input class="form-control" id="alamat" type="text" placeholder="Alamat" name="alamat" value="{{ old('alamat') ?? $data->alamat }}">
                                                         @error('alamat')
-                                                            error
+                                                            {{ $message }}
                                                         @enderror
                                                     </div>
                                                 </div>
@@ -230,7 +230,7 @@
                                                     <div class="col-sm-10">
                                                         <input class="form-control" id="nik" type="text" placeholder="NIK" name="nik" value="{{ old('nik') ?? $data->nik }}">
                                                         @error('nik')
-                                                            error
+                                                            {{ $message }}
                                                         @enderror
                                                     </div>
                                                 </div>
