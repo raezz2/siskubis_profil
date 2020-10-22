@@ -168,6 +168,7 @@ Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function (
     Route::get('/produk', 'Produk\ProdukController@index')->name('tenant.produk');
     Route::get('/produk/{title}', 'Produk\ProdukController@show')->name('tenant.detailProduk');
     Route::get('/produk/create', 'Produk\ProdukController@create')->name('tenant.formProduk');
+    Route::post('/produk/store', 'Produk\ProdukController@store')->name('tenant.storeProduk');
     Route::get('/berita/destroy/{produk}', 'Produk\ProdukController@destroy')->name('tenant.destroyProduk');
 
 	// route berita tenant
