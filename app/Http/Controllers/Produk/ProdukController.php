@@ -5,15 +5,18 @@ namespace App\Http\Controllers\Produk;
 use Auth;
 use App\Produk;
 use App\Tenant;
-use App\Priority;
-use App\inkubator;
+use App\TenantUser;
+use App\TenantMentor;
+use App\Inkubator;
 use App\ProdukTeam;
+use App\Priority;
 use App\ProdukImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Spatie\QueryBuilder\{QueryBuilder, AllowedFilter};
-
+use Illuminate\Support\Collection;
+use File;
 
 class ProdukController extends Controller
 {
@@ -31,15 +34,24 @@ class ProdukController extends Controller
     {
         $priority = Priority::orderBy('name', 'ASC')->get();
         if ( $request->user()->hasRole('inkubator') ) {
-            $produk = Produk::with('tenant','priority','produk_image')->paginate(12);
+            $ink = Tenant::where('inkubator_id', $request->user()->inkubator_id)->first()->toArray();
+            //$ink = implode(' ', array_values($ink));
+            $produk = Produk::with('tenant','priority','produk_image')
+                ->where('tenant_id','=', $ink )
+                ->paginate(12);
         }elseif($request->user()->hasRole('mentor')){
-            $produk = Produk::with('tenant','priority','produk_image')->paginate(12);
-            //$produk = Produk::where('mentor_id', Auth::user('id') )->paginate(12);
+            $mentor = TenantMentor::where('user_id', $request->user()->id)->get()->toArray();
+            $produks = Produk::with('tenant','priority','produk_image')
+                ->where('tenant_id', $mentor->tenant_id)
+                ->get();
         }elseif($request->user()->hasRole('tenant')){
-            $produk = Produk::with('tenant','priority','produk_image')->paginate(12);
-            $tenant = Auth::user()->tenants()->first();
+            $tenant = TenantUser::where('user_id', $request->user()->id)->first();
+            $produk = Produk::with('tenant','priority','produk_image')
+                ->where('tenant_id', $tenant->tenant_id)
+                ->paginate(12);
         }
-
+        //return $ink;
+        //return $mentor;
         return view('produk.index', compact('produk','priority'));
     }
 	public function show($id)
@@ -111,13 +123,21 @@ class ProdukController extends Controller
             return redirect(route('tenant.produk'));
         }
     }
+  
+    public function destroy(Produk $produk)
+    {
+        $produk->delete();
+        File::delete(storage_path('app/public/img/produk' . $produk->foto));
 
-	public function kategori($kategori)
+        return redirect()->back();
+    }
+  
+	  public function kategori($kategori)
     {
         return view('tenant.produk');
     }
 
-	public function detail($kategori,$id)
+	  public function detail($kategori,$id)
     {
         return view('tenant.produk');
     }

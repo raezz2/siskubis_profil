@@ -9,10 +9,10 @@
                         <h3>Produk</h3>
                     </div>
                     <div class="card-body">
-                        <a href="{{ route('tenant.formProduk') }}"><button class="btn btn-outline-primary btn-block" data-toggle="modal" data-target="#formProduk">
+                        <a href="{{route('tenant.formProduk')}}" class="btn btn-outline-primary btn-block" >
                             + Tambah Produk
-                        </button>
-                        {{-- <div class="modal fade" id="formProduk" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        </a>
+                        <div class="modal fade" id="formProduk" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -161,15 +161,32 @@
                                 <div class="list-thumb d-flex"><img alt="" src="{{ asset('img/produk/' . $row->produk_image->image) }}" /></div>
                                 <div class="flex-grow-1 d-bock">
                                     <div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center">
+                                        @role('inkubator')
                                         <a class="w-40 w-sm-100" href="{{ route('inkubator.detailProduk', $row->id) }}">
                                             <div class="item-title">
                                                 {{ $row->title }}
                                             </div>
                                         </a>
-                                        <p class="m-0 text-muted text-small w-15 w-sm-100">Harga Rp. {{ $row->harga_jual }}</p>
+                                        @endrole
+                                        @role('mentor')
+                                        <a class="w-40 w-sm-100" href="{{ route('mentor.detailProduk', $row->id) }}">
+                                            <div class="item-title">
+                                                {{ $row->title }}
+                                            </div>
+                                        </a>
+                                        @endrole
+                                        @role('tenant')
+                                        <a class="w-40 w-sm-100" href="{{ route('tenant.detailProduk', $row->id) }}">
+                                            <div class="item-title">
+                                                {{ $row->title }}
+                                            </div>
+                                        </a>
+                                        @endrole
+                                        <p class="m-0 text-muted text-small w-15 w-sm-100">Harga Rp. {{ number_format($row->harga_jual,0,',','.') }}</p>
                                         <p class="m-0 text-muted text-small w-15 w-sm-100">{{ $row->tenant->title }}</p>
                                         @role('tenant')
                                             <a href="#" class="btn btn-sm btn-warning w-100 mt-3">UPDATE</a>
+                                            <a href="{{ route('tenant.destroyProduk', $row->id) }}" class="btn btn-sm btn-danger w-100 mt-1">HAPUS</a>
                                         @endrole
                                         <p class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-badges">
                                             <span class="badge badge-info">{{ $row->priority->name }}</span>
