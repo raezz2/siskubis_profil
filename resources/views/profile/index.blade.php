@@ -8,6 +8,7 @@
 @endsection
 @section('content')
 <section class="ul-contact-detail">
+    {{ $notification }}
                     <div class="row">
                         <div class="col-lg-4 col-xl-4">
                             <div class="card o-hidden"><img class="d-block w-100" src="{{ asset('img/mentor/profile/'.$data->foto)}}" alt="First slide">
@@ -289,6 +290,8 @@
 <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
 <script>
     CKEDITOR.replace('deskripsi');
+</script>
+<script>
     @if(Session::has('message'))
     var type = "{{ Session::get('alert-type', 'info') }}";
     switch(type){

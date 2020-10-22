@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Profile;
 
+use DB;
+use Auth;
+use App\User;
+use App\ProfilUser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateProfilRequest;
-use Auth;
-use App\ProfilUser;
-use App\User;
-use DB;
 
 class ProfileUserController extends Controller
 {
@@ -32,21 +32,17 @@ class ProfileUserController extends Controller
     public function indexMentor()
     {
         $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'users.id' => auth()->user()->id])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'profil_user.*')->first();
-        // dd($data);
         $dataProfil = ProfilUser::find(auth()->user()->id, 'user_id');
-        if($dataProfil)
+        if(!$dataProfil)
         {
             $notification = array(
-                'message' => 'Event Baru Berhasil Ditambah',
-                'alert-type' => 'success'
+                'message' => 'Event Berhasil Diperbarui',
+                'alert' => 'success'
             );
+            return view('profile.index', $data)->with($notification);
         } else{
-            $notification = array(
-                'message' => 'Event Baru Berhasil Ditambah',
-                'alert-type' => 'info'
-            );
+            return view('profile.index', $data);
         }
-        return view('profile.index', $data)->with($notification);
         // return $data;
     }
 
