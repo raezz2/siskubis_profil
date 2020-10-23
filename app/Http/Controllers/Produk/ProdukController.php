@@ -35,8 +35,6 @@ class ProdukController extends Controller
         $priority = Priority::orderBy('name', 'ASC')->get();
         if ( $request->user()->hasRole('inkubator') ) {
             $ink = Tenant::where('inkubator_id', $request->user()->inkubator_id)->get('id');
-            // dd($ink);
-            // return $ink;
             $produk = Produk::with('tenant','priority','produk_image')
                 ->whereIn('tenant_id', $ink )
                 ->paginate(12);
