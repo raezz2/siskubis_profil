@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers\Mentor;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\ProfilUser;
-use App\User;
 use Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-use App\Pengumuman;
-use App\Priority;
 use File;
 use App\Post;
-
+use App\User;
+use App\Tenant;
+use App\Priority;
+use App\Pengumuman;
+use App\ProfilUser;
+use App\TenantMentor;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class MentorController extends Controller
 {
@@ -30,6 +32,7 @@ class MentorController extends Controller
     public function index()
     {
         $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'role_user.role_id' => 4])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'profil_user.*')->get();
+        $data['tenant'] = Tenant::where(['inkubator_id' => Auth::user()->inkubator_id])->get();
         return view('mentor.index', $data);
     }
 
@@ -77,5 +80,26 @@ class MentorController extends Controller
         $kategori = DB::table('priority')->get();
         $inkubator = DB::table('inkubator')->get();
         return view('mentor.pengumuman', compact('pengumuman', 'kategori', 'inkubator', 'keyword'));
+    }
+
+    public function create(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'user_id'   => 'required',
+            'tenant_id' => 'required',
+        ]);
+
+        $tenantmentor = TenantMentor::create([
+            'user_id'                => $request->user_id,
+            'tenant_id'              => $request->tenant_id,
+
+        ]);
+
+        $notification = array(
+            'message' => 'Berhasil Ditambahkan!',
+            'alert-type' => 'success'
+        );
+
+        return redirect(route('inkubator.mentor'))->with($notification);
     }
 }

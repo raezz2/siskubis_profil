@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TenantMentor extends Model
 {
     protected $table = 'tenant_mentor';
+    protected $guarded = ['id'];
 
 
     public function user()

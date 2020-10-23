@@ -42,7 +42,7 @@
 				</div>
 			</div>
 			<div class="card-footer">
-				<a class="btn btn-sm btn-success float-right" type="submit" data-toggle="modal" data-id="{{ $data->id }}" data-name="{{ $data->nama }}" data-target=".bd-contoh-modal-lg"><i class="i-Add-User text-white mr-2"></i><span class="text-white">Comblangkan</span> </a>
+				<a class="btn btn-sm btn-success float-right adduser" type="submit" data-toggle="modal" data-id="{{ $data->uid }}" data-name="{{ $data->nama }}" data-target=".bd-contoh-modal-lg"><i class="i-Add-User text-white mr-2"></i><span class="text-white">Comblangkan</span> </a>
 			</div>
 		</div>
 	</div>
@@ -101,18 +101,20 @@
 						<div class="modal-content">
 							<div class="modal-body">
 							<h2>Tambah Pendamping</h2>
-								<form action="{{ route('inkubator.regis') }}" method="POST">
+								<form action="{{ route('inkubator.mentor.tenant') }}" method="POST">
 									@csrf	
 									<div class="row">
 										<div class="form-group col-md-6">
-											<label for="priority">Mentor</label>
-											<input class="form-control" name="user_id" id="priority_id" disabled>
+											<label for="mentpr">Mentor</label>
+											<input class="form-control" name="nama" id="nama" disabled>
 										  </div>
+											<input class="form-control" name="user_id" id="user_id" type="hidden">
 										  <div class="form-group col-md-6">
 											<label for="publish">Tenant</label>
-											<select name="tenant_id" class="form-control" id="publish">
-											  <option value="1" >Publish</option>
-											  <option value="0" >Draft</option>
+											<select name="tenant_id" class="form-control" id="tenant_id">
+											  @foreach ($tenant as $item)
+											  <option value="{{ $item->id }}" >{{ $item->title }}</option>
+											  @endforeach
 											</select>
 										  </div>
 										</div>
@@ -135,6 +137,19 @@
 <script src="{{ asset('theme/js/script/toastr.script.min.js')}}"></script>
 
 <script>
+
+	
+	$('.adduser').click(function() {
+		var id = $(this).data('id');      
+		var nama = $(this).data('name');
+		  
+
+		$('#user_id').val(id);  
+		$('#nama').val(nama);  
+		} );
+		
+
+
 	toastr.options = {
         "debug": false,
         //   "positionClass": "toast-bottom-full-width",

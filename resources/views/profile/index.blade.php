@@ -8,15 +8,6 @@
 @endsection
 @section('content')
 <section class="ul-contact-detail">
-    @if (Session::has('flash_notification.message'))
-
-     <div class="alert alert-{{ Session::get('flash_notification.level') }}">
-         <button type="button" class="close" data-dismiss="alert" 
-             aria-hidden="true">&times;</button>
-         {{ Session::get('flash_notification.message') }}
-     </div>
-
- @endif
                     <div class="row">
                         <div class="col-lg-4 col-xl-4">
                             <div class="card o-hidden"><img class="d-block w-100" src="{{ asset('img/mentor/profile/'.$data->foto)}}" alt="First slide">
@@ -301,15 +292,6 @@
     CKEDITOR.replace('deskripsi');
 </script>
 <script>
-
-        $(document).ready(function() {
-
-            toastr.info('Page Loaded!');
-
-             });
-
-        });
-
     @if(Session::has('message'))
     var type = "{{ Session::get('alert-type', 'info') }}";
     switch(type){
