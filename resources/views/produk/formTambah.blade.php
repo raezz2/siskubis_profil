@@ -21,19 +21,19 @@
                             <textarea class="form-control" name="subtitle" rows="3" placeholder="Subtitle"></textarea>
                         </div>
                         <div class="form-group">
-                            <input class="form-control" name="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Harga Pokok" />
+                            <input class="form-control" name="harga_pokok" type="text" placeholder="Harga Pokok" />
                         </div>
                         <div class="form-group">
-                            <input class="form-control" name="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Harga Jual" />
+                            <input class="form-control" name="harga_jual" type="text" row="3" placeholder="Harga Jual" />
                         </div>
                         <div class="form-group">
-                            <input class="form-control" name="exampleInputPassword1" type="text" placeholder="No Telphone" />
+                            <input class="form-control" name="contact" type="text" placeholder="No Telphone" />
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" name="subtitle" rows="3" placeholder="Location"></textarea>
+                            <textarea class="form-control" name="location" rows="3" placeholder="Location"></textarea>
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" name="subtitle" rows="7" placeholder="Address"></textarea>
+                            <textarea class="form-control" name="address" rows="7" placeholder="Address"></textarea>
                         </div>
                     </div>
                 </div>
@@ -47,28 +47,28 @@
                     <div class="card-body">
                         <div class="ul-widget__body">
                             <div class="form-group">
-                                <input class="form-control" name="exampleInputPassword1" type="text" placeholder="Spesifikasi" />
+                                <input class="form-control" name="spesifikasi" type="text" placeholder="Spesifikasi" />
                             </div>
                             <div class="form-group">
-                                <input class="form-control" name="exampleInputPassword1" type="text" placeholder="Keterbaharuan" />
+                                <input class="form-control" name="keterbaharuan" type="text" placeholder="Keterbaharuan" />
                             </div>
                             <div class="form-group">
-                                <input class="form-control" name="exampleInputPassword1" type="text" placeholder="Manfaat" />
+                                <input class="form-control" name="manfaat" type="text" placeholder="Manfaat" />
                             </div>
                             <div class="form-group">
-                                <input class="form-control" name="exampleInputPassword1" type="text" placeholder="Keunggulan" />
+                                <input class="form-control" name="keunggulan" type="text" placeholder="Keunggulan" />
                             </div>
                             <div class="form-group">
-                                <input class="form-control" name="exampleInputPassword1" type="text" placeholder="Teknologi" />
+                                <input class="form-control" name="teknologi" type="text" placeholder="Teknologi" />
                             </div>
                             <div class="form-group">
-                                <input class="form-control" name="exampleInputPassword1" type="text" placeholder="Pengembangan" />
+                                <input class="form-control" name="pengembangan" type="text" placeholder="Pengembangan" />
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control" name="subtitle" rows="3" placeholder="Latar Produk"></textarea>
+                                <textarea class="form-control" name="latar_produk" rows="3" placeholder="Latar Produk"></textarea>
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control" name="subtitle" rows="7" placeholder="Tentang Produk"></textarea>
+                                <textarea class="form-control" name="tentang_produk" rows="7" placeholder="Tentang Produk"></textarea>
                             </div>
                         </div>
                     </div>
@@ -85,28 +85,28 @@
                         <div class="form-group" hidden>
 							<label>Tenant Id :</label>
 	           				<div class="input-group">
-								<input type="text" class="form-control" name="views" value="0" required>
+								<input type="text" class="form-control" name="tenant_id" value="0" required>
 	           				</div>
                         </div>
                         <div class="form-group" hidden>
 							<label>Inventor Id :</label>
 	           				<div class="input-group">
-								<input type="text" class="form-control" name="views" value="0" required>
+								<input type="text" class="form-control" name="inventor_id" value="0" required>
 	           				</div>
                         </div>
                         <div class="form-group" hidden>
 							<label>Priority Id :</label>
 	           				<div class="input-group">
-								<input type="text" class="form-control" name="views" value="0" required>
+								<input type="text" class="form-control" name="priority" value="0" required>
 	           				</div>
 						</div>
                         {{-- <div class="form-group">
                             <label>User Id :</label>
                             <div class="input-group">
-                                <select name="berita_category_id" class="form-control custom-select" required>
+                                <select name="user_id" class="form-control custom-select" required>
                                  	<option value="">Pilih</option>
-                                    @foreach ($kategori_berita as $row)
-                                        <option value="{{ $row->id }}">{{ $row->category }}</option>
+                                    @foreach ($user_id as $row)
+                                        <option value="{{ $row->id }}">{{ $row->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -159,7 +159,7 @@
                         </div> --}}
                         <div class="form-group">
                             <div class="input-group">
-                                <select name="publish" class="form-control custom-select" required>
+                                <select name="tag" class="form-control custom-select" required>
                                     <option value="">Tag</option>
                                     <option value="1">Publish</option>
                                     <option value="0">Draft</option>
@@ -168,7 +168,7 @@
                         </div>
                         <div class="form-group">
                             <div class="input-group">
-                                <select name="publish" class="form-control custom-select" required>
+                                <select name="kategori" class="form-control custom-select" required>
                                     <option value="">Kategori</option>
                                     <option value="1">Publish</option>
                                     <option value="0">Draft</option>
@@ -177,7 +177,7 @@
                         </div>
                         <div class="form-group">
                             <label for="foto">Uploda Proposal</label><br>
-                            <input type="file" name="foto" value="{{ old('foto') }}" required>
+                            <input type="file" name="proposal" value="{{ old('proposal') }}" required>
                         </div>
                         <div class="form-group">
                             <label for="foto">Upload Foto</label><br>

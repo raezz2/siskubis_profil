@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Produk;
 
 use Auth;
+use App\User;
 use App\Produk;
 use App\Tenant;
 use App\TenantUser;
@@ -41,7 +42,7 @@ class ProdukController extends Controller
                 ->paginate(12);
         }elseif($request->user()->hasRole('mentor')){
             $mentor = TenantMentor::where('user_id', $request->user()->id)->get()->toArray();
-            $produks = Produk::with('tenant','priority','produk_image')
+            $produk = Produk::with('tenant','priority','produk_image')
                 ->where('tenant_id', $mentor->tenant_id)
                 ->get();
         }elseif($request->user()->hasRole('tenant')){
@@ -66,6 +67,10 @@ class ProdukController extends Controller
 
     public function create()
     {
+        // $user_id = User::orderBy('category')->get();
+        // $tenant = Tenant::orderBy('nama')->get();
+        // $penulis = profil_user::orderBy('nama')->get();
+
         return view('produk.formTambah');
     }
 
@@ -123,7 +128,7 @@ class ProdukController extends Controller
             return redirect(route('tenant.produk'));
         }
     }
-  
+
     public function destroy(Produk $produk)
     {
         $produk->delete();
@@ -131,7 +136,7 @@ class ProdukController extends Controller
 
         return redirect()->back();
     }
-  
+
 	  public function kategori($kategori)
     {
         return view('tenant.produk');
