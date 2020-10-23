@@ -160,6 +160,7 @@ Route::group(['prefix' => 'mentor', 'middleware' => ['role:mentor']], function (
 Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function () {
 	Route::get('/', 'Tenant\HomeController@index')->name('tenant.home');
 	Route::get('/chat', 'Chat\ChatController@index')->name('tenant.chat');
+	Route::get('/mentor', 'Mentor\MentorController@indexTenant')->name('tenant.mentor');
 	// route berita tenant
 	Route::get('/berita', 'Berita\BeritaController@indexTenant')->name('tenant.berita');
 	Route::get('/berita/{slug}', 'Berita\BeritaController@showT')->name('tenant.showBerita');

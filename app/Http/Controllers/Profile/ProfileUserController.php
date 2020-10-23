@@ -32,23 +32,31 @@ class ProfileUserController extends Controller
     public function indexMentor()
     {
         $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'users.id' => auth()->user()->id])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'profil_user.*')->first();
-        $dataProfil = ProfilUser::find(auth()->user()->id, 'user_id');
-        if (!$dataProfil) {
-            $notification = array(
-                'message' => 'Event Berhasil Diperbarui',
-                'alert' => 'success'
-            );
-            return view('profile.index', $data)->with($notification);
-        } else {
-            return view('profile.index', $data);
+        $dataProfil = ProfilUser::where('user_id', '=', auth()->user()->id);
+        if ($dataProfil->count() == 0) {
+            request()->session()->now('message', 'Tolong lengkapi data profil anda');
+            request()->session()->now('alert-type', 'warning');
         }
-        // return $data;
+        return view('profile.index', $data);
     }
 
     public function update(UpdateProfilRequest $request)
     {
-        $file = $request->foto;
-        $filename = time() . \Str::slug($request->get('nama')) . '.' . $file->getClientOriginalExtension();
+        $profil = ProfilUser::where('user_id', Auth::user()->id)->first();
+        $tujuan_upload = 'img/mentor/profile';
+
+        if (!$profil) {
+            $file = $request->foto;
+            $filename = time() . \Str::slug($request->get('nama')) . '.' . $file->getClientOriginalExtension();
+            $file->move($tujuan_upload, $filename);
+        } elseif ($profil && !$request->foto) {
+            $filename = $profil->foto;
+        } elseif ($profil && $request->file('foto')) {
+            \Storage::delete($profil->foto);
+            $file = $request->foto;
+            $filename = time() . \Str::slug($request->get('nama')) . '.' . $file->getClientOriginalExtension();
+            $file->move($tujuan_upload, $filename);
+        }
 
         ProfilUser::updateOrCreate(
             ['user_id'  =>  Auth::user()->id],
@@ -63,12 +71,8 @@ class ProfileUserController extends Controller
                 'status' =>  $request->status,
             ],
         );
-
-        $tujuan_upload = 'img/mentor/profile';
-        $file->move($tujuan_upload, $filename);
-
         $notification = array(
-            'message' => 'User Berhasil Diperbaruhi',
+            'message' => 'Data Profil Berhasil Diperbarui',
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);

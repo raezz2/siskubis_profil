@@ -36,6 +36,13 @@ class MentorController extends Controller
         return view('mentor.index', $data);
     }
 
+    public function indexTenant()
+    {
+        $mentor = TenantMentor::where('tenant_id', $id);
+        $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'role_user.role_id' => 4])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'profil_user.*')->get();
+        return view('mentor.index', $data);
+    }
+
     public function pengumuman()
     {
         $pengumuman = Pengumuman::where('inkubator_id', Auth::user()->inkubator_id)->where(function ($query) {
