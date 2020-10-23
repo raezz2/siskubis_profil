@@ -8,8 +8,8 @@ class ProdukImage extends Model
 {
     protected $table = "produk_image";
 
-   	public function produk_image()
+   	public function produk()
     {
-    	return $this->belongsTo('App\ProdukImage','produk_id', 'id');
+    	return $this->belongsTo('App\Produk','produk_id', 'id');
     }
 }

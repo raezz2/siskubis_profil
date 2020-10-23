@@ -35,24 +35,21 @@ class ProdukController extends Controller
     {
         $priority = Priority::orderBy('name', 'ASC')->get();
         if ( $request->user()->hasRole('inkubator') ) {
-            $ink = Tenant::where('inkubator_id', $request->user()->inkubator_id)->first()->toArray();
-            //$ink = implode(' ', array_values($ink));
+            $ink = Tenant::where('inkubator_id', $request->user()->inkubator_id)->get('id');
             $produk = Produk::with('tenant','priority','produk_image')
-                ->where('tenant_id','=', $ink )
+                ->whereIn('tenant_id', $ink )
                 ->paginate(12);
         }elseif($request->user()->hasRole('mentor')){
-            $mentor = TenantMentor::where('user_id', $request->user()->id)->get()->toArray();
+            $mentor = TenantMentor::where('user_id', $request->user()->id)->get('id');
             $produk = Produk::with('tenant','priority','produk_image')
-                ->where('tenant_id', $mentor->tenant_id)
-                ->get();
+                ->whereIn('tenant_id', $mentor)
+                ->paginate(12);
         }elseif($request->user()->hasRole('tenant')){
             $tenant = TenantUser::where('user_id', $request->user()->id)->first();
             $produk = Produk::with('tenant','priority','produk_image')
                 ->where('tenant_id', $tenant->tenant_id)
                 ->paginate(12);
         }
-        //return $ink;
-        //return $mentor;
         return view('produk.index', compact('produk','priority'));
     }
 	public function show($id)
@@ -62,7 +59,6 @@ class ProdukController extends Controller
         $produk_team = ProdukTeam::with('profil_user.user')->where('produk_id', $id)->get();
 
         return view('produk.detailProduk', compact('produk','produk_team'));
-        //return $produk_team;
     }
 
     public function create()

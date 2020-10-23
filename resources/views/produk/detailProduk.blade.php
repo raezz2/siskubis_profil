@@ -360,10 +360,10 @@
 							</div>
 							<div class="tab-pane fade" id="nav-brand" role="tabpanel" aria-labelledby="nav-contact-tab">
 								<div class="row">
-									<div class="col-lg-2"><img src="{{ asset('img/produk/' . $produk->produk_image->image) }}" alt="{{ $produk->produk_image->judul}}" /></div>
-									<div class="col-lg-6"><span class="badge badge-pill badge-danger p-2 m-1">{{ $produk->pengembangan }}</span>
-										<h6 class="heading mt-2">{{ $produk->subtitle }}</h6>
-										<p class="text-muted">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer</p>
+									<div class="col-lg-2"><img src="{{ asset('img/tenant/' . $produk->tenant->foto) }}" alt="{{ $produk->produk_image->judul}}" /></div>
+									<div class="col-lg-6"><span class="badge badge-pill badge-danger p-2 m-1">{{ $produk->tenant->title }}</span>
+										<h6 class="heading mt-2">{{ $produk->tenant->subtitle }}</h6>
+										<p class="text-muted">{{ $produk->tenant->description }}</p>
 									</div>
 									<div class="col-lg-4">
 										<div class="ul-product-detail__features mt-3">
