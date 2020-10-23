@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Produk;
 
 use Auth;
+use App\User;
 use App\Produk;
 use App\Tenant;
 use App\TenantUser;
@@ -62,6 +63,10 @@ class ProdukController extends Controller
 
     public function create()
     {
+        // $user_id = User::orderBy('category')->get();
+        // $tenant = Tenant::orderBy('nama')->get();
+        // $penulis = profil_user::orderBy('nama')->get();
+
         return view('produk.formTambah');
     }
 
@@ -119,7 +124,7 @@ class ProdukController extends Controller
             return redirect(route('tenant.produk'));
         }
     }
-  
+
     public function destroy(Produk $produk)
     {
         $produk->delete();
@@ -127,7 +132,7 @@ class ProdukController extends Controller
 
         return redirect()->back();
     }
-  
+
 	  public function kategori($kategori)
     {
         return view('tenant.produk');
