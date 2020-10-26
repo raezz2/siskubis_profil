@@ -15,6 +15,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\TenantUser;
 use Illuminate\Support\Facades\Validator;
 
 class MentorController extends Controller
@@ -31,15 +32,18 @@ class MentorController extends Controller
      */
     public function index()
     {
-        $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'role_user.role_id' => 4])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'profil_user.*')->get();
+        $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id])
+            ->whereHas('roles', function($q){
+                $q->where('name', 'Mentor');
+            })->get();
         $data['tenant'] = Tenant::where(['inkubator_id' => Auth::user()->inkubator_id])->get();
         return view('mentor.index', $data);
     }
 
     public function indexTenant()
     {
-        $mentor = TenantMentor::where('tenant_id', $id);
-        $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'role_user.role_id' => 4])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'profil_user.*')->get();
+        $mentor = TenantMentor::where('tenant_id', Auth::user()->tenantId())->pluck('user_id');
+        $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id])->whereIn('id', $mentor)->get();
         return view('mentor.index', $data);
     }
 
