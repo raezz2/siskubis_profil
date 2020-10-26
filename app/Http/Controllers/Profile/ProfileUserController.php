@@ -40,6 +40,13 @@ class ProfileUserController extends Controller
         return view('profile.index', $data);
     }
 
+    public function indexTenant()
+    {
+        $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'users.id' => auth()->user()->id])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'profil_user.*')->first();
+        return view('profile.index', $data);
+    }
+
+
     public function update(UpdateProfilRequest $request)
     {
         $profil = ProfilUser::where('user_id', Auth::user()->id)->first();

@@ -18,9 +18,9 @@
 		<div class="card">
 			<div class="card-body ">
 				<strong>Pendamping</strong>
-			<a href="{{route('admin.inkubator.view','grid')}}">Grid</a>
+			<a href="{{route('inkubator.mentor')}}">Grid</a>
 			<a class="item-divider"></a>
-			<a href="{{route('admin.inkubator.view','list')}}">List</a>
+			<a href="{{ route('inkubator.mentor-list') }}">List</a>
 			<button class="btn btn-primary btn-md m-1 float-right" type="button" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="i-Add-User text-white mr-2"></i> Tambah Pendamping</button>
 			</div>
 		</div>
@@ -34,16 +34,23 @@
 				<div class="ul-contact-page__profile">
 					<div class="user-profile"><img class="profile-picture mb-2" src="{{ asset('img/mentor/profile/'.$data->foto)}}" alt="alt" /></div>
 					<div class="ul-contact-page__info">
+						@role('inkubator')
 						<a href="{{route('inkubator.profile-detail',$data->uid)}}"><p class="m-0 text-24">{{$data->nama}}</p></a>
+						@endrole
+						@role('tenant')
+						<a href="{{route('tenant.profile',$data->uid)}}"><p class="m-0 text-24">{{$data->nama}}</p></a>
+						@endrole
 						<p class="text-muted m-0">{{$data->kontak}}</p>
 						<p class="text-muted mt-3">{{$data->alamat}}</p>
 						<p class="text-muted mt-3">NO: {{$data->id}}</p>
 					</div>
 				</div>
 			</div>
+			@role('inkubator')
 			<div class="card-footer">
 				<a class="btn btn-sm btn-success float-right adduser" type="submit" data-toggle="modal" data-id="{{ $data->uid }}" data-name="{{ $data->nama }}" data-target=".bd-contoh-modal-lg"><i class="i-Add-User text-white mr-2"></i><span class="text-white">Comblangkan</span> </a>
 			</div>
+			@endrole			
 		</div>
 	</div>
 @endforeach
@@ -94,7 +101,7 @@
 				</div>
 			</div>
 			<!-- end::modal-->
-
+			@role('inkubator')
 			<div class="ul-card-list__modal">
 				<div class="modal fade bd-contoh-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 					<div class="modal-dialog modal-lg">
@@ -129,6 +136,7 @@
 					</div>
 				</div>
 			</div>
+			@endrole
 			<!-- end::modal-->
 @endsection
 
