@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('css')
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 <style>
     .details {
         display: -webkit-box;
@@ -164,7 +165,7 @@
       							<!--/.Controls-->
       								<ol class="carousel-indicators">
         								<li data-target="#carousel-thumb" data-slide-to="0" class="active"> 
-        									<img class="d-block w-100" style="height: 40px; width: 150px" src="{{ asset('img/produk/' . $produk->produk_image->image) }}" class="img-fluid">
+        									<img class="d-block w-100 " style="height: 40px; width: 150px" src="{{ asset('img/produk/' . $produk->produk_image->image) }}" class="img-fluid">
         								</li>
         								<li data-target="#carousel-thumb" data-slide-to="1">
         									<img class="d-block w-100" style="height: 40px; width: 150px" src="{{ asset('img/produk/' . $produk->produk_image->image) }}" class="img-fluid">
@@ -199,7 +200,7 @@
 									<span class="review-no">41 reviews</span>
 								</div>
 								<p class="product-description">{{ $produk->tentang }}</p>
-								<h4 class="price">current price: <span>Rp. {{ $produk->harga_jual }}</span></h4>
+								<h4 class="price">current price: <span>Rp  {{ number_format($produk->harga_jual,0,',','.') }}</span></h4>
 								<p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
 							</div>						
 						</div>
@@ -360,7 +361,7 @@
 							</div>
 							<div class="tab-pane fade" id="nav-brand" role="tabpanel" aria-labelledby="nav-contact-tab">
 								<div class="row">
-									<div class="col-lg-2"><img src="{{ asset('img/tenant/' . $produk->tenant->foto) }}" alt="{{ $produk->produk_image->judul}}" /></div>
+									<div class="col-lg-2"><img class="rounded" src="{{ asset('img/tenant/' . $produk->tenant->foto) }}" alt="{{ $produk->tenant->title}}" /></div>
 									<div class="col-lg-6"><span class="badge badge-pill badge-danger p-2 m-1">{{ $produk->tenant->title }}</span>
 										<h6 class="heading mt-2">{{ $produk->tenant->subtitle }}</h6>
 										<p class="text-muted">{{ $produk->tenant->description }}</p>
