@@ -2,22 +2,27 @@
 
 namespace App\Http\Controllers\Produk;
 
+
 use Auth;
+use File;
+use Image;
 use App\User;
 use App\Produk;
 use App\Tenant;
-use App\TenantUser;
-use App\TenantMentor;
+use App\Priority;
 use App\Inkubator;
 use App\ProdukTeam;
-use App\Priority;
+use App\ProfilUser;
+use App\TenantUser;
 use App\ProdukImage;
+use App\profil_user;
+use App\TenantMentor;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Spatie\QueryBuilder\{QueryBuilder, AllowedFilter};
-use Illuminate\Support\Collection;
-use File;
 
 class ProdukController extends Controller
 {
@@ -63,11 +68,11 @@ class ProdukController extends Controller
 
     public function create()
     {
-        // $user_id = User::orderBy('category')->get();
-        // $tenant = Tenant::orderBy('nama')->get();
+        $user_id = ProfilUser::orderBy('nama')->get();
+        $tenant = Tenant::orderBy('title')->get();
         // $penulis = profil_user::orderBy('nama')->get();
 
-        return view('produk.formTambah');
+        return view('produk.formTambah', compact('user_id', 'tenant'));
     }
 
     public function store(Request $request)
@@ -78,6 +83,10 @@ class ProdukController extends Controller
             $image_resize = Image::make($image->getRealPath());
             $image_resize->resize(900,585);
             $image_resize->save(public_path('storage/produk/'.$filename));
+
+            $file = $request->file('proposal');
+            $proposal_file = time()."_".$file->getClientOriginalName();
+            $proposal_file->save(public_path('storage/produk/.$proposal_file'));
             $produk = Produk::create([
                 'tenant_id'             => $request->tenant_id,
                 'inventor_id'           => $request->inventor_id,
@@ -98,21 +107,21 @@ class ProdukController extends Controller
                 'keunggulan'            => $request->keunggulan,
                 'teknologi'             => $request->teknologi,
                 'pengembangan'          => $request->pengembangan,
-                'proposal'              => $filename->proposal,
+                'proposal'              => $proposal_file->proposal,
                 'publish'               => $request->publish,
             ]);
 
             $produk_image = ProdukImage::create([
-                'foto'                  => $filename->image,
-                'judul'                 => $filename->judul,
+                'foto'                  => $filename,
+                'judul'                 => $filename,
             ]);
 
             $produk_team = ProdukTeam::create([
                 'user_id'               => $request->user_id,
-                'produk_id'             => $request->produk_id,
-                'jabatan'               => $request->jabatan,
-                'divisi'                => $request->divisi,
-                'tugas'                 => $request->tugas,
+                // 'produk_id'             => $request->produk_id,
+                // 'jabatan'               => $request->jabatan,
+                // 'divisi'                => $request->divisi,
+                // 'tugas'                 => $request->tugas,
             ]);
 
 
@@ -121,7 +130,8 @@ class ProdukController extends Controller
             //     'alert-type' => 'success'
             // );
 
-            return redirect(route('tenant.produk'));
+            // return redirect(route('tenant.produk'));
+            return view('tenant.produk');
         }
     }
 

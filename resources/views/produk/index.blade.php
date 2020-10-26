@@ -12,7 +12,6 @@
                         <a href="{{route('tenant.formProduk')}}" class="btn btn-outline-primary btn-block" >
                             + Tambah Produk
                         </a>
-                        {{--
                         <div class="modal fade" id="formProduk" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">

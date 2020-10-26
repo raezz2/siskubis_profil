@@ -1,4 +1,51 @@
 @extends('layouts.app')
+@section('css')
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+<style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+    * {box-sizing: border-box;}
+
+    .input-container {
+      display: -ms-flexbox; /* IE10 */
+      display: flex;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+
+    .icon {
+      padding: 10px;
+      background: dodgerblue;
+      color: white;
+      min-width: 50px;
+      text-align: center;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 10px;
+      outline: none;
+    }
+
+    .input-field:focus {
+      border: 2px solid dodgerblue;
+    }
+
+    /* Set a style for the submit button */
+    .btn {
+      background-color: dodgerblue;
+      color: white;
+      padding: 15px 20px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      opacity: 0.9;
+    }
+
+    .btn:hover {
+      opacity: 1;
+    }
+</style>
+@endsection
 @section('content')
 <form action="{{ route('tenant.storeProduk') }}" method="post" enctype="multipart/form-data" >
 @csrf
@@ -14,60 +61,84 @@
                 </div>
                 <div class="card-body">
                     <div class="ul-widget__body">
-                        <div class="form-group">
-                            <input class="form-control" type="text" name="title" placeholder="Nama Produk" />
+                        <div class="input-container">
+                            <i class="fas fa-user-tie icon"></i>
+                            <input class="form-control" type="text" placeholder="Username" name="usrnm">
                         </div>
-                        <div class="form-group">
-                            <textarea class="form-control" name="subtitle" rows="3" placeholder="Subtitle"></textarea>
-                        </div>
-                        <div class="form-group">
+                        <div class="input-container">
+                            <i class="fas fa-money-bill-wave-alt icon"></i>
                             <input class="form-control" name="harga_pokok" type="text" placeholder="Harga Pokok" />
                         </div>
-                        <div class="form-group">
+                        <div class="input-container">
+                            <i class="fas fa-money-bill-wave-alt icon"></i>
                             <input class="form-control" name="harga_jual" type="text" row="3" placeholder="Harga Jual" />
                         </div>
-                        <div class="form-group">
+                        <div class="input-container">
+                            <i class="fas fa-phone-alt icon"></i>
                             <input class="form-control" name="contact" type="text" placeholder="No Telphone" />
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" name="location" rows="3" placeholder="Location"></textarea>
+                            <div class="input-group">
+                                <select name="tag" class="form-control custom-select" required>
+                                    <option value="0">Tag</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" name="address" rows="7" placeholder="Address"></textarea>
+                            <div class="input-group">
+                                <select name="kategori" class="form-control custom-select" required>
+                                    <option value="0">Kategori</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-container">
+                            <textarea class="form-control" name="subtitle" rows="2" placeholder="Subtitle"></textarea>
+                        </div>
+                        <div class="input-container">
+                            <textarea class="form-control" name="location" rows="3" placeholder="Location"></textarea>
+                        </div>
+                        <div class="input-container">
+                            <textarea class="form-control" name="address" rows="5" placeholder="Address"></textarea>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-xl-6 col-lg-6">
-			<div class="card mb-4">
-				<div class="card-header container-fluid">
-					<h3>Detail Produk</h3>
-                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-header container-fluid">
+                        <h3>Detail Produk</h3>
+                    </div>
                     <div class="card-body">
                         <div class="ul-widget__body">
-                            <div class="form-group">
+                            <div class="input-container">
+                                <i class="fas fa-align-justify icon"></i>
                                 <input class="form-control" name="spesifikasi" type="text" placeholder="Spesifikasi" />
                             </div>
-                            <div class="form-group">
+                            <div class="input-container">
+                                <i class="fas fa-align-justify icon"></i>
                                 <input class="form-control" name="keterbaharuan" type="text" placeholder="Keterbaharuan" />
                             </div>
-                            <div class="form-group">
+                            <div class="input-container">
+                                <i class="fas fa-align-justify icon"></i>
                                 <input class="form-control" name="manfaat" type="text" placeholder="Manfaat" />
                             </div>
-                            <div class="form-group">
+                            <div class="input-container">
+                                <i class="fas fa-align-justify icon"></i>
                                 <input class="form-control" name="keunggulan" type="text" placeholder="Keunggulan" />
                             </div>
-                            <div class="form-group">
+                            <div class="input-container">
+                                <i class="fas fa-align-justify icon"></i>
                                 <input class="form-control" name="teknologi" type="text" placeholder="Teknologi" />
                             </div>
-                            <div class="form-group">
+                            <div class="input-container">
+                                <i class="fas fa-align-justify icon"></i>
                                 <input class="form-control" name="pengembangan" type="text" placeholder="Pengembangan" />
                             </div>
-                            <div class="form-group">
-                                <textarea class="form-control" name="latar_produk" rows="3" placeholder="Latar Produk"></textarea>
+                            <div class="input-container">
+                                <textarea class="form-control" name="latar_produk" rows="4" placeholder="Latar Produk"></textarea>
                             </div>
-                            <div class="form-group">
+                            <div class="input-container">
                                 <textarea class="form-control" name="tentang_produk" rows="7" placeholder="Tentang Produk"></textarea>
                             </div>
                         </div>
@@ -100,80 +171,40 @@
 								<input type="text" class="form-control" name="priority" value="0" required>
 	           				</div>
 						</div>
-                        {{-- <div class="form-group">
+                        <div class="form-group">
                             <label>User Id :</label>
                             <div class="input-group">
                                 <select name="user_id" class="form-control custom-select" required>
                                  	<option value="">Pilih</option>
                                     @foreach ($user_id as $row)
-                                        <option value="{{ $row->id }}">{{ $row->name }}</option>
+                                        <option value="{{ $row->user_id }}">{{ $row->nama }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                        </div> --}}
-                        {{-- <div class="form-group">
-                            <label>Produk Id :</label>
-                            <div class="input-group">
-                                <select name="berita_category_id" class="form-control custom-select" required>
-                                 	<option value="">Pilih</option>
-                                    @foreach ($kategori_berita as $row)
-                                        <option value="{{ $row->id }}">{{ $row->category }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div> --}}
-						{{-- <div class="form-group">
-							<label>Jabatan :</label>
+                        </div>
+                        <div class="form-group" hidden>
+							<label>Produk Id :</label>
 	           				<div class="input-group">
-								<select name="author_id" class="form-control custom-select" required>
-                                 	<option value="">Pilih</option>
-                                    @foreach ($penulis as $row)
-                                        <option value="{{ $row->id }}">{{ $row->nama }}</option>
-                                    @endforeach
-                                </select>
+								<input type="text" class="form-control" name="produk_id" value="0" required>
 	           				</div>
-						</div> --}}
-                        {{-- <div class="form-group">
-                            <label>Divisi :</label>
+                        </div>
+						<div class="form-group">
                             <div class="input-group">
-                                <select name="inkubator_id" class="form-control" required>
-                                 	<option value="">Pilih</option>
-                                 	<option value="0">Umum / Semua orang</option>
-                                    @foreach ($inkubator as $row)
-                                        <option value="{{ $row->id }}">{{ $row->nama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div> --}}
-                        {{-- <div class="form-group">
-                            <label>Tugas :</label>
-                            <div class="input-group">
-                                <select name="inkubator_id" class="form-control" required>
-                                 	<option value="">Pilih</option>
-                                 	<option value="0">Umum / Semua orang</option>
-                                    @foreach ($inkubator as $row)
-                                        <option value="{{ $row->id }}">{{ $row->nama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div> --}}
-                        <div class="form-group">
-                            <div class="input-group">
-                                <select name="tag" class="form-control custom-select" required>
-                                    <option value="">Tag</option>
-                                    <option value="1">Publish</option>
-                                    <option value="0">Draft</option>
+                                <select name="jabatan" class="form-control custom-select" required>
+                                    <option value="0">Jabatan</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group">
-                                <select name="kategori" class="form-control custom-select" required>
-                                    <option value="">Kategori</option>
-                                    <option value="1">Publish</option>
-                                    <option value="0">Draft</option>
+                                <select name="divisi" class="form-control custom-select" required>
+                                    <option value="0">Divisi</option>
                                 </select>
                             </div>
+                        </div>
+                        <div class="input-container">
+                            <i class="fas fa-align-justify icon"></i>
+                            <input class="form-control" name="tugas" type="text" placeholder="Tugas" />
                         </div>
                         <div class="form-group">
                             <label for="foto">Uploda Proposal</label><br>
@@ -198,3 +229,11 @@
 	CKEDITOR.replace( 'berita' );
 </script>
 @endsection
+
+@section('js')
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+@endsection
+
