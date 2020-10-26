@@ -55,4 +55,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Event::class, 'author_id');
     }
+    public function user()
+    {
+        return $this->belongsTo('App\ProfilUser','id', 'user_id');
+    }
 }
