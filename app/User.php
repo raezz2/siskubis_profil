@@ -4,6 +4,7 @@ namespace App;
 
 use App\Event;
 use App\Tenant;
+use App\ProfilUser;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -52,8 +53,21 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Tenant');
     }
+    public function tenant()
+    {
+        return $this->belongsTo('App\Tenant');
+    }
     public function events()
     {
         return $this->hasMany(Event::class, 'author_id');
+    }
+    public function tenantId()
+    {
+        return $this->tenants()->first()->id;
+    }
+    public function profile()
+    {
+        // one user can only have one profile
+        return $this->hasOne(ProfilUser::class, 'user_id');
     }
 }

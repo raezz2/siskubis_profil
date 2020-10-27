@@ -162,7 +162,11 @@ Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function (
 	Route::get('/', 'Tenant\HomeController@index')->name('tenant.home');
 	Route::get('/chat', 'Chat\ChatController@index')->name('tenant.chat');
 	Route::get('/mentor', 'Mentor\MentorController@indexTenant')->name('tenant.mentor');
+<<<<<<< HEAD
 	Route::get('/profile/{id}', 'Profile\ProfileUserController@indexTenant')->name('tenant.profile');
+=======
+	Route::get('/profile/{id}', 'Profile\ProfileUserController@indexTenant')->name('tenant.profile-detail');
+>>>>>>> 96d5d606e5aff7dd81d12fcecbe3556125e427be
 	// route berita tenant
 	Route::get('/berita', 'Berita\BeritaController@indexTenant')->name('tenant.berita');
 	Route::get('/berita/{slug}', 'Berita\BeritaController@showT')->name('tenant.showBerita');
