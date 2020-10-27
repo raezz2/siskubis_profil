@@ -7,9 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProdukTeam extends Model
 {
 	protected $table = 'produk_team';
-	protected $fillable = [
-    	'nama'
-   	];
+	protected $guarded = ['id'];
 
     public function produk()
     {

@@ -67,19 +67,31 @@ class ProdukController extends Controller
         return view('produk.detailProduk', compact('produk','produk_team'));
     }
 
-    public function create(Request $request)
+    public function create()
     {
-        $team = TenantUser::with('profilUser')->where('tenant_id', $request->user()->id)->get();
+        $user_id = ProfilUser::orderBy('nama')->get();
         $tenant = Tenant::orderBy('title')->get();
         // $penulis = profil_user::orderBy('nama')->get();
 
-        return view('produk.formTambah', compact('team', 'tenant'));
+        return view('produk.formTambah', compact('user_id', 'tenant'));
     }
 
     public function store(Request $request)
     {
-        $produk_id = Produk::orderBy('id','DESC')->first('id');
+        $validator = Validator::make($request->all(), [
+            'foto'                  => 'required|image|mimes:jpg,png,jpeg',
+
+        ]);
+
         if ($request->hasFile('foto')) {
+
+            $produk_id = Produk::orderBy('id','DESC')->first();
+            $produks_id = $produk_id->id + 1;
+            //$id = $produks_id + 1;
+            //return $produks_id;
+            $pd_image = $produks_id;
+            $pd_team = $produks_id;
+
             $image = $request->file('foto');
             $filename = time() . Str::slug($request->tittle) . '.' . $image->getClientOriginalExtension();
             $image_resize = Image::make($image->getRealPath());
@@ -88,7 +100,7 @@ class ProdukController extends Controller
 
             $file = $request->file('proposal');
             $proposal_file = time()."_".$file->getClientOriginalExtension();
-            $proposal_file->storeAs('img/proposalProduk/'.$proposal_file);
+            $file->storeAs('img/proposalProduk/',$proposal_file);
             //$file->storeAs('public/produk', $filename);
             $file = $request->file('foto');
             //$filename = time() . Str::slug($request->nama) . '.' . $file->getClientOriginalExtension();
@@ -96,8 +108,7 @@ class ProdukController extends Controller
 
             $produk = Produk::create([
 
-
-                'id'                    => $produk_id,
+                'id'                    => $produks_id,
                 'tenant_id'             => $request->tenant_id,
                 'inventor_id'           => $request->inventor_id,
                 'priority_id'           => $request->priority_id,
@@ -109,8 +120,8 @@ class ProdukController extends Controller
                 'location'              => $request->location,
                 'address'               => $request->address,
                 'contact'               => $request->contact,
-                'tentang'               => $request->tentang,
-                'latar'                 => $request->latar,
+                'tentang'               => $request->tentang_produk,
+                'latar'                 => $request->latar_produk,
                 'keterbaharuan'         => $request->keterbaharuan,
                 'spesifikasi'           => $request->spesifikasi,
                 'manfaat'               => $request->manfaat,
@@ -118,18 +129,20 @@ class ProdukController extends Controller
                 'teknologi'             => $request->teknologi,
                 'pengembangan'          => $request->pengembangan,
                 'proposal'              => $proposal_file,
-                'publish'               => $request->publish,
+                //'publish'               => $request->publish,
+                'kategori_id'           => $request->kategori,
             ]);
 
             $produk_image = ProdukImage::create([
-                'produk_id'             => $produk_id,
-                'foto'                  => $filename,
+                'produk_id'             => $produks_id,
+                'image'                 => $filename,
                 'judul'                 => $filename,
+                'caption'               => 'null',
             ]);
 
             $produk_team = ProdukTeam::create([
                 'user_id'               => $request->user_id,
-                'produk_id'             => $produk_id,
+                'produk_id'             => $produks_id,
                 'jabatan'               => $request->jabatan,
                 'divisi'                => $request->divisi,
                 'tugas'                 => $request->tugas,
@@ -141,9 +154,10 @@ class ProdukController extends Controller
             //     'alert-type' => 'success'
             // );
 
-            // return redirect(route('tenant.produk'));
-            return view('tenant.produk');
+            // return view('tenant.produk');
+            return redirect(route('tenant.produk'));
         }
+        // return "ok";
     }
 
     public function destroy(Produk $produk)
@@ -163,6 +177,6 @@ class ProdukController extends Controller
 
     public function update($id, Request $request)
     {
-        $produk = Produk::find($id);        
+        $produk = Produk::find($id);
     }
 }
