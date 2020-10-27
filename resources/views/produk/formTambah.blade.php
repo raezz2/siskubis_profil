@@ -45,6 +45,7 @@
       opacity: 1;
     }
 </style>
+
 @endsection
 @section('content')
 <form action="{{ route('tenant.storeProduk') }}" method="post" enctype="multipart/form-data" >
