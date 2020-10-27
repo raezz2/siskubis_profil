@@ -39,23 +39,47 @@ class ProdukController extends Controller
     public function index(Request $request)
     {
         $priority = Priority::orderBy('name', 'ASC')->get();
+
+        if(request()->has('filter')){
+            if(array_key_exists('title', $request->filter)){
+                $title = request()->filter['title'];
+            }else{
+                $title = null;
+            }
+        }else{
+            $title = null;
+        }
+
         if ( $request->user()->hasRole('inkubator') ) {
             $ink = Tenant::where('inkubator_id', $request->user()->inkubator_id)->get('id');
-            $produk = Produk::with('tenant','priority','produk_image')
+            $produk = QueryBuilder::for(Produk::class)
+                ->allowedFilters([
+                    AllowedFilter::partial('title'),
+                    AllowedFilter::exact('priority', 'priority_id'),
+                ])
+                ->with('tenant','priority','produk_image')
                 ->whereIn('tenant_id', $ink )
                 ->paginate(12);
         }elseif($request->user()->hasRole('mentor')){
             $mentor = TenantMentor::where('user_id', $request->user()->id)->get('id');
-            $produk = Produk::with('tenant','priority','produk_image')
+            $produk = QueryBuilder::for(Produk::class)
+                ->allowedFilters([
+                    AllowedFilter::partial('title'),
+                    AllowedFilter::exact('priority', 'priority_id'),
+                ])
                 ->whereIn('tenant_id', $mentor)
                 ->paginate(12);
         }elseif($request->user()->hasRole('tenant')){
             $tenant = TenantUser::where('user_id', $request->user()->id)->first();
-            $produk = Produk::with('tenant','priority','produk_image')
+            $produk = QueryBuilder::for(Produk::class)
+                ->allowedFilters([
+                    AllowedFilter::partial('title'),
+                    AllowedFilter::exact('priority', 'priority_id'),
+                ])
                 ->where('tenant_id', $tenant->tenant_id)
                 ->paginate(12);
         }
-        return view('produk.index', compact('produk','priority'));
+        return view('produk.index', compact('produk','priority','title'));
     }
 
 	public function show($id)
@@ -69,7 +93,7 @@ class ProdukController extends Controller
 
     public function create(Request $request)
     {
-        $team = TenantUser::with('profilUser')->where('tenant_id', $request->user()->id)->get();
+        $team = TenantUser::with('profilUser')->first();
         $tenant = Tenant::orderBy('title')->get();
         // $penulis = profil_user::orderBy('nama')->get();
 

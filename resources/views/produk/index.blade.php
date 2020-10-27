@@ -23,14 +23,14 @@
                     <div class="form-group">
                         <label for="search">Pencarian</label>
                         <div class="input-group">
-                            <input type="text" name="title" id="title" class="form-control" placeholder="search" value="">
+                            <input type="text" name="titles" id="title" class="form-control" placeholder="search" value="{{ $title != null ? $title : null }}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="priority">Priority</label>
                         @foreach ($priority as $item)
                             <label class="checkbox checkbox-success">
-                                <input type="checkbox" name="priority" value="{{ $item->id }}"
+                                <input type="checkbox" name="filterByPriority" value="{{ $item->id }}"
                                     @if (in_array($item->id, explode(',', request()->input('filter.priority'))))
                                         checked
                                     @endif
@@ -125,6 +125,29 @@
     <script>
         $('#ul-contact-list').DataTable({
             responsive:true
+        });
+        $(function() {
+            function getIds(checkboxName) {
+                let checkBoxes = document.getElementsByName(checkboxName);
+                let ids = Array.prototype.slice.call(checkBoxes)
+                                .filter(ch => ch.checked==true)
+                                .map(ch => ch.value);
+                return ids;
+            }
+            function filterResults () {
+                let priorityIds = getIds("filterByPriority");
+                let title = $('input[name="titles"]').val();
+                let href = 'produk?';
+                if(priorityIds.length) {
+                    href += 'filter[priority]=' + priorityIds;
+                }
+                if(title !== ""){
+                    href += '&filter[title]=' + title;
+                }
+                console.log(href);
+                document.location.href=href;
+            }
+        document.getElementById("filter").addEventListener("click", filterResults);
         });
     </script>
 @endsection
