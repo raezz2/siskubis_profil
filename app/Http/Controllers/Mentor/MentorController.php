@@ -32,7 +32,7 @@ class MentorController extends Controller
      */
     public function index()
     {
-        $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id])
+        $data['data'] = User::with('profile')->where(['users.inkubator_id' => Auth::user()->inkubator_id])
             ->whereHas('roles', function($q){
                 $q->where('name', 'Mentor');
             })->get();

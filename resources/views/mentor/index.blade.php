@@ -34,7 +34,7 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="ul-contact-page__profile">
-					<div class="user-profile"><img class="profile-picture mb-2" src="{{ asset('img/mentor/profile/'.$data->profile->foto)}}" alt="{{ $data->profile->nama }}" /></div>
+					<div class="user-profile"><img class="profile-picture mb-2" src="{{ asset('img/mentor/profile/'.$data->profile->foto)}}" alt="{{ $data->profile->nama ?? '-'  }}" /></div>
 					<div class="ul-contact-page__info">
 						@role('inkubator')
 						<a href="{{route('inkubator.profile-detail',$data->id)}}"><p class="m-0 text-24">{{$data->profile->nama}}</p></a>

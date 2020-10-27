@@ -26,6 +26,10 @@ class RegisterMentorController extends Controller
             'email' => request('email'),
             'password' => bcrypt(request('password')),
         ]);
+        $user->profile()->create([
+            'nama'  =>  $user->email,
+            'status'  =>  0
+        ]);
 
         $role = config('roles.models.role')::where('name', '=', 'Mentor')->first();  //choose the default role upon user creation.
         $user->attachRole($role);
