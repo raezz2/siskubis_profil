@@ -49,151 +49,146 @@
 @section('content')
 <form action="{{ route('tenant.storeProduk') }}" method="post" enctype="multipart/form-data" >
 @csrf
-	<div class="col-md-12">
-		<div class="card mb-3">
-			<div class="card-header container-fluid">
-  				<div class="row">
-					<div class="col-md-10">
-	  					<h3>Data Produk</h3>
-					</div>
-  				</div>
+<div class="row">
+    <div class="col-xl-6 col-lg-6">
+        <div class="card">
+            <div class="card-header container-fluid">
+                  <div class="row">
+                    <div class="col-md-10">
+                          <h3>Produk</h3>
+                    </div>
+                  </div>
             </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="input-container">
-                            <i class="fas fa-user-tie icon"></i>
-                            <input class="form-control" name="title" type="text" placeholder="Nama produk..." required>
-                        </div>
-                        <div class="input-container">
-                            <i class="fas fa-money-bill-wave-alt icon"></i>
-                            <input class="form-control" name="harga_pokok" type="text" placeholder="Harga pokok..." required>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <i class="fas fa-phone-alt icon"></i>
-                                <select name="kategori" class="form-control custom-select" required>
-                                    <option value="0">Kategori</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <i class="fas fa-phone-alt icon"></i>
-                                <select name="tag" class="form-control custom-select" required>
-                                    <option value="0">Tag</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="input-container">
-                            <input type="text" class="form-control" name="location" placeholder="Lokasi..." required>
-                        </div>
-                        <div class="input-container">
-                            <textarea class="form-control" name="address" placeholder="Alamat..." required></textarea>
-                        </div>
-                        <div class="input-container">
-                            <i class="fas fa-phone-alt icon"></i>
-                            <input class="form-control" name="contact" type="text" placeholder="Nomer telephone..." required>
+                <div class="ul-widget__body">
+                    <div class="input-container">
+                        <i class="fas fa-user-tie icon"></i>
+                        <input class="form-control" type="text" placeholder="Username" name="title">
+                    </div>
+                    <div class="input-container">
+                        <i class="fas fa-money-bill-wave-alt icon"></i>
+                        <input class="form-control" name="harga_pokok" type="text" placeholder="Harga Pokok" />
+                    </div>
+                    <div class="input-container">
+                        <i class="fas fa-money-bill-wave-alt icon"></i>
+                        <input class="form-control" name="harga_jual" type="text" row="3" placeholder="Harga Jual" />
+                    </div>
+                    <div class="input-container">
+                        <i class="fas fa-phone-alt icon"></i>
+                        <input class="form-control" name="contact" type="text" placeholder="No Telphone" />
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <select name="tag" class="form-control custom-select" required>
+                                <option value="0">Tag</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <select name="kategori" class="form-control custom-select" required>
+                                <option value="0">Kategori</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-container">
+                        <textarea class="form-control" name="subtitle" rows="2" placeholder="Subtitle"></textarea>
+                    </div>
+                    <div class="input-container">
+                        <textarea class="form-control" name="location" rows="3" placeholder="Location"></textarea>
+                    </div>
+                    <div class="input-container">
+                        <textarea class="form-control" name="address" rows="5" placeholder="Address"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="col-xl-6 col-lg-6">
+            <div class="card mb-4">
+                <div class="card-header container-fluid">
+                    <h3>Detail Produk</h3>
+                </div>
+                <div class="card-body">
+                    <div class="ul-widget__body">
                         <div class="input-container">
-                            <i class="fas fa-user-tie icon"></i>
-                            <input class="form-control" name="subtitle" type="text" placeholder="Subtitle..." required>
+                            <i class="fas fa-align-justify icon"></i>
+                            <input class="form-control" name="spesifikasi" type="text" placeholder="Spesifikasi" />
                         </div>
                         <div class="input-container">
-                            <i class="fas fa-money-bill-wave-alt icon"></i>
-                            <input class="form-control" name="harga_jual" type="text" placeholder="Harga jual..." required>
+                            <i class="fas fa-align-justify icon"></i>
+                            <input class="form-control" name="keterbaharuan" type="text" placeholder="Keterbaharuan" />
+                        </div>
+                        <div class="input-container">
+                            <i class="fas fa-align-justify icon"></i>
+                            <input class="form-control" name="manfaat" type="text" placeholder="Manfaat" />
+                        </div>
+                        <div class="input-container">
+                            <i class="fas fa-align-justify icon"></i>
+                            <input class="form-control" name="keunggulan" type="text" placeholder="Keunggulan" />
+                        </div>
+                        <div class="input-container">
+                            <i class="fas fa-align-justify icon"></i>
+                            <input class="form-control" name="teknologi" type="text" placeholder="Teknologi" />
+                        </div>
+                        <div class="input-container">
+                            <i class="fas fa-align-justify icon"></i>
+                            <input class="form-control" name="pengembangan" type="text" placeholder="Pengembangan" />
+                        </div>
+                        <div class="input-container">
+                            <textarea class="form-control" name="latar_produk" rows="4" placeholder="Latar Produk"></textarea>
+                        </div>
+                        <div class="input-container">
+                            <textarea class="form-control" name="tentang_produk" rows="7" placeholder="Tentang Produk"></textarea>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-xl-6 col-lg-6">
+    <div class="col-xl-12 col-lg-4">
         <div class="card mb-4">
             <div class="card-header container-fluid">
-                <h3>Detail Produk</h3>
+                <h3>Produk</h3>
             </div>
             <div class="card-body">
                 <div class="ul-widget__body">
-                    <div class="input-container">
-                        <i class="fas fa-align-justify icon"></i>
-                        <input class="form-control" name="spesifikasi" type="text" placeholder="Spesifikasi" />
-                    </div>
-                    <div class="input-container">
-                        <i class="fas fa-align-justify icon"></i>
-                        <input class="form-control" name="keterbaharuan" type="text" placeholder="Keterbaharuan" />
-                    </div>
-                    <div class="input-container">
-                        <i class="fas fa-align-justify icon"></i>
-                        <input class="form-control" name="manfaat" type="text" placeholder="Manfaat" />
-                    </div>
-                    <div class="input-container">
-                        <i class="fas fa-align-justify icon"></i>
-                        <input class="form-control" name="keunggulan" type="text" placeholder="Keunggulan" />
-                    </div>
-                    <div class="input-container">
-                        <i class="fas fa-align-justify icon"></i>
-                        <input class="form-control" name="teknologi" type="text" placeholder="Teknologi" />
-                    </div>
-                    <div class="input-container">
-                        <i class="fas fa-align-justify icon"></i>
-                        <input class="form-control" name="pengembangan" type="text" placeholder="Pengembangan" />
-                    </div>
-                    <div class="input-container">
-                        <textarea class="form-control" name="latar_produk" rows="4" placeholder="Latar Produk"></textarea>
-                    </div>
-                    <div class="input-container">
-                        <textarea class="form-control" name="tentang_produk" rows="7" placeholder="Tentang Produk"></textarea>
-                    </div>
-                </div>
-            </div>
-		 </div>
-    </div>
-	<div class="col-xl-12 col-lg-4">
-		<div class="card mb-4">
-			<div class="card-header container-fluid">
-				<h3>Lainnya</h3>
-			</div>
-			<div class="card-body">
-				<div class="ul-widget__body">
                     <div class="form-group" hidden>
-						<label>Tenant Id :</label>
-	           			<div class="input-group">
-							<input type="text" class="form-control" name="tenant_id" value="0" required>
-	           			</div>
+                        <label>Tenant Id :</label>
+                           <div class="input-group">
+                            <input type="text" class="form-control" name="tenant_id" value="0" required>
+                           </div>
                     </div>
                     <div class="form-group" hidden>
-						<label>Inventor Id :</label>
-	          			<div class="input-group">
-							<input type="text" class="form-control" name="inventor_id" value="0" required>
-	           			</div>
+                        <label>Inventor Id :</label>
+                           <div class="input-group">
+                            <input type="text" class="form-control" name="inventor_id" value="0" required>
+                           </div>
                     </div>
                     <div class="form-group" hidden>
-						<label>Priority Id :</label>
-	          			<div class="input-group">
-							<input type="text" class="form-control" name="priority" value="0" required>
-	           			</div>
-					</div>
+                        <label>Priority Id :</label>
+                           <div class="input-group">
+                            <input type="text" class="form-control" name="priority_id" value="0" required>
+                           </div>
+                    </div>
                     <div class="form-group">
                         <label>User Id :</label>
                         <div class="input-group">
                             <select name="user_id" class="form-control custom-select" required>
                                  <option value="">Pilih</option>
-                                @foreach ($team as $row)
-                                    <option value="{{ $row->user_id }}">{{ $row->profilUser->nama }}</option>
+                                @foreach ($user_id as $row)
+                                    <option value="{{ $row->user_id }}">{{ $row->nama }}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="form-group" hidden>
-						<label>Produk Id :</label>
-	           			<div class="input-group">
-							<input type="text" class="form-control" name="produk_id" value="0" required>
-	           			</div>
+                        <label>Produk Id :</label>
+                           <div class="input-group">
+                            <input type="text" class="form-control" name="produk_id" value="0" required>
+                           </div>
                     </div>
-					<div class="form-group">
+                    <div class="form-group">
                         <div class="input-group">
                             <select name="jabatan" class="form-control custom-select" required>
                                 <option value="0">Jabatan</option>
@@ -219,12 +214,12 @@
                         <label for="foto">Upload Foto</label><br>
                         <input type="file" name="foto" value="{{ old('foto') }}" required>
                     </div>
-					<div class="form-group">
-						<button class="btn btn-primary">Tambah</button>
-					</div>
-				</div>
-			</div>
-		</div>
+                    <div class="form-group">
+                        <button class="btn btn-primary">Tambah</button>
+                    </div>
+                </div>
+            </div>
     </div>
+</div>
 </form>
 @endsection

@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Produk extends Model
 {
     protected $table = 'produk';
+    protected $guarded = [];
+    public $timestamps = false;
 
     public function tenant()
     {
