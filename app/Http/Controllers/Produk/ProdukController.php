@@ -57,6 +57,7 @@ class ProdukController extends Controller
         }
         return view('produk.index', compact('produk','priority'));
     }
+
 	public function show($id)
     {
         $produk = Produk::find($id);
@@ -66,32 +67,41 @@ class ProdukController extends Controller
         return view('produk.detailProduk', compact('produk','produk_team'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        $user_id = ProfilUser::orderBy('nama')->get();
+        $team = TenantUser::with('profilUser')->where('tenant_id', $request->user()->id)->get();
         $tenant = Tenant::orderBy('title')->get();
         // $penulis = profil_user::orderBy('nama')->get();
 
-        return view('produk.formTambah', compact('user_id', 'tenant'));
+        return view('produk.formTambah', compact('team', 'tenant'));
     }
 
     public function store(Request $request)
     {
+        $produk_id = Produk::orderBy('id','DESC')->first('id');
         if ($request->hasFile('foto')) {
             $image = $request->file('foto');
             $filename = time() . Str::slug($request->tittle) . '.' . $image->getClientOriginalExtension();
             $image_resize = Image::make($image->getRealPath());
             $image_resize->resize(900,585);
-            $image_resize->save(public_path('storage/produk/'.$filename));
+            $image_resize->save(public_path('img/produk/'.$filename));
 
             $file = $request->file('proposal');
-            $proposal_file = time()."_".$file->getClientOriginalName();
-            $proposal_file->save(public_path('storage/produk/.$proposal_file'));
+            $proposal_file = time()."_".$file->getClientOriginalExtension();
+            $proposal_file->storeAs('img/proposalProduk/'.$proposal_file);
+            //$file->storeAs('public/produk', $filename);
+            $file = $request->file('foto');
+            //$filename = time() . Str::slug($request->nama) . '.' . $file->getClientOriginalExtension();
+            //$file->storeAs('public/produk', $filename);
+
             $produk = Produk::create([
+
+
+                'id'                    => $produk_id,
                 'tenant_id'             => $request->tenant_id,
                 'inventor_id'           => $request->inventor_id,
                 'priority_id'           => $request->priority_id,
-                'tittle'                => $request->tittle,
+                'title'                 => $request->title,
                 'subtitle'              => $request->subtitle,
                 'harga_pokok'           => $request->harga_pokok,
                 'harga_jual'            => $request->harga_jual,
@@ -107,21 +117,22 @@ class ProdukController extends Controller
                 'keunggulan'            => $request->keunggulan,
                 'teknologi'             => $request->teknologi,
                 'pengembangan'          => $request->pengembangan,
-                'proposal'              => $proposal_file->proposal,
+                'proposal'              => $proposal_file,
                 'publish'               => $request->publish,
             ]);
 
             $produk_image = ProdukImage::create([
+                'produk_id'             => $produk_id,
                 'foto'                  => $filename,
                 'judul'                 => $filename,
             ]);
 
             $produk_team = ProdukTeam::create([
                 'user_id'               => $request->user_id,
-                // 'produk_id'             => $request->produk_id,
-                // 'jabatan'               => $request->jabatan,
-                // 'divisi'                => $request->divisi,
-                // 'tugas'                 => $request->tugas,
+                'produk_id'             => $produk_id,
+                'jabatan'               => $request->jabatan,
+                'divisi'                => $request->divisi,
+                'tugas'                 => $request->tugas,
             ]);
 
 
@@ -143,13 +154,15 @@ class ProdukController extends Controller
         return redirect()->back();
     }
 
-	  public function kategori($kategori)
+    public function edit($id)
     {
-        return view('tenant.produk');
+        $produk = Produk::find($id);
+
+        return $produk;
     }
 
-	  public function detail($kategori,$id)
+    public function update($id, Request $request)
     {
-        return view('tenant.produk');
+        $produk = Produk::find($id);        
     }
 }
