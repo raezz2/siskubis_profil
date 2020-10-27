@@ -21,4 +21,13 @@ class Tenant extends Model
     {
         return $this->belongsTo('App\Priority');
     }
+    public function produk()
+    {
+        return $this->hasMany(Produk::class);
+    }
+    public function mentor()
+    {
+        return $this->belongsTo('App\TenantMentor');
+    }
+
 }

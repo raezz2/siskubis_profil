@@ -35,7 +35,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <div class="input-group">
-                                                    <select name="publish" class="form-control custom-select" required>
+                                                    <select name="" class="form-control custom-select" required>
                                                          <option value="">Tag</option>
                                                          <option value="1">Publish</option>
                                                          <option value="0">Draft</option>
@@ -44,7 +44,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <div class="input-group">
-                                                    <select name="publish" class="form-control custom-select" required>
+                                                    <select name="" class="form-control custom-select" required>
                                                          <option value="">Kategori</option>
                                                          <option value="1">Publish</option>
                                                          <option value="0">Draft</option>
@@ -85,7 +85,7 @@
                                                 <textarea class="form-control" name="subtitle" rows="3" placeholder="Tentang Produk"></textarea>
                                             </div>
                                             <div class="input-group">
-                                                <select name="priority" class="form-control custom-select" required hidden>
+                                                <select name="" class="form-control custom-select" required hidden>
                                                      <option value="">Priority</option>
                                                      <option value="1">Pra Start Up</option>
                                                      <option value="2">Proposal</option>
@@ -137,14 +137,14 @@
                         <label for="priority">Priority</label>
                         @foreach ($priority as $item)
                             <label class="checkbox checkbox-success">
-                                <input type="checkbox" name="priority" value="{{ $item->id }}"
+                                <input type="checkbox" name="filterByPriority" value="{{ $item->id }}"
                                     @if (in_array($item->id, explode(',', request()->input('filter.priority'))))
                                         checked
                                     @endif
                                 />
                                 <span>{{ $item->name }}</span><span class="checkmark"></span>
-                        </label>
-                    @endforeach
+                            </label>
+                        @endforeach
                     </div>
                     <div class="form-group">
                         <button id="filter" class="btn btn-primary">Filter</button>
@@ -161,11 +161,20 @@
                                 <div class="list-thumb d-flex"><img alt="" src="{{ asset('img/produk/' . $row->produk_image->image) }}" /></div>
                                 <div class="flex-grow-1 d-bock">
                                     <div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center">
+                                        @role('inkubator')
                                         <a class="w-40 w-sm-100" href="{{ route('inkubator.detailProduk', $row->id) }}">
                                             <div class="item-title">
                                                 {{ $row->title }}
                                             </div>
                                         </a>
+                                        @endrole
+                                        @role('mentor')
+                                        <a class="w-40 w-sm-100" href="{{ route('mentor.detailProduk', $row->id) }}">
+                                            <div class="item-title">
+                                                {{ $row->title }}
+                                            </div>
+                                        </a>
+                                        @endrole
                                         <p class="m-0 text-muted text-small w-15 w-sm-100">Harga Rp. {{ $row->harga_jual }}</p>
                                         <p class="m-0 text-muted text-small w-15 w-sm-100">{{ $row->tenant->title }}</p>
                                         @role('tenant')
@@ -205,7 +214,50 @@
     <script src="{{asset('theme/js/scripts/tooltip.script.min.js')}}"></script>
     <script>
         $('#ul-contact-list').DataTable({
-			responsive:true
-		});
+            responsive:true
+            });
+        $(function() {
+            function getIds(checkboxName) {
+                let checkBoxes = document.getElementsByName(checkboxName);
+                let ids = Array.prototype.slice.call(checkBoxes)
+                                .filter(ch => ch.checked==true)
+                                .map(ch => ch.value);
+                return ids;
+            }
+            function filterResults () {
+                let priorityIds = getIds("filterByPriority");
+                // let title = $('input[name="titles"]').val();
+                // let publishStats = getIds("publish");
+                // let start = $('input[name="daterange"]').val();
+
+                let href = 'produk?';
+
+                if(priorityIds.length) {
+                    href += 'filter[priority]=' + priorityIds;
+                }
+
+                // if(publishStats.length) {
+                //     href += '&filter[publish]=' + publishStats;
+                // }
+
+                // if(title !== ""){
+                //     href += '&filter[title]=' + title;
+                // }
+
+                // if(start !== ""){
+                //     let startDate = $('input[name="daterange"]').data('daterangepicker').startDate.format('YYYY-MM-DD');
+                //     let endDate = $('input[name="daterange"]').data('daterangepicker').endDate.format('YYYY-MM-DD');
+
+                //     href += '&filter[between]=' + startDate + ',' + endDate;
+                // }
+
+                console.log(href);
+
+                document.location.href=href;
+            }
+
+        document.getElementById("filter").addEventListener("click", filterResults);
+
+        });
     </script>
 @endsection

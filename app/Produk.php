@@ -27,4 +27,9 @@ class Produk extends Model
     {
         return $this->belongTo('App\ProdukTeam','id','produk_id');
     }
+    public function mentors()
+    {
+        return $this->belongsTo('App\TenantMentor','tenant_id','tenant_id');
+    }
+
 }

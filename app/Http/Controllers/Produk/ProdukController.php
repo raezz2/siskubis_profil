@@ -11,6 +11,9 @@ use App\ProdukTeam;
 use App\ProdukImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\TenantMentor;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Spatie\QueryBuilder\{QueryBuilder, AllowedFilter};
 
@@ -31,15 +34,27 @@ class ProdukController extends Controller
     {
         $priority = Priority::orderBy('name', 'ASC')->get();
         if ( $request->user()->hasRole('inkubator') ) {
-            $produk = Produk::with('tenant','priority','produk_image')->paginate(12);
+            // $produk = Produk::with('tenant','priority','produk_image')->paginate(12);
+        
+            $priority = Priority::orderBy('name', 'ASC')->get();
+            $produk = QueryBuilder::for(Produk::class)
+                ->allowedFilters([
+                    // AllowedFilter::partial('title'),
+                    AllowedFilter::exact('priority', 'priority_id'),
+                    // AllowedFilter::exact('publish', 'publish'),
+                ])
+                ->with('tenant','priority','produk_image')->latest()->paginate();
+    
         }elseif($request->user()->hasRole('mentor')){
-            $produk = Produk::with('tenant','priority','produk_image')->paginate(12);
-            //$produk = Produk::where('mentor_id', Auth::user('id') )->paginate(12);
+            // $tenant = Auth::user()->mentors()->get()->tenant_id;
+            // $tenant = TenantMentor::with('mentor')->where(Auth::user()->mentors()->tenant_id);
+            $produk = Produk::with('mentors','priority','produk_image')->where(Auth::user()->mentors()->tenant_id);
+            dd ($produk);
         }elseif($request->user()->hasRole('tenant')){
             $produk = Produk::with('tenant','priority','produk_image')->paginate(12);
             $tenant = Auth::user()->tenants()->first();
         }
-
+        
         return view('produk.index', compact('produk','priority'));
     }
 	public function show($id)
@@ -98,4 +113,81 @@ class ProdukController extends Controller
     {
         return view('tenant.produk');
     }
+
+    //Function Filter
+    public function indexInkubator(Request $request)
+    {
+        if(request()->has('filter')){
+            if(array_key_exists('between', $request->filter)){
+                $test = request()->filter['between'];
+                $exp = explode(',', $test);
+            }else{
+                $exp = null;
+            }
+
+            if(array_key_exists('title', $request->filter)){
+                $title = request()->filter['title'];
+            }else{
+                $title = null;
+            }
+        }else{
+            $exp = null;
+            $title = null;
+        }
+
+        $priority = Priority::orderBy('name', 'ASC')->get();
+        $produk = QueryBuilder::for(Produk::class)
+            ->allowedFilters([
+                // AllowedFilter::partial('title'),
+                AllowedFilter::exact('filterByPriority', 'priority_id'),
+                AllowedFilter::exact('publish', 'publish'),
+            ])
+            ->latest()->paginate();
+        return view('produk.index', compact('produk', 'priority', 'exp', 'title'));
+    }
+
+    public function indexMentor(Request $request)
+    {
+        if(request()->has('filter')){
+            if(array_key_exists('between', $request->filter)){
+                $test = request()->filter['between'];
+                $exp = explode(',', $test);
+            }else{
+                $exp = null;
+            }
+
+            if(array_key_exists('title', $request->filter)){
+                $title = request()->filter['title'];
+            }else{
+                $title = null;
+            }
+        }else{
+            $exp = null;
+            $title = null;
+        }
+
+        $priority = Priority::orderBy('name', 'ASC')->get();
+        $produk = QueryBuilder::for(Produk::class)
+            ->allowedFilters([
+                AllowedFilter::partial('title'),
+                AllowedFilter::exact('filterByPriority', 'priority_id'),
+                AllowedFilter::exact('publish', 'publish'),
+            ])->where('inkubator_id', '=', Auth::user()->inkubator_id)
+            ->latest()->paginate();
+        return view('produk.index', compact('produk', 'priority', 'exp', 'title'));
+    }
+
+    public function indexTenant(Request $request)
+    {
+
+        $tenant = Auth::user()->tenants()->first();
+        $produk = Produk::where([
+            ['inkubator_id', '=', Auth::user()->inkubator_id],
+            ['priority_id', '=', $tenant->priority],
+            ['publish', '=', 1]
+        ])->latest()->paginate();
+
+        return view('produk.index', compact('produk'));
+    }
+
 }

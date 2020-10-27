@@ -9,6 +9,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
 
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -54,5 +55,10 @@ class User extends Authenticatable
     public function events()
     {
         return $this->hasMany(Event::class, 'author_id');
+    }
+     
+    public function mentors()
+    {
+        return $this->belongsTo('App\TenantMentor', 'tenant_id','id');
     }
 }

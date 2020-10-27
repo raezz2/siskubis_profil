@@ -133,6 +133,7 @@ Route::group(['prefix' => 'mentor', 'middleware' => ['role:mentor']], function (
 
 	//Route produk mentor
 	Route::get('/produk', 'Produk\ProdukController@index')->name('mentor.produk');
+	Route::get('/produk/{id}', 'Produk\ProdukController@show')->name('mentor.detailProduk');
 
 	//route surat mentor
 	Route::get('/suratmasuk', 'Persuratan\DisposisiController@mentorsuratmasuk');
