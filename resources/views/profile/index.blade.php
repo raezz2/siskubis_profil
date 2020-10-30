@@ -10,7 +10,7 @@
 <section class="ul-contact-detail">
     <div class="row">
         <div class="col-lg-4 col-xl-4">
-            <div class="card o-hidden"><img class="d-block w-100" src="@if($data->profile->foto){ {{ asset('img/mentor/profile/'.$data->profile->foto) }} } @else /img/mentor/profile/default.jpg @endif" alt="foto profil">
+            <div class="card o-hidden"><img class="d-block w-100" src="{{ asset('img/mentor/profile/'.$data->profile->foto) }}" alt="foto profil">
                 <div class="card-body">
                     <div class="ul-contact-detail__info">
                         <div class="row">
