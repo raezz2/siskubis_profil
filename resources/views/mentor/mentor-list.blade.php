@@ -17,10 +17,17 @@
 	<div class="col-lg-12 col-md-12 mb-4">
 		<div class="card">
 			<div class="card-body ">
-				<strong>Pendamping</strong>
+                <strong>Pendamping</strong>
+            @role('inkubator')
 			<a href="{{route('inkubator.mentor')}}">Grid</a>
 			<a class="item-divider"></a>
-			<a href="{{ route('inkubator.mentor-list') }}">List</a>
+            <a href="{{ route('inkubator.mentor-list') }}">List</a>
+            @endrole
+            @role('tenant')
+			<a href="{{route('tenant.mentor')}}">Grid</a>
+			<a class="item-divider"></a>
+            <a href="{{ route('tenant.mentor-list') }}">List</a>
+            @endrole
 			<button class="btn btn-primary btn-md m-1 float-right" type="button" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="i-Add-User text-white mr-2"></i> Tambah Pendamping</button>
 			</div>
 		</div>
@@ -46,10 +53,10 @@
                     <tbody>
                     @foreach($data as $data)
                         <tr>
-                            <td><a href="">
+                            <td><a href="{{route('inkubator.profile-detail',$data->id)}}">
                                     <div class="ul-widget-app__profile-pic"><img class="profile-picture avatar-sm mb-2 rounded-circle img-fluid" src="{{ asset('img/mentor/profile/'.$data->foto)}}" alt="Profil" />{{$data->nama}}</div>
                                 </a></td>
-                            <td>{{ $data->user->email }}</td>
+                            <td>{{ $data->email }}</td>
                             <td>{{ $data->kontak }}</td>
                             <td><a class="badge badge-primary m-2 p-2" href="#">Developer</a></td>
                             <td>20</td>
