@@ -84,11 +84,12 @@ class ProdukController extends Controller
 
 	public function show($id)
     {
-        $produk = Produk::find($id);
-        $produk = Produk::with(['tenant','produk_image'])->where('id', $id)->first();
-        $produk_team = ProdukTeam::with('profil_user.user')->where('produk_id', $id)->get();
+        $produk         = Produk::find($id);
+        $produk         = Produk::with(['tenant','produk_image'])->where('id', $id)->first();
+        $image          = ProdukImage::where('produk_id',$id)->get();
+        $produk_team    = ProdukTeam::with('profil_user.user')->where('produk_id', $id)->get();
 
-        return view('produk.detailProduk', compact('produk','produk_team'));
+        return view('produk.detailProduk', compact('produk','produk_team','image'));
     }
 
     public function create()
