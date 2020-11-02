@@ -252,7 +252,7 @@
                                     <textarea name="deskripsi" id="deskripsi" class="form-control">{!! old('deskripsi') ?? $data->profile->deskripsi !!}</textarea>
                                     @error('deskripsi')
                                     <div class="mt-2 text-danger">
-                                        error
+                                        {{ $message }}
                                     </div>
                                     @enderror
                                     </div>

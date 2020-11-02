@@ -56,13 +56,11 @@ class ProfileUserController extends Controller
         $profil = ProfilUser::where('user_id', Auth::user()->id)->first();
         $tujuan_upload = 'img/mentor/profile';
 
-        if (!$profil) {
+        if (!$profil->foto) {
             $file = $request->foto;
             $filename = time() . \Str::slug($request->get('nama')) . '.' . $file->getClientOriginalExtension();
             $file->move($tujuan_upload, $filename);
-        } elseif ($profil && !$request->foto) {
-            $filename = $profil->foto;
-        } elseif ($profil && $request->file('foto')) {
+        } elseif ($profil->foto) {
             \Storage::delete($profil->foto);
             $file = $request->foto;
             $filename = time() . \Str::slug($request->get('nama')) . '.' . $file->getClientOriginalExtension();

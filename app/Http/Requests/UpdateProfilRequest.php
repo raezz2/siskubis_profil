@@ -31,7 +31,6 @@ class UpdateProfilRequest extends FormRequest
             'nik' => 'required',
             'foto' => 'image|mimes:jpg,png,jpeg|max:2048',
             'deskripsi' => 'required',
-            'status' => 'required',
         ];
     }
 }
