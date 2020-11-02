@@ -54,14 +54,14 @@ class ProfileUserController extends Controller
     public function update(UpdateProfilRequest $request)
     {
         $profil = ProfilUser::where('user_id', Auth::user()->id)->first();
-        $tujuan_upload = 'img/mentor/profile';
+        $tujuan_upload = 'img/mentor/profile/';
 
-        if (!$profil->foto) {
+        if ($profil->foto === null) {
             $file = $request->foto;
             $filename = time() . \Str::slug($request->get('nama')) . '.' . $file->getClientOriginalExtension();
             $file->move($tujuan_upload, $filename);
-        } elseif ($profil->foto) {
-            \Storage::delete($profil->foto);
+        } elseif ($profil->foto !== null) {
+            \File::delete($tujuan_upload.$profil->foto);
             $file = $request->foto;
             $filename = time() . \Str::slug($request->get('nama')) . '.' . $file->getClientOriginalExtension();
             $file->move($tujuan_upload, $filename);
