@@ -10,7 +10,7 @@
 <section class="ul-contact-detail">
     <div class="row">
         <div class="col-lg-4 col-xl-4">
-            <div class="card o-hidden"><img class="d-block w-100" src="@if($data->profile->foto){ {{ asset('img/mentor/profile/'.$data->profile->foto) }} } @else /img/mentor/profile/default.jpg @endif" alt="foto profil">
+            <div class="card o-hidden"><img class="d-block w-100" src="{{ asset('img/mentor/profile/'.$data->profile->foto) }}" alt="foto profil">
                 <div class="card-body">
                     <div class="ul-contact-detail__info">
                         <div class="row">
@@ -64,7 +64,7 @@
                 <div class="card-header bg-transparent">Data Profil</div>
                 <div class="card-body">
                     <nav>
-                        <div class="nav nav-tabs" id="nav-tab" role="tablist"><a class="nav-item nav-link active show" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="false">Home</a><a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a><a class="nav-item nav-link " id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="true">Edit Contact</a></div>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist"><a class="nav-item nav-link active show" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="false">Home</a><a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>@role('mentor')<a class="nav-item nav-link " id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="true">Edit Contact</a>@endrole</div>
                     </nav>
                     <div class="tab-content ul-tab__content" id="nav-tabContent">
                         <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
@@ -252,7 +252,7 @@
                                     <textarea name="deskripsi" id="deskripsi" class="form-control">{!! old('deskripsi') ?? $data->profile->deskripsi !!}</textarea>
                                     @error('deskripsi')
                                     <div class="mt-2 text-danger">
-                                        error
+                                        {{ $message }}
                                     </div>
                                     @enderror
                                     </div>

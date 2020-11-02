@@ -48,6 +48,7 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 	Route::get('/mentor/list', 'Mentor\MentorController@tampil')->name('inkubator.mentor-list');
 	Route::post('/mentor/tambah', 'Mentor\MentorController@create')->name('inkubator.mentor.tenant');
 	Route::post('/mentor/store', 'Inkubator\RegisterMentorController@create')->name('inkubator.regis');
+	Route::get('/mentor/profile/{id}', 'Profile\ProfileUserController@show')->name('inkubator.profile-detail');
 	Route::get('/produk', 'Produk\ProdukController@index')->name('inkubator.produk');
 	Route::get('/produk/{kategori}', 'Produk\ProdukController@kategori')->name('inkubator.produk-kategori');
 	Route::get('/produk/{kategori}/{id}', 'Produk\ProdukController@detail')->name('inkubator.produk-detail');
@@ -59,7 +60,7 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 	Route::get('/chat', 'Chat\ChatController@index')->name('inkubator.chat');
 	Route::get('/pesan', 'Pesan\PesanController@index')->name('inkubator.pesan');
 	Route::get('/profile', 'Profile\ProfileUserController@index')->name('inkubator.profile-auth');
-	Route::get('/profile/{id}', 'Profile\ProfileUserController@index')->name('inkubator.profile-detail');
+	Route::get('/profile/{id}', 'Profile\ProfileUserController@index')->name('inkubator.profile');
 
 	//route surat inkubator
 	Route::get('/surat', 'Persuratan\PersuratanController@index')->name('inkubator.surat');
@@ -129,7 +130,7 @@ Route::group(['prefix' => 'mentor', 'middleware' => ['role:mentor']], function (
 	Route::get('/', 'Mentor\HomeController@index')->name('mentor.home');
 	Route::get('/chat', 'Chat\ChatController@index')->name('mentor.chat');
 	Route::get('/mentor', 'Mentor\MentorController@index')->name('mentor.index');
-	Route::get('/profile', 'Profile\ProfileUserController@indexMentor')->name('mentor.profile-mentor');
+	Route::get('/profile', 'Profile\ProfileUserController@index')->name('mentor.profile-mentor');
 	Route::post('/profile/update', 'Profile\ProfileUserController@update')->name('mentor.profile-update');
 
 	//route surat mentor
@@ -163,7 +164,7 @@ Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function (
 	Route::get('/chat', 'Chat\ChatController@index')->name('tenant.chat');
 	Route::get('/mentor', 'Mentor\MentorController@indexTenant')->name('tenant.mentor');
 	Route::get('/mentor/list', 'Mentor\MentorController@tampil')->name('tenant.mentor-list');
-	Route::get('/profile/{id}', 'Profile\ProfileUserController@indexTenant')->name('tenant.profile-detail');
+	Route::get('mentor/profile/{id}', 'Profile\ProfileUserController@show')->name('tenant.profile-detail');
 	// route berita tenant
 	Route::get('/berita', 'Berita\BeritaController@indexTenant')->name('tenant.berita');
 	Route::get('/berita/{slug}', 'Berita\BeritaController@showT')->name('tenant.showBerita');

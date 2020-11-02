@@ -61,7 +61,9 @@ class MentorController extends Controller
     public function tampil(Request $request)
     {
         if ($request->user()->hasRole('inkubator')) {
-            $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'role_user.role_id' => 4])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'profil_user.*')->get();
+            $data['data'] = User::with('profile')->where(['users.inkubator_id' => Auth::user()->inkubator_id])->whereHas('roles', function ($q) {
+                $q->where('name', 'Mentor');
+            })->get();
         } elseif ($request->user()->hasRole('tenant')) {
             $mentor = TenantMentor::where('tenant_id', Auth::user()->tenantId())->pluck('user_id');
             $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id])->whereIn('id', $mentor)->get();

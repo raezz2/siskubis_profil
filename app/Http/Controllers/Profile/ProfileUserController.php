@@ -22,18 +22,26 @@ class ProfileUserController extends Controller
 
     public function index()
     {
-        $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'users.id' => Auth::user()->id])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'profil_user.*')->first();
+        if (request()->user()->hasRole(['mentor'])) {
+            $data['data'] = User::with('profile')->where(['users.id' => Auth::user()->id])->first();
+            if ($data['data']->profile->status === '0') {
+                request()->session()->now('message', 'Tolong lengkapi data profil anda');
+                request()->session()->now('alert-type', 'warning');
+            }
+        }
         return view('profile.index', $data);
         // return $data;
     }
-
-    public function indexMentor()
+    /**
+     * menampilkan detail profil user lain berdasarkan request()->id
+     */
+    public function show()
     {
         // $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'users.id' => auth()->user()->id])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'profil_user.*')->first();
-        $data['data'] = User::with('profile')->where(['users.id' => auth()->user()->id])->first();
-        if ($data['data']->profile->status === '0') {
-            request()->session()->now('message', 'Tolong lengkapi data profil anda');
-            request()->session()->now('alert-type', 'warning');
+        if (request()->user()->hasRole(['inkubator', 'tenant'])) {
+            $data['data'] = User::with('profile')->where(['users.inkubator_id' => Auth::user()->inkubator_id, 'users.id' => request()->id])->whereHas('roles', function ($q) {
+                $q->where('name', 'Mentor');
+            })->firstOrFail();
         }
         return view('profile.index', $data);
     }
@@ -48,16 +56,14 @@ class ProfileUserController extends Controller
     public function update(UpdateProfilRequest $request)
     {
         $profil = ProfilUser::where('user_id', Auth::user()->id)->first();
-        $tujuan_upload = 'img/mentor/profile';
+        $tujuan_upload = 'img/mentor/profile/';
 
-        if (!$profil) {
+        if ($profil->foto === null) {
             $file = $request->foto;
             $filename = time() . \Str::slug($request->get('nama')) . '.' . $file->getClientOriginalExtension();
             $file->move($tujuan_upload, $filename);
-        } elseif ($profil && !$request->foto) {
-            $filename = $profil->foto;
-        } elseif ($profil && $request->file('foto')) {
-            \Storage::delete($profil->foto);
+        } elseif ($profil->foto !== null) {
+            \File::delete($tujuan_upload . $profil->foto);
             $file = $request->foto;
             $filename = time() . \Str::slug($request->get('nama')) . '.' . $file->getClientOriginalExtension();
             $file->move($tujuan_upload, $filename);

@@ -28,7 +28,7 @@ class RegisterMentorController extends Controller
         ]);
         $user->profile()->create([
             'nama'  =>  $user->email,
-            'status'  =>  0
+            'status'  =>  '0'
         ]);
 
         $role = config('roles.models.role')::where('name', '=', 'Mentor')->first();  //choose the default role upon user creation.

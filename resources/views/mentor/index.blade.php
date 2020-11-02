@@ -22,13 +22,13 @@
 			<a href="{{route('inkubator.mentor')}}">Grid</a>
 			<a class="item-divider"></a>
 			<a href="{{ route('inkubator.mentor-list') }}">List</a>
+			<button class="btn btn-primary btn-md m-1 float-right" type="button" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="i-Add-User text-white mr-2"></i> Tambah Pendamping</button>
 			@endrole
 			@role('tenant')		
 			<a href="{{route('tenant.mentor')}}">Grid</a>
 			<a class="item-divider"></a>
 			<a href="{{ route('tenant.mentor-list') }}">List</a>
 			@endrole
-			<button class="btn btn-primary btn-md m-1 float-right" type="button" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="i-Add-User text-white mr-2"></i> Tambah Pendamping</button>
 			</div>
 		</div>
 	</div>
@@ -42,7 +42,7 @@
 					<div class="user-profile"><img class="profile-picture mb-2" src="{{ asset('img/mentor/profile/'.$data->profile->foto)}}" alt="{{ $data->profile->nama ?? '-'  }}" /></div>
 					<div class="ul-contact-page__info">
 						@role('inkubator')
-						<a href="{{route('inkubator.profile-detail',$data->uid)}}"><p class="m-0 text-24">{{$data->profile->nama}}</p></a>
+						<a href="{{route('inkubator.profile-detail',$data->id)}}"><p class="m-0 text-24">{{$data->profile->nama}}</p></a>
 						@endrole
 						@role('tenant')
 						<a href="{{route('tenant.profile-detail',$data->id)}}"><p class="m-0 text-24">{{$data->profile->nama}}</p></a>
