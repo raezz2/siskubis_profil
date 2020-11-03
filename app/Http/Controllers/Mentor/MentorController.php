@@ -126,4 +126,52 @@ class MentorController extends Controller
 
         return redirect(route('inkubator.mentor'))->with($notification);
     }
+
+    public function daftartenant()
+    {
+        
+
+        $data = TenantMentor::where('user_id',Auth::user()->id)
+        ->leftJoin('tenant',['tenant.id'=>'tenant_mentor.tenant_id'])
+        ->leftJoin('priority',['tenant.priority'=>'priority.id'])
+        ->get();
+        
+
+
+        // $priority = TenantMentor::where('user_id',Auth::user()->id)
+        // ->leftJoin('tenant',['tenant.id'=>'tenant_mentor.tenant_id'])
+        // ->leftJoin('priority',['tenant.priority'=>'priority.id'])
+        // ->select('priority.name')
+        // ->get();
+
+        $user = Tenant::where('inkubator_id',Auth::user()->inkubator_id)
+        ->leftJoin('tenant_user',['tenant.id'=>'tenant_user.tenant_id'])
+        ->Join('profil_user',['profil_user.user_id'=>'tenant_user.user_id'])
+        ->select('profil_user.*', 'tenant_user.tenant_id')
+        ->get();
+
+        
+
+        // $priority = DB::table('priority')->get();
+
+        
+        $this->data['data'] = $data;
+        $this->data['user'] = $user;
+        // $this->data['priority'] = $priority;
+        
+        // return response()->json($this->data);
+        return view('mentor.daftartenant', $this->data);
+    }
+
+    public function detailtenant( $kategori, $id)
+    {
+        $tenant = Tenant::findOrFail($id);
+
+        // return response()->json($tenant);
+
+        $this->data['tenant'] = $tenant;
+
+
+        return view('tenant.'.$kategori, $this->data);
+    }
 }

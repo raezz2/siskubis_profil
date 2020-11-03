@@ -21,4 +21,9 @@ class ProfilUser extends Model
     {
     	return $this->belongsTo('App\User');
     }
+
+    public function tenantmentor()
+    {
+        return $this->belongsTo(TenantMentor::class, 'tenant_mentor');
+    }
 }

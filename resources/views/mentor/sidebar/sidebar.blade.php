@@ -11,7 +11,7 @@
                             <li class="Ul_li--hover"><a class="active" href="#"><i class="i-Bar-Chart text-20 mr-2 text-muted"></i><span class="item-name text-15 text-muted">Dashboard</span></a>
 
                             </li>
-                            <li class="Ul_li--hover"><a class="" href="#"><i class="i-Administrator text-20 mr-2 text-muted"></i><span class="item-name text-15 text-muted">Tenant</span></a>
+                            <li class="Ul_li--hover"><a class="" href="{{route('mentor.daftartenant')}}"><i class="i-Administrator text-20 mr-2 text-muted"></i><span class="item-name text-15 text-muted">Tenant</span></a>
 
                             </li>
                             <li class="Ul_li--hover"><a class="" href="{{ route('mentor.profile-mentor') }}"><i class="i-Administrator text-20 mr-2 text-muted"></i><span class="item-name text-15 text-muted">Profile</span></a>
