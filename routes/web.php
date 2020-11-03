@@ -55,8 +55,10 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 	Route::get('/produk/{kategori}/{id}', 'Produk\ProdukController@detail')->name('inkubator.produk-detail');
 
 	Route::get('/aktifitas', 'Aktifitas\AktifitasController@index')->name('inkubator.aktifitas');
-	Route::get('/keuangan', 'Keuangan\KeuanganController@index')->name('inkubator.keuangan');
-	Route::get('/pencapaian', 'Pencapaian\PencapaianController@index')->name('inkubator.pencapaian');
+	Route::get('/arus-kas', 'Keuangan\KeuanganController@indexInkubatorKas')->name('inkubator.arus');
+	Route::get('/arus-kas/filter', 'Keuangan\KeuanganController@inkubatorFilterKas')->name('inkubator.filter-arus');
+	Route::get('/laba-rugi', 'Keuangan\KeuanganController@indexInkubatorLaba')->name('inkubator.laba');
+	Route::get('/laba-rugi/filter', 'Keuangan\KeuanganController@inkubatorFilterLaba')->name('inkubator.filter-laba');	Route::get('/pencapaian', 'Pencapaian\PencapaianController@index')->name('inkubator.pencapaian');
 	Route::get('/laporan', 'Laporan\LaporanController@index')->name('inkubator.laporan');
 	Route::get('/chat', 'Chat\ChatController@index')->name('inkubator.chat');
 	Route::get('/pesan', 'Pesan\PesanController@index')->name('inkubator.pesan');
@@ -139,6 +141,12 @@ Route::group(['prefix' => 'mentor', 'middleware' => ['role:mentor']], function (
 	Route::get('/mentor', 'Mentor\MentorController@index')->name('mentor.index');
 	Route::get('/profile', 'Profile\ProfileUserController@index')->name('mentor.profile-mentor');
 	Route::post('/profile/update', 'Profile\ProfileUserController@update')->name('mentor.profile-update');
+
+	// Route Keuangan Mentor
+	Route::get('/arus-kas', 'Keuangan\KeuanganController@indexMentorKas')->name('mentor.arus');
+	Route::get('/arus-kas/filter', 'Keuangan\KeuanganController@mentorFilterKas')->name('mentor.filter-arus');
+	Route::get('/laba-rugi', 'Keuangan\KeuanganController@indexMentorLaba')->name('mentor.laba');
+	Route::get('/laba-rugi/filter', 'Keuangan\KeuanganController@mentorFilterLaba')->name('mentor.filter-laba');
 
 	//Route produk mentor
 	Route::get('/produk', 'Produk\ProdukController@index')->name('mentor.produk');
