@@ -21,6 +21,12 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use App\Http\Controllers\Controller;
+use App\ProdukBisnis;
+use App\ProdukCanvas;
+use App\ProdukIjin;
+use App\ProdukKi;
+use App\ProdukRiset;
+use App\ProdukSertifikasi;
 use Illuminate\Support\Facades\Validator;
 use Spatie\QueryBuilder\{QueryBuilder, AllowedFilter};
 
@@ -155,8 +161,23 @@ class ProdukController extends Controller
                 'teknologi'             => $request->teknologi,
                 'pengembangan'          => $request->pengembangan,
                 'proposal'              => $proposal_file,
-                //'publish'               => $request->publish,
                 'kategori_id'           => $request->kategori,
+            ]);
+
+            $produk_bisnis = ProdukBisnis::create([
+                'produk_id'             => $produk_id,
+                'kompetitor'            => $request->kompetitor,
+                'target_pasar'          => $request->target_pasar,
+                'dampak_sosek'          => $request->dampak_sosek,
+                'produksi_harga'        => $request->produksi_harga,
+                'pemasaran'             => $request->pemasaran,
+            ]);
+
+            $produk_canvas =ProdukCanvas::create([
+                'produk_id'             => $produk_id,
+                'canvas'                => $request->canvas,
+                'kategori'              => $request->kategori,
+                'tanggal'               => $request->tanggal,
             ]);
 
             $produk_image = ProdukImage::create([
@@ -166,14 +187,57 @@ class ProdukController extends Controller
                 'caption'               => 'null',
             ]);
 
+            $produk_ki = ProdukKi::create([
+                'produk_id'             => $produk_id,
+                'jenis_ki'              => $request->jenis_ki,
+                'status_ki'             => $request->status_ki,
+                'permohonan'            => $request->permohonan,
+                'sertifikat'            => $request->sertifikat,
+                'berlaku_mulai'         => $request->berlaku_mulai,
+                'berlaku_sampai'        => $request->berlaku_sampai,
+                'pemilik_ki'            => $request->pemilik_ki,
+            ]);
+
             $produk_team = ProdukTeam::create([
-                'user_id'               => $request->user_id,
                 'produk_id'             => $produks_id,
+                'user_id'               => $request->user_id,
                 'jabatan'               => $request->jabatan,
                 'divisi'                => $request->divisi,
                 'tugas'                 => $request->tugas,
             ]);
 
+            $produk_riset = ProdukRiset::create([
+                'produk_id'             => $produk_id,
+                'nama_riset'            => $request->nama_riset,
+                'pelaksana'             => $request->pelaksana,
+                'tahun'                 => $request->tahun,
+                'pendanaan'             => $request->pendanaan,
+                'skema'                 => $request->skema,
+                'nilai'                 => $request->nilai,
+                'aktifitas'             => $request->aktifitas,
+                'tujuan'                => $request->tujuan,
+                'hasil'                 => $request->hasil,
+            ]);
+
+            $produk_sertifikasi = ProdukSertifikasi::create([
+                'produk_id'             => $produk_id,
+                'jenis_sertif'          => $request->jenis_sertif,
+                'pemberi_sertif'        => $request->pemberi_sertif,
+                'status'                => $request->status,
+                'tahun'                 => $request->tahun,
+                'tanggal'               => $request->tanggal,
+                'dokumen'               => $proposal_file,
+            ]);
+
+            $produk_ijin = ProdukIjin::create([
+                'produk_id'             => $produk_id,
+                'jenis_sertif'          => $request->jenis_ijin,
+                'pemberi       '        => $request->pemberi,
+                'status'                => $request->status,
+                'tahun'                 => $request->tahun,
+                'tanggal'               => $request->tanggal,
+                'dokumen'               => $proposal_file,
+            ]);
 
             // $notification = array(
             //     'message' => 'Berita Berhasil Ditambahkan!',

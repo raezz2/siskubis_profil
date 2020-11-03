@@ -445,25 +445,24 @@ p {
                                             <div class="ul-widget__body">
                                                 <div class="input-container">
                                                     <i class="fas fa-user-tie icon"></i>
-                                                    <input class="form-control" type="text" placeholder="Kompetitor" name="title">
+                                                    <input class="form-control" type="text" placeholder="Kompetitor" name="kompetitor">
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-money-bill-wave-alt icon"></i>
-                                                    <input class="form-control" name="harga_pokok" type="text" placeholder="Target Pasar" />
+                                                    <input class="form-control" name="target_pasar" type="text" placeholder="Target Pasar" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-money-bill-wave-alt icon"></i>
-                                                    <input class="form-control" name="harga_jual" type="text" row="3" placeholder="Harga Produksi" />
+                                                    <input class="form-control" name="produksi_harga" type="text" row="3" placeholder="Harga Produksi" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="contact" type="text" placeholder="Dampak Sosek" />
+                                                    <input class="form-control" name="dampak_sosek" type="text" placeholder="Dampak Sosek" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Pemasaran" />
+                                                    <input class="form-control" name="pemasaran" type="text" placeholder="Pemasaran" />
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -491,10 +490,7 @@ p {
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="ul-widget__body">
-                                                <div class="input-container">
-                                                    <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Canvas" />
-                                                </div>
+                                                <textarea name="editor1"></textarea>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
                                                     <input class="form-control" name="spesifikasi" type="text" placeholder="Kategori" />
@@ -779,9 +775,9 @@ p {
                                                     <i class="fas fa-align-justify icon"></i>
                                                     <input class="form-control" name="spesifikasi" type="text" placeholder="Tanggal" />
                                                 </div>
-                                                <div class="input-container">
-                                                    <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Dokumen" />
+                                                <div class="form-group">
+                                                    <label for="foto">Uploda Dokumen</label><br>
+                                                    <input type="file" name="proposal" value="{{ old('proposal') }}" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -830,9 +826,9 @@ p {
                                                     <i class="fas fa-align-justify icon"></i>
                                                     <input class="form-control" name="spesifikasi" type="text" placeholder="Tanggal" />
                                                 </div>
-                                                <div class="input-container">
-                                                    <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Dokumen" />
+                                                <div class="form-group">
+                                                    <label for="foto">Uploda Dokumen</label><br>
+                                                    <input type="file" name="proposal" value="{{ old('proposal') }}" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -871,6 +867,7 @@ p {
 @section('js')
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
 <script type="text/javascript">
 //tooltip
 $(document).ready(function(){
@@ -954,5 +951,7 @@ return false;
 })
 
 });
+
+CKEDITOR.replace( 'editor1' );
 </script>
 @endsection
