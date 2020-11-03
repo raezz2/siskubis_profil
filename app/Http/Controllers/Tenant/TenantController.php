@@ -396,5 +396,24 @@ class TenantController extends Controller
         return redirect('/tenant');
     }
 
+    public function detailtenant()
+    {
+        
+        $detailtenant = TenantUser::where('user_id', Auth::user()->id)
+        ->leftJoin('tenant',['tenant.id'=>'tenant_user.tenant_id'])
+        ->get();
+
+        foreach($detailtenant as $dt){
+          $data = $dt;
+        }
+
+        // return response()->json($data);
+
+        $this->data['data']= $data;
+        
+        return view ('tenant.detailtenant', $this->data);
+
+    }
+
 
 }

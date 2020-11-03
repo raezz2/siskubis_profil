@@ -205,6 +205,7 @@ Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function (
 	Route::get('/edit-user/{id}', 'Profile\ProfileUserController@edit')->name('tenant.edit-profile-user');
 	Route::patch('/update-profile/{id}', 'Profile\ProfileUserController@update')->name('tenant.update-profile-user');
 	Route::get('/hapus-user/{id}', 'Profile\ProfileUserController@destroy')->name('tenant.delete-user');
+	Route::get('/detail-tenant', 'Tenant\TenantController@detailtenant')->name('tenant.detail-tenant');
 });
 
 Route::group(['prefix' => 'user', 'middleware' => ['role:user']], function () {
