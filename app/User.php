@@ -61,6 +61,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Event::class, 'author_id');
     }
+
     public function tenantId()
     {
         return $this->tenants()->first()->id;
@@ -69,5 +70,9 @@ class User extends Authenticatable
     {
         // one user can only have one profile
         return $this->hasOne(ProfilUser::class, 'user_id');
+
+    public function user()
+    {
+        return $this->belongsTo('App\ProfilUser','id', 'user_id');
     }
 }

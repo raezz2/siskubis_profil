@@ -18,16 +18,8 @@
 
 
                             </li>
-                            <li class="Ul_li--hover"><a class="has-arrow" href="#"><i class="i-Suitcase text-20 mr-2 text-muted"></i><span class="item-name text-15 text-muted">Produk</span></a>
-                                <ul class="mm-collapse">
-                                    <li class="item-name"><a href="image.cropper.html"><i class="nav-icon i-Crop-2"></i><span class="item-name">Image Cropper</span></a></li>
-                                    <li class="item-name"><a href="loaders.html"><i class="nav-icon i-Loading-3"></i><span class="item-name">Loaders</span></a></li>
-                                    <li class="item-name"><a href="ladda.button.html"><i class="nav-icon i-Loading-2"></i><span class="item-name">Ladda Buttons</span></a></li>
-                                    <li class="item-name"><a href="toastr.html"><i class="nav-icon i-Bell"></i><span class="item-name">Toastr</span></a></li>
-                                    <li class="item-name"><a href="sweet.alerts.html"><i class="nav-icon i-Approved-Window"></i><span class="item-name">Sweet Alerts</span></a></li>
-                                    <li class="item-name"><a href="tour.html"><i class="nav-icon i-Plane"></i><span class="item-name">User Tour</span></a></li>
-                                    <li class="item-name"><a href="upload.html"><i class="nav-icon i-Data-Upload"></i><span class="item-name">Upload</span></a></li>
-                                </ul>
+                            <li class="Ul_li--hover">
+                                <a class="" href="{{route('mentor.produk')}}"><i class="i-Suitcase text-20 mr-2 text-muted"></i><span class="item-name text-15 text-muted">Produk</span></a>
                             </li>
                             <li class="Ul_li--hover"><a class="has-arrow" href="#"><i class="i-Computer-Secure text-20 mr-2 text-muted"></i><span class="item-name text-15 text-muted">Aktifitas</span></a>
                                 <ul class="mm-collapse">

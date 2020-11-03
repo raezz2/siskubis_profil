@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-
+ 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,6 +45,7 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 	Route::get('/tenant/{kategori}/{id}', 'Tenant\TenantController@detail')->name('inkubator.tenant-detail');
 
 	Route::get('/mentor', 'Mentor\MentorController@index')->name('inkubator.mentor');
+
 	Route::get('/mentor/list', 'Mentor\MentorController@tampil')->name('inkubator.mentor-list');
 	Route::post('/mentor/tambah', 'Mentor\MentorController@create')->name('inkubator.mentor.tenant');
 	Route::post('/mentor/store', 'Inkubator\RegisterMentorController@create')->name('inkubator.regis');
@@ -61,6 +62,12 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 	Route::get('/pesan', 'Pesan\PesanController@index')->name('inkubator.pesan');
 	Route::get('/profile', 'Profile\ProfileUserController@index')->name('inkubator.profile-auth');
 	Route::get('/profile/{id}', 'Profile\ProfileUserController@index')->name('inkubator.profile');
+
+	//Route Produk Inkubator
+	Route::get('/produk', 'Produk\ProdukController@index')->name('inkubator.produk');
+	Route::get('/produk/{id}', 'Produk\ProdukController@show')->name('inkubator.detailProduk');
+	Route::get('/produk/{kategori}', 'Produk\ProdukController@kategori')->name('inkubator.produk-kategori');
+	Route::get('/produk/{kategori}/{id}', 'Produk\ProdukController@detail')->name('inkubator.produk-detail');
 
 	//route surat inkubator
 	Route::get('/surat', 'Persuratan\PersuratanController@index')->name('inkubator.surat');
@@ -133,6 +140,10 @@ Route::group(['prefix' => 'mentor', 'middleware' => ['role:mentor']], function (
 	Route::get('/profile', 'Profile\ProfileUserController@index')->name('mentor.profile-mentor');
 	Route::post('/profile/update', 'Profile\ProfileUserController@update')->name('mentor.profile-update');
 
+	//Route produk mentor
+	Route::get('/produk', 'Produk\ProdukController@index')->name('mentor.produk');
+	Route::get('/produk/{id}', 'Produk\ProdukController@show')->name('mentor.detailProduk');
+
 	//route surat mentor
 	Route::get('/suratmasuk', 'Persuratan\DisposisiController@mentorsuratmasuk');
 	Route::get('/suratkeluar', 'Persuratan\DisposisiController@mentorsuratkeluar');
@@ -162,9 +173,18 @@ Route::group(['prefix' => 'mentor', 'middleware' => ['role:mentor']], function (
 Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function () {
 	Route::get('/', 'Tenant\HomeController@index')->name('tenant.home');
 	Route::get('/chat', 'Chat\ChatController@index')->name('tenant.chat');
+
 	Route::get('/mentor', 'Mentor\MentorController@indexTenant')->name('tenant.mentor');
 	Route::get('/mentor/list', 'Mentor\MentorController@tampil')->name('tenant.mentor-list');
 	Route::get('mentor/profile/{id}', 'Profile\ProfileUserController@show')->name('tenant.profile-detail');
+
+	// route produk tenant
+    Route::get('/produk', 'Produk\ProdukController@index')->name('tenant.produk');
+    Route::get('/produk/create', 'Produk\ProdukController@create')->name('tenant.formProduk');
+    Route::post('/produk/store', 'Produk\ProdukController@store')->name('tenant.storeProduk');
+    Route::get('/produk/destroy/{title}', 'Produk\ProdukController@destroy')->name('tenant.destroyProduk');
+    Route::get('/produk/{title}', 'Produk\ProdukController@show')->name('tenant.detailProduk');
+  
 	// route berita tenant
 	Route::get('/berita', 'Berita\BeritaController@indexTenant')->name('tenant.berita');
 	Route::get('/berita/{slug}', 'Berita\BeritaController@showT')->name('tenant.showBerita');
@@ -195,7 +215,7 @@ Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function (
 	Route::get('/pengumuman/nontenant', 'Tenant\TenantController@tenant')->name('tenant.non-tenant');
 	Route::get('/pengumuman/search', 'Tenant\TenantController@search')->name('tenant.search');
 	Route::get('/pengumuman/{slug}', 'Tenant\TenantController@show')->name('tenant.show');
-	Route::get('/kategori/{id}', 'Tenant\TenantController@kategori')->name('tenant.kategori-id');
+    Route::get('/kategori/{id}', 'Tenant\TenantController@kategori')->name('tenant.kategori-id');
 });
 
 Route::group(['prefix' => 'user', 'middleware' => ['role:user']], function () {

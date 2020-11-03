@@ -17,4 +17,8 @@ class ProfilUser extends Model
     {
         return $this->belongTo('App\Berita', 'author_Id', 'id');
     }
+    public function user()
+    {
+    	return $this->belongsTo('App\User');
+    }
 }
