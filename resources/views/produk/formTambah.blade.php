@@ -472,25 +472,24 @@ p {
                                             <div class="ul-widget__body">
                                                 <div class="input-container">
                                                     <i class="fas fa-user-tie icon"></i>
-                                                    <input class="form-control" type="text" placeholder="Kompetitor" name="title">
+                                                    <input class="form-control" type="text" placeholder="Kompetitor" name="kompetitor">
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-money-bill-wave-alt icon"></i>
-                                                    <input class="form-control" name="harga_pokok" type="text" placeholder="Target Pasar" />
+                                                    <input class="form-control" name="target_pasar" type="text" placeholder="Target Pasar" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-money-bill-wave-alt icon"></i>
-                                                    <input class="form-control" name="harga_jual" type="text" row="3" placeholder="Harga Produksi" />
+                                                    <input class="form-control" name="produksi_harga" type="text" row="3" placeholder="Harga Produksi" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="contact" type="text" placeholder="Dampak Sosek" />
+                                                    <input class="form-control" name="dampak_sosek" type="text" placeholder="Dampak Sosek" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Pemasaran" />
+                                                    <input class="form-control" name="pemasaran" type="text" placeholder="Pemasaran" />
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -518,17 +517,14 @@ p {
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="ul-widget__body">
+                                                <textarea name="editor1"></textarea>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Canvas" />
+                                                    <input class="form-control" name="kategori_canvas" type="text" placeholder="Kategori" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Kategori" />
-                                                </div>
-                                                <div class="input-container">
-                                                    <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Tanggal" />
+                                                    <input class="form-control" name="tanggal_canvas" type="text" placeholder="Tanggal" />
                                                 </div>
                                             </div>
                                         </div>
@@ -578,19 +574,19 @@ p {
                                             <div class="ul-widget__body">
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Jenis Kekayaan Intelektual" />
+                                                    <input class="form-control" name="jenis_ki" type="text" placeholder="Jenis Kekayaan Intelektual" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="keterbaharuan" type="text" placeholder="Status Kekayaan Intelektual" />
+                                                    <input class="form-control" name="status_ki" type="text" placeholder="Status Kekayaan Intelektual" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="manfaat" type="text" placeholder="Permohonan" />
+                                                    <input class="form-control" name="permohonan_ki" type="text" placeholder="Permohonan" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="keunggulan" type="text" placeholder="Sertifikat" />
+                                                    <input class="form-control" name="sertifikat_ki" type="text" placeholder="Sertifikat" />
                                                 </div>
                                             </div>
                                         </div>
@@ -602,15 +598,15 @@ p {
                                                 <div class="ul-widget__body">
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
-                                                        <input class="form-control" name="keunggulan" type="text" placeholder="Berlaku Mulai" />
+                                                        <input class="form-control" name="berlaku_mulai" type="text" placeholder="Berlaku Mulai" />
                                                     </div>
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
-                                                        <input class="form-control" name="keunggulan" type="text" placeholder="Berlaku Sampai" />
+                                                        <input class="form-control" name="berlaku_sampai" type="text" placeholder="Berlaku Sampai" />
                                                     </div>
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
-                                                        <input class="form-control" name="keunggulan" type="text" placeholder="Pemilikan Kekayaan Intelektual" />
+                                                        <input class="form-control" name="pemilik_ki" type="text" placeholder="Pemilikan Kekayaan Intelektual" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -717,23 +713,23 @@ p {
                                             <div class="ul-widget__body">
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Nama Riset" />
+                                                    <input class="form-control" name="nama_riset" type="text" placeholder="Nama Riset" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="keterbaharuan" type="text" placeholder="Pelaksana" />
+                                                    <input class="form-control" name="pelaksana_riset" type="text" placeholder="Pelaksana" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="manfaat" type="text" placeholder="Tahun" />
+                                                    <input class="form-control" name="tahun_riset" type="text" placeholder="Tahun" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="keunggulan" type="text" placeholder="Pendanaan" />
+                                                    <input class="form-control" name="pendanaan_riset" type="text" placeholder="Pendanaan" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="keunggulan" type="text" placeholder="Skema" />
+                                                    <input class="form-control" name="hasil_riset" type="text" placeholder="Skema" />
                                                 </div>
                                             </div>
                                         </div>
@@ -806,9 +802,9 @@ p {
                                                     <i class="fas fa-align-justify icon"></i>
                                                     <input class="form-control" name="spesifikasi" type="text" placeholder="Tanggal" />
                                                 </div>
-                                                <div class="input-container">
-                                                    <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Dokumen" />
+                                                <div class="form-group">
+                                                    <label for="foto">Uploda Dokumen</label><br>
+                                                    <input type="file" name="proposal" value="{{ old('proposal') }}" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -857,9 +853,9 @@ p {
                                                     <i class="fas fa-align-justify icon"></i>
                                                     <input class="form-control" name="spesifikasi" type="text" placeholder="Tanggal" />
                                                 </div>
-                                                <div class="input-container">
-                                                    <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Dokumen" />
+                                                <div class="form-group">
+                                                    <label for="foto">Uploda Dokumen</label><br>
+                                                    <input type="file" name="proposal" value="{{ old('proposal') }}" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -898,82 +894,93 @@ p {
 </div>
 @endsection
 @section('js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
 <script type="text/javascript">
-    //tooltip
-    $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-    
-    //multi step form
-    $(document).ready(function(){
-        var current_fs, next_fs, previous_fs; //fieldsets
-        var opacity;
-        var current = 1;
-        var steps = $("fieldset").length;
-        setProgressBar(current);
-        $(".next").click(function(){
-            current_fs = $(this).parent();
-            next_fs = $(this).parent().next();
-            //Add Class Active
-            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-            //show the next fieldset
-            next_fs.show();
-            //hide the current fieldset with style
-            current_fs.animate({opacity: 0}, {
-                step: function(now) {
-                    // for making fielset appear animation
-                    opacity = 1 - now;
-                    current_fs.css({
-                        'display': 'none',
-                        'position': 'relative'
-                    });
-                    next_fs.css({'opacity': opacity});
-                },
-                duration: 500
-            });
-            setProgressBar(++current);
-        });
+//tooltip
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
 
-        $(".previous").click(function(){
-            current_fs = $(this).parent();
-            previous_fs = $(this).parent().prev();
-            //Remove class active
-            $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
-            //show the previous fieldset
-            previous_fs.show();
-            //hide the current fieldset with style
-            current_fs.animate({opacity: 0}, {
-                step: function(now) {
-                    // for making fielset appear animation
-                    opacity = 1 - now;
+//multi step form
+$(document).ready(function(){
 
-                    current_fs.css({
-                        'display': 'none',
-                        'position': 'relative'
-                    });
-                    previous_fs.css({'opacity': opacity});
-                },
-                duration: 500
-            });
-            setProgressBar(--current);
-        });
-        
-        function setProgressBar(curStep){
-            var percent = parseFloat(100 / steps) * curStep;
-            percent = percent.toFixed();
-            $(".progress-bar")
-            .css("width",percent+"%")
-        }
+var current_fs, next_fs, previous_fs; //fieldsets
+var opacity;
+var current = 1;
+var steps = $("fieldset").length;
 
-        $(".submit").click(function(){
-            return false;
-        })
-    });
+setProgressBar(current);
 
-    // multiple select dropdown
-    $(document).ready(function() {
-        $('select').selectpicker();
-    });
+$(".next").click(function(){
+
+current_fs = $(this).parent();
+next_fs = $(this).parent().next();
+
+//Add Class Active
+$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+//show the next fieldset
+next_fs.show();
+//hide the current fieldset with style
+current_fs.animate({opacity: 0}, {
+step: function(now) {
+// for making fielset appear animation
+opacity = 1 - now;
+
+current_fs.css({
+'display': 'none',
+'position': 'relative'
+});
+next_fs.css({'opacity': opacity});
+},
+duration: 500
+});
+setProgressBar(++current);
+});
+
+$(".previous").click(function(){
+
+current_fs = $(this).parent();
+previous_fs = $(this).parent().prev();
+
+//Remove class active
+$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+
+//show the previous fieldset
+previous_fs.show();
+
+//hide the current fieldset with style
+current_fs.animate({opacity: 0}, {
+step: function(now) {
+// for making fielset appear animation
+opacity = 1 - now;
+
+current_fs.css({
+'display': 'none',
+'position': 'relative'
+});
+previous_fs.css({'opacity': opacity});
+},
+duration: 500
+});
+setProgressBar(--current);
+});
+
+function setProgressBar(curStep){
+var percent = parseFloat(100 / steps) * curStep;
+percent = percent.toFixed();
+$(".progress-bar")
+.css("width",percent+"%")
+}
+
+$(".submit").click(function(){
+return false;
+})
+
+});
+
+CKEDITOR.replace( 'editor1' );
 </script>
 @endsection
