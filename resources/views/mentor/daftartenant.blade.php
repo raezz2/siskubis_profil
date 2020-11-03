@@ -48,9 +48,9 @@
 			@foreach($data as $data)
 				<div class="col-xl-4">
 					<div class="card mt-2 mb-2">
-						<a href="{{route('inkubator.tenant-detail',[''.$data->name,''.$data->id])}}"><img class="card-img-top" src="{{ asset('img/tenant/'.$data->foto)}}" alt="" height="300px"></a>
+						<a href="{{route('mentor.detailtenant',[''.$data->name,''.$data->tenant_id])}}"><img class="card-img-top" src="{{ asset('img/tenant/'.$data->foto)}}" alt="" height="300px"></a>
 						<div class="card-header">
-						<a href="{{route('inkubator.tenant-detail',[''.$data->name,''.$data->id])}}"><strong>{{$data->title}}</strong></a>
+						<a href="{{route('mentor.detailtenant',[''.$data->name,''.$data->tenant_id])}}"><strong>{{$data->title}}</strong></a>
 						</div>
 						<div class="card-body">
 							<div class="d-sm-flex align-item-sm-center flex-sm-nowrap">
@@ -75,16 +75,6 @@
 									@else
 									<li><a class="badge badge-success align-top" href="#">{{$data->name}}</a></li>
 									@endif
-
-
-									<li>Mentor:</li>
-									@foreach($mentor as $up)
-										@if($up->tenant_id == $data->id)
-										<li>
-											<a href="{{route('inkubator.profile-detail',''. $up->user_id)}}"><img class="rounded-circle" src="{{ asset('theme/images/faces/'.$up->foto)}}" width="36" height="36" alt="corrupted 2" /></a><a href="#">
-										</li>
-										@endif
-									@endforeach
 								</ul>
 							</div>
 						</div>
@@ -116,13 +106,7 @@
 		</div>
 		<!-- right-sidebar-content-->
 		<div class="col-xl-3">
-			<!-- search-->
-			<div class="card mt-4 mb-3">
-				<div class="card-header font-weight-bold dropdown-toggle" onclick="customToggle()">Search Task</div>
-				<div class="card-body" id="custom-toggle">
-				<button class="btn btn-outline-secondary btn-block mb-4" type="button" data-toggle="modal" data-target=".bd-example-modal-lg">ADD TENANT</button>
-				</div>
-			</div>
+			
 			<!-- end of search-->
 			<!-- navigation-->
 			<div class="card mb-3">
@@ -131,23 +115,26 @@
                 <div class="form-group">
                     <label for="search">Pencarian</label>
                     <div class="input-group">
-                        <input type="text" name="titles" class="form-control" placeholder="search" value="{{ $title != null ? $title : null }}">
+                        <input type="text" name="title" id="title" class="form-control" placeholder="search" value="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="priority">Priority</label>
-					@foreach ($priority as $item)
-                        <label class="checkbox checkbox-success">
-                            <input type="checkbox" item-id="{{ $item->id }}" name="priority" value="{{ $item->id }}"
-                                @if (in_array($item->id, explode(',', request()->input('filter.priority'))))
-                                    checked
-                                @endif
-                            /><span>{{ $item->name }}</span><span class="checkmark"></span>
+                                            <label class="checkbox checkbox-success">
+                            <input type="checkbox" name="priority" value="2"><span>Pra Start Up</span><span class="checkmark"></span>
                         </label>
-                    @endforeach
-				</div>
+                                            <label class="checkbox checkbox-success">
+                            <input type="checkbox" name="priority" value="1"><span>Proposal</span><span class="checkmark"></span>
+                        </label>
+                                            <label class="checkbox checkbox-success">
+                            <input type="checkbox" name="priority" value="4"><span>Scale Up</span><span class="checkmark"></span>
+                        </label>
+                                            <label class="checkbox checkbox-success">
+                            <input type="checkbox" name="priority" value="3"><span>Start Up</span><span class="checkmark"></span>
+                        </label>
+                                    </div>
                 <div class="form-group">
-                    <button id="search" class="btn btn-primary filter">Filter</button>
+                    <button id="filter" class="btn btn-primary">Filter</button>
                 </div>
             </div>
 			</div>
@@ -190,107 +177,4 @@
 			<!-- end of completeness-->
 		</div>
 	</div>
-
-<!-- begin::modal-->
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-lg">
-					<div class="modal-content">
-						<div class="modal-body">
-							<div class="card-body">
-								<div class="card-title mb-3">Form Inputs</div>
-								<form action="{{ route('tenant.add-tenant')}}" method="POST">
-									@csrf
-									<div class="row">
-										<div class="col-md-12 form-group mb-3">
-											<label for="firstName1">Nama</label>
-											<input class="form-control" id="firstName1" type="text" placeholder="Masukan Nama" name="name"/>
-										</div>
-									
-										<div class="col-md-12 form-group mb-3">
-											<label for="lastName1">E-mail</label>
-											<input class="form-control" id="lastName1" type="text" placeholder="Masukan E-mail" name="email"/>
-										</div>
-										<div class="col-md-12 form-group mb-3">
-											<label for="password">Password</label>
-											<input class="form-control" id="password" type="password" placeholder="Masukan password" name="password"/>
-											<!--  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12">
-											<button class="btn btn-primary submit">Submit</button>
-										</div>
-									</div>
-
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		<!-- end::modal-->
-
-		<!-- Asset Alert iziToast -->
-		<link rel="stylesheet" href="{{asset('izitoast/dist/css/iziToast.min.css')}}">
-
-		<!-- Asset Alert iziToast -->
-		<script src="{{asset('izitoast/dist/js/iziToast.min.js')}}" type="text/javascript"></script>
-
-
-		<script>
-		
-			function getIds(checkboxName) {
-				let checkBoxes = document.getElementsByName(checkboxName);
-				let ids = Array.prototype.slice.call(checkBoxes)
-								.filter(ch => ch.checked==true)
-								.map(ch => ch.value);
-				return ids;
-			}
-		
-			function filterResults () {
-				let priorityIds = getIds("priority");
-				let title = $('input[name="titles"]').val();
-		
-				let href = 'tenant?';
-		
-				if(priorityIds) {
-					href += 'filter[priority]=' + priorityIds;
-				}
-		
-				if(title !== ""){
-					href += '&filter[title]=' + title;
-				}
-		
-				console.log(href);
-		
-				document.location.href=href;
-			}
-		
-			document.getElementById("search").addEventListener("click", filterResults);
-		
-		</script>
-
-	<script>
-		@if(Session::has('success'))
-
-			iziToast.success({
-				title: 'OK',
-				message: '{{ session('success') }}',
-				position: 'topRight',
-				transitionIn: 'fadeInUp',
-			});
-		@endif	
-	</script>
-
-	<script>
-		@if(Session::has('error'))
-
-		iziToast.error({
-			title: 'Error',
-			position: 'topRight',
-			message: '{{ session('error') }}',
-		});
-		@endif	
-	</script>
 @endsection

@@ -44,7 +44,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     public function surat(){
-        // return $this->hasMany('App\Surat');
+
         return $this->belongsToMany('App\Surat');
     }
     public function tenants()
@@ -55,4 +55,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Event::class, 'author_id');
     }
+    // public function tenantmentor()
+    // {
+    //     return $this->hasMany(TenantMentor::class, 'user_id');
+    // }
+
+    public function TenantUser()
+    {
+        return $this->belongsToMany(TenantUser::class, 'tenant_user');
+    }
+
+    public function ProfilUser()
+    {
+        return $this->belongsToMany(ProfilUser::class, 'profil_user');
+    }
 }
+

@@ -5,6 +5,13 @@ namespace App\Http\Controllers\Tenant;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Tenant;
+use App\TenantUser;
+use App\User;
+use App\Priority;
+use App\ProfilUser;
+use Auth;
+
 class HomeController extends Controller
 {
        public function __construct()
@@ -19,6 +26,34 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('tenant.dashboard');
+
+        $check = TenantUser::where('user_id',Auth::user()->id)->get();
+
+        $tenant = TenantUser::where('user_id',Auth::user()->id)
+        ->Join('tenant', ['tenant_user.tenant_id'=>'tenant.id'])
+        ->select('tenant.*')
+        ->get();
+
+        foreach( $check as $ck){
+            
+            $profil= TenantUser::where('tenant_id', $ck->tenant_id )
+            ->Join('profil_user', ['profil_user.user_id'=>'tenant_user.user_id'])
+            ->get();
+
+        }
+        
+
+        $priority = Priority::all();
+
+        // $tenant = Tenant::where();
+        $user = User::Where(Auth::user()->id);
+
+        $this->data['check'] = $check;
+        $this->data['tenant'] = $tenant;
+        $this->data['priority'] = $priority;
+        $this->data['profil'] = $profil;
+        
+        // return response()->json($this->data);
+        return view('tenant.dashboard',$this->data);
     }
 }

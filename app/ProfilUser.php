@@ -16,4 +16,9 @@ class ProfilUser extends Model
     {
     	return $this->belongTo('App\Berita','author_Id','id');
     }
+
+    public function tenantmentor()
+    {
+        return $this->belongsTo(TenantMentor::class, 'tenant_mentor');
+    }
 }

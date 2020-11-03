@@ -16,28 +16,28 @@
                                         <div class="row">
                                             <div class="col-12 text-center">
                                                 <div class="ul-contact-detail__info-1">
-                                                    <h5><b>Saya Pengguna</b></h5><span>@sayapengguna</span>
+                                                    <h5><b>{{$data->nama}}</b></h5>
                                                 </div>
                                             </div>
                                             <div class="col-6 text-center">
                                                 <div class="ul-contact-detail__info-1">
-                                                    <h5>Umur</h5><span>36 Tahun</span>
+                                                    <h5>Nik</h5><span>{{$data->nik}}</span>
                                                 </div>
                                                 <div class="ul-contact-detail__info-1">
-                                                    <h5>Jenis Kelamin</h5><span>Laki-laki</span>
+                                                    <h5>Email</h5><span>{{$data->email}}</span>
                                                 </div>
                                             </div>
 											<div class="col-6 text-center">
                                                 <div class="ul-contact-detail__info-1">
-                                                    <h5>Phone</h5><span>08934545156</span>
+                                                    <h5>Kontak</h5><span>{{$data->kontak}}</span>
                                                 </div>
                                                 <div class="ul-contact-detail__info-1">
-                                                    <h5>Email</h5><span>sayapengguna@gmail.com</span>
+                                                    <h5>Jenis Kelamin</h5><span>{{$data->jenkel}}</span>
                                                 </div>
                                             </div>
                                             <div class="col-12 text-center">
                                                 <div class="ul-contact-detail__info-1">
-                                                    <h5>Alamat</h5><span>Jalan Arteri Raya 17, RT 06 RW 07, Kelurahan Macanan, Kecamatan Bumiayu, Kota Surabaya, Jawa Timur, 224352</span>
+                                                    <h5>Alamat</h5><span>{{$data->alamat}}</span>
                                                 </div>
                                             </div>
                                             <div class="col-12 text-center">
@@ -153,9 +153,8 @@
                                                 </div>
                                                 <div class="col-lg-12 col-xl-12">
                                                     <div class="ul-contact-dwtail__profile-swcription">
-                                                        <p class="mt-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</p>
-                                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</p>
-                                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</p>
+                                                        <h4>Deskripsi</h4>
+                                                        <p class="mt-3">{{$data->deskripsi}}</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12 col-xl-12">
