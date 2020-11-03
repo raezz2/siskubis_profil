@@ -27,12 +27,6 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use App\Http\Controllers\Controller;
-use App\ProdukBisnis;
-use App\ProdukCanvas;
-use App\ProdukIjin;
-use App\ProdukKi;
-use App\ProdukRiset;
-use App\ProdukSertifikasi;
 use Illuminate\Support\Facades\Validator;
 use Spatie\QueryBuilder\{QueryBuilder, AllowedFilter};
 
@@ -136,15 +130,13 @@ class ProdukController extends Controller
             $image_resize->resize(900,585);
             $image_resize->save(public_path('img/produk/'.$filename));
 
-            $file = $request->file('proposal');
+            $file = $request->file('file_sertifikasi');
             $dokumen_file_sertifikasi = time()."_".$file->getClientOriginalExtension();
             $file->storeAs('file/produk/dokumen_sertifikasi/',$dokumen_file_sertifikasi);
-            $file = $request->file('foto');
 
-            $file = $request->file('proposal');
+            $file = $request->file('file_ijin');
             $dokumen_file_ijin = time()."_".$file->getClientOriginalExtension();
             $file->storeAs('file/produk/dokumen_ijin/',$dokumen_file_ijin);
-            $file = $request->file('foto');
 
 
             $produk = Produk::create([
@@ -196,7 +188,7 @@ class ProdukController extends Controller
                 'caption'               => 'null',
             ]);
 
-            $produk_ki = ProdukKi::create([
+            $produk_ki = ProdukKI::create([
                 'produk_id'             => $produk_id,
                 'jenis_ki'              => $request->jenis_ki,
                 'status_ki'             => $request->status_ki,

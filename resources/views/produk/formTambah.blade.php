@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('css')
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
 <style type="text/css">
 * {
@@ -251,12 +250,49 @@ p {
     width: 100%;
     object-fit: cover
 }
+</style>
+<style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+    * {box-sizing: border-box;}
 
+    .input-container {
+      display: -ms-flexbox; /* IE10 */
+      display: flex;
+      width: 100%;
+      margin-bottom: 15px;
+    }
 
-    /* Multiple select dropdown */
-    .dropdown-toggle{
-        height: 40px;
-        width: 400px !important;
+    .icon {
+      padding: 10px;
+      background: #402060;
+      color: white;
+      min-width: 50px;
+      text-align: center;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 10px;
+      outline: none;
+    }
+
+    .input-field:focus {
+      border: 2px solid #402060;
+    }
+
+    /* Set a style for the submit button */
+    .btn {
+      background-color: #402060;
+      color: white;
+      padding: 15px 20px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      opacity: 0.9;
+    }
+
+    .btn:hover {
+      opacity: 1;
     }
 </style>
 
@@ -287,76 +323,13 @@ p {
                     <!-- fieldsets -->
                     <fieldset>
                         <div class="form-card">
-                            <div class="row mb-3">
+                            <div class="row">
                                 <div class="col-7">
                                     <h2 class="fs-title">Detail Produk</h2>
                                 </div>
                                 <div class="col-5">
                                     <h2 class="steps">Step 1 - 10</h2>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="input-group input-group-sm col-md-5 mr-5">
-                                    <div class="input-group-prepend">
-                                        <label for="title">
-                                            Nama Produk : 
-                                            <a href="#" data-toggle="tooltip" title="Isi nama produk secara lengkap!!!">
-                                                <i class="far fa-question-circle"></i>
-                                            </a>
-                                        </label>
-                                    </div>
-                                    <input type="text" class="form-control" name="title" placeholder="Nama produk..." value="{{ old('title') }}" required />
-                                </div>
-                                <div class="input-group input-group-sm col-md-6">
-                                    <div class="input-group-prepend">
-                                        <label for="title">
-                                            Subtitle : 
-                                        </label>
-                                    </div>
-                                    <input type="text" class="form-control" name="subtitle" placeholder="Subtitle..." value="{{ old('subtitle') }}" required />
-                                </div>
-
-                                <div class="input-group input-group-sm col-md-5 mr-5">
-                                    <div class="input-group-prepend">
-                                        <label for="title">
-                                            Harga Pokok :
-                                        </label>
-                                    </div>
-                                    <input type="text" class="form-control" name="harga_pokok" placeholder="Biaya pembuatan produk..." />
-                                </div>
-                                <div class="input-group input-group-sm col-md-6">
-                                    <div class="input-group-prepend">
-                                        <label for="title">
-                                            Harga Jual : 
-                                        </label>
-                                    </div>
-                                    <input type="text" class="form-control" name="harga_jual" placeholder="Harga jual produk..." />
-                                </div>
-
-                                <div class="input-group input-group-sm col-md-5 mr-5">
-                                    <div class="input-group-prepend">
-                                        <label for="title">
-                                            Kategori Produk :
-                                        </label>
-                                    </div>
-                                    <input type="text" class="form-control" name="harga_pokok" placeholder="Biaya pembuatan produk..." />
-                                </div>
-                                <div class="input-group input-group-sm col-md-6">
-                                    <div class="input-group-prepend">
-                                        <label for="title">
-                                            Tags : 
-                                        </label><br />
-                                    </div>
-                                    <select class="selectpicker form-control" multiple data-live-search="true" name="tag[]">
-                                        <option value="Teknologi">Teknologi</option>
-                                        <option value="Transportasi">Transportasi</option>
-                                        <option value="Makanan dan Minuman">Makanan dan Minuman</option>
-                                        <option value="Tarik Siss">Tarik Siss</option>
-                                        <option value="Semongko">Semongko</option>
-                                        <option value="Ojo Lali Ibadah">Ojo Lali Ibadah</option>
-                                    </select>
-                                </div>
-
                             </div>
                             <div class="row">
                                 <div class="col-xl-6 col-lg-6">
@@ -729,7 +702,7 @@ p {
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="hasil_riset" type="text" placeholder="Skema" />
+                                                    <input class="form-control" name="skema_riset" type="text" placeholder="Skema" />
                                                 </div>
                                             </div>
                                         </div>
@@ -741,19 +714,19 @@ p {
                                                 <div class="ul-widget__body">
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
-                                                        <input class="form-control" name="keunggulan" type="text" placeholder="Nilai" />
+                                                        <input class="form-control" name="nilai_riset" type="text" placeholder="Nilai" />
                                                     </div>
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
-                                                        <input class="form-control" name="keunggulan" type="text" placeholder="Aktifitas" />
+                                                        <input class="form-control" name="aktifitas_riset" type="text" placeholder="Aktifitas" />
                                                     </div>
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
-                                                        <input class="form-control" name="keunggulan" type="text" placeholder="Tujuan" />
+                                                        <input class="form-control" name="tujuan_riset" type="text" placeholder="Tujuan" />
                                                     </div>
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
-                                                        <input class="form-control" name="keunggulan" type="text" placeholder="Hasil" />
+                                                        <input class="form-control" name="hasil_riset" type="text" placeholder="Hasil" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -784,27 +757,27 @@ p {
                                             <div class="ul-widget__body">
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Jenis Sertifikat" />
+                                                    <input class="form-control" name="jenis_sertif" type="text" placeholder="Jenis Sertifikat" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Pemberi Sertifikat" />
+                                                    <input class="form-control" name="pemberi_sertif" type="text" placeholder="Pemberi Sertifikat" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Status" />
+                                                    <input class="form-control" name="status_sertif" type="text" placeholder="Status" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Tahun" />
+                                                    <input class="form-control" name="tahun_sertif" type="text" placeholder="Tahun" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Tanggal" />
+                                                    <input class="form-control" name="tanggal_sertif" type="text" placeholder="Tanggal" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="foto">Uploda Dokumen</label><br>
-                                                    <input type="file" name="proposal" value="{{ old('proposal') }}" required>
+                                                    <input type="file" name="file_sertifikasi" value="{{ old('file_sertifikasi') }}" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -835,27 +808,27 @@ p {
                                             <div class="ul-widget__body">
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Jenis Ijin" />
+                                                    <input class="form-control" name="jenis_ijin" type="text" placeholder="Jenis Ijin" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Pemberi Ijin" />
+                                                    <input class="form-control" name="pemberi_ijin" type="text" placeholder="Pemberi Ijin" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Status" />
+                                                    <input class="form-control" name="status_ijin" type="text" placeholder="Status" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Tahun" />
+                                                    <input class="form-control" name="tahun_ijin" type="text" placeholder="Tahun" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Tanggal" />
+                                                    <input class="form-control" name="tanggal_ijin" type="text" placeholder="Tanggal" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="foto">Uploda Dokumen</label><br>
-                                                    <input type="file" name="proposal" value="{{ old('proposal') }}" required>
+                                                    <input type="file" name="file_ijin" value="{{ old('file_ijin') }}" required>
                                                 </div>
                                             </div>
                                         </div>
