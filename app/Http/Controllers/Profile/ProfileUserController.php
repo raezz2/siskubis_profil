@@ -22,9 +22,9 @@ class ProfileUserController extends Controller
 
     public function index()
     {
-        if(request()->user()->hasRole(['mentor'])){
-            $data['data'] = User::with('profile')->where(['users.id' => Auth::user()->id])->first();
-            if ($data['data']->profile->status === '0') {
+        if (request()->user()->hasRole(['mentor'])) {
+            $data['data'] = User::where(['users.id' => Auth::user()->id])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid','users.email as email', 'profil_user.*')->first();
+            if (!$data['data']->id) {
                 request()->session()->now('message', 'Tolong lengkapi data profil anda');
                 request()->session()->now('alert-type', 'warning');
             }
@@ -37,18 +37,10 @@ class ProfileUserController extends Controller
      */
     public function show()
     {
-        // $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'users.id' => auth()->user()->id])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'profil_user.*')->first();
-        if(request()->user()->hasRole(['inkubator','tenant'])){
-            $data['data'] = User::with('profile')->where(['users.inkubator_id' => Auth::user()->inkubator_id,'users.id' => request()->id])->whereHas('roles', function($q){$q->where('name', 'Mentor');})->firstOrFail();
+        if (request()->user()->hasRole(['inkubator', 'tenant'])) {
+            $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'users.id' => request()->id])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'users.email as email', 'profil_user.*')->firstOrFail();
         }
         return view('profile.index', $data);
-    }
-
-    public function indexTenant()
-    {
-        $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'users.id' => 3])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'profil_user.*')->first();
-        return view('profile.index', $data);
-        // return $data;
     }
 
     public function update(UpdateProfilRequest $request)
@@ -56,17 +48,17 @@ class ProfileUserController extends Controller
         $profil = ProfilUser::where('user_id', Auth::user()->id)->first();
         $tujuan_upload = 'img/mentor/profile/';
 
-        if ($profil->foto === null) {
-            $file = $request->foto;
-            $filename = time() . \Str::slug($request->get('nama')) . '.' . $file->getClientOriginalExtension();
-            $file->move($tujuan_upload, $filename);
-        } elseif ($profil->foto !== null) {
-            \File::delete($tujuan_upload.$profil->foto);
-            $file = $request->foto;
-            $filename = time() . \Str::slug($request->get('nama')) . '.' . $file->getClientOriginalExtension();
-            $file->move($tujuan_upload, $filename);
+        if ($profil->foto) {
+            \File::delete($tujuan_upload . $profil->foto);
         }
-        $profil->update([
+        
+        $file = $request->foto;
+        $filename = time() . \Str::slug($request->get('nama')) . '.' . $file->getClientOriginalExtension();
+        $file->move($tujuan_upload, $filename);
+
+        ProfilUser::updateOrCreate(
+            ['user_id'  =>  Auth::user()->id],
+            [
                 'nama' =>  $request->nama,
                 'jenkel' =>  $request->jenkel,
                 'kontak' =>  $request->kontak,
@@ -74,21 +66,9 @@ class ProfileUserController extends Controller
                 'nik' =>  $request->nik,
                 'foto' =>  $filename,
                 'deskripsi' =>  $request->deskripsi,
-                'status' =>  '1'
-        ]);
-        // ProfilUser::updateOrCreate(
-        //     ['user_id'  =>  Auth::user()->id],
-        //     [
-        //         'nama' =>  $request->nama,
-        //         'jenkel' =>  $request->jenkel,
-        //         'kontak' =>  $request->kontak,
-        //         'alamat' =>  $request->alamat,
-        //         'nik' =>  $request->nik,
-        //         'foto' =>  $filename,
-        //         'deskripsi' =>  $request->deskripsi,
-        //         'status' =>  $request->status,
-        //     ],
-        // );
+                'status' =>  '1',
+            ],
+        );
         $notification = array(
             'message' => 'Data Profil Berhasil Diperbarui',
             'alert-type' => 'success'

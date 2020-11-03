@@ -10,13 +10,13 @@
 <section class="ul-contact-detail">
     <div class="row">
         <div class="col-lg-4 col-xl-4">
-            <div class="card o-hidden"><img class="d-block w-100" src="{{ asset('img/mentor/profile/'.$data->profile->foto) }}" alt="foto profil">
+            <div class="card o-hidden"><img class="d-block w-100" src="{{ asset('img/mentor/profile/'.$data->foto) }}" alt="foto profil">
                 <div class="card-body">
                     <div class="ul-contact-detail__info">
                         <div class="row">
                             <div class="col-12 text-center">
                                 <div class="ul-contact-detail__info-1">
-                                    <h5><b>{{ $data->profile->nama ?? $data->email }}</b></h5><span>{{ $data->email }}</span>
+                                    <h5><b>{{ $data->nama ?? $data->email }}</b></h5><span>{{ $data->email }}</span>
                                 </div>
                             </div>
                             <div class="col-6 text-center">
@@ -24,12 +24,12 @@
                                     <h5>Umur</h5><span>36 Tahun</span>
                                 </div>
                                 <div class="ul-contact-detail__info-1">
-                                    <h5>Jenis Kelamin</h5><span>@if ($data->profile->jenkel == 'L') Laki-laki @endif @if ($data->profile->jenkel == 'P') Perempuan @endif @if ($data->profile->jenkel == null) - @endif</span>
+                                    <h5>Jenis Kelamin</h5><span>@if ($data->jenkel == 'L') Laki-laki @endif @if ($data->jenkel == 'P') Perempuan @endif @if ($data->jenkel == null) - @endif</span>
                                 </div>
                             </div>
                             <div class="col-6 text-center">
                                 <div class="ul-contact-detail__info-1">
-                                    <h5>Phone</h5><span>{{ $data->profile->kontak ?? '-' }}</span>
+                                    <h5>Phone</h5><span>{{ $data->kontak ?? '-' }}</span>
                                 </div>
                                 <div class="ul-contact-detail__info-1">
                                     <h5>Email</h5><span>{{ $data->email }}</span>
@@ -37,7 +37,7 @@
                             </div>
                             <div class="col-12 text-center">
                                 <div class="ul-contact-detail__info-1">
-                                    <h5>Alamat</h5><span>{{ $data->profile->alamat ?? '-' }}</span>
+                                    <h5>Alamat</h5><span>{{ $data->alamat ?? '-' }}</span>
                                 </div>
                             </div>
                             <div class="col-12 text-center">
@@ -64,7 +64,7 @@
                 <div class="card-header bg-transparent">Data Profil</div>
                 <div class="card-body">
                     <nav>
-                        <div class="nav nav-tabs" id="nav-tab" role="tablist"><a class="nav-item nav-link active show" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="false">Home</a><a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a><a class="nav-item nav-link " id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="true">Edit Contact</a></div>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist"><a class="nav-item nav-link active show" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="false">Home</a><a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>@role('mentor')<a class="nav-item nav-link " id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="true">Edit Contact</a>@endrole</div>
                     </nav>
                     <div class="tab-content ul-tab__content" id="nav-tabContent">
                         <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
@@ -183,7 +183,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="nama">Nama</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" id="nama" type="text" placeholder="Nama" name="nama" value="{{ old('nama') ?? $data->profile->nama }}">
+                                        <input class="form-control" id="nama" type="text" placeholder="Nama" name="nama" value="{{ old('nama') ?? $data->nama }}">
                                         @error('nama')
                                             {{ $message }}
                                         @enderror
@@ -194,11 +194,11 @@
                                         <label class="col-sm-2 col-form-label" for="jenkel">Jenis Kelamin</label>
                                         <div class="col-sm-10">
                                             <div class="form-check form-check-inline">
-                                                <input name="jenkel" class="form-check-input" type="radio" id="inlineradio1" value="L" {{ $data->profile->jenkel == "L" ? ' checked ' : '' }}>
+                                                <input name="jenkel" class="form-check-input" type="radio" id="inlineradio1" value="L" {{ $data->jenkel == "L" ? ' checked ' : '' }}>
                                                 <label class="form-check-label" for="inlineradio1">Laki-Laki</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                <input name="jenkel" class="form-check-input" type="radio" id="inlineradio2" value="P" {{ $data->profile->jenkel == "P" ? ' checked ' : '' }}>
+                                                <input name="jenkel" class="form-check-input" type="radio" id="inlineradio2" value="P" {{ $data->jenkel == "P" ? ' checked ' : '' }}>
                                                 <label class="form-check-label" for="inlineradio2">Perempuan</label>
                                                 </div>
                                                 @error('jenkel')
@@ -210,7 +210,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="kontak">Kontak</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" id="kontak" type="text" placeholder="Kontak" name="kontak" value="{{ old('kontak') ?? $data->profile->kontak }}">
+                                        <input class="form-control" id="kontak" type="text" placeholder="Kontak" name="kontak" value="{{ old('kontak') ?? $data->kontak }}">
                                         @error('kontak')
                                             {{ $message }}
                                         @enderror
@@ -219,7 +219,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="alamat">Alamat</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" id="alamat" type="text" placeholder="Alamat" name="alamat" value="{{ old('alamat') ?? $data->profile->alamat }}">
+                                        <input class="form-control" id="alamat" type="text" placeholder="Alamat" name="alamat" value="{{ old('alamat') ?? $data->alamat }}">
                                         @error('alamat')
                                             {{ $message }}
                                         @enderror
@@ -228,7 +228,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label" for="inputEmail3">NIK</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" id="nik" type="text" placeholder="NIK" name="nik" value="{{ old('nik') ?? $data->profile->nik }}">
+                                        <input class="form-control" id="nik" type="text" placeholder="NIK" name="nik" value="{{ old('nik') ?? $data->nik }}">
                                         @error('nik')
                                             {{ $message }}
                                         @enderror
@@ -249,7 +249,7 @@
                                 <div class="form-group row">
                                     <label for="event" class="col-sm-2 col-form-label">Deskripsi</label>
                                     <div class="col-sm-10">
-                                    <textarea name="deskripsi" id="deskripsi" class="form-control">{!! old('deskripsi') ?? $data->profile->deskripsi !!}</textarea>
+                                    <textarea name="deskripsi" id="deskripsi" class="form-control">{!! old('deskripsi') ?? $data->deskripsi !!}</textarea>
                                     @error('deskripsi')
                                     <div class="mt-2 text-danger">
                                         {{ $message }}

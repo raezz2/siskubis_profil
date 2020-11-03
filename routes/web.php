@@ -45,6 +45,7 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 	Route::get('/tenant/{kategori}/{id}', 'Tenant\TenantController@detail')->name('inkubator.tenant-detail');
 
 	Route::get('/mentor', 'Mentor\MentorController@index')->name('inkubator.mentor');
+	Route::get('/mentor/list', 'Mentor\MentorController@tampil')->name('inkubator.mentor-list');
 	Route::post('/mentor/tambah', 'Mentor\MentorController@create')->name('inkubator.mentor.tenant');
 	Route::post('/mentor/store', 'Inkubator\RegisterMentorController@create')->name('inkubator.regis');
 	Route::get('/mentor/profile/{id}', 'Profile\ProfileUserController@show')->name('inkubator.profile-detail');
@@ -162,7 +163,8 @@ Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function (
 	Route::get('/', 'Tenant\HomeController@index')->name('tenant.home');
 	Route::get('/chat', 'Chat\ChatController@index')->name('tenant.chat');
 	Route::get('/mentor', 'Mentor\MentorController@indexTenant')->name('tenant.mentor');
-	Route::get('/mentor/profile/{id}', 'Profile\ProfileUserController@show')->name('tenant.profile-detail');
+	Route::get('/mentor/list', 'Mentor\MentorController@tampil')->name('tenant.mentor-list');
+	Route::get('mentor/profile/{id}', 'Profile\ProfileUserController@show')->name('tenant.profile-detail');
 	// route berita tenant
 	Route::get('/berita', 'Berita\BeritaController@indexTenant')->name('tenant.berita');
 	Route::get('/berita/{slug}', 'Berita\BeritaController@showT')->name('tenant.showBerita');

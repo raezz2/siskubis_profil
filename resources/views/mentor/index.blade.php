@@ -18,11 +18,16 @@
 		<div class="card">
 			<div class="card-body ">
 				<strong>Pendamping</strong>
-			<a href="{{route('admin.inkubator.view','grid')}}">Grid</a>
+			@role('inkubator')		
+			<a href="{{route('inkubator.mentor')}}">Grid</a>
 			<a class="item-divider"></a>
-			<a href="{{route('admin.inkubator.view','list')}}">List</a>
-			@role('inkubator')
+			<a href="{{ route('inkubator.mentor-list') }}">List</a>
 			<button class="btn btn-primary btn-md m-1 float-right" type="button" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="i-Add-User text-white mr-2"></i> Tambah Pendamping</button>
+			@endrole
+			@role('tenant')		
+			<a href="{{route('tenant.mentor')}}">Grid</a>
+			<a class="item-divider"></a>
+			<a href="{{ route('tenant.mentor-list') }}">List</a>
 			@endrole
 			</div>
 		</div>
@@ -34,23 +39,23 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="ul-contact-page__profile">
-					<div class="user-profile"><img class="profile-picture mb-2" src="{{ asset('img/mentor/profile/'.$data->profile->foto)}}" alt="{{ $data->profile->nama ?? '-'  }}" /></div>
+					<div class="user-profile"><img class="profile-picture mb-2" src="{{ asset('img/mentor/profile/'.$data->foto)}}" alt="{{ $data->nama ?? '-'  }}" /></div>
 					<div class="ul-contact-page__info">
 						@role('inkubator')
-						<a href="{{route('inkubator.profile-detail',$data->id)}}"><p class="m-0 text-24">{{$data->profile->nama}}</p></a>
+						<a href="{{route('inkubator.profile-detail',$data->uid)}}"><p class="m-0 text-24">{{$data->nama}}</p></a>
 						@endrole
 						@role('tenant')
-						<a href="{{route('tenant.profile-detail',$data->id)}}"><p class="m-0 text-24">{{$data->profile->nama}}</p></a>
+						<a href="{{route('tenant.profile-detail',$data->uid)}}"><p class="m-0 text-24">{{$data->nama}}</p></a>
 						@endrole
-						<p class="text-muted m-0">{{$data->profile->kontak}}</p>
-						<p class="text-muted mt-3">{{$data->profile->alamat}}</p>
-						<p class="text-muted mt-3">NO: {{$data->profile->id}}</p>
+						<p class="text-muted m-0">{{$data->kontak}}</p>
+						<p class="text-muted mt-3">{{$data->alamat}}</p>
+						<p class="text-muted mt-3">NO: {{$data->id}}</p>
 					</div>
 				</div>
 			</div>
 			@role('inkubator')
 			<div class="card-footer">
-				<a class="btn btn-sm btn-success float-right adduser" type="submit" data-toggle="modal" data-id="{{ $data->id }}" data-name="{{ $data->profile->nama }}" data-target=".bd-contoh-modal-lg"><i class="i-Add-User text-white mr-2"></i><span class="text-white">Jadikan Pendamping</span> </a>
+				<a class="btn btn-sm btn-success float-right adduser" type="submit" data-toggle="modal" data-id="{{ $data->uid }}" data-name="{{ $data->nama }}" data-target=".bd-contoh-modal-lg"><i class="i-Add-User text-white mr-2"></i><span class="text-white">Jadikan Pendamping</span> </a>
 			</div>
 			@endrole
 		</div>
