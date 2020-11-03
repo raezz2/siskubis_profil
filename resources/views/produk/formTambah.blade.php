@@ -493,11 +493,11 @@ p {
                                                 <textarea name="editor1"></textarea>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Kategori" />
+                                                    <input class="form-control" name="kategori_canvas" type="text" placeholder="Kategori" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Tanggal" />
+                                                    <input class="form-control" name="tanggal_canvas" type="text" placeholder="Tanggal" />
                                                 </div>
                                             </div>
                                         </div>
@@ -547,19 +547,19 @@ p {
                                             <div class="ul-widget__body">
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Jenis Kekayaan Intelektual" />
+                                                    <input class="form-control" name="jenis_ki" type="text" placeholder="Jenis Kekayaan Intelektual" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="keterbaharuan" type="text" placeholder="Status Kekayaan Intelektual" />
+                                                    <input class="form-control" name="status_ki" type="text" placeholder="Status Kekayaan Intelektual" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="manfaat" type="text" placeholder="Permohonan" />
+                                                    <input class="form-control" name="permohonan_ki" type="text" placeholder="Permohonan" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="keunggulan" type="text" placeholder="Sertifikat" />
+                                                    <input class="form-control" name="sertifikat_ki" type="text" placeholder="Sertifikat" />
                                                 </div>
                                             </div>
                                         </div>
@@ -571,15 +571,15 @@ p {
                                                 <div class="ul-widget__body">
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
-                                                        <input class="form-control" name="keunggulan" type="text" placeholder="Berlaku Mulai" />
+                                                        <input class="form-control" name="berlaku_mulai" type="text" placeholder="Berlaku Mulai" />
                                                     </div>
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
-                                                        <input class="form-control" name="keunggulan" type="text" placeholder="Berlaku Sampai" />
+                                                        <input class="form-control" name="berlaku_sampai" type="text" placeholder="Berlaku Sampai" />
                                                     </div>
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
-                                                        <input class="form-control" name="keunggulan" type="text" placeholder="Pemilikan Kekayaan Intelektual" />
+                                                        <input class="form-control" name="pemilik_ki" type="text" placeholder="Pemilikan Kekayaan Intelektual" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -686,23 +686,23 @@ p {
                                             <div class="ul-widget__body">
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="spesifikasi" type="text" placeholder="Nama Riset" />
+                                                    <input class="form-control" name="nama_riset" type="text" placeholder="Nama Riset" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="keterbaharuan" type="text" placeholder="Pelaksana" />
+                                                    <input class="form-control" name="pelaksana_riset" type="text" placeholder="Pelaksana" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="manfaat" type="text" placeholder="Tahun" />
+                                                    <input class="form-control" name="tahun_riset" type="text" placeholder="Tahun" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="keunggulan" type="text" placeholder="Pendanaan" />
+                                                    <input class="form-control" name="pendanaan_riset" type="text" placeholder="Pendanaan" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="keunggulan" type="text" placeholder="Skema" />
+                                                    <input class="form-control" name="hasil_riset" type="text" placeholder="Skema" />
                                                 </div>
                                             </div>
                                         </div>

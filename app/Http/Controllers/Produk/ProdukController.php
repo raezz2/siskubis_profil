@@ -131,12 +131,15 @@ class ProdukController extends Controller
             $image_resize->save(public_path('img/produk/'.$filename));
 
             $file = $request->file('proposal');
-            $proposal_file = time()."_".$file->getClientOriginalExtension();
-            $file->storeAs('img/proposalProduk/',$proposal_file);
-            //$file->storeAs('public/produk', $filename);
+            $dokumen_file_sertifikasi = time()."_".$file->getClientOriginalExtension();
+            $file->storeAs('file/produk/dokumen_sertifikasi/',$dokumen_file_sertifikasi);
             $file = $request->file('foto');
-            //$filename = time() . Str::slug($request->nama) . '.' . $file->getClientOriginalExtension();
-            //$file->storeAs('public/produk', $filename);
+
+            $file = $request->file('proposal');
+            $dokumen_file_ijin = time()."_".$file->getClientOriginalExtension();
+            $file->storeAs('file/produk/dokumen_ijin/',$dokumen_file_ijin);
+            $file = $request->file('foto');
+
 
             $produk = Produk::create([
 
@@ -175,9 +178,9 @@ class ProdukController extends Controller
 
             $produk_canvas =ProdukCanvas::create([
                 'produk_id'             => $produk_id,
-                'canvas'                => $request->canvas,
-                'kategori'              => $request->kategori,
-                'tanggal'               => $request->tanggal,
+                'canvas'                => $request->editor1,
+                'kategori'              => $request->kategori_canvas,
+                'tanggal'               => $request->tanggal_canvas,
             ]);
 
             $produk_image = ProdukImage::create([
@@ -191,8 +194,8 @@ class ProdukController extends Controller
                 'produk_id'             => $produk_id,
                 'jenis_ki'              => $request->jenis_ki,
                 'status_ki'             => $request->status_ki,
-                'permohonan'            => $request->permohonan,
-                'sertifikat'            => $request->sertifikat,
+                'permohonan'            => $request->permohonan_ki,
+                'sertifikat'            => $request->sertifikat_ki,
                 'berlaku_mulai'         => $request->berlaku_mulai,
                 'berlaku_sampai'        => $request->berlaku_sampai,
                 'pemilik_ki'            => $request->pemilik_ki,
@@ -209,34 +212,34 @@ class ProdukController extends Controller
             $produk_riset = ProdukRiset::create([
                 'produk_id'             => $produk_id,
                 'nama_riset'            => $request->nama_riset,
-                'pelaksana'             => $request->pelaksana,
-                'tahun'                 => $request->tahun,
-                'pendanaan'             => $request->pendanaan,
-                'skema'                 => $request->skema,
-                'nilai'                 => $request->nilai,
-                'aktifitas'             => $request->aktifitas,
-                'tujuan'                => $request->tujuan,
-                'hasil'                 => $request->hasil,
+                'pelaksana'             => $request->pelaksana_riset,
+                'tahun'                 => $request->tahun_riset,
+                'pendanaan'             => $request->pendanaan_riset,
+                'skema'                 => $request->skema_riset,
+                'nilai'                 => $request->nilai_riset,
+                'aktifitas'             => $request->aktifitas_riset,
+                'tujuan'                => $request->tujuan_riset,
+                'hasil'                 => $request->hasil_riset,
             ]);
 
             $produk_sertifikasi = ProdukSertifikasi::create([
                 'produk_id'             => $produk_id,
                 'jenis_sertif'          => $request->jenis_sertif,
                 'pemberi_sertif'        => $request->pemberi_sertif,
-                'status'                => $request->status,
-                'tahun'                 => $request->tahun,
-                'tanggal'               => $request->tanggal,
-                'dokumen'               => $proposal_file,
+                'status'                => $request->status_sertif,
+                'tahun'                 => $request->tahun_sertif,
+                'tanggal'               => $request->tanggal_sertif,
+                'dokumen'               => $dokumen_file_sertifikasi,
             ]);
 
             $produk_ijin = ProdukIjin::create([
                 'produk_id'             => $produk_id,
                 'jenis_sertif'          => $request->jenis_ijin,
-                'pemberi       '        => $request->pemberi,
-                'status'                => $request->status,
-                'tahun'                 => $request->tahun,
-                'tanggal'               => $request->tanggal,
-                'dokumen'               => $proposal_file,
+                'pemberi       '        => $request->pemberi_ijin,
+                'status'                => $request->status_ijin,
+                'tahun'                 => $request->tahun_ijin,
+                'tanggal'               => $request->tanggal_ijin,
+                'dokumen'               => $dokumen_file_ijin,
             ]);
 
             // $notification = array(
