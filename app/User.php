@@ -70,7 +70,7 @@ class User extends Authenticatable
     {
         // one user can only have one profile
         return $this->hasOne(ProfilUser::class, 'user_id');
-
+    }
     public function user()
     {
         return $this->belongsTo('App\ProfilUser','id', 'user_id');
