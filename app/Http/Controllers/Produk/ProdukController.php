@@ -8,13 +8,19 @@ use File;
 use Image;
 use App\User;
 use App\Produk;
+use App\ProdukBisnis;
+use App\ProdukCanvas;
+use App\ProdukIjin;
+use App\ProdukImage;
+use App\ProdukKI;
+use App\ProdukRiset;
+use App\ProdukSertifikasi;
+use App\ProdukTeam;
 use App\Tenant;
 use App\Priority;
 use App\Inkubator;
-use App\ProdukTeam;
 use App\ProfilUser;
 use App\TenantUser;
-use App\ProdukImage;
 use App\profil_user;
 use App\TenantMentor;
 use Illuminate\Support\Str;
@@ -85,7 +91,7 @@ class ProdukController extends Controller
 	public function show($id)
     {
         $produk         = Produk::find($id);
-        $produk         = Produk::with(['tenant','produk_image'])->where('id', $id)->first();
+        $produk         = Produk::with(['tenant','priority','produk_bisnis','produk_canvas','produk_ijin','produk_image','produk_ki','produk_riset','produk_sertifikasi'])->where('id', $id)->first();
         $image          = ProdukImage::where('produk_id',$id)->get();
         $produk_team    = ProdukTeam::with('profil_user.user')->where('produk_id', $id)->get();
 

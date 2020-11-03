@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('css')
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
 <style type="text/css">
 * {
@@ -250,49 +251,12 @@ p {
     width: 100%;
     object-fit: cover
 }
-</style>
-<style>
-    body {font-family: Arial, Helvetica, sans-serif;}
-    * {box-sizing: border-box;}
 
-    .input-container {
-      display: -ms-flexbox; /* IE10 */
-      display: flex;
-      width: 100%;
-      margin-bottom: 15px;
-    }
 
-    .icon {
-      padding: 10px;
-      background: #402060;
-      color: white;
-      min-width: 50px;
-      text-align: center;
-    }
-
-    .input-field {
-      width: 100%;
-      padding: 10px;
-      outline: none;
-    }
-
-    .input-field:focus {
-      border: 2px solid #402060;
-    }
-
-    /* Set a style for the submit button */
-    .btn {
-      background-color: #402060;
-      color: white;
-      padding: 15px 20px;
-      border: none;
-      cursor: pointer;
-      width: 100%;
-      opacity: 0.9;
-    }
-
-    .btn:hover {
-      opacity: 1;
+    /* Multiple select dropdown */
+    .dropdown-toggle{
+        height: 40px;
+        width: 400px !important;
     }
 </style>
 
@@ -323,13 +287,76 @@ p {
                     <!-- fieldsets -->
                     <fieldset>
                         <div class="form-card">
-                            <div class="row">
+                            <div class="row mb-3">
                                 <div class="col-7">
                                     <h2 class="fs-title">Detail Produk</h2>
                                 </div>
                                 <div class="col-5">
                                     <h2 class="steps">Step 1 - 10</h2>
                                 </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="input-group input-group-sm col-md-5 mr-5">
+                                    <div class="input-group-prepend">
+                                        <label for="title">
+                                            Nama Produk : 
+                                            <a href="#" data-toggle="tooltip" title="Isi nama produk secara lengkap!!!">
+                                                <i class="far fa-question-circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <input type="text" class="form-control" name="title" placeholder="Nama produk..." value="{{ old('title') }}" required />
+                                </div>
+                                <div class="input-group input-group-sm col-md-6">
+                                    <div class="input-group-prepend">
+                                        <label for="title">
+                                            Subtitle : 
+                                        </label>
+                                    </div>
+                                    <input type="text" class="form-control" name="subtitle" placeholder="Subtitle..." value="{{ old('subtitle') }}" required />
+                                </div>
+
+                                <div class="input-group input-group-sm col-md-5 mr-5">
+                                    <div class="input-group-prepend">
+                                        <label for="title">
+                                            Harga Pokok :
+                                        </label>
+                                    </div>
+                                    <input type="text" class="form-control" name="harga_pokok" placeholder="Biaya pembuatan produk..." />
+                                </div>
+                                <div class="input-group input-group-sm col-md-6">
+                                    <div class="input-group-prepend">
+                                        <label for="title">
+                                            Harga Jual : 
+                                        </label>
+                                    </div>
+                                    <input type="text" class="form-control" name="harga_jual" placeholder="Harga jual produk..." />
+                                </div>
+
+                                <div class="input-group input-group-sm col-md-5 mr-5">
+                                    <div class="input-group-prepend">
+                                        <label for="title">
+                                            Kategori Produk :
+                                        </label>
+                                    </div>
+                                    <input type="text" class="form-control" name="harga_pokok" placeholder="Biaya pembuatan produk..." />
+                                </div>
+                                <div class="input-group input-group-sm col-md-6">
+                                    <div class="input-group-prepend">
+                                        <label for="title">
+                                            Tags : 
+                                        </label><br />
+                                    </div>
+                                    <select class="selectpicker form-control" multiple data-live-search="true" name="tag[]">
+                                        <option value="Teknologi">Teknologi</option>
+                                        <option value="Transportasi">Transportasi</option>
+                                        <option value="Makanan dan Minuman">Makanan dan Minuman</option>
+                                        <option value="Tarik Siss">Tarik Siss</option>
+                                        <option value="Semongko">Semongko</option>
+                                        <option value="Ojo Lali Ibadah">Ojo Lali Ibadah</option>
+                                    </select>
+                                </div>
+
                             </div>
                             <div class="row">
                                 <div class="col-xl-6 col-lg-6">
@@ -860,6 +887,8 @@ p {
                                 <div class="col-3"> <img src="https://i.imgur.com/GwStPmg.png" class="fit-image"> </div>
                             </div><br>
                         </div>
+                        <button value="submit" class="btn btn-primary">Submit</button>
+                        <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
                     </fieldset>
                 </form>
                 </div>
@@ -869,90 +898,82 @@ p {
 </div>
 @endsection
 @section('js')
-<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 <script type="text/javascript">
-//tooltip
-$(document).ready(function(){
-  $('[data-toggle="tooltip"]').tooltip();
-});
+    //tooltip
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+    
+    //multi step form
+    $(document).ready(function(){
+        var current_fs, next_fs, previous_fs; //fieldsets
+        var opacity;
+        var current = 1;
+        var steps = $("fieldset").length;
+        setProgressBar(current);
+        $(".next").click(function(){
+            current_fs = $(this).parent();
+            next_fs = $(this).parent().next();
+            //Add Class Active
+            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+            //show the next fieldset
+            next_fs.show();
+            //hide the current fieldset with style
+            current_fs.animate({opacity: 0}, {
+                step: function(now) {
+                    // for making fielset appear animation
+                    opacity = 1 - now;
+                    current_fs.css({
+                        'display': 'none',
+                        'position': 'relative'
+                    });
+                    next_fs.css({'opacity': opacity});
+                },
+                duration: 500
+            });
+            setProgressBar(++current);
+        });
 
-//multi step form
-$(document).ready(function(){
+        $(".previous").click(function(){
+            current_fs = $(this).parent();
+            previous_fs = $(this).parent().prev();
+            //Remove class active
+            $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+            //show the previous fieldset
+            previous_fs.show();
+            //hide the current fieldset with style
+            current_fs.animate({opacity: 0}, {
+                step: function(now) {
+                    // for making fielset appear animation
+                    opacity = 1 - now;
 
-var current_fs, next_fs, previous_fs; //fieldsets
-var opacity;
-var current = 1;
-var steps = $("fieldset").length;
+                    current_fs.css({
+                        'display': 'none',
+                        'position': 'relative'
+                    });
+                    previous_fs.css({'opacity': opacity});
+                },
+                duration: 500
+            });
+            setProgressBar(--current);
+        });
+        
+        function setProgressBar(curStep){
+            var percent = parseFloat(100 / steps) * curStep;
+            percent = percent.toFixed();
+            $(".progress-bar")
+            .css("width",percent+"%")
+        }
 
-setProgressBar(current);
+        $(".submit").click(function(){
+            return false;
+        })
+    });
 
-$(".next").click(function(){
-
-current_fs = $(this).parent();
-next_fs = $(this).parent().next();
-
-//Add Class Active
-$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-
-//show the next fieldset
-next_fs.show();
-//hide the current fieldset with style
-current_fs.animate({opacity: 0}, {
-step: function(now) {
-// for making fielset appear animation
-opacity = 1 - now;
-
-current_fs.css({
-'display': 'none',
-'position': 'relative'
-});
-next_fs.css({'opacity': opacity});
-},
-duration: 500
-});
-setProgressBar(++current);
-});
-
-$(".previous").click(function(){
-
-current_fs = $(this).parent();
-previous_fs = $(this).parent().prev();
-
-//Remove class active
-$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
-
-//show the previous fieldset
-previous_fs.show();
-
-//hide the current fieldset with style
-current_fs.animate({opacity: 0}, {
-step: function(now) {
-// for making fielset appear animation
-opacity = 1 - now;
-
-current_fs.css({
-'display': 'none',
-'position': 'relative'
-});
-previous_fs.css({'opacity': opacity});
-},
-duration: 500
-});
-setProgressBar(--current);
-});
-
-function setProgressBar(curStep){
-var percent = parseFloat(100 / steps) * curStep;
-percent = percent.toFixed();
-$(".progress-bar")
-.css("width",percent+"%")
-}
-
-$(".submit").click(function(){
-return false;
-})
-
-});
+    // multiple select dropdown
+    $(document).ready(function() {
+        $('select').selectpicker();
+    });
 </script>
 @endsection
