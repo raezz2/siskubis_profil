@@ -2,6 +2,8 @@
 @section('css')
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 <style type="text/css">
 * {
     margin: 0;
@@ -250,9 +252,9 @@ p {
     width: 100%;
     object-fit: cover
 }
-</style>
-<style>
-    body {font-family: Arial, Helvetica, sans-serif;}
+
+
+body {font-family: Arial, Helvetica, sans-serif;}
     * {box-sizing: border-box;}
 
     .input-container {
@@ -294,6 +296,11 @@ p {
     .btn:hover {
       opacity: 1;
     }
+
+    .dropdown-toggle{
+            height: 40px;
+            width: 400px !important;
+        }
 </style>
 
 @endsection
@@ -352,17 +359,22 @@ p {
                                                     <i class="fas fa-phone-alt icon"></i>
                                                     <input class="form-control" name="contact" type="text" placeholder="No Telphone" />
                                                 </div>
-                                                <div class="form-group">
-                                                    <div class="input-group">
-                                                        <select name="tag" class="form-control custom-select" required>
-                                                            <option value="0">Tag</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
+                                                <label><strong>Select Tag :</strong></label><br/>
+                                                <div class="input-container">
+                                                    <i class="fas fa-align-justify icon"></i>
+                                                    <select class="selectpicker" multiple data-live-search="true" name="tag[]">
+                                                      <option value="1">Aksesoris</option>
+                                                      <option value="2">Gadget</option>
+                                                      <option value="3">Fashion</option>
+                                                      <option value="4">Foot</option>
+                                                      <option value="5">Properti</option>
+                                                      <option value="6">Tool</option>
+                                                    </select>
+                                                </div><br/>
+                                                <div class="form-group" hidden>
                                                     <div class="input-group">
                                                         <select name="kategori" class="form-control custom-select" required>
-                                                            <option value="0">Kategori</option>
+                                                            <option value="0">Kategori Id</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -373,7 +385,7 @@ p {
                                                     <textarea class="form-control" name="location" rows="3" placeholder="Location"></textarea>
                                                 </div>
                                                 <div class="input-container">
-                                                    <textarea class="form-control" name="address" rows="5" placeholder="Address"></textarea>
+                                                    <textarea class="form-control" name="address" rows="4" placeholder="Address"></textarea>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="foto">Uploda Proposal</label><br>
@@ -412,7 +424,7 @@ p {
                                                         <input class="form-control" name="pengembangan" type="text" placeholder="Pengembangan" />
                                                     </div>
                                                     <div class="input-container">
-                                                        <textarea class="form-control" name="latar_produk" rows="4" placeholder="Latar Produk"></textarea>
+                                                        <textarea class="form-control" name="latar_produk" rows="7" placeholder="Latar Produk"></textarea>
                                                     </div>
                                                     <div class="input-container">
                                                         <textarea class="form-control" name="tentang_produk" rows="7" placeholder="Tentang Produk"></textarea>
@@ -484,21 +496,30 @@ p {
                                     <h2 class="steps">Step 3 - 10</h2>
                                 </div>
                             </div>
-                            <h5>Input Table Canvas</h5>
+                            <h5>Input Table Canvas :</h5>
                             <div class="row">
                                 <div class="col-xl-12 col-lg-4">
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="ul-widget__body">
-                                                <textarea name="editor1"></textarea>
+                                                <textarea name="editor1"></textarea><br/>
+                                                <h5>Input Tanggal Canvas :</h5>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="kategori_canvas" type="text" placeholder="Kategori" />
+                                                    <input class="form-control" type="date" name="tanggal_canvas" placeholder="Tanggal">
                                                 </div>
+                                                <h5>Input Kategori Canvas :</h5>
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="tanggal_canvas" type="text" placeholder="Tanggal" />
-                                                </div>
+                                                    <select class="selectpicker" multiple data-live-search="true" name="kategori_canvas[]">
+                                                      <option value="1">Aksesoris</option>
+                                                      <option value="2">Gadget</option>
+                                                      <option value="3">Fashion</option>
+                                                      <option value="4">Foot</option>
+                                                      <option value="5">Properti</option>
+                                                      <option value="6">Tool</option>
+                                                    </select>
+                                                </div><br/>
                                             </div>
                                         </div>
                                     </div>
@@ -867,9 +888,17 @@ p {
 </div>
 @endsection
 @section('js')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('select').selectpicker();
+    });
+</script>
 <script type="text/javascript">
 //tooltip
 $(document).ready(function(){
