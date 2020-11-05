@@ -115,6 +115,8 @@ class ProdukController extends Controller
 
         ]);
 
+        dd($validator);
+
         if ($request->hasFile('foto')) {
 
             $produk_id = Produk::orderBy('id','DESC')->first();
@@ -129,6 +131,10 @@ class ProdukController extends Controller
             $image_resize = Image::make($image->getRealPath());
             $image_resize->resize(900,585);
             $image_resize->save(public_path('img/produk/'.$filename));
+
+            $file = $request->file('proposal');
+            $dokumen_file_proposal = time()."_".$file->getClientOriginalExtension();
+            $file->storeAs('file/produk/dokumen_proposal/',$dokumen_file_proposal);
 
             $file = $request->file('file_sertifikasi');
             $dokumen_file_sertifikasi = time()."_".$file->getClientOriginalExtension();
@@ -161,8 +167,8 @@ class ProdukController extends Controller
                 'keunggulan'            => $request->keunggulan,
                 'teknologi'             => $request->teknologi,
                 'pengembangan'          => $request->pengembangan,
-                'proposal'              => $proposal_file,
-                'kategori_id'           => $request->kategori,
+                'proposal'              => $dokumen_file_proposal,
+                'kategori_id'           => $request->kategori_produk,
             ]);
 
             $produk_bisnis = ProdukBisnis::create([
@@ -246,8 +252,10 @@ class ProdukController extends Controller
             // );
 
             // return view('tenant.produk');
-            return redirect(route('tenant.produk'));
+
+            // return redirect(route('tenant.produk'));
         }
+        return dd($validator);
         // return "ok";
     }
 

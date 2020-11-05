@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('css')
-
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
@@ -49,7 +48,6 @@ p {
     display: none
 }
 
-#msform input,
 #msform textarea {
     padding: 8px 15px 8px 15px;
     border: 1px solid #ccc;
@@ -266,7 +264,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
     .icon {
       padding: 10px;
-      background: #402060;
+      background: #673AB7;
       color: white;
       min-width: 50px;
       text-align: center;
@@ -279,18 +277,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
     }
 
     .input-field:focus {
-      border: 2px solid #402060;
-    }
-
-    /* Set a style for the submit button */
-    .btn {
-      background-color: #402060;
-      color: white;
-      padding: 15px 20px;
-      border: none;
-      cursor: pointer;
-      width: 100%;
-      opacity: 0.9;
+      border: 2px solid #673AB7;
     }
 
     .btn:hover {
@@ -361,7 +348,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                 </div>
                                                 <label><strong>Select Tag :</strong></label><br/>
                                                 <div class="input-container">
-                                                    <i class="fas fa-align-justify icon"></i>
+                                                    <i class="fas fa-tasks icon"></i>
                                                     <select class="selectpicker" multiple data-live-search="true" name="tag[]">
                                                       <option value="1">Aksesoris</option>
                                                       <option value="2">Gadget</option>
@@ -374,7 +361,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                 <div class="form-group" hidden>
                                                     <div class="input-group">
                                                         <select name="kategori" class="form-control custom-select" required>
-                                                            <option value="0">Kategori Id</option>
+                                                            <option value="1">Kategori Id</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -505,12 +492,12 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                 <textarea name="editor1"></textarea><br/>
                                                 <h5>Input Tanggal Canvas :</h5>
                                                 <div class="input-container">
-                                                    <i class="fas fa-align-justify icon"></i>
+                                                    <i class="far fa-calendar-alt icon"></i>
                                                     <input class="form-control" type="date" name="tanggal_canvas" placeholder="Tanggal">
                                                 </div>
                                                 <h5>Input Kategori Canvas :</h5>
                                                 <div class="input-container">
-                                                    <i class="fas fa-align-justify icon"></i>
+                                                    <i class="fas fa-tasks icon"></i>
                                                     <select class="selectpicker" multiple data-live-search="true" name="kategori_canvas[]">
                                                       <option value="1">Aksesoris</option>
                                                       <option value="2">Gadget</option>
@@ -571,7 +558,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                     <input class="form-control" name="jenis_ki" type="text" placeholder="Jenis Kekayaan Intelektual" />
                                                 </div>
                                                 <div class="input-container">
-                                                    <i class="fas fa-align-justify icon"></i>
+                                                    <i class="fas fa-circle icon"></i>
                                                     <input class="form-control" name="status_ki" type="text" placeholder="Status Kekayaan Intelektual" />
                                                 </div>
                                                 <div class="input-container">
@@ -579,7 +566,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                     <input class="form-control" name="permohonan_ki" type="text" placeholder="Permohonan" />
                                                 </div>
                                                 <div class="input-container">
-                                                    <i class="fas fa-align-justify icon"></i>
+                                                    <i class="fas fa-certificate icon"></i>
                                                     <input class="form-control" name="sertifikat_ki" type="text" placeholder="Sertifikat" />
                                                 </div>
                                             </div>
@@ -591,16 +578,16 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                             <div class="card-body">
                                                 <div class="ul-widget__body">
                                                     <div class="input-container">
-                                                        <i class="fas fa-align-justify icon"></i>
+                                                        <i class="far fa-calendar icon"></i>
                                                         <input class="form-control" name="berlaku_mulai" type="text" placeholder="Berlaku Mulai" />
                                                     </div>
                                                     <div class="input-container">
-                                                        <i class="fas fa-align-justify icon"></i>
+                                                        <i class="far fa-calendar-check icon"></i>
                                                         <input class="form-control" name="berlaku_sampai" type="text" placeholder="Berlaku Sampai" />
                                                     </div>
                                                     <div class="input-container">
-                                                        <i class="fas fa-align-justify icon"></i>
-                                                        <input class="form-control" name="pemilik_ki" type="text" placeholder="Pemilikan Kekayaan Intelektual" />
+                                                        <i class="fas fa-user-tie icon"></i>
+                                                        <input class="form-control" name="pemilik_ki" type="text" placeholder="Pemilik Kekayaan Intelektual" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -657,12 +644,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="form-group" hidden>
-                                                <label>Produk Id :</label>
-                                                   <div class="input-group">
-                                                    <input type="text" class="form-control" name="produk_id" value="0" required>
-                                                   </div>
-                                            </div>
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <select name="jabatan" class="form-control custom-select" required>
@@ -710,11 +691,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                     <input class="form-control" name="nama_riset" type="text" placeholder="Nama Riset" />
                                                 </div>
                                                 <div class="input-container">
-                                                    <i class="fas fa-align-justify icon"></i>
+                                                    <i class="fas fa-user-tie icon"></i>
                                                     <input class="form-control" name="pelaksana_riset" type="text" placeholder="Pelaksana" />
                                                 </div>
                                                 <div class="input-container">
-                                                    <i class="fas fa-align-justify icon"></i>
+                                                    <i class="far fa-calendar-alt icon"></i>
                                                     <input class="form-control" name="tahun_riset" type="text" placeholder="Tahun" />
                                                 </div>
                                                 <div class="input-container">
@@ -781,19 +762,19 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                     <input class="form-control" name="jenis_sertif" type="text" placeholder="Jenis Sertifikat" />
                                                 </div>
                                                 <div class="input-container">
-                                                    <i class="fas fa-align-justify icon"></i>
+                                                    <i class="fas fa-user icon"></i>
                                                     <input class="form-control" name="pemberi_sertif" type="text" placeholder="Pemberi Sertifikat" />
                                                 </div>
                                                 <div class="input-container">
-                                                    <i class="fas fa-align-justify icon"></i>
+                                                    <i class="fas fa-circle icon"></i>
                                                     <input class="form-control" name="status_sertif" type="text" placeholder="Status" />
                                                 </div>
                                                 <div class="input-container">
-                                                    <i class="fas fa-align-justify icon"></i>
+                                                    <i class="far fa-calendar-alt icon"></i>
                                                     <input class="form-control" name="tahun_sertif" type="text" placeholder="Tahun" />
                                                 </div>
                                                 <div class="input-container">
-                                                    <i class="fas fa-align-justify icon"></i>
+                                                    <i class="far fa-calendar-alt icon"></i>
                                                     <input class="form-control" name="tanggal_sertif" type="text" placeholder="Tanggal" />
                                                 </div>
                                                 <div class="form-group">
@@ -832,19 +813,19 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                     <input class="form-control" name="jenis_ijin" type="text" placeholder="Jenis Ijin" />
                                                 </div>
                                                 <div class="input-container">
-                                                    <i class="fas fa-align-justify icon"></i>
+                                                    <i class="fas fa-user icon"></i>
                                                     <input class="form-control" name="pemberi_ijin" type="text" placeholder="Pemberi Ijin" />
                                                 </div>
                                                 <div class="input-container">
-                                                    <i class="fas fa-align-justify icon"></i>
+                                                    <i class="fas fa-circle icon"></i>
                                                     <input class="form-control" name="status_ijin" type="text" placeholder="Status" />
                                                 </div>
                                                 <div class="input-container">
-                                                    <i class="fas fa-align-justify icon"></i>
+                                                    <i class="far fa-calendar-alt icon"></i>
                                                     <input class="form-control" name="tahun_ijin" type="text" placeholder="Tahun" />
                                                 </div>
                                                 <div class="input-container">
-                                                    <i class="fas fa-align-justify icon"></i>
+                                                    <i class="far fa-calendar-alt icon"></i>
                                                     <input class="form-control" name="tanggal_ijin" type="text" placeholder="Tanggal" />
                                                 </div>
                                                 <div class="form-group">
@@ -874,7 +855,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                             </div> <br><br>
                             <h2 class="purple-text text-center"><strong>Pastikan data produk telah terisi dengan benar !</strong></h2> <br>
                             <div class="row justify-content-center">
-                                <div class="col-3"> <img src="https://i.imgur.com/GwStPmg.png" class="fit-image"> </div>
+                                <div class="col-3"> <img src="{{asset('assets/images/submit.png')}}" class="fit-image"> </div>
                             </div><br>
                         </div>
                         <button value="submit" class="btn btn-primary">Submit</button>
