@@ -25,7 +25,9 @@ class ProfileUserController extends Controller
 	 
     public function indexprofil($id)
     {
-        $data['data']=User::where(['users.inkubator_id'=>Auth::user()->inkubator_id,'users.id'=>$id])
+        $check = TenantUser::where('user_id',Auth::user()->id)->get();
+
+        $data=User::where(['users.inkubator_id'=>Auth::user()->inkubator_id,'users.id'=>$id])
         ->join('role_user',['users.id'=>'role_user.user_id'])
         ->leftJoin('profil_user',['users.id'=>'profil_user.user_id'])
         ->select('users.id as uid','profil_user.*','users.email')
@@ -33,11 +35,11 @@ class ProfileUserController extends Controller
 
         // $profil= ProfilUser::all();
 
-        // $this->data['data']=$data;
-        // $this->data['profil']=$profil;
+        $this->data['data']=$data;
+        $this->data['check']=$check;
 
         // return response()->json($data);
-        return view('profile.index',$data);
+        return view('profile.profile',$this->data);
         // return $data;
     }
 
@@ -78,7 +80,7 @@ class ProfileUserController extends Controller
         if (request()->user()->hasRole(['inkubator', 'tenant'])) {
             $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'users.id' => request()->id])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'users.email as email', 'profil_user.*')->firstOrFail();
         }
-        return view('profile.index', $data);
+        return view('profile.profile', $data);
     }
 
     public function createuser(Request $request)

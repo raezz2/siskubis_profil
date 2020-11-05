@@ -248,7 +248,7 @@ Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function (
 	Route::post('/update', 'Tenant\TenantController@profil')->name('tenant.update-profil');
 	Route::get('/editprofil/{tenant}', 'Tenant\TenantController@editprofil')->name('tenant.edit-profil');
 	Route::patch('/update-tenant/{tenant}', 'Tenant\TenantController@updateprofil')->name('tenant.update-tenant');
-	Route::get('/profile/{id}', 'Profile\ProfileUserController@index')->name('tenant.profile-detail');
+	Route::get('/profile/{id}', 'Profile\ProfileUserController@indexprofil')->name('tenant.profile-detail');
 	Route::get('/edit-user/{id}', 'Profile\ProfileUserController@edit')->name('tenant.edit-profile-user');
 	Route::patch('/update-profile/{id}', 'Profile\ProfileUserController@updateprofileuser')->name('tenant.update-profile-user');
 	Route::get('/hapus-user/{id}', 'Profile\ProfileUserController@destroy')->name('tenant.delete-user');
