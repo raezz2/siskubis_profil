@@ -54,6 +54,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
     <div class="row">
         <div class="col-lg-4 col-xl-4">
             <div class="card o-hidden"><img class="d-block w-100" src="{{ asset('img/mentor/profile/'.$data->foto) }}" alt="foto profil">
