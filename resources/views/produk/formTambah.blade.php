@@ -579,11 +579,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                 <div class="ul-widget__body">
                                                     <div class="input-container">
                                                         <i class="far fa-calendar icon"></i>
-                                                        <input class="form-control" name="berlaku_mulai" type="text" placeholder="Berlaku Mulai" />
+                                                        <input class="form-control" name="berlaku_mulai" type="date" placeholder="Berlaku Mulai" />
                                                     </div>
                                                     <div class="input-container">
                                                         <i class="far fa-calendar-check icon"></i>
-                                                        <input class="form-control" name="berlaku_sampai" type="text" placeholder="Berlaku Sampai" />
+                                                        <input class="form-control" name="berlaku_sampai" type="date" placeholder="Berlaku Sampai" />
                                                     </div>
                                                     <div class="input-container">
                                                         <i class="fas fa-user-tie icon"></i>
@@ -771,11 +771,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="far fa-calendar-alt icon"></i>
-                                                    <input class="form-control" name="tahun_sertif" type="text" placeholder="Tahun" />
+                                                    <input class="form-control tahun" name="tahun_sertif" type="" placeholder="Tahun" />
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="far fa-calendar-alt icon"></i>
-                                                    <input class="form-control" name="tanggal_sertif" type="text" placeholder="Tanggal" />
+                                                    <input class="form-control" name="tanggal_sertif" type="date" placeholder="Tanggal" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="foto">Uploda Dokumen</label><br>
@@ -878,6 +878,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
 <script type="text/javascript">
     $(document).ready(function() {
         $('select').selectpicker();
+        $('.tahun').datepicker({dateFormat: 'yy'});
+
     });
 </script>
 <script type="text/javascript">
