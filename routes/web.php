@@ -68,7 +68,7 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 	Route::get('/chat', 'Chat\ChatController@index')->name('inkubator.chat');
 	Route::get('/pesan', 'Pesan\PesanController@index')->name('inkubator.pesan');
 	Route::get('/profile', 'Profile\ProfileUserController@index')->name('inkubator.profile-auth');
-	Route::get('/profile/{id}', 'Profile\ProfileUserController@index')->name('inkubator.profile');
+	Route::get('/profile/{id}', 'Profile\ProfileUserController@indexprofil')->name('inkubator.profile');
 
 	//Route Produk Inkubator
 	Route::get('/produk', 'Produk\ProdukController@index')->name('inkubator.produk');
@@ -244,16 +244,18 @@ Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function (
 	Route::get('/kategori/{id}', 'Tenant\TenantController@kategori')->name('tenant.kategori-id');
 
 	//Route Fitur Tenant
-	Route::post('/add-user', 'Tenant\TenantController@createuser')->name('tenant.add-user');
+	Route::post('/add-user', 'Profile\ProfileUserController@createuser')->name('tenant.add-user');
 	Route::post('/update', 'Tenant\TenantController@profil')->name('tenant.update-profil');
 	Route::get('/editprofil/{tenant}', 'Tenant\TenantController@editprofil')->name('tenant.edit-profil');
 	Route::patch('/update-tenant/{tenant}', 'Tenant\TenantController@updateprofil')->name('tenant.update-tenant');
 	Route::get('/profile/{id}', 'Profile\ProfileUserController@index')->name('tenant.profile-detail');
 	Route::get('/edit-user/{id}', 'Profile\ProfileUserController@edit')->name('tenant.edit-profile-user');
-	Route::patch('/update-profile/{id}', 'Profile\ProfileUserController@update')->name('tenant.update-profile-user');
+	Route::patch('/update-profile/{id}', 'Profile\ProfileUserController@updateprofileuser')->name('tenant.update-profile-user');
 	Route::get('/hapus-user/{id}', 'Profile\ProfileUserController@destroy')->name('tenant.delete-user');
 	Route::get('/detail-tenant', 'Tenant\TenantController@detailtenant')->name('tenant.detail-tenant');
-  Route::get('/kategori/{id}', 'Tenant\TenantController@kategori')->name('tenant.kategori-id');
+	Route::get('/kategori/{id}', 'Tenant\TenantController@kategori')->name('tenant.kategori-id');
+	Route::post('/update-profile', 'Profile\ProfileUserController@addprofil')->name('tenant.add-profil');
+	  
 
 });
 
