@@ -23,7 +23,7 @@ class ProfileUserController extends Controller
      * Menampilan data profile user yang sedang login
      */
 	 
-    public function index($id)
+    public function indexprofil($id)
     {
         $data['data']=User::where(['users.inkubator_id'=>Auth::user()->inkubator_id,'users.id'=>$id])
         ->join('role_user',['users.id'=>'role_user.user_id'])
@@ -43,27 +43,33 @@ class ProfileUserController extends Controller
 
     public function edit($id)
     {
-        $data['data']=User::where(['users.inkubator_id'=>Auth::user()->inkubator_id,'users.id'=>$id])
+        $check = TenantUser::where('user_id',Auth::user()->id)->get();
+
+        $data = User::where(['users.inkubator_id'=>Auth::user()->inkubator_id,'users.id'=>$id])
         ->join('role_user',['users.id'=>'role_user.user_id'])
         ->leftJoin('profil_user',['users.id'=>'profil_user.user_id'])
         ->select('users.id as uid','profil_user.*','users.email')
         ->first();
 
+        $this->data['data']= $data;
+        $this->data['check']= $check;
+
         // return response()->json($data);
-        return view('tenant.editprofiluser', $data);
+        return view('tenant.editprofiluser', $this->data);
     }
-    // public function index()
-    // {
-    //     if (request()->user()->hasRole(['mentor'])) {
-    //         $data['data'] = User::where(['users.id' => Auth::user()->id])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid','users.email as email', 'profil_user.*')->first();
-    //         if (!$data['data']->id) {
-    //             request()->session()->now('message', 'Tolong lengkapi data profil anda');
-    //             request()->session()->now('alert-type', 'warning');
-    //         }
-    //     }
-    //     return view('profile.index', $data);
-    //     // return $data;
-    // }
+
+    public function index()
+    {
+        if (request()->user()->hasRole(['mentor'])) {
+            $data['data'] = User::where(['users.id' => Auth::user()->id])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid','users.email as email', 'profil_user.*')->first();
+            if (!$data['data']->id) {
+                request()->session()->now('message', 'Tolong lengkapi data profil anda');
+                request()->session()->now('alert-type', 'warning');
+            }
+        }
+        return view('profile.index', $data);
+        // return $data;
+    }
     /**
      * menampilkan detail profil user lain berdasarkan request()->id
      */

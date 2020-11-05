@@ -58,9 +58,7 @@
 					</thead>
 					<tbody>
 					@if(count($check) == 0)
-					<tr>
-									
-								</tr>
+					<tr></tr>
 					@else
 					@foreach($profil as $profil)
 						<tr>

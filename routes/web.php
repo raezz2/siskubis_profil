@@ -68,7 +68,7 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 	Route::get('/chat', 'Chat\ChatController@index')->name('inkubator.chat');
 	Route::get('/pesan', 'Pesan\PesanController@index')->name('inkubator.pesan');
 	Route::get('/profile', 'Profile\ProfileUserController@index')->name('inkubator.profile-auth');
-	Route::get('/profile/{id}', 'Profile\ProfileUserController@index')->name('inkubator.profile');
+	Route::get('/profile/{id}', 'Profile\ProfileUserController@indexprofil')->name('inkubator.profile');
 
 	//Route Produk Inkubator
 	Route::get('/produk', 'Produk\ProdukController@index')->name('inkubator.produk');
