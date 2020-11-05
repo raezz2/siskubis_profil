@@ -19,6 +19,7 @@
 			<li class="nav-item"><a class="nav-link" id="timeline-tab" data-toggle="tab" href="#timeline" role="tab" aria-controls="timeline" aria-selected="false">Timeline</a></li>
 			<li class="nav-item"><a class="nav-link" id="friends-tab" data-toggle="tab" href="#friends" role="tab" aria-controls="friends" aria-selected="false">Friends</a></li>
 			<li class="nav-item"><a class="nav-link" id="photos-tab" data-toggle="tab" href="#photos" role="tab" aria-controls="photos" aria-selected="false">Photos</a></li>
+			<li class="nav-item"><a class="nav-link delete" id="profil" tenant-id="{{$data->id}}" data-toggle="tab" href="" role="tab" aria-controls="profil" aria-selected="false"><i id="profil" tenant-id="{{$data->id}}" class="delete" ></i>Edit Profil</a></li>
 		</ul>
 		<div class="tab-content" id="profileTabContent">
 			<div class="tab-pane fade" id="timeline" role="tabpanel" aria-labelledby="about-tab">
@@ -117,33 +118,31 @@
 				</ul>
 			</div>
 			<div class="tab-pane fade active show" id="about" role="tabpanel" aria-labelledby="timeline-tab">
-			<h4>Personal Information</h4>
-				<p>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, commodi quam! Provident quis voluptate asperiores ullam, quidem odio pariatur. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem, nulla eos?
-					Cum non ex voluptate corporis id asperiores doloribus dignissimos blanditiis iusto qui repellendus deleniti aliquam, vel quae eligendi explicabo.
-				</p>
+				<h4>Tenant Information</h4>
+				<p>{{$data->subtitle}}</p>
+				<p>{{$data->description}}</p>
 				<hr />
 				<div class="row">
 					<div class="col-md-4 col-6">
 						<div class="mb-4">
-							<p class="text-primary mb-1"><i class="i-Calendar text-16 mr-1"></i> Birth Date</p><span>{{$data->tanggal_berdiri}}</span>
+							<p class="text-primary mb-1"><i class="i-Calendar text-16 mr-1"></i> Tanggal Berdiri</p><span>{{$data->tanggal_berdiri}}</span>
 						</div>
 						<div class="mb-4">
-							<p class="text-primary mb-1"><i class="i-Edit-Map text-16 mr-1"></i> Birth Place</p><span>{{$data->alamat}}</span>
+							<p class="text-primary mb-1"><i class="i-Edit-Map text-16 mr-1"></i> Alamat</p><span>{{$data->alamat}}</span>
 						</div>
 						<div class="mb-4">
-							<p class="text-primary mb-1"><i class="i-Globe text-16 mr-1"></i> Lives In</p><span>{{$data->alamat}}</span>
+							<p class="text-primary mb-1"><i class="i-Professor text-16 mr-1"></i>Visi</p><span>{{$data->visi}}</span>
 						</div>
 					</div>
 					<div class="col-md-4 col-6">
-						<div class="mb-4">
-							<p class="text-primary mb-1"><i class="i-MaleFemale text-16 mr-1"></i> Gender</p><span>1 Jan, 1994</span>
-						</div>
 						<div class="mb-4">
 							<p class="text-primary mb-1"><i class="i-MaleFemale text-16 mr-1"></i> Contact</p><span>{{$data->kontak}}</span>
 						</div>
 						<div class="mb-4">
 							<p class="text-primary mb-1"><i class="i-Cloud-Weather text-16 mr-1"></i> Website</p><span>www.ui-lib.com</span>
+						</div>
+						<div class="mb-4">
+							<p class="text-primary mb-1"><i class="i-Professor text-16 mr-1"></i>Misi</p><span>{{$data->misi}}</span>
 						</div>
 					</div>
 					<div class="col-md-4 col-6">
@@ -151,10 +150,10 @@
 							<p class="text-primary mb-1"><i class="i-Face-Style-4 text-16 mr-1"></i> Bidang Usaha</p><span>{{$data->bidang_usaha}}</span>
 						</div>
 						<div class="mb-4">
-							<p class="text-primary mb-1"><i class="i-Professor text-16 mr-1"></i> Experience</p><span>8 Years</span>
+							<p class="text-primary mb-1"><i class="i-Professor text-16 mr-1"></i>Slogan</p><span>{{$data->slogan}}</span>
 						</div>
 						<div class="mb-4">
-							<p class="text-primary mb-1"><i class="i-Home1 text-16 mr-1"></i> School</p><span>School of Digital Marketing</span>
+							<p class="text-primary mb-1"><i class="i-Professor text-16 mr-1"></i>Jam Operasional</p><span>{{$data->jam_operasional}}</span>
 						</div>
 					</div>
 				</div>
@@ -288,4 +287,23 @@
 		</div>
 	</div>
 </div><!-- end of main-content -->
+@endsection
+
+@section('css')
+	<!-- Asset Alert iziToast -->
+	<link rel="stylesheet" href="{{asset('izitoast/dist/css/iziToast.min.css')}}">
+@endsection
+
+@section('js')
+<!-- Asset Alert iziToast -->
+<script src="{{asset('izitoast/dist/js/iziToast.min.js')}}" type="text/javascript"></script>
+<script type="text/javascript">
+$('#profil').click(function(){
+
+	var data_id = $(this).attr('tenant-id');
+
+	window.location.href = "/tenant/editprofil/"+ data_id ;
+		
+});
+</script>
 @endsection
