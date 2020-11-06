@@ -372,7 +372,6 @@ class TenantController extends Controller
         $this->data['priority']= $priority;
         $this->data['check']= $check;
         
-        
         return view ('tenant.detailtenant', $this->data);
 
     }
