@@ -115,26 +115,23 @@
                 <div class="form-group">
                     <label for="search">Pencarian</label>
                     <div class="input-group">
-                        <input type="text" name="title" id="title" class="form-control" placeholder="search" value="">
+                        <input type="text" name="titles" class="form-control" placeholder="search" value="{{ $title != null ? $title : null }}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="priority">Priority</label>
-                                            <label class="checkbox checkbox-success">
-                            <input type="checkbox" name="priority" value="2"><span>Pra Start Up</span><span class="checkmark"></span>
+					@foreach ($priority as $item)
+                        <label class="checkbox checkbox-success">
+                            <input type="checkbox" item-id="{{ $item->id }}" name="priority" value="{{ $item->id }}"
+                                @if (in_array($item->id, explode(',', request()->input('filter.priority'))))
+                                    checked
+                                @endif
+                            /><span>{{ $item->name }}</span><span class="checkmark"></span>
                         </label>
-                                            <label class="checkbox checkbox-success">
-                            <input type="checkbox" name="priority" value="1"><span>Proposal</span><span class="checkmark"></span>
-                        </label>
-                                            <label class="checkbox checkbox-success">
-                            <input type="checkbox" name="priority" value="4"><span>Scale Up</span><span class="checkmark"></span>
-                        </label>
-                                            <label class="checkbox checkbox-success">
-                            <input type="checkbox" name="priority" value="3"><span>Start Up</span><span class="checkmark"></span>
-                        </label>
-                                    </div>
+                    @endforeach
+				</div>
                 <div class="form-group">
-                    <button id="filter" class="btn btn-primary">Filter</button>
+                    <button id="search" class="btn btn-primary">Filter</button>
                 </div>
             </div>
 			</div>
@@ -177,4 +174,37 @@
 			<!-- end of completeness-->
 		</div>
 	</div>
+
+	<script>
+		
+			function getIds(checkboxName) {
+				let checkBoxes = document.getElementsByName(checkboxName);
+				let ids = Array.prototype.slice.call(checkBoxes)
+								.filter(ch => ch.checked==true)
+								.map(ch => ch.value);
+				return ids;
+			}
+		
+			function filterResults () {
+				let priorityIds = getIds("priority");
+				let title = $('input[name="titles"]').val();
+		
+				let href = 'daftartenant?';
+		
+				if(priorityIds) {
+					href += 'filter[priority]=' + priorityIds;
+				}
+		
+				if(title !== ""){
+					href += '&filter[title]=' + title;
+				}
+		
+				console.log(href);
+		
+				document.location.href=href;
+			}
+		
+			document.getElementById("search").addEventListener("click", filterResults);
+		
+		</script>
 @endsection

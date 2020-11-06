@@ -187,10 +187,15 @@
 					<div class="col-md-3">
 						<div class="card card-profile-1 mb-4">
 							<div class="card-body text-center">
-								<div class="avatar box-shadow-2 mb-3"><img src="{{ asset('theme/images/faces/16.jpg')}}" alt="" /></div>
+								<div class="avatar box-shadow-2 mb-3"><img src="{{ asset('theme/images/faces/'.$user->foto)}}" alt="" /></div>
 								<h5 class="m-0">{{$user->nama}}</h5>
 								<p>{{$user->deskripsi}}</p>
-								<button class="btn btn-primary btn-rounded">Contact {{$user->nama}}</button>
+								@role('mentor')
+								<a href="{{ route('mentor.profile-detail',''.$user->user_id)}}"><button class="btn btn-primary btn-rounded">Contact {{$user->nama}}</button></a>
+								@endrole
+								@role('inkubator')
+								<a href="{{ route('profile-detail',''.$user->user_id)}}"><button class="btn btn-primary btn-rounded">Contact {{$user->nama}}</button></a>
+								@endrole
 								<div class="card-socials-simple mt-4"><a href=""><i class="i-Linkedin-2"></i></a><a href=""><i class="i-Facebook-2"></i></a><a href=""><i class="i-Twitter"></i></a></div>
 							</div>
 						</div>

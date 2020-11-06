@@ -7,9 +7,8 @@ use File;
 use App\Post;
 use App\User;
 use App\Tenant;
-use App\Priority;
+use App\TenantGallery;
 use App\Pengumuman;
-use App\ProfilUser;
 use App\TenantMentor;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -17,6 +16,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\TenantUser;
 use Illuminate\Support\Facades\Validator;
+
+use Spatie\QueryBuilder\QueryBuilder;
 
 class MentorController extends Controller
 {
@@ -127,22 +128,34 @@ class MentorController extends Controller
         return redirect(route('inkubator.mentor'))->with($notification);
     }
 
-    public function daftartenant()
+    public function daftartenant( Request $request)
     {
+        if(request()->has('filter')){
+            if(array_key_exists('between', $request->filter)){
+                $test = request()->filter['between'];
+                $exp = explode(',', $test);
+            }else{
+                $exp = null;
+            }
+
+            if(array_key_exists('title', $request->filter)){
+                $title = request()->filter['title'];
+            }else{
+                $title = null;
+            }
+        }else{
+            $exp = null;
+            $title = null;
+        }
         
 
-        $data = TenantMentor::where('user_id',Auth::user()->id)
-        ->leftJoin('tenant',['tenant.id'=>'tenant_mentor.tenant_id'])
+        $data = QueryBuilder::for(Tenant::class)
+        ->leftJoin('tenant_mentor',['tenant.id'=>'tenant_mentor.tenant_id'])
         ->leftJoin('priority',['tenant.priority'=>'priority.id'])
+        ->where('user_id','=', Auth::user()->id )
+        ->allowedFilters(['title', 'description','priority'])
         ->get();
-        
 
-
-        // $priority = TenantMentor::where('user_id',Auth::user()->id)
-        // ->leftJoin('tenant',['tenant.id'=>'tenant_mentor.tenant_id'])
-        // ->leftJoin('priority',['tenant.priority'=>'priority.id'])
-        // ->select('priority.name')
-        // ->get();
 
         $user = Tenant::where('inkubator_id',Auth::user()->inkubator_id)
         ->leftJoin('tenant_user',['tenant.id'=>'tenant_user.tenant_id'])
@@ -152,14 +165,16 @@ class MentorController extends Controller
 
         
 
-        // $priority = DB::table('priority')->get();
+        $priority = DB::table('priority')->get();
 
+        // return response()->json($data);
         
         $this->data['data'] = $data;
         $this->data['user'] = $user;
-        // $this->data['priority'] = $priority;
+        $this->data['title'] = $title;
+        $this->data['exp'] = $exp;
+        $this->data['priority'] = $priority;
         
-        // return response()->json($this->data);
         return view('mentor.daftartenant', $this->data);
     }
 
@@ -167,9 +182,18 @@ class MentorController extends Controller
     {
         $tenant = Tenant::findOrFail($id);
 
-        // return response()->json($tenant);
+        $tenantuser = TenantUser::where('tenant_id', $id)
+        ->leftJoin('profil_user',['profil_user.user_id'=>'tenant_user.user_id'])
+        ->get();
 
+        $gallery = TenantGallery::where('tenant_id', $id)->paginate(6);
+
+        
         $this->data['tenant'] = $tenant;
+        $this->data['tenantuser'] = $tenantuser;
+        $this->data['gallery'] = $gallery;
+
+        // return response()->json($tenant);
 
 
         return view('tenant.'.$kategori, $this->data);
