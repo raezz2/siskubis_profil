@@ -8,53 +8,6 @@
 @endsection
 @section('content')
 <section class="ul-contact-detail">
-                    <div class="row">
-                        <div class="col-lg-4 col-xl-4">
-                            <div class="card o-hidden"><img class="d-block w-100" src="{{ asset('theme/images/faces/'.$data->foto)}}" alt="First slide">
-                                <div class="card-body">
-                                    <div class="ul-contact-detail__info">
-                                        <div class="row">
-                                            <div class="col-12 text-center">
-                                                <div class="ul-contact-detail__info-1">
-                                                    <h5><b>{{$data->nama}}</b></h5>
-                                                </div>
-                                            </div>
-                                            <div class="col-6 text-center">
-                                                <div class="ul-contact-detail__info-1">
-                                                    <h5>Nik</h5><span>{{$data->nik}}</span>
-                                                </div>
-                                                <div class="ul-contact-detail__info-1">
-                                                    <h5>Email</h5><span>{{$data->email}}</span>
-                                                </div>
-                                            </div>
-											<div class="col-6 text-center">
-                                                <div class="ul-contact-detail__info-1">
-                                                    <h5>Kontak</h5><span>{{$data->kontak}}</span>
-                                                </div>
-                                                <div class="ul-contact-detail__info-1">
-                                                    <h5>Jenis Kelamin</h5><span>{{$data->jenkel}}</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 text-center">
-                                                <div class="ul-contact-detail__info-1">
-                                                    <h5>Alamat</h5><span>{{$data->alamat}}</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 text-center">
-                                                <div class="ul-contact-detail__social">
-                                                    <div class="ul-contact-detail__social-1">
-                                                        <button class="btn btn-facebook btn-icon m-1" type="button"><span class="ul-btn__icon"><i class="i-Facebook-2"></i></span></button><span class="t-font-boldest ul-contact-detail__followers">400</span>
-                                                    </div>
-                                                    <div class="ul-contact-detail__social-1">
-                                                        <button class="btn btn-twitter btn-icon m-1" type="button"><span class="ul-btn__icon"><i class="i-Twitter"></i></span></button><span class="t-font-boldest ul-contact-detail__followers">900</span>
-                                                    </div>
-                                                    <div class="ul-contact-detail__social-1">
-                                                        <button class="btn btn-dribble btn-icon m-1" type="button"><span class="ul-btn__icon"><i class="i-Dribble"></i></span></button><span class="t-font-boldest ul-contact-detail__followers">658</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
     <div class="row">
         <div class="col-lg-4 col-xl-4">
             <div class="card o-hidden"><img class="d-block w-100" src="{{ asset('img/mentor/profile/'.$data->foto) }}" alt="foto profil">
@@ -134,28 +87,6 @@
                                         </div>
                                         <div class="ul-contact-detail__timeline-row">
                                             <div class="row">
-                                                <div class="col-lg-12 col-xl-12">
-                                                    <a href="{{route('inkubator.produk-detail',['startup','2'])}}" ><div class="list-item col-md-4">
-													<div class="card o-hidden mb-4 d-flex flex-column">
-														<div class="list-thumb d-flex"><img alt="" src="http://localhost:8000/img/produk/agrito.png"></div>
-														<div class="flex-grow-1 d-bock">
-															<div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center"><a class="w-40 w-sm-100" href="{{route('inkubator.produk-detail',['startup','2'])}}">
-																	<div class="item-title"><b>Agrito - Marketplace Pertanian</b></div>
-																</a>
-																<p class="m-0 text-muted text-small w-15 w-sm-100">PT. Agrito Sejahtera Indonesia</p>
-															   Menjabat CEO
-																<p class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-badges"><span class="badge badge-info">Startup</span></p>
-															</div>
-														</div>
-													</div>
-													</a>
-													</div>
-                                                    <div class="custom-separator"></div>
-                                                </div>
-                                                <div class="col-lg-12 col-xl-12">
-                                                    <div class="ul-contact-dwtail__profile-swcription">
-                                                        <h4>Deskripsi</h4>
-                                                        <p class="mt-3">{{$data->deskripsi}}</p>
                                                 <div class="col-lg-1">
                                                     <div class="ul-contact-detail__left-timeline">
                                                         <div class="ul-widget3-img"><img id="userDropdown" src="{{ asset('theme/images/faces/'.$data->foto)}}" alt="alt" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
@@ -349,6 +280,12 @@
     CKEDITOR.replace('deskripsi');
 </script>
 <script>
+
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+
     @if(Session::has('message'))
     var type = "{{ Session::get('alert-type', 'info') }}";
     switch(type){

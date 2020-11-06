@@ -15,14 +15,15 @@
 				<div class="contact-close-mobile-icon float-right mb-2"><i class="i-Close-Window text-15 font-weight-600"></i></div>
 				<!-- modal-->
 				@if( count($check) == 0)
-				<button class="btn btn-outline-secondary btn-block mb-4" type="button" data-toggle="modal" data-target=".bd-example-modal-lg">UPDATE PROFILE TENANT</button>
-				@else
-				@foreach($tenant as $tenant)
-				<a href="{{ route('tenant.edit-profil',''.$tenant->id)}}"><button class="btn btn-outline-secondary btn-block mb-4" type="button">EDIT PROFILE TENANT</button></a>
-				@endforeach
-				@endif
 
-				<button class="btn btn-outline-secondary btn-block mb-4" type="button" data-toggle="modal" data-target=".modal-2">ADD USER</button>
+				<button class="btn btn-outline-secondary btn-block mb-4" type="button" data-toggle="modal" data-target=".bd-example-modal-lg">ADD USER</button>
+				@else
+					@if( count($checkprofil) == 0)
+					<button class="btn btn-outline-secondary btn-block mb-4" type="button" data-toggle="modal" data-target=".modal-77">ADD USER</button>
+					@else
+					<button class="btn btn-outline-secondary btn-block mb-4" type="button" data-toggle="modal" data-target=".modal-2">ADD USER</button>
+					@endif
+				@endif
 				<!-- end:modal-->
 				<input class="form-control form-control-rounded col-md-12" id="exampleFormControlInput1" type="text" placeholder="Search User..." />
 				<br>
@@ -56,6 +57,9 @@
 						</tr>
 					</thead>
 					<tbody>
+					@if(count($check) == 0)
+					<tr></tr>
+					@else
 					@foreach($profil as $profil)
 						<tr>
 							<td><a href="{{ route('tenant.profile-detail',''.$profil->user_id)}}">
@@ -75,7 +79,8 @@
 							@endif
 							</td>
 						</tr>
-					@endforeach
+						@endforeach
+						@endif
 					</tbody>
 				</table>
 			
@@ -92,7 +97,7 @@
 			<div class="modal-content">
 				<div class="modal-body">
 					<div class="card-body">
-						<div class="card-title mb-3">Form Add Profile</div>
+						<div class="card-title mb-3">Add Profile Tenant</div>
 						<form action="{{route('tenant.update-profil')}}" method="POST" enctype="multipart/form-data">
 						@csrf
 							<div class="row">
@@ -176,64 +181,8 @@
 		</div>
 	</div>
 <!-- end::modal add profil-->
-@else
-<!-- begin::modal edit profile-->
-<div class="ul-card-list__modal">
-	<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-body">
-					<div class="card-body">
-						<div class="card-title mb-3">Form Edit Profile</div>
-						<form action="{{route('tenant.update-profil')}}" method="POST" enctype="multipart/form-data">
-						@csrf
-							<div class="row">
-							<div class="col-md-6">
-								<div class="drop-zone">
-									<span class="drop-zone__prompt">Drop file here or click to upload</span>
-									<input type="file" name="file" id="exampleInputFile" for="exampleInputFile" class="drop-zone__input">
-								</div>
-							</div>
-							</div>
-							
-							<div class="row">
-								<div class="col-md-6 form-group mb-3">
-									<label for="phone">Nama </label>
-									<input class="form-control" id="phone" placeholder="Masukan Nama" name="title" value="{{ $tenant->title }}"/>
-								</div>
-								<div class="col-md-6 form-group mb-3">
-									<label for="picker1">Priority</label>
-									<select class="form-control" name="priority">
-										@foreach($priority as $py)
-											<option value="{{$py->id}}">{{$tenant->priority}}</option>
-										@endforeach
-									</select>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12 form-group mb-3">
-									<label for="phone">Deskripsi Singkat</label>
-									<input class="form-control" id="phone" placeholder="Masukan Deskripsi Singkat" name="subtitle" value="{{ $tenant->subtitle}}"/>
-								</div>
-								<div class="col-md-12 form-group mb-3">
-									<label for="credit1">Deskripsi</label>
-									<textarea class="form-control" id="credit1" placeholder="Masukan Deskripsi" name="deskripsi" value=" {{ $tenant->description}}">{{ $tenant->description}}</textarea>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<button type="submit" class="btn btn-primary">Submit</button>
-								</div>
-							</div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-<!-- end::modal edit profile-->
 @endif
+
 
 <div class="modal fade bd-example-modal-lg modal-2"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
@@ -282,6 +231,100 @@
 				</div>
 				</div>
 				<div class="row">
+					<div class="col-md-6 form-group mt-3" >
+						<label for="firstName1">Nama</label>
+						<input class="form-control" id="validationCustom01" type="text" placeholder="Masukan Nama" required="required" name="nama" />
+						<div class="valid-feedback">
+							Looks good!
+						</div>
+						<div class="invalid-feedback">
+							Masukan nama anda.
+						</div>
+					</div>
+					<div class="col-md-6 form-group mt-3">
+						<label for="firstName1">Kontak</label>
+						<input class="form-control" id="validationCustom01" type="text" placeholder="Masukan Nomor" required="required" name="kontak" />
+						<div class="valid-feedback">
+							Looks good!
+						</div>
+						<div class="invalid-feedback">
+							Masukan kontak anda.
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 form-group mt-2">
+						<label for="firstName1">Alamat</label>
+						<input class="form-control" id="validationCustom01" type="text" placeholder="Masukan Alamat" required="required" name="alamat"/>
+						<div class="valid-feedback">
+							Looks good!
+						</div>
+						<div class="invalid-feedback">
+							Masukan alamat anda.
+						</div>
+					</div>
+					<div class="col-md-6 form-group mt-2">
+						<label for="firstName1">Nik</label>
+						<input class="form-control" id="validationCustom01" type="text" placeholder="Masukan Nik" required="required" name="nik" />
+						<div class="valid-feedback">
+							Looks good!
+						</div>
+						<div class="invalid-feedback">
+							Masukan Nik anda.
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 form-group mt-2">
+						<label for="picker1">Jenis Kelamin</label>
+						<select class="form-control" name="jenkel" >
+								<option value="L">Laki-laki</option>
+								<option value="P">Perempuan</option>
+						</select>
+					</div>
+						<div class="col-md-6 form-group mt-2">
+						<label for="credit1">Foto</label>
+							<div class="custom-file">
+								<input class="custom-file-input" id="inputGroupFile02" type="file" name="file" required="required" />
+								<label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+							</div>
+					</div>
+				</div>
+				<div class="row">
+				<div class="col-md-12 form-group mt-2">
+						<label for="credit1">Deskripsi</label>
+						<label for="credit1"></label>
+						<textarea class="form-control" id="credit1" placeholder="Masukan Deskripsi" name="deskripsi" required="required"></textarea>
+					</div>
+				
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+				<button class="btn btn-primary ml-2" type="submit">Save changes</button>
+			</div>
+		</div>
+		</form>
+	</div>
+</div>
+
+
+<!-- modal melengkapi profil user tenant -->
+<div class="modal fade bd-example-modal-lg modal-77"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalCenterTitle">Add Profil {{Auth::user()->name}}</h5>
+				<button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+			</div>
+			<div class="modal-body">
+			<form action="{{route('tenant.add-profil')}}" method="POST" class="needs-validation" novalidate="novalidate"  enctype="multipart/form-data" >
+			@csrf
+				<div class="row">
+					<div class="container">
+						<p style="color: red;">Anda belum melengkapi profil anda sebagai user. Silahkan lengkapi profil anda, kemudian anda bisa menambahkan anggota.</p>
+					</div>
 					<div class="col-md-6 form-group mt-3" >
 						<label for="firstName1">Nama</label>
 						<input class="form-control" id="validationCustom01" type="text" placeholder="Masukan Nama" required="required" name="nama" />

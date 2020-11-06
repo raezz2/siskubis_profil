@@ -29,19 +29,27 @@ class HomeController extends Controller
 
         $check = TenantUser::where('user_id',Auth::user()->id)->get();
 
+        $checkprofil = ProfilUser::where('user_id',Auth::user()->id)->get();
+
         $tenant = TenantUser::where('user_id',Auth::user()->id)
         ->Join('tenant', ['tenant_user.tenant_id'=>'tenant.id'])
         ->select('tenant.*')
         ->get();
 
-        foreach( $check as $ck){
-            
-            $profil= TenantUser::where('tenant_id', $ck->tenant_id )
-            ->Join('profil_user', ['profil_user.user_id'=>'tenant_user.user_id'])
-            ->get();
+        if(count($check) == 0){
 
         }
         
+        else{
+
+            foreach( $check as $ck){
+                
+                $profil= TenantUser::where('tenant_id', $ck->tenant_id )
+                ->Join('profil_user', ['profil_user.user_id'=>'tenant_user.user_id'])
+                ->get();
+    
+            }
+        }
 
         $priority = Priority::all();
 
@@ -51,9 +59,13 @@ class HomeController extends Controller
         $this->data['check'] = $check;
         $this->data['tenant'] = $tenant;
         $this->data['priority'] = $priority;
-        $this->data['profil'] = $profil;
+        $this->data['checkprofil'] = $checkprofil;
+        if(count($check) == 0){
+        }else{
+            $this->data['profil'] = $profil;
+        }
         
-        // return response()->json($this->data);
+        // return response()->json($checkprofil);
         return view('tenant.dashboard',$this->data);
     }
 }
