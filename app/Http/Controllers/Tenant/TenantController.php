@@ -222,6 +222,7 @@ class TenantController extends Controller
                 $tenantuser->slogan = $data['slogan'];
                 $tenantuser->alamat = $data['alamat'];
                 $tenantuser->kontak = $data['kontak'];
+                $tenantuser->website = $data['website'];
                 $tenantuser->jam_operasional = $data['operasional'];
                 $tenantuser->foto = $fileName;
                 $tenantuser->created_at = date('Y-m-d H:i:s');
@@ -312,6 +313,7 @@ class TenantController extends Controller
             'slogan' =>$request->slogan,
             'alamat' =>$request->alamat,
             'kontak' =>$request->kontak,
+            'website' =>$request->website,
             'jam_operasional' =>$request->operasional,
             'foto' => $fileName,
             'created_at'=>date('Y-m-d H:i:s'),
