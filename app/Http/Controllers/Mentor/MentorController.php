@@ -193,7 +193,7 @@ class MentorController extends Controller
         $this->data['tenantuser'] = $tenantuser;
         $this->data['gallery'] = $gallery;
 
-        // return response()->json($tenant);
+        // return response()->json($tenantuser);
 
 
         return view('tenant.'.$kategori, $this->data);

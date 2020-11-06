@@ -58,8 +58,8 @@
 									<p class="ul-task-manager__paragraph mb-3">{{$data->subtitle}}</p>
 									
 									@foreach($user as $pt)
-										@if($pt->tenant_id == $data->id)
-											<a href="{{route('inkubator.profile-detail',''.$pt->user_id)}}"><img class="rounded-circle" src="{{ asset('theme/images/faces/'.$pt->foto)}}" width="36" height="36" alt="corrupted" /></a>
+										@if($pt->tenant_id == $data->tenant_id)
+											<a href="{{route('mentor.profile-detail',''.$pt->user_id)}}"><img class="rounded-circle" src="{{ asset('theme/images/faces/'.$pt->foto)}}" width="36" height="36" alt="corrupted" /></a>
 										@endif
 									@endforeach
 								</div>
