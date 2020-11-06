@@ -11,15 +11,8 @@
                             <li class="Ul_li--hover"><a class="active" href="#"><i class="i-Bar-Chart text-20 mr-2 text-muted"></i><span class="item-name text-15 text-muted">Dashboard</span></a>
 
                             </li>
-                            @if( $check == '[]')
-                                @if(count($check) == 0)
-                                <li class="Ul_li--hover"><a class="" href="#" type="button" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="i-Administrator text-20 mr-2 text-muted" ></i><span class="item-name text-15 text-muted">Tenant</span></a>
-                                </li> 
-                                @endif
-                            @else
                             <li class="Ul_li--hover"><a class="" href="{{route('tenant.detail-tenant')}}"><i class="i-Administrator text-20 mr-2 text-muted"></i><span class="item-name text-15 text-muted">Tenant</span></a>
                             </li>
-                            @endif
 
                             <li class="Ul_li--hover"><a class="" href="{{ route('tenant.mentor') }}"><i class="i-Administrator text-20 mr-2 text-muted"></i><span class="item-name text-15 text-muted">Pendamping</span></a>
 
