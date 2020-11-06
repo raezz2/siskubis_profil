@@ -115,7 +115,7 @@ class ProdukController extends Controller
 
         ]);
 
-        dd($validator);
+        // dd($validator);
 
         if ($request->hasFile('foto')) {
 
@@ -143,91 +143,94 @@ class ProdukController extends Controller
             $file = $request->file('file_ijin');
             $dokumen_file_ijin = time()."_".$file->getClientOriginalExtension();
             $file->storeAs('file/produk/dokumen_ijin/',$dokumen_file_ijin);
+            
+            $string = implode(",", $request->tag);
+            
+            // $produk = Produk::create([
 
+            //     'id'                    => $produks_id,
+            //     'tenant_id'             => $request->tenant_id,
+            //     'inventor_id'           => $request->inventor_id,
+            //     'priority_id'           => $request->priority_id,
+            //     'title'                 => $request->title,
+            //     'subtitle'              => $request->subtitle,
+            //     'harga_pokok'           => $request->harga_pokok,
+            //     'harga_jual'            => $request->harga_jual,
+            //     'tag'                   => $string,
+            //     'location'              => $request->location,
+            //     'address'               => $request->address,
+            //     'contact'               => $request->contact,
+            //     'tentang'               => $request->tentang_produk,
+            //     'latar'                 => $request->latar_produk,
+            //     'keterbaharuan'         => $request->keterbaharuan,
+            //     'spesifikasi'           => $request->spesifikasi,
+            //     'manfaat'               => $request->manfaat,
+            //     'keunggulan'            => $request->keunggulan,
+            //     'teknologi'             => $request->teknologi,
+            //     'pengembangan'          => $request->pengembangan,
+            //     'proposal'              => $dokumen_file_proposal,
+            //     'kategori_id'           => $request->kategori,
+            // ]);
+            
+            // $produk_bisnis = ProdukBisnis::create([
+            //     'produk_id'             => $produks_id,
+            //     'kompetitor'            => $request->kompetitor,
+            //     'target_pasar'          => $request->target_pasar,
+            //     'dampak_sosek'          => $request->dampak_sosek,
+            //     'produksi_harga'        => $request->produksi_harga,
+            //     'pemasaran'             => $request->pemasaran,
+            // ]);
+            
+            // $produk_canvas =ProdukCanvas::create([
+            //     'produk_id'             => $produks_id,
+            //     'canvas'                => $request->editor1,
+            //     'kategori'              => $string,// $request->kategori_canvas,
+            //     'tanggal'               => $request->tanggal_canvas,
+            // ]);
+            
+            // $produk_image = ProdukImage::create([
+            //     'produk_id'             => $produks_id,
+            //     'image'                 => $filename,
+            //     'judul'                 => $filename,
+            //     'caption'               => 'null',
+            // ]);
 
-            $produk = Produk::create([
-
-                'id'                    => $produks_id,
-                'tenant_id'             => $request->tenant_id,
-                'inventor_id'           => $request->inventor_id,
-                'priority_id'           => $request->priority_id,
-                'title'                 => $request->title,
-                'subtitle'              => $request->subtitle,
-                'harga_pokok'           => $request->harga_pokok,
-                'harga_jual'            => $request->harga_jual,
-                'tag'                   => $request->tag,
-                'location'              => $request->location,
-                'address'               => $request->address,
-                'contact'               => $request->contact,
-                'tentang'               => $request->tentang_produk,
-                'latar'                 => $request->latar_produk,
-                'keterbaharuan'         => $request->keterbaharuan,
-                'spesifikasi'           => $request->spesifikasi,
-                'manfaat'               => $request->manfaat,
-                'keunggulan'            => $request->keunggulan,
-                'teknologi'             => $request->teknologi,
-                'pengembangan'          => $request->pengembangan,
-                'proposal'              => $dokumen_file_proposal,
-                'kategori_id'           => $request->kategori_produk,
-            ]);
-
-            $produk_bisnis = ProdukBisnis::create([
-                'produk_id'             => $produk_id,
-                'kompetitor'            => $request->kompetitor,
-                'target_pasar'          => $request->target_pasar,
-                'dampak_sosek'          => $request->dampak_sosek,
-                'produksi_harga'        => $request->produksi_harga,
-                'pemasaran'             => $request->pemasaran,
-            ]);
-
-            $produk_canvas =ProdukCanvas::create([
-                'produk_id'             => $produk_id,
-                'canvas'                => $request->editor1,
-                'kategori'              => $request->kategori_canvas,
-                'tanggal'               => $request->tanggal_canvas,
-            ]);
-
-            $produk_image = ProdukImage::create([
-                'produk_id'             => $produks_id,
-                'image'                 => $filename,
-                'judul'                 => $filename,
-                'caption'               => 'null',
-            ]);
-
-            $produk_ki = ProdukKI::create([
-                'produk_id'             => $produk_id,
-                'jenis_ki'              => $request->jenis_ki,
-                'status_ki'             => $request->status_ki,
-                'permohonan'            => $request->permohonan_ki,
-                'sertifikat'            => $request->sertifikat_ki,
-                'berlaku_mulai'         => $request->berlaku_mulai,
-                'berlaku_sampai'        => $request->berlaku_sampai,
-                'pemilik_ki'            => $request->pemilik_ki,
-            ]);
-
-            $produk_team = ProdukTeam::create([
-                'produk_id'             => $produks_id,
-                'user_id'               => $request->user_id,
-                'jabatan'               => $request->jabatan,
-                'divisi'                => $request->divisi,
-                'tugas'                 => $request->tugas,
-            ]);
-
-            $produk_riset = ProdukRiset::create([
-                'produk_id'             => $produk_id,
-                'nama_riset'            => $request->nama_riset,
-                'pelaksana'             => $request->pelaksana_riset,
-                'tahun'                 => $request->tahun_riset,
-                'pendanaan'             => $request->pendanaan_riset,
-                'skema'                 => $request->skema_riset,
-                'nilai'                 => $request->nilai_riset,
-                'aktifitas'             => $request->aktifitas_riset,
-                'tujuan'                => $request->tujuan_riset,
-                'hasil'                 => $request->hasil_riset,
-            ]);
-
+            // $produk_ki = ProdukKI::create([
+            //     'produk_id'             => $produks_id,
+            //     'jenis_ki'              => $request->jenis_ki,
+            //     'status_ki'             => $request->status_ki,
+            //     'permohonan'            => $request->permohonan_ki,
+            //     'sertifikat'            => $request->sertifikat_ki,
+            //     'berlaku_mulai'         => $request->berlaku_mulai,
+            //     'berlaku_sampai'        => $request->berlaku_sampai,
+            //     'pemilik_ki'            => $request->pemilik_ki,
+            // ]);
+            
+            
+            // dd($request->all());
+            // $produk_team = ProdukTeam::create([
+            //     'produk_id'             => $produks_id,
+            //     'user_id'               => $request->user_id,
+            //     'jabatan'               => $request->jabatan,
+            //     'divisi'                => $request->divisi,
+            //     'tugas'                 => $request->tugas,
+            // ]);
+            
+            // $produk_riset = ProdukRiset::create([
+            //     'produk_id'             => $produks_id,
+            //     'nama_riset'            => $request->nama_riset,
+            //     'pelaksana'             => $request->pelaksana_riset,
+            //     'tahun'                 => $request->tahun_riset,
+            //     'pendanaan'             => $request->pendanaan_riset,
+            //     'skema'                 => $request->skema_riset,
+            //     'nilai'                 => $request->nilai_riset,
+            //     'aktifitas'             => $request->aktifitas_riset,
+            //     'tujuan'                => $request->tujuan_riset,
+            //     'hasil'                 => $request->hasil_riset,
+            // ]);
+            
             $produk_sertifikasi = ProdukSertifikasi::create([
-                'produk_id'             => $produk_id,
+                'produk_id'             => $produks_id,
                 'jenis_sertif'          => $request->jenis_sertif,
                 'pemberi_sertif'        => $request->pemberi_sertif,
                 'status'                => $request->status_sertif,
@@ -235,9 +238,10 @@ class ProdukController extends Controller
                 'tanggal'               => $request->tanggal_sertif,
                 'dokumen'               => $dokumen_file_sertifikasi,
             ]);
+                dd('ok');
 
             $produk_ijin = ProdukIjin::create([
-                'produk_id'             => $produk_id,
+                'produk_id'             => $produks_id,
                 'jenis_sertif'          => $request->jenis_ijin,
                 'pemberi       '        => $request->pemberi_ijin,
                 'status'                => $request->status_ijin,
