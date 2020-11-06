@@ -139,7 +139,7 @@
 							<p class="text-primary mb-1"><i class="i-MaleFemale text-16 mr-1"></i> Contact</p><span>{{$data->kontak}}</span>
 						</div>
 						<div class="mb-4">
-							<p class="text-primary mb-1"><i class="i-Cloud-Weather text-16 mr-1"></i> Website</p><span>www.ui-lib.com</span>
+							<p class="text-primary mb-1"><i class="i-Cloud-Weather text-16 mr-1"></i> Website</p><span>{{$data->website}}</span>
 						</div>
 						<div class="mb-4">
 							<p class="text-primary mb-1"><i class="i-Professor text-16 mr-1"></i>Misi</p><span>{{$data->misi}}</span>
