@@ -45,7 +45,7 @@
 						<a href="{{route('inkubator.profile-detail',$data->uid)}}"><p class="m-0 text-24">{{$data->nama}}</p></a>
 						@endrole
 						@role('tenant')
-						<a href="{{route('tenant.profile-detail',$data->uid)}}"><p class="m-0 text-24">{{$data->nama}}</p></a>
+						<a href="{{route('tenant.mentor-detail',$data->uid)}}"><p class="m-0 text-24">{{$data->nama}}</p></a>
 						@endrole
 						<p class="text-muted m-0">{{$data->kontak}}</p>
 						<p class="text-muted mt-3">{{$data->alamat}}</p>

@@ -73,10 +73,10 @@ class ProfileUserController extends Controller
     /**
      * menampilkan detail profil user lain berdasarkan request()->id
      */
-    public function show()
+    public function show($id)
     {
         if (request()->user()->hasRole(['inkubator', 'tenant'])) {
-            $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'users.id' => request()->id])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'users.email as email', 'profil_user.*')->firstOrFail();
+            $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'users.id' => $id])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'users.email as email', 'profil_user.*')->firstOrFail();
         }
         return view('profile.index', $data);
     }
