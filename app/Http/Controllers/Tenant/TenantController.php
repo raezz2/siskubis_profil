@@ -16,6 +16,7 @@ use App\Pengumuman;
 use App\User;
 use App\RoleUser;
 use App\ProfilUser;
+use App\TenantGallery;
 use Session;
 
 use Spatie\QueryBuilder\QueryBuilder;
@@ -340,17 +341,37 @@ class TenantController extends Controller
 
         $check = TenantUser::where('user_id',Auth::user()->id)->get();
 
-        $priority = Priority::all();
+        if(count($check) > 0){
 
-        foreach($detailtenant as $dt){
-          $data = $dt;
+            foreach( $check as $ck){
+                
+                $profil= TenantUser::where('tenant_id', $ck->tenant_id )
+                ->Join('profil_user', ['profil_user.user_id'=>'tenant_user.user_id'])
+                ->get();
+
+                $this->data['profil']= $profil;
+    
+            }
         }
+        
+        $priority = Priority::all();
+        
+        if( count($detailtenant) > 0){
+            foreach($detailtenant as $dt){
+                $data = $dt;
+            }
+            
+            $gallery = TenantGallery::where('tenant_id', $dt->tenant_id)->paginate(6);
 
-        // return response()->json($data);
+            $this->data['data']= $data;
+            $this->data['gallery']= $gallery;
+        }
+        
+        // return response()->json($detailtenant);
 
-        $this->data['data']= $data;
         $this->data['priority']= $priority;
         $this->data['check']= $check;
+        
         
         return view ('tenant.detailtenant', $this->data);
 
