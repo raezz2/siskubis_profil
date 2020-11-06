@@ -111,9 +111,9 @@ class TenantController extends Controller
         $this->data['tenantuser'] = $tenantuser;
         $this->data['gallery'] = $gallery;
         
-        return response()->json($tenantuser);
+        // return response()->json($tenantuser);
 
-        // return view('tenant.'.$kategori, $this->data);
+        return view('tenant.'.$kategori, $this->data);
     }
 	
 
