@@ -100,12 +100,20 @@ class TenantController extends Controller
     {
         $tenant = Tenant::findOrFail($id);
 
-        // return response()->json($tenant);
+        $tenantuser = TenantUser::where('tenant_id', $id)
+        ->leftJoin('profil_user',['profil_user.user_id'=>'tenant_user.user_id'])
+        ->get();
 
+        $gallery = TenantGallery::where('tenant_id', $id)->paginate(6);
+
+        
         $this->data['tenant'] = $tenant;
+        $this->data['tenantuser'] = $tenantuser;
+        $this->data['gallery'] = $gallery;
+        
+        return response()->json($tenantuser);
 
-
-        return view('tenant.'.$kategori, $this->data);
+        // return view('tenant.'.$kategori, $this->data);
     }
 	
 

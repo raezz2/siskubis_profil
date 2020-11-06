@@ -6,6 +6,7 @@ use DB;
 use Auth;
 use Session;
 use App\User;
+use App\RoleUser;
 use App\ProfilUser;
 use App\TenantUser;
 use Illuminate\Http\Request;
