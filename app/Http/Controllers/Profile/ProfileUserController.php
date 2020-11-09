@@ -9,6 +9,7 @@ use App\User;
 use App\RoleUser;
 use App\ProfilUser;
 use App\TenantUser;
+use App\TenantMentor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateProfilRequest;
@@ -31,13 +32,19 @@ class ProfileUserController extends Controller
         $data=User::where(['users.inkubator_id'=>Auth::user()->inkubator_id,'users.id'=>$id])
         ->join('role_user',['users.id'=>'role_user.user_id'])
         ->leftJoin('profil_user',['users.id'=>'profil_user.user_id'])
-        ->select('users.id as uid','profil_user.*','users.email')
+        ->select('users.id as uid','profil_user.*','users.email','role_user.*')
         ->first();
+
+        $tenant = TenantUser::where(['user_id'=>$id])
+        ->leftJoin('tenant',['tenant_user.tenant_id'=>'tenant.id'])
+        ->leftJoin('priority',['priority.id'=>'tenant.priority'])
+        ->get();
 
         // $profil= ProfilUser::all();
 
         $this->data['data']=$data;
         $this->data['check']=$check;
+        $this->data['tenant']=$tenant;
 
         // return response()->json($data);
         return view('profile.profile',$this->data);
@@ -76,12 +83,25 @@ class ProfileUserController extends Controller
     /**
      * menampilkan detail profil user lain berdasarkan request()->id
      */
-    public function show()
+    public function show($id)
     {
         if (request()->user()->hasRole(['inkubator', 'tenant'])) {
-            $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'users.id' => request()->id])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'users.email as email', 'profil_user.*')->firstOrFail();
+            $data = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'users.id' => $id])
+            ->join('role_user', ['users.id' => 'role_user.user_id'])
+            ->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])
+            ->select('users.id as uid', 'users.email as email', 'profil_user.*')
+            ->firstOrFail();
+
+            $tenant = TenantMentor::where(['user_id'=>$id])
+            ->leftJoin('tenant',['tenant_mentor.tenant_id'=>'tenant.id'])
+            ->leftJoin('priority',['priority.id'=>'tenant.priority'])
+            ->get();
+
+            $this->data['data']= $data;
+            $this->data['tenant']= $tenant;
         }
-        return view('profile.profile', $data);
+
+        return view('profile.profile', $this->data);
     }
 
     public function createuser(Request $request)

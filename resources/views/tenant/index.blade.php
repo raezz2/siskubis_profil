@@ -59,7 +59,7 @@
 									
 									@foreach($user as $pt)
 										@if($pt->tenant_id == $data->id)
-											<a href="{{route('inkubator.profile-detail',''.$pt->user_id)}}"><img class="rounded-circle" src="{{ asset('theme/images/faces/'.$pt->foto)}}" width="36" height="36" alt="corrupted" /></a>
+											<a href="{{route('profile-detail',''.$pt->user_id)}}"><img class="rounded-circle" src="{{ asset('theme/images/faces/'.$pt->foto)}}" width="36" height="36" alt="corrupted" /></a>
 										@endif
 									@endforeach
 								</div>

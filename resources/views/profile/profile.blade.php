@@ -133,24 +133,29 @@
                                         </div>
                                         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                             <div class="row">
-                                                <div class="col-lg-12 col-xl-12">
-                                                    <a href="{{route('inkubator.produk-detail',['startup','2'])}}" ><div class="list-item col-md-4">
+                                                @foreach( $tenant as $tenant)
+                                                    <a href="{{route('inkubator.tenant-detail',[''.$tenant->name,''.$tenant->tenant_id])}}" ><div class="list-item col-md-4">
 													<div class="card o-hidden mb-4 d-flex flex-column">
-														<div class="list-thumb d-flex"><img alt="" src="http://localhost:8000/img/produk/agrito.png"></div>
+														<div class="list-thumb d-flex"><img alt="" src="{{ asset('img/tenant/'.$tenant->foto)}}"></div>
 														<div class="flex-grow-1 d-bock">
-															<div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center"><a class="w-40 w-sm-100" href="{{route('inkubator.produk-detail',['startup','2'])}}">
-																	<div class="item-title"><b>Agrito - Marketplace Pertanian</b></div>
+															<div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center"><a class="w-40 w-sm-100" href="{{route('inkubator.tenant-detail',[''.$tenant->name,''.$tenant->tenant_id])}}">
+																	<div class="item-title"><b>{{$tenant->subtitle}}</b></div>
 																</a>
-																<p class="m-0 text-muted text-small w-15 w-sm-100">PT. Agrito Sejahtera Indonesia</p>
-															   Menjabat CEO
-																<p class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-badges"><span class="badge badge-info">Startup</span></p>
+                                                                <p class="m-0 text-muted text-small w-15 w-sm-100">{{$tenant->title}}</p>
+                                                                @if( $data->role_id == 2)
+                                                                Menjabat Anggota
+                                                                @elseif( $data->role_id == 6)
+                                                                Menjabat CEO
+                                                                @endif
+																<p class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-badges"><span class="badge badge-info">{{ $tenant->name}}</span></p>
 															</div>
 														</div>
 													</div>
 													</a>
 													</div>
-                                                    <div class="custom-separator"></div>
-                                                </div>
+                                                @endforeach
+                                            </div>
+                                            <div class="row">
                                                 <div class="col-lg-12 col-xl-12">
                                                     <div class="ul-contact-dwtail__profile-swcription">
                                                         <h4>Deskripsi</h4>
@@ -187,46 +192,6 @@
                                                     <label class="col-sm-2 col-form-label" for="inputPassword3">Password</label>
                                                     <div class="col-sm-10">
                                                         <input class="form-control" id="inputPassword3" type="password" placeholder="Password">
-                                                    </div>
-                                                </div>
-                                                <fieldset class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-form-label col-sm-2 pt-0">Radios</div>
-                                                        <div class="col-sm-10">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" id="gridRadios1" type="radio" name="gridRadios" value="option1" checked="checked">
-                                                                <label class="form-check-label ml-3" for="gridRadios1">
-                                                                    First radio
-
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" id="gridRadios2" type="radio" name="gridRadios" value="option2">
-                                                                <label class="form-check-label ml-3" for="gridRadios2">
-                                                                    Second radio
-
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check disabled">
-                                                                <input class="form-check-input" id="gridRadios3" type="radio" name="gridRadios" value="option3" disabled="disabled">
-                                                                <label class="form-check-label ml-3" for="gridRadios3">
-                                                                    Third disabled radio
-
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </fieldset>
-                                                <div class="form-group row">
-                                                    <div class="col-sm-2">Checkbox</div>
-                                                    <div class="col-sm-10">
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" id="gridCheck1" type="checkbox">
-                                                            <label class="form-check-label ml-3" for="gridCheck1">
-                                                                Example checkbox
-
-                                                            </label>
-                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
