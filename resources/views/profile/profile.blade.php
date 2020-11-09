@@ -79,7 +79,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-11">
-                                                                    <div class="ul-contact-detail__right-timeline"><a class="ul-widget4__title d-block" href="href">Saya Pengguna</a><small class="text-mute">10 minutes</small>
+                                                                    <div class="ul-contact-detail__right-timeline"><a class="ul-widget4__title d-block" href="href">{{$data->nama}}</a><small class="text-mute">10 minutes</small>
                                                                         <p>Mengupdate tugas baru <a href="#">Weblayout</a></p>
                                                                    </div>
                                                                 </div>
@@ -93,7 +93,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-11">
-                                                                    <div class="ul-contact-detail__right-timeline"><a class="ul-widget4__title d-block" href="href">Saya Pengguna</a><small class="text-mute">10 minutes</small>
+                                                                    <div class="ul-contact-detail__right-timeline"><a class="ul-widget4__title d-block" href="href">{{$data->nama}}</a><small class="text-mute">10 minutes</small>
                                                                         <p>Membuat tugas baru <a href="#">Weblayout</a></p>
                                                                    </div>
                                                                 </div>
@@ -107,7 +107,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-8">
-                                                                    <div class="ul-contact-detail__right-timeline"><a class="ul-widget4__title d-block" href="href">Saya Pengguna</a><small class="text-mute">10 minutes</small>
+                                                                    <div class="ul-contact-detail__right-timeline"><a class="ul-widget4__title d-block" href="href">{{$data->nama}}</a><small class="text-mute">10 minutes</small>
                                                                         <p class="mt-3">Penempatan Jabatan Sebagai CEO di PT. Agrito Sejahtera Indonesia</p>
                                                                     </div>
                                                                 </div>
@@ -121,7 +121,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-11">
-                                                                    <div class="ul-contact-detail__right-timeline"><a class="ul-widget4__title d-block" href="href">Saya Pengguna</a><small class="text-mute">10 minutes</small>
+                                                                    <div class="ul-contact-detail__right-timeline"><a class="ul-widget4__title d-block" href="href">{{$data->nama}}</a><small class="text-mute">10 minutes</small>
                                                                         <p>Mendaftarkan Tenant dengan nama PT. Agrito Sejahtera Indonesia</p>
                                                                     </div>
                                                                 </div>
