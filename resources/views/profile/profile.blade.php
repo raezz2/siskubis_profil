@@ -134,11 +134,29 @@
                                         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                             <div class="row">
                                                 @foreach( $tenant as $tenant)
-                                                    <a href="{{route('inkubator.tenant-detail',[''.$tenant->name,''.$tenant->tenant_id])}}" ><div class="list-item col-md-4">
+                                                    @role('inkubator')
+                                                    <a href="{{route('inkubator.tenant-detail',[''.$tenant->name,''.$tenant->tenant_id])}}" >
+                                                    @endrole
+                                                    @role('mentor')
+                                                    <a href="{{route('mentor.detailtenant',[''.$tenant->name,''.$tenant->tenant_id])}}" >
+                                                    @endrole
+                                                    @role('tenant')
+                                                    <a href="{{route('tenant.detail-tenant')}}" >
+                                                    @endrole
+                                                    <div class="list-item col-md-4">
 													<div class="card o-hidden mb-4 d-flex flex-column">
 														<div class="list-thumb d-flex"><img alt="" src="{{ asset('img/tenant/'.$tenant->foto)}}"></div>
 														<div class="flex-grow-1 d-bock">
-															<div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center"><a class="w-40 w-sm-100" href="{{route('inkubator.tenant-detail',[''.$tenant->name,''.$tenant->tenant_id])}}">
+															<div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center">
+                                                            @role('mentor')
+                                                            <a class="w-40 w-sm-100" href="{{route('mentor.detailtenant',[''.$tenant->name,''.$tenant->tenant_id])}}">
+                                                            @endrole
+                                                            @role('inkubator')
+                                                            <a class="w-40 w-sm-100" href="{{route('inkubator.tenant-detail',[''.$tenant->name,''.$tenant->tenant_id])}}">
+                                                            @endrole
+                                                            @role('tenant')
+                                                            <a class="w-40 w-sm-100" href="{{route('tenant.detail-tenant')}}">
+                                                            @endrole
 																	<div class="item-title"><b>{{$tenant->subtitle}}</b></div>
 																</a>
                                                                 <p class="m-0 text-muted text-small w-15 w-sm-100">{{$tenant->title}}</p>
@@ -147,7 +165,16 @@
                                                                 @elseif( $data->role_id == 6)
                                                                 Menjabat CEO
                                                                 @endif
-																<p class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-badges"><span class="badge badge-info">{{ $tenant->name}}</span></p>
+
+                                                                @if($tenant->name == 'Proposal')
+                                                                <p class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-badges"><span class="badge badge-primary">{{ $tenant->name}}</span></p>
+                                                                @elseif($tenant->name == 'Pra Start Up')
+                                                                <p class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-badges"><span class="badge badge-warning">{{ $tenant->name}}</span></p>
+                                                                @elseif($tenant->name == 'Start Up')
+                                                                <p class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-badges"><span class="badge badge-danger">{{ $tenant->name}}</span></p>
+                                                                @else
+                                                                <p class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-badges"><span class="badge badge-success">{{ $tenant->name}}</span></p>
+                                                                @endif
 															</div>
 														</div>
 													</div>
