@@ -1,5 +1,3 @@
-@extends('layouts.app')
-@section('content')
 @if(session('success'))
 <div class="alert alert-success" role="alert">
     <strong>Berhasil!</strong> {{session('success')}}
@@ -409,7 +407,6 @@
         </div>
     </div>
 </div>
-@endsection
 @section('css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha256-siyOpF/pBWUPgIcQi17TLBkjvNgNQArcmwJB8YvkAgg=" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">

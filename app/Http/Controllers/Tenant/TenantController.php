@@ -406,14 +406,128 @@ class TenantController extends Controller
         foreach($detailtenant as $dt){
           $data = $dt;
         }
+        $label = [
+            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+        ];
+        // DATA TABLE ARUS KAS
+        $users = DB::table('users')->get();
+        // Menampilkan Data Tenant
+        $tenant = DB::table('tenant_user')
+            ->join('users', 'tenant_user.user_id', '=', 'users.id')
+            ->join('tenant', 'tenant_user.tenant_id', '=', 'tenant.id')            
+            ->select('users.id', 'tenant_user.*', 'tenant.*')
+            ->where([
+                ['user_id', \Auth::user()->id]
+            ])
+            ->get();
+        // Menampilkan Data Arus Kas Keuangan Pada Bagian Table
+        $keuangan = DB::table('tenant_user')
+            ->join('arus_kas', 'tenant_user.tenant_id', '=', 'arus_kas.tenant_id')
+            ->join('users', 'tenant_user.user_id', '=', 'users.id')
+            ->select('users.id', 'tenant_user.user_id', 'arus_kas.*')
+            ->where([
+                ['user_id', \Auth::user()->id]
+            ])
+            ->whereMonth('tanggal', date('m'))
+            ->get();
 
+        // Menampilkan Data Arus Kas Keuangan Pada Bagian Grafik
+        $categories = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        for($bulan=1;$bulan < 13;$bulan++){
+        
+        // Menampilkan Data Keuangan Pada Bagian Grafik Masuk
+        $masuk = DB::table('tenant_user')
+            ->join('arus_kas', 'tenant_user.tenant_id', '=', 'arus_kas.tenant_id')
+            ->join('users', 'tenant_user.user_id', '=', 'users.id')
+            ->select(DB::raw("SUM(IF(jenis='1', jumlah, 0)) AS totalMasuk"))
+            ->where([
+                ['user_id', \Auth::user()->id]
+            ])
+            ->whereMonth('tanggal', '=', $bulan)
+            ->first();
+            $arusMasuk[] = $masuk->totalMasuk;
+
+        // Menampilkan Data Keuangan Pada Bagian Grafik Keluar
+        $keluar = DB::table('tenant_user')
+            ->join('arus_kas', 'tenant_user.tenant_id', '=', 'arus_kas.tenant_id')
+            ->join('users', 'tenant_user.user_id', '=', 'users.id')
+            ->select(DB::raw("SUM(IF(jenis='0', jumlah, 0)) AS totalKeluar"))
+            ->where([
+                ['user_id', \Auth::user()->id]
+            ])
+            ->whereMonth('tanggal', '=', $bulan)
+            ->first();
+            $arusKeluar[] = $keluar->totalKeluar;
+        }
+                
+        // Relasi antara Tenant dengan User
+        $user = User::where('users.id', Auth::user()->id)
+            ->join('tenant_user', 'users.id', '=', 'tenant_user.user_id')
+            ->select('users.*', 'tenant_user.*')
+            ->get();
+
+        // Menghitung Totalan Arus Kas Pada Bagian Table
+        $total_masuk = 0;
+        $total_keluar = 0;
+
+        foreach ($keuangan as $row) {
+            if ($row->jenis == '1')
+                $total_masuk = $total_masuk + $row->jumlah;
+
+            elseif ($row->jenis == '0')
+                $total_keluar = $total_keluar + $row->jumlah;
+        }
+
+        $total = $total_masuk - $total_keluar;
+
+        // DATA TABLE LABA RUGI
+        // Menampilkan Data Laba Rugi Keuangan Pada Bagian Table
+        $labaRugi = DB::table('tenant_user')
+            ->join('laba_rugi', 'tenant_user.tenant_id', '=', 'laba_rugi.tenant_id')
+            ->join('users', 'tenant_user.user_id', '=', 'users.id')
+            ->select('users.id', 'tenant_user.user_id', 'laba_rugi.*')
+            ->where([
+                ['user_id', \Auth::user()->id]
+            ])
+            ->whereMonth('tanggal', date('m'))
+            ->get();
+
+        // Menampilkan Data Laba Rugi Keuangan Pada Bagian Grafik
+        $grafikLaba = DB::table('tenant_user')
+            ->join('laba_rugi', 'tenant_user.tenant_id', '=', 'laba_rugi.tenant_id')
+            ->join('users', 'tenant_user.user_id', '=', 'users.id')
+            ->select(DB::raw("(SUM(jumlah)) as count"))
+            ->where([
+                ['user_id', \Auth::user()->id]
+            ])
+            ->whereYear('tanggal', date('Y'))
+            ->groupBy(DB::raw("Month(tanggal)", "asc"))
+            ->pluck('count');
+            
+        // Relasi antara Tenant dengan User
+        $userId = User::where('users.id', Auth::user()->id)
+            ->join('tenant_user', 'users.id', '=', 'tenant_user.user_id')
+            ->select('users.*', 'tenant_user.*')
+            ->get();
+
+        // Menghitung Totalan Laba Rugi Pada Bagian Table
+        $masuk_labaRugi = 0;
+        $keluar_labaRugi = 0;
+
+        foreach ($labaRugi as $row) {
+            if ($row->jenis == '1')
+                $masuk_labaRugi = $masuk_labaRugi + $row->jumlah;
+
+            elseif ($row->jenis == '0')
+                $keluar_labaRugi = $keluar_labaRugi + $row->jumlah;
+        }
+
+        $totalLaba = $masuk_labaRugi - $keluar_labaRugi;
         // return response()->json($data);
 
         $this->data['data']= $data;
         
-        return view ('tenant.detailtenant', $this->data);
+        return view ('tenant.detailtenant',compact('keuangan','arusMasuk','arusKeluar','categories','total','total_masuk','total_keluar','user','grafikLaba','labaRugi','totalLaba','masuk_labaRugi','keluar_labaRugi','label','userId','tenant'), $this->data);
 
     }
-
-
 }

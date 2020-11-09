@@ -5,7 +5,7 @@
     <div class="col-lg-4 col-md-6 col-sm-6">
         <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
             <div class="card-body text-center"><i class="i-Add-User"></i>
-                <div class="content">
+                <div class="kas">
                     <p class="text-muted">Kas Masuk</p>
                     <p class="text-primary">{{"Rp " . number_format($total_masuk,2,',','.') }}</p>
                 </div>
@@ -15,7 +15,7 @@
     <div class="col-lg-4 col-md-6 col-sm-6">
         <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
             <div class="card-body text-center"><i class="i-Financial"></i>
-                <div class="content">
+                <div class="kas">
                     <p class="text-muted">Kas Keluar</p>
                     <p class="text-primary">{{"Rp ". number_format($total_keluar,2,',','.') }}</p>
                 </div>
@@ -25,8 +25,8 @@
     <div class="col-lg-4 col-md-6 col-sm-6">
         <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
             <div class="card-body text-center"><i class="i-Money-2"></i>
-                <div class="content">
-                    <p class="text-muted">Saldo Kas</p>
+                <div class="kas">
+                    <p class="text-muted">Saldo Kas Akhir</p>
                     <p class="text-primary">{{"Rp " . number_format($saldo_kas,2,',','.') }}</p>
                 </div>
             </div>
@@ -37,7 +37,7 @@
     <div class="col-lg-12 col-md-12">
         <div class="card mb-4">
             <div class="card-body">
-                <div class="card-title">Grafik Keuangan Seluruh Tenant</div>
+                <!-- <div class="card-title">Grafik Keuangan Seluruh Tenant</div> -->
                 <div id="chartKeuangan" style="height: 300px;"></div>
             </div>
         </div>
@@ -58,13 +58,8 @@
             </div>
 			<div class="card-body">
                 <div class="form-group">
-                @role(['inkubator'])
-                <form action="{{ route('inkubator.filter-arus') }}" method="GET" class="form-group">
-                @endrole
-                @role(['mentor'])
-                <form action="{{ route('mentor.filter-arus') }}" method="GET" class="form-group">
-                @endrole
-                    <select style="cursor:pointer;margin-top:1.5em;margin-bottom:1.5em;" class="form-control" id="tag_select" name="month">
+                <label for="tenant">Filter Bulan</label>
+                    <select style="cursor:pointer;margin-bottom:1.5em;" class="form-control" id="tag_select" name="month">
                         <option value="0" selected disabled> Pilih Bulan</option>
                         <option value="01"> Januari</option>
                         <option value="02"> Februari</option>
@@ -79,7 +74,10 @@
                         <option value="11"> November</option>
                         <option value="12"> Desember</option>
                     </select>
-                    <select style="cursor:pointer;" class="form-control" id="tag_select" name="year">
+                </div>
+                <div class="form-group">
+                <label for="tenant">Filter Tahun</label>
+                    <select style="cursor:pointer;margin-bottom:1.5em;" class="form-control" id="tag_select" name="year">
                         <option value="0" selected disabled> Pilih Tahun</option>
                         <?php 
                         $year = date('Y');
@@ -90,7 +88,9 @@
                         }
                         ?>
                     </select>
-                    <label for="tenant">Tenant</label>
+                </div>
+                <div class="form-group">
+                    <label for="tenant">Filter Tenant</label>
                     @foreach ($tenant as $item)
                         <label class="checkbox checkbox-success">
                             <input type="checkbox" name="tenant" value="{{ $item->id }}"
@@ -99,8 +99,9 @@
                                 @endif/><span>{{ $item->title }}</span><span class="checkmark"></span>
                         </label>
                     @endforeach
-                    <input class="btn btn-primary" name="submit" type="submit" value="Filter"/>
-                </form>
+                </div>
+                <div class="form-group">
+                    <button id="filter" class="btn btn-primary">Filter</button>
                 </div>
             </div>
         </div>
@@ -122,7 +123,7 @@
                                         <th width="20%">Pemasukan</th>
                                         <th width="20%">Pengeluaran</th>
                                         <th width="20%">Saldo</th>
-                                        <th width="10%">Tanda Bukti</th>
+                                        <!-- <th width="10%">Tanda Bukti</th> -->
                                         @role('tenant')
                                         <th scope="col">Action</th>
                                         @endrole
@@ -148,8 +149,7 @@
                                         @else
                                         <td>{{"Rp " . "- " . number_format($k->jumlah,2,',','.') }}</td>
                                         @endif
-                                        <td>
-                                        </td>
+                                        <!-- <td></td> -->
                                         
                                     </tr>
                                 @endforeach       
@@ -160,7 +160,7 @@
                                         <td><b>{{"Rp " . number_format($total_masuk,2,',','.') }}</b></td>
                                         <td><b>{{"Rp " . number_format($total_keluar,2,',','.') }}</b></td>
                                         <td><b>{{"Rp " . number_format($total,2,',','.') }}</b></td>
-                                        <td></td>
+                                        <!-- <td></td> -->
                                     </tr> 
 
                                 </tfoot>
@@ -213,6 +213,11 @@
   }
   .image-preview-input-title {
     margin-left:2px;
+  }
+  .kas{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
   }
 </style>
 @endsection
@@ -285,10 +290,18 @@
 
     function filterResults () {
         let tenantIds = getIds("tenant");
-        let href = 'keuangan?';
+        let bulan = $('select[name="month"]').val();
+        let tahun = $('select[name="year"]').val();
+        let href = 'arus-kas?';
 
         if(tenantIds.length) {
             href += 'filter[tenant]=' + tenantIds;
+        }
+        if(bulan !== null) {
+            href += '&filter[bulan]=' + bulan;
+        }
+        if(tahun !== null) {
+            href += '&filter[tahun]=' + tahun;
         }
         console.log(href);
 
@@ -310,6 +323,7 @@
 <script>
         var arusMasuk = <?php echo json_encode($arusMasuk)?>;
         var arusKeluar = <?php echo json_encode($arusKeluar)?>;
+        var totalKas = <?php echo json_encode($totalKas)?>;
         Highcharts.chart('chartKeuangan', {
             chart: {
                 type: 'column'
@@ -321,10 +335,10 @@
 			},
             title: {
                 @role('mentor')
-                text: 'Grafik Keuangan Tenant yang dibimbing'
+                text: 'Grafik Arus Kas Tenant yang dibimbing'
                 @endrole
                 @role('inkubator')
-                text: 'Grafik Keuangan Seluruh Tenant'
+                text: 'Grafik Arus Kas Seluruh Tenant'
                 @endrole
             },
 			grid: {
@@ -373,6 +387,24 @@
 				},
 				barGap: 0,
 				color: '#bcbbdd',
+				smooth: true,
+				itemStyle: {
+					emphasis: {
+						shadowBlur: 10,
+						shadowOffsetX: 0,
+						shadowOffsetY: -2,
+						shadowColor: 'rgba(0, 0, 0, 0.3)'
+					}
+				}
+			},{
+				name: 'Total Kas',
+				data: totalKas,
+				label: {
+					show: false,
+					color: '#0168c1'
+				},
+				barGap: 0,
+				color: '#4B0082',
 				smooth: true,
 				itemStyle: {
 					emphasis: {

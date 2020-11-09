@@ -19,6 +19,7 @@
 			<li class="nav-item"><a class="nav-link" id="timeline-tab" data-toggle="tab" href="#timeline" role="tab" aria-controls="timeline" aria-selected="false">Timeline</a></li>
 			<li class="nav-item"><a class="nav-link" id="friends-tab" data-toggle="tab" href="#friends" role="tab" aria-controls="friends" aria-selected="false">Friends</a></li>
 			<li class="nav-item"><a class="nav-link" id="photos-tab" data-toggle="tab" href="#photos" role="tab" aria-controls="photos" aria-selected="false">Photos</a></li>
+			<li class="nav-item"><a class="nav-link" id="keuangan-tab" data-toggle="tab" href="#keuangan" role="tab" aria-controls="keuangan" aria-selected="false">Keuangan</a></li>
 		</ul>
 		<div class="tab-content" id="profileTabContent">
 			<div class="tab-pane fade" id="timeline" role="tabpanel" aria-labelledby="about-tab">
@@ -285,7 +286,10 @@
 					</div>
 				</div>
 			</div>
+			<div class="tab-pane fade" id="keuangan" role="tabpanel" aria-labelledby="keuangan-tab">
+					@include('keuangan.keuangan')
+			</div>
 		</div>
 	</div>
 </div><!-- end of main-content -->
-@endsection
+@endsection	

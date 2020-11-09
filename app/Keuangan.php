@@ -13,4 +13,17 @@ class Keuangan extends Model
     {
         return $this->belongsTo('App\TenantUser');
     }
+    public function scopeDateBulan($query, $bulan)
+    {
+        return $query->whereMonth('tanggal', $bulan);
+    }
+    public function scopeDateTahun($query, $tahun)
+    {
+        if ($tahun) {
+            return $query->whereYear('tanggal', $tahun);
+        }else{
+            return $query->whereYear('tanggal', date('Y'));
+        }
+        
+    }
 }
