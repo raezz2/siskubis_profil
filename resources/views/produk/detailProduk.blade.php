@@ -139,11 +139,8 @@
 								<div id="carousel-thumb" class="carousel slide carousel-fade carousel-thumbnails" data-ride="carousel">
       							<!--Slides-->
       								<div class="carousel-inner" role="listbox">
-      									<div class="carousel-item active">
-          									<img class="d-block w-100" src="{{ asset('img/produk/' . $produk->produk_image->image) }}" alt="{{ $produk->produk_image->judul }}">
-        								</div>
-      									@foreach($image as $row)
-        								<div class="carousel-item">
+      									@foreach($image as $key => $row)
+        								<div class="carousel-item item{{ $key == 0 ? ' active' : '' }}">
           									<img class="d-block w-100" src="{{ asset('img/produk/' . $row->image) }}" alt="{{ $row->judul }}">
         								</div>
 										@endforeach
@@ -162,7 +159,7 @@
       								<ol class="carousel-indicators">
       									@foreach ($image as $row)
         								<li data-target="#carousel-thumb" data-slide-to="{{ $row['id'] }}" class="active"> 
-        									<img class="d-block w-100 " style="height: 40px; width: 150px" src="{{ asset('img/produk/' . $row->image) }}" class="img-fluid">
+        									<img class="d-block w-100" style="height: 40px; width: 150px" src="{{ asset('img/produk/' . $row->image) }}" class="img-fluid">
         								</li>
         								@endforeach
       								</ol>
@@ -280,68 +277,96 @@
 									</div>
 									<div class="col-lg-8 col-md-8 col-sm-12">
 										<dl class="row">
-											<dt class="col-sm-3">Nama Tenant</dt>
+											<dt class="col-sm-3">Nama Tenant</dt><dt class="col-md-1"> : </dt>
 										  	<dd class="col-sm-8">{{ $produk->tenant->title }} - {{ $produk->priority->name }}</dd>
 
-										  	<dt class="col-sm-3">Inventor</dt>
-										  	<dd class="col-sm-8">{{ $produk->inventor_id }}</dd> <!-- Belum di deklarasikan -->
+										  	<dt class="col-sm-3">Inventor</dt><dt class="col-md-1"> : </dt>
+										  	<dd class="col-sm-8">
+										  		@if($produk->inventor_id == 0)
+										  			Belum ada data
+										  		@else
+										  			{{ $produk->inventor_id }}
+										  		@endif
+										  	</dd> <!-- Belum di deklarasikan -->
 
-										  	<dt class="col-sm-3">Nama Produk</dt>
+										  	<dt class="col-sm-3">Nama Produk</dt><dt class="col-md-1"> : </dt>
 										  	<dd class="col-sm-8">{{ $produk->title }}</dd>
 
-										  	<dt class="col-sm-3">Subtitle</dt>
+										  	<dt class="col-sm-3">Subtitle</dt><dt class="col-md-1"> : </dt>
 										  	<dd class="col-sm-8">{{ $produk->subtitle }}</dd>
 
-										  	<dt class="col-sm-3">Harga Pokok</dt>
+										  	<dt class="col-sm-3">Harga Pokok</dt><dt class="col-md-1"> : </dt>
 										  	<dd class="col-sm-8">Rp. {{ number_format($produk->harga_pokok,0,',','.') }}</dd>
 
-										  	<dt class="col-sm-3">Harga Jual</dt>
+										  	<dt class="col-sm-3">Harga Jual</dt><dt class="col-md-1"> : </dt>
 										  	<dd class="col-sm-8">Rp. {{ number_format($produk->harga_jual,0,',','.') }}</dd>
 
-										  	<dt class="col-sm-3">Kategori Produk</dt>
-										  	<dd class="col-sm-8">{{ $produk->kategori_id }}</dd> <!-- Belum di deklarasikan -->
+										  	<dt class="col-sm-3">Kategori Produk</dt><dt class="col-md-1"> : </dt>
+										  	<dd class="col-sm-8">
+										  		@if($produk->kategori_id == 0)
+										  			Belum ada data
+										  		@else
+										  			{{ $produk->kategori_id }}
+										  		@endif
+										  	</dd> <!-- Belum di deklarasikan -->
 
-										  	<dt class="col-sm-3">Tags</dt>
-										  	<dd class="col-sm-8">{{ $produk->tag }}</dd>
+										  	<dt class="col-sm-3">Tags</dt><dt class="col-md-1"> : </dt>
+										  	<dd class="col-sm-8">
+										  		<h5>
+										  		@foreach($tag as $row)
+										  			<span class="badge badge-light">#{{$row}}</span>
+										  		@endforeach
+										  		</h5>
+										  	</dd>
 
-										  	<dt class="col-sm-3">Nama Tenant</dt>
+										  	<dt class="col-sm-3">Nama Tenant</dt><dt class="col-md-1"> : </dt>
 										  	<dd class="col-sm-8">{{ $produk->tenant->title }}</dd>
 
-										  	<dt class="col-sm-3">Lokasi</dt>
+										  	<dt class="col-sm-3">Lokasi</dt><dt class="col-md-1"> : </dt>
 										  	<dd class="col-sm-8">{{ $produk->location }}</dd>
 
-										  	<dt class="col-sm-3">Alamat</dt>
+										  	<dt class="col-sm-3">Alamat</dt><dt class="col-md-1"> : </dt>
 										  	<dd class="col-sm-8">{{ $produk->address }}</dd>
 
-										  	<dt class="col-sm-3">Kontak</dt>
+										  	<dt class="col-sm-3">Kontak</dt><dt class="col-md-1"> : </dt>
 										  	<dd class="col-sm-8">{{ $produk->contact }}</dd>
 
-										  	<dt class="col-sm-3">Tentang</dt>
+										  	<dt class="col-sm-3">Tentang</dt><dt class="col-md-1"> : </dt>
 										  	<dd class="col-sm-8">{{ $produk->tentang }}</dd>
 
-										  	<dt class="col-sm-3">Latar</dt>
+										  	<dt class="col-sm-3">Latar</dt><dt class="col-md-1"> : </dt>
 										  	<dd class="col-sm-8">{{ $produk->latar }}</dd>
 
-										  	<dt class="col-sm-3">Keterbaharuan</dt>
+										  	<dt class="col-sm-3">Keterbaharuan</dt><dt class="col-md-1"> : </dt>
 										  	<dd class="col-sm-8">{{ $produk->keterbaharuan }}</dd>
 
-										  	<dt class="col-sm-3">Spesifikasi</dt>
-										  	<dd class="col-sm-8">{{ $produk->spesifikasi }}</dd>
+										  	<dt class="col-sm-3">Spesifikasi</dt><dt class="col-md-1"> : </dt>
+										  	<dd class="col-sm-8">
+										  		<ul>
+										  		@foreach($spesifikasi as $row)
+                                    				<li>{{ $row }}</li>
+										  		@endforeach
+										  		</ul>
+										  	</dd>
 
-										  	<dt class="col-sm-3">Manfaat</dt>
+										  	<dt class="col-sm-3">Manfaat</dt><dt class="col-md-1"> : </dt>
 										  	<dd class="col-sm-8">{{ $produk->manfaat }}</dd>
 
-										  	<dt class="col-sm-3">Keunggulan</dt>
+										  	<dt class="col-sm-3">Keunggulan</dt><dt class="col-md-1"> : </dt>
 										  	<dd class="col-sm-8">{{ $produk->keunggulan }}</dd>
 
-										  	<dt class="col-sm-3">Teknologi</dt>
+										  	<dt class="col-sm-3">Teknologi</dt><dt class="col-md-1"> : </dt>
 										  	<dd class="col-sm-8">{{ $produk->teknologi }}</dd>
 
-										  	<dt class="col-sm-3">Pengembangan</dt>
+										  	<dt class="col-sm-3">Pengembangan</dt><dt class="col-md-1"> : </dt>
 										  	<dd class="col-sm-8">{{ $produk->pengembangan }}</dd>
 
-										  	<dt class="col-sm-3">Proposal </dt>
-										  	<dd class="col-sm-8">{{ $produk->proposal }}</dd>
+										  	<dt class="col-sm-3">Proposal </dt><dt class="col-md-1"> : </dt>
+										  	<dd class="col-sm-8">
+										  		<a href="{{ asset('file/produk/produk'.'/'.$produk->proposal) }}">
+										  			{{ $produk->proposal }}
+										  		</a>
+										  	</dd>
 										</dl>
 									</div>
 								</div>
@@ -350,19 +375,19 @@
 							<div class="tab-pane fade" id="nav-bisnis" role="tabpanel" aria-labelledby="nav-bisnis-tab">
 								<h5 class="mb-5 font-weight-700 text-center">Prospek Produk</h5>
 								<dl class="row">
-									<dt class="col-sm-3">Kompetitor</dt>
+									<dt class="col-sm-3">Kompetitor</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_bisnis->kompetitor ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Target Pasar</dt>
+								  	<dt class="col-sm-3">Target Pasar</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_bisnis->target_pasar ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Dampak Sosial dan Sekitar</dt>
+								  	<dt class="col-sm-3">Dampak Sosial dan Sekitar</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_bisnis->dampak_sosek ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Produksi Harga</dt>
+								  	<dt class="col-sm-3">Produksi Harga</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_bisnis->produksi_harga ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Pemasaran</dt>
+								  	<dt class="col-sm-3">Pemasaran</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_bisnis->pemasaran ?? 'tidak ada data'}}</dd>
 								</dl>
 							</div>
@@ -370,8 +395,7 @@
 							<div class="tab-pane fade" id="nav-canvas" role="tabpanel" aria-labelledby="nav-canvas-tab">
 								<h5 class="mb-5 font-weight-700 text-center">Produk Canvas</h5>
 								<dl class="row">
-									<dt class="col-sm-3">Model Kanvas</dt>
-								  	<dd class="col-sm-8">{{ $produk->produk_canvas->canvas ?? 'tidak ada data'}}</dd>
+								  	<div class="w-100">{!! $produk->produk_canvas->canvas ?? 'tidak ada data'!!}</div>
 
 								  	<dt class="col-sm-3">Target Pasar</dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_canvas->kategori ?? 'tidak ada data'}}</dd>
@@ -381,26 +405,30 @@
 							<div class="tab-pane fade" id="nav-ijin" role="tabpanel" aria-labelledby="nav-ijin-tab">
 								<h5 class="mb-5 font-weight-700 text-center">Kelengkapan Ijin Produk</h5>
 								<dl class="row">
-									<dt class="col-sm-3">Nama Produk</dt>
+									<dt class="col-sm-3">Nama Produk</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->title }}</dd>
 
-								  	<dt class="col-sm-3">Jenis Ijin</dt>
+								  	<dt class="col-sm-3">Jenis Ijin</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_ijin->jenis_ijin ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Pemberi Ijin</dt>
+								  	<dt class="col-sm-3">Pemberi Ijin</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_ijin->pemberi ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Status</dt>
+								  	<dt class="col-sm-3">Status</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_ijin->status ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Tahun</dt>
+								  	<dt class="col-sm-3">Tahun</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_ijin->tahun ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Tanggal</dt>
+								  	<dt class="col-sm-3">Tanggal</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_ijin->tanggal ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Dokumen</dt>
-								  	<dd class="col-sm-8">{{ $produk->produk_ijin->dokumen ?? 'tidak ada data'}}</dd>
+								  	<dt class="col-sm-3">Dokumen</dt><dt class="col-md-1"> : </dt>
+								  	<dd class="col-sm-8">
+								  		<a href="{{ url('file/produk/ijin'.'/'.$produk->produk_ijin->dokumen ) }}">
+								  			{{ $produk->produk_ijin->dokumen ?? 'tidak ada data' }}
+								  		</a>
+								  	</dd>
 								</dl>
 							</div>
 
@@ -420,25 +448,29 @@
 							<div class="tab-pane fade" id="nav-ki" role="tabpanel" aria-labelledby="nav-ki-tab">
 								<h5 class="mb-5 font-weight-700 text-center">Kekayaan Intelektual</h5>
 								<dl class="row">
-									<dt class="col-sm-3">Jenis</dt>
+									<dt class="col-sm-3">Jenis</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_ki->jenis_ki ?? 'tidak ada data'}}</dd>
 
-									<dt class="col-sm-3">Status</dt>
+									<dt class="col-sm-3">Status</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_ki->status_ki ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Permohonan</dt>
+								  	<dt class="col-sm-3">Permohonan</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_ki->permohonan ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Sertifikat</dt>
-								  	<dd class="col-sm-8">{{ $produk->produk_ki->sertifikat ?? 'tidak ada data'}}</dd>
+								  	<dt class="col-sm-3">Sertifikat</dt><dt class="col-md-1"> : </dt>
+								  	<dd class="col-sm-8">
+								  		<a href="{{ url('file/produk/ki'.'/'.$produk->produk_ki->sertifikat ?? 'tidak ada data') }}">
+								  			{{ $produk->produk_ki->sertifikat ?? 'tidak ada data' }}
+								  		</a>
+								  	</dd>
 
-								  	<dt class="col-sm-3">Berlaku Mulai</dt>
+								  	<dt class="col-sm-3">Berlaku Mulai</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_ki->berlaku_mulai ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Berlaku Sampai</dt>
+								  	<dt class="col-sm-3">Berlaku Sampai</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_ki->berlaku_sampai ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Pemilik KI</dt>
+								  	<dt class="col-sm-3">Pemilik KI</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_ki->pemilik_ki ?? 'tidak ada data'}}</dd>
 								</dl>
 							</div>
@@ -446,31 +478,31 @@
 							<div class="tab-pane fade" id="nav-riset" role="tabpanel" aria-labelledby="nav-riset-tab">
 								<h5 class="mb-5 font-weight-700 text-center">Riset Produk</h5>
 								<dl class="row">
-									<dt class="col-sm-3">Nama Riset</dt>
+									<dt class="col-sm-3">Nama Riset</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_riset->nama_riset ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Pelaksana</dt>
+								  	<dt class="col-sm-3">Pelaksana</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_riset->pelaksana ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Tahun</dt>
+								  	<dt class="col-sm-3">Tahun</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_riset->tahun ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Pendanaan</dt>
+								  	<dt class="col-sm-3">Pendanaan</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_riset->pendanaan ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Skema</dt>
+								  	<dt class="col-sm-3">Skema</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_riset->skema ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Nilai</dt>
+								  	<dt class="col-sm-3">Nilai</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_riset->nilai ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Aktifitas</dt>
+								  	<dt class="col-sm-3">Aktifitas</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_riset->aktifitas ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Tujuan</dt>
+								  	<dt class="col-sm-3">Tujuan</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_riset->tujuan ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Hasil</dt>
+								  	<dt class="col-sm-3">Hasil</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_riset->hasil ?? 'tidak ada data'}}</dd>
 								</dl>
 							</div>
@@ -478,23 +510,27 @@
 							<div class="tab-pane fade" id="nav-sertifikasi" role="tabpanel" aria-labelledby="nav-sertifikasi-tab">
 								<h5 class="mb-5 font-weight-700 text-center">Sertifikasi Produk</h5>
 								<dl class="row">
-									<dt class="col-sm-3">Jenis Sertifikasi</dt>
+									<dt class="col-sm-3">Jenis Sertifikasi</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_sertifikasi->jenis_sertif ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Pemberi Sertifikasi</dt>
+								  	<dt class="col-sm-3">Pemberi Sertifikasi</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_sertifikasi->pemberi_sertif ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Status</dt>
+								  	<dt class="col-sm-3">Status</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_sertifikasi->status ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Tahun</dt>
+								  	<dt class="col-sm-3">Tahun</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_sertifikasi->tahun ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Tanggal</dt>
+								  	<dt class="col-sm-3">Tanggal</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_sertifikasi->tanggal ?? 'tidak ada data'}}</dd>
 
-								  	<dt class="col-sm-3">Jenis Sertifikasi</dt>
-								  	<dd class="col-sm-8">{{ $produk->produk_sertifikasi->dokumen ?? 'tidak ada data'}}</dd>
+								  	<dt class="col-sm-3">Jenis Sertifikasi</dt><dt class="col-md-1"> : </dt>
+								  	<dd class="col-sm-8">
+								  		<a href="{{ url('file/produk/sertifikasi'.'/'.$produk->produk_sertifikasi->dokumen ?? 'tidak ada data') }}">
+								  			{{ $produk->produk_ijin->dokumen ?? 'tidak ada data' }}
+								  		</a>
+								  	</dd>
 								</dl>
 							</div>
 

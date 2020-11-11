@@ -94,9 +94,10 @@ class ProdukController extends Controller
         $produk         = Produk::with(['tenant','priority','produk_bisnis','produk_canvas','produk_ijin','produk_image','produk_ki','produk_riset','produk_sertifikasi'])->where('id', $id)->first();
         $image          = ProdukImage::where('produk_id',$id)->get();
         $produk_team    = ProdukTeam::with('profil_user.user')->where('produk_id', $id)->get();
+        $tag = explode(',',$produk->tag);
+        $spesifikasi = explode(',',$produk->spesifikasi);
 
-        return view('produk.detailProduk', compact('produk','produk_team','image'));
-    }
+        return view('produk.detailProduk', compact('produk','produk_team','image','tag','spesifikasi'));    }
 
     public function create()
     {
@@ -266,7 +267,12 @@ class ProdukController extends Controller
     public function destroy(Produk $produk)
     {
         $produk->delete();
-        File::delete(storage_path('app/public/img/produk' . $produk->foto));
+        $produk = Produk::with(['tenant','priority','produk_bisnis','produk_canvas','produk_ijin','produk_image','produk_ki','produk_riset','produk_sertifikasi'])->where('id', $id)->first();
+        File::delete(storage_path('app/public/file/produk/ijin' . $produk->produk_ijin->dokumen));
+        File::delete(storage_path('app/public/file/produk/ki' . $produk->produk_ki->sertifikat));
+        File::delete(storage_path('app/public/file/produk/produk' . $produk->proposal));
+        File::delete(storage_path('app/public/file/produk/sertifiksi' . $produk->produk_sertifikasi->dokumen));
+        File::delete(storage_path('app/public/img/produk' . $produk->produk_image->image));
 
         return redirect()->back();
     }
