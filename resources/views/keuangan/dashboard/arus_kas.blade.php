@@ -4,20 +4,10 @@
     <!-- ICON BG-->
     <div class="col-lg-4 col-md-6 col-sm-6">
         <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-            <div class="card-body text-center"><i class="i-Add-User"></i>
-                <div class="kas">
-                    <p class="text-muted">Kas Masuk</p>
-                    <p class="text-primary">{{"Rp " . number_format($total_masuk,2,',','.') }}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-6 col-sm-6">
-        <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-            <div class="card-body text-center"><i class="i-Financial"></i>
-                <div class="kas">
-                    <p class="text-muted">Kas Keluar</p>
-                    <p class="text-primary">{{"Rp ". number_format($total_keluar,2,',','.') }}</p>
+            <div class="card-body text-center"><i class="i-Money-2"></i>
+            <div class="col-md-12">
+                    <h5><b><p class="text-important">Kas Masuk</p></b></h5>
+                    <p class="text-important">{{"Rp " . number_format($total_masuk,2,',','.') }}</p>
                 </div>
             </div>
         </div>
@@ -25,9 +15,19 @@
     <div class="col-lg-4 col-md-6 col-sm-6">
         <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
             <div class="card-body text-center"><i class="i-Money-2"></i>
-                <div class="kas">
-                    <p class="text-muted">Saldo Kas Akhir</p>
-                    <p class="text-primary">{{"Rp " . number_format($saldo_kas,2,',','.') }}</p>
+            <div class="col-md-12">
+                <h5><b><p class="text-important">Kas Keluar</p></b></h5>
+                    <p class="text-important">{{"Rp ". number_format($total_keluar,2,',','.') }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+            <div class="card-body text-center"><i class="i-Money-2"></i>
+            <div class="col-md-12">
+                <h5><b><p class="text-important">Saldo Kas Akhir</p></b></h5>
+                    <p class="text-important">{{"Rp " . number_format($saldo_kas,2,',','.') }}</p>
                 </div>
             </div>
         </div>
@@ -52,7 +52,7 @@
 			<div class="card-header container-fluid">
 			  <div class="row">
 				<div class="col">
-				  <h3>Filter</h3>
+				  <h4>Filter</h4>
 				</div>
 			  </div>
             </div>
