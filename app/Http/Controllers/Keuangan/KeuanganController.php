@@ -37,34 +37,47 @@ class KeuanganController extends Controller
         // Menampilkan Data Arus Kas Kedalam Grafik
         $categories = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
         for($bulan=1;$bulan < 13;$bulan++){
-            $masuk     = QueryBuilder::for(Keuangan::class)
-                ->allowedFilters([
-                    AllowedFilter::exact('tenant', 'tenant_id'),
-                    AllowedFilter::scope('bulan', 'dateBulan'),
-                    AllowedFilter::scope('tahun', 'dateTahun'),
-                ])
-                ->select(DB::raw("SUM(IF(jenis='1', jumlah, 0)) AS totalMasuk"))
-                ->whereMonth('tanggal', '=', $bulan)
-                // ->whereYear('tanggal', date('Y'))
-                ->first();
-            $keluar     = QueryBuilder::for(Keuangan::class)
-                ->allowedFilters([
-                    AllowedFilter::exact('tenant', 'tenant_id'),
-                    AllowedFilter::scope('bulan', 'dateBulan'),
-                    AllowedFilter::scope('tahun', 'dateTahun'),
-                ])
-                ->select(DB::raw("SUM(IF(jenis='0', jumlah, 0)) AS totalKeluar"))
-                ->whereMonth('tanggal', '=', $bulan)
-                // ->whereYear('tanggal', date('Y'))
-                ->first();
-            $arusMasuk[] = $masuk->totalMasuk;
-            $arusKeluar[] = $keluar->totalKeluar;
-        $totalKas[] = $masuk->totalMasuk - $keluar->totalKeluar;
+            if (request()->has('filter')) {
+                $masuk     = QueryBuilder::for(Keuangan::class)
+                    ->allowedFilters([
+                        AllowedFilter::exact('tenant', 'tenant_id'),
+                        AllowedFilter::scope('bulan', 'dateBulan'),
+                        AllowedFilter::scope('tahun', 'dateTahun'),
+                    ])
+                    ->select(DB::raw("SUM(IF(jenis='1', jumlah, 0)) AS totalMasuk"))
+                    ->whereMonth('tanggal', '=', $bulan)
+                    ->first();
+                $keluar     = QueryBuilder::for(Keuangan::class)
+                    ->allowedFilters([
+                        AllowedFilter::exact('tenant', 'tenant_id'),
+                        AllowedFilter::scope('bulan', 'dateBulan'),
+                        AllowedFilter::scope('tahun', 'dateTahun'),
+                    ])
+                    ->select(DB::raw("SUM(IF(jenis='0', jumlah, 0)) AS totalKeluar"))
+                    ->whereMonth('tanggal', '=', $bulan)
+                    ->first();
+                $arusMasuk[] = $masuk->totalMasuk;
+                $arusKeluar[] = $keluar->totalKeluar;
+            $totalKas[] = $masuk->totalMasuk - $keluar->totalKeluar;
+            }else{
+                $masuk     = QueryBuilder::for(Keuangan::class)
+                    ->select(DB::raw("SUM(IF(jenis='1', jumlah, 0)) AS totalMasuk"))
+                    ->whereMonth('tanggal', '=', $bulan)
+                    ->whereYear('tanggal', date('Y'))
+                    ->first();
+                $keluar     = QueryBuilder::for(Keuangan::class)
+                    ->select(DB::raw("SUM(IF(jenis='0', jumlah, 0)) AS totalKeluar"))
+                    ->whereMonth('tanggal', '=', $bulan)
+                    ->whereYear('tanggal', date('Y'))
+                    ->first();
+                $arusMasuk[] = $masuk->totalMasuk;
+                $arusKeluar[] = $keluar->totalKeluar;
+            $totalKas[] = $masuk->totalMasuk - $keluar->totalKeluar;
+            }
         }
 
-        
-
         // Menampilkan Data Arus Kas Keuangan
+        if (request()->has('filter')) {
         $keuangan = QueryBuilder::for(Keuangan::class)
             ->allowedFilters([
                 AllowedFilter::exact('tenant', 'tenant_id'),
@@ -79,7 +92,15 @@ class KeuanganController extends Controller
                 AllowedFilter::scope('tahun', 'dateTahun'),
             ])
             ->get();
-        
+        }else{
+            $keuangan = QueryBuilder::for(Keuangan::class)
+                ->whereMonth('tanggal', date('m'))
+                ->whereYear('tanggal', date('Y'))
+                ->paginate();
+            $pendapatan = QueryBuilder::for(Keuangan::class)
+                ->whereYear('tanggal', date('Y'))
+                ->get();
+        }
         // Menampilkan Tenant
         $tenant = DB::table('tenant')->get();
 
@@ -120,45 +141,71 @@ class KeuanganController extends Controller
         // Menampilkan Data Laba Rugi Kedalam Grafik
         $categories = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
         for($bulan=1;$bulan < 13;$bulan++){
-            $penghasilan     = QueryBuilder::for(labaRugi::class)
-                ->allowedFilters([
-                    AllowedFilter::exact('tenant', 'tenant_id'),
-                    AllowedFilter::scope('bulan', 'dateBulan'),
-                    AllowedFilter::scope('tahun', 'dateTahun'),
-                ])
-                ->select(DB::raw("SUM(IF(jenis='1', jumlah, 0)) AS totalPenghasilan"))
-                ->whereMonth('tanggal', '=', $bulan)
-                ->first();
-            $beban           = QueryBuilder::for(labaRugi::class)
-                ->allowedFilters([
-                    AllowedFilter::exact('tenant', 'tenant_id'),
-                    AllowedFilter::scope('bulan', 'dateBulan'),
-                    AllowedFilter::scope('tahun', 'dateTahun'),
-                ])
-                ->select(DB::raw("SUM(IF(jenis='0', jumlah, 0)) AS totalBeban"))
-                ->whereMonth('tanggal', '=', $bulan)
-                ->first();
-            $labaMasuk[] = $penghasilan->totalPenghasilan;
-            $labaKeluar[] = $beban->totalBeban;
-        $totalLabaBersih[] = $penghasilan->totalPenghasilan - $beban->totalBeban;
+            if (request()->has('filter')) {
+                $penghasilan     = QueryBuilder::for(labaRugi::class)
+                    ->allowedFilters([
+                        AllowedFilter::exact('tenant', 'tenant_id'),
+                        AllowedFilter::scope('bulan', 'dateBulan'),
+                        AllowedFilter::scope('tahun', 'dateTahun'),
+                    ])
+                    ->select(DB::raw("SUM(IF(jenis='1', jumlah, 0)) AS totalPenghasilan"))
+                    ->whereMonth('tanggal', '=', $bulan)
+                    ->first();
+                $beban           = QueryBuilder::for(labaRugi::class)
+                    ->allowedFilters([
+                        AllowedFilter::exact('tenant', 'tenant_id'),
+                        AllowedFilter::scope('bulan', 'dateBulan'),
+                        AllowedFilter::scope('tahun', 'dateTahun'),
+                    ])
+                    ->select(DB::raw("SUM(IF(jenis='0', jumlah, 0)) AS totalBeban"))
+                    ->whereMonth('tanggal', '=', $bulan)
+                    ->first();
+                $labaMasuk[] = $penghasilan->totalPenghasilan;
+                $labaKeluar[] = $beban->totalBeban;
+            $totalLabaBersih[] = $penghasilan->totalPenghasilan - $beban->totalBeban;
+            }else{
+                $penghasilan     = QueryBuilder::for(labaRugi::class)
+                    ->select(DB::raw("SUM(IF(jenis='1', jumlah, 0)) AS totalPenghasilan"))
+                    ->whereMonth('tanggal', '=', $bulan)
+                    ->whereYear('tanggal', date('Y'))
+                    ->first();
+                $beban           = QueryBuilder::for(labaRugi::class)
+                    ->select(DB::raw("SUM(IF(jenis='0', jumlah, 0)) AS totalBeban"))
+                    ->whereMonth('tanggal', '=', $bulan)
+                    ->whereYear('tanggal', date('Y'))
+                    ->first();
+                $labaMasuk[] = $penghasilan->totalPenghasilan;
+                $labaKeluar[] = $beban->totalBeban;
+            $totalLabaBersih[] = $penghasilan->totalPenghasilan - $beban->totalBeban;
+            }
         }
 
         // Menampilkan Data Laba Rugi Keuangan
-        $labaRugi = QueryBuilder::for(labaRugi::class)
-            ->allowedFilters([
-                AllowedFilter::exact('tenant', 'tenant_id'),
-                AllowedFilter::scope('bulan', 'dateBulan'),
-                AllowedFilter::scope('tahun', 'dateTahun'),
-            ])
-            ->paginate();
-        $labaBersih = QueryBuilder::for(labaRugi::class)
-            ->allowedFilters([
-                AllowedFilter::exact('tenant', 'tenant_id'),
-                AllowedFilter::scope('bulan', 'dateBulan'),
-                AllowedFilter::scope('tahun', 'dateTahun'),
-            ])
-            ->get();
-        
+        if (request()->has('filter')) {
+            $labaRugi = QueryBuilder::for(labaRugi::class)
+                ->allowedFilters([
+                    AllowedFilter::exact('tenant', 'tenant_id'),
+                    AllowedFilter::scope('bulan', 'dateBulan'),
+                    AllowedFilter::scope('tahun', 'dateTahun'),
+                ])
+                ->paginate();
+            $labaBersih = QueryBuilder::for(labaRugi::class)
+                ->allowedFilters([
+                    AllowedFilter::exact('tenant', 'tenant_id'),
+                    AllowedFilter::scope('bulan', 'dateBulan'),
+                    AllowedFilter::scope('tahun', 'dateTahun'),
+                ])
+                ->get();
+        }else{
+            $labaRugi = QueryBuilder::for(labaRugi::class)
+                ->whereMonth('tanggal', date('m'))
+                ->whereYear('tanggal', date('Y'))
+                ->paginate();
+            $labaBersih = QueryBuilder::for(labaRugi::class)
+                ->whereYear('tanggal', date('Y'))
+                ->whereMonth('tanggal', date('m'))
+                ->get();
+        }        
         // Menampilkan Tenant
         $tenant = DB::table('tenant')->get();
 
@@ -199,57 +246,89 @@ class KeuanganController extends Controller
         // DATA TABLE ARUS KAS
         // Menampilkan Data Arus Kas Keuangan Pada Bagian Table
         $tenant = TenantMentor::where('user_id', auth()->user()->id)->get('tenant_id');
-        $keuangan = QueryBuilder::for(Keuangan::class)
-            ->allowedFilters([
-                AllowedFilter::exact('tenant', 'tenant_id'),
-                AllowedFilter::scope('bulan', 'dateBulan'),
-                AllowedFilter::scope('tahun', 'dateTahun'),
-            ])
-            ->whereIn('tenant_id', $tenant)
-            ->paginate();
-    
+        if (request()->has('filter')) {
+            $keuangan = QueryBuilder::for(Keuangan::class)
+                ->allowedFilters([
+                    AllowedFilter::exact('tenant', 'tenant_id'),
+                    AllowedFilter::scope('bulan', 'dateBulan'),
+                    AllowedFilter::scope('tahun', 'dateTahun'),
+                ])
+                ->whereIn('tenant_id', $tenant)
+                ->paginate();
+        } else {
+            $keuangan = QueryBuilder::for(Keuangan::class)
+                ->whereIn('tenant_id', $tenant)
+                ->whereMonth('tanggal', date('m'))
+                ->whereYear('tanggal', date('Y'))
+                ->paginate();
+        }
         // Menampilkan Data Arus Kas Keuangan Pada Bagian Grafik
         $categories = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
         for($bulan=1;$bulan < 13;$bulan++){
-        
-        // Menampilkan Data Keuangan Pada Bagian Grafik Masuk
-        $masuk = QueryBuilder::for(Keuangan::class)
-            ->allowedFilters([
-                AllowedFilter::exact('tenant', 'tenant_id'),
-                AllowedFilter::scope('bulan', 'dateBulan'),
-                AllowedFilter::scope('tahun', 'dateTahun'),
-            ])
-            ->whereIn('tenant_id', $tenant)
-            ->select(DB::raw("SUM(IF(jenis='1', jumlah, 0)) AS totalMasuk"))
-            ->whereMonth('tanggal', '=', $bulan)
-            ->first();
-            $arusMasuk[] = $masuk->totalMasuk;
+            if (request()->has('filter')) {
+            // Menampilkan Data Keuangan Pada Bagian Grafik Masuk
+                $masuk = QueryBuilder::for(Keuangan::class)
+                    ->allowedFilters([
+                        AllowedFilter::exact('tenant', 'tenant_id'),
+                        AllowedFilter::scope('bulan', 'dateBulan'),
+                        AllowedFilter::scope('tahun', 'dateTahun'),
+                    ])
+                    ->whereIn('tenant_id', $tenant)
+                    ->select(DB::raw("SUM(IF(jenis='1', jumlah, 0)) AS totalMasuk"))
+                    ->whereMonth('tanggal', '=', $bulan)
+                    ->first();
+                    $arusMasuk[] = $masuk->totalMasuk;
 
-        // Menampilkan Data Keuangan Pada Bagian Grafik Keluar
-        $keluar = QueryBuilder::for(Keuangan::class)
-            ->allowedFilters([
-                AllowedFilter::exact('tenant', 'tenant_id'),
-                AllowedFilter::scope('bulan', 'dateBulan'),
-                AllowedFilter::scope('tahun', 'dateTahun'),
-            ])
-            ->whereIn('tenant_id', $tenant)
-            ->select(DB::raw("SUM(IF(jenis='0', jumlah, 0)) AS totalKeluar"))
-            ->whereMonth('tanggal', '=', $bulan)
-            ->first();
-            $arusKeluar[] = $keluar->totalKeluar;
-        $totalKas[] = $masuk->totalMasuk - $keluar->totalKeluar;
+                // Menampilkan Data Keuangan Pada Bagian Grafik Keluar
+                $keluar = QueryBuilder::for(Keuangan::class)
+                    ->allowedFilters([
+                        AllowedFilter::exact('tenant', 'tenant_id'),
+                        AllowedFilter::scope('bulan', 'dateBulan'),
+                        AllowedFilter::scope('tahun', 'dateTahun'),
+                    ])
+                    ->whereIn('tenant_id', $tenant)
+                    ->select(DB::raw("SUM(IF(jenis='0', jumlah, 0)) AS totalKeluar"))
+                    ->whereMonth('tanggal', '=', $bulan)
+                    ->first();
+                    $arusKeluar[] = $keluar->totalKeluar;
+                $totalKas[] = $masuk->totalMasuk - $keluar->totalKeluar;
+            } else{
+                $masuk = QueryBuilder::for(Keuangan::class)
+                    ->whereIn('tenant_id', $tenant)
+                    ->select(DB::raw("SUM(IF(jenis='1', jumlah, 0)) AS totalMasuk"))
+                    ->whereMonth('tanggal', '=', $bulan)
+                    ->whereYear('tanggal', date('Y'))
+                    ->first();
+                    $arusMasuk[] = $masuk->totalMasuk;
+
+                // Menampilkan Data Keuangan Pada Bagian Grafik Keluar
+                $keluar = QueryBuilder::for(Keuangan::class)
+                    ->whereIn('tenant_id', $tenant)
+                    ->select(DB::raw("SUM(IF(jenis='0', jumlah, 0)) AS totalKeluar"))
+                    ->whereMonth('tanggal', '=', $bulan)
+                    ->whereYear('tanggal', date('Y'))
+                    ->first();
+                    $arusKeluar[] = $keluar->totalKeluar;
+                $totalKas[] = $masuk->totalMasuk - $keluar->totalKeluar;
+            }
         }
 
         // Menampilkan Data Arus Kas Keuangan        
-        $pendapatan = QueryBuilder::for(Keuangan::class)
-            ->allowedFilters([
-                AllowedFilter::exact('tenant', 'tenant_id'),
-                AllowedFilter::scope('bulan', 'dateBulan'),
-                AllowedFilter::scope('tahun', 'dateTahun'),
-            ])
-            ->whereIn('tenant_id', $tenant)
-            ->get();
-
+        if (request()->has('filter')) {
+            $pendapatan = QueryBuilder::for(Keuangan::class)
+                ->allowedFilters([
+                    AllowedFilter::exact('tenant', 'tenant_id'),
+                    AllowedFilter::scope('bulan', 'dateBulan'),
+                    AllowedFilter::scope('tahun', 'dateTahun'),
+                ])
+                ->whereIn('tenant_id', $tenant)
+                ->get();
+        } else{
+            $pendapatan = QueryBuilder::for(Keuangan::class)
+                ->whereIn('tenant_id', $tenant)
+                ->whereYear('tanggal', date('Y'))
+                ->get();
+        }
         // Menampilkan Data Tenant
         $tenant = DB::table('tenant_mentor')
             ->join('users', 'tenant_mentor.user_id', '=', 'users.id')
@@ -296,57 +375,90 @@ class KeuanganController extends Controller
         // DATA TABLE LABA RUGI
         // Menampilkan Data Laba Rugi Keuangan Pada Bagian Table
         $tenant = TenantMentor::where('user_id', auth()->user()->id)->get('tenant_id');
-        $labaRugi = QueryBuilder::for(LabaRugi::class)
-            ->allowedFilters([
-                AllowedFilter::exact('tenant', 'tenant_id'),
-                AllowedFilter::scope('bulan', 'dateBulan'),
-                AllowedFilter::scope('tahun', 'dateTahun'),
-            ])
-            ->whereIn('tenant_id', $tenant)
-            ->paginate();
-
+        if (request()->has('filter')) {
+            $labaRugi = QueryBuilder::for(LabaRugi::class)
+                ->allowedFilters([
+                    AllowedFilter::exact('tenant', 'tenant_id'),
+                    AllowedFilter::scope('bulan', 'dateBulan'),
+                    AllowedFilter::scope('tahun', 'dateTahun'),
+                ])
+                ->whereIn('tenant_id', $tenant)
+                ->paginate();
+        } else{
+            $labaRugi = QueryBuilder::for(LabaRugi::class)
+                ->whereIn('tenant_id', $tenant)
+                ->whereMonth('tanggal', date('m'))
+                ->whereYear('tanggal', date('Y'))
+                ->paginate();
+        }
         // Menampilkan Data Laba Rugi Keuangan Pada Bagian Grafik
         $categories = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
         for($bulan=1;$bulan < 13;$bulan++){
-        
-        // Menampilkan Data Keuangan Pada Bagian Grafik Masuk
-        $penghasilan = QueryBuilder::for(LabaRugi::class)
-            ->allowedFilters([
-                AllowedFilter::exact('tenant', 'tenant_id'),
-                AllowedFilter::scope('bulan', 'dateBulan'),
-                AllowedFilter::scope('tahun', 'dateTahun'),
-            ])
-            ->whereIn('tenant_id', $tenant)
-            ->select(DB::raw("SUM(IF(jenis='1', jumlah, 0)) AS totalPenghasilan"))
-            ->whereMonth('tanggal', '=', $bulan)
-            ->first();
-            $labaMasuk[] = $penghasilan->totalPenghasilan;
+            if (request()->has('filter')) {
+                // Menampilkan Data Keuangan Pada Bagian Grafik Masuk
+                $penghasilan = QueryBuilder::for(LabaRugi::class)
+                    ->allowedFilters([
+                        AllowedFilter::exact('tenant', 'tenant_id'),
+                        AllowedFilter::scope('bulan', 'dateBulan'),
+                        AllowedFilter::scope('tahun', 'dateTahun'),
+                    ])
+                    ->whereIn('tenant_id', $tenant)
+                    ->select(DB::raw("SUM(IF(jenis='1', jumlah, 0)) AS totalPenghasilan"))
+                    ->whereMonth('tanggal', '=', $bulan)
+                    ->first();
+                    $labaMasuk[] = $penghasilan->totalPenghasilan;
 
-        // Menampilkan Data Keuangan Pada Bagian Grafik Keluar
-        $beban = QueryBuilder::for(LabaRugi::class)
-            ->allowedFilters([
-                AllowedFilter::exact('tenant', 'tenant_id'),
-                AllowedFilter::scope('bulan', 'dateBulan'),
-                AllowedFilter::scope('tahun', 'dateTahun'),
-            ])
-            ->whereIn('tenant_id', $tenant)
-            ->select(DB::raw("SUM(IF(jenis='0', jumlah, 0)) AS totalBeban"))
-            ->whereMonth('tanggal', '=', $bulan)
-            ->first();
-            $labaKeluar[] = $beban->totalBeban;
-        $totalLabaBersih[] = $penghasilan->totalPenghasilan - $beban->totalBeban;
+                // Menampilkan Data Keuangan Pada Bagian Grafik Keluar
+                $beban = QueryBuilder::for(LabaRugi::class)
+                    ->allowedFilters([
+                        AllowedFilter::exact('tenant', 'tenant_id'),
+                        AllowedFilter::scope('bulan', 'dateBulan'),
+                        AllowedFilter::scope('tahun', 'dateTahun'),
+                    ])
+                    ->whereIn('tenant_id', $tenant)
+                    ->select(DB::raw("SUM(IF(jenis='0', jumlah, 0)) AS totalBeban"))
+                    ->whereMonth('tanggal', '=', $bulan)
+                    ->first();
+                    $labaKeluar[] = $beban->totalBeban;
+                $totalLabaBersih[] = $penghasilan->totalPenghasilan - $beban->totalBeban;
+            } else{
+                $penghasilan = QueryBuilder::for(LabaRugi::class)
+                    ->whereIn('tenant_id', $tenant)
+                    ->select(DB::raw("SUM(IF(jenis='1', jumlah, 0)) AS totalPenghasilan"))
+                    ->whereMonth('tanggal', '=', $bulan)
+                    ->whereYear('tanggal', date('Y'))
+                    ->first();
+                    $labaMasuk[] = $penghasilan->totalPenghasilan;
+
+                // Menampilkan Data Keuangan Pada Bagian Grafik Keluar
+                $beban = QueryBuilder::for(LabaRugi::class)
+                    ->whereIn('tenant_id', $tenant)
+                    ->select(DB::raw("SUM(IF(jenis='0', jumlah, 0)) AS totalBeban"))
+                    ->whereMonth('tanggal', '=', $bulan)
+                    ->whereYear('tanggal', date('Y'))
+                    ->first();
+                    $labaKeluar[] = $beban->totalBeban;
+                $totalLabaBersih[] = $penghasilan->totalPenghasilan - $beban->totalBeban;
+            }
         }
         
         // Menampilkan Data Laba Rugi Keuangan
-        $labaBersih = QueryBuilder::for(LabaRugi::class)
-            ->allowedFilters([
-                AllowedFilter::exact('tenant', 'tenant_id'),
-                AllowedFilter::scope('bulan', 'dateBulan'),
-                AllowedFilter::scope('tahun', 'dateTahun'),
-            ])
-            ->whereIn('tenant_id', $tenant)
-            ->get();
-
+        if (request()->has('filter')) {
+            $labaBersih = QueryBuilder::for(LabaRugi::class)
+                ->allowedFilters([
+                    AllowedFilter::exact('tenant', 'tenant_id'),
+                    AllowedFilter::scope('bulan', 'dateBulan'),
+                    AllowedFilter::scope('tahun', 'dateTahun'),
+                ])
+                ->whereIn('tenant_id', $tenant)
+                ->get();
+        } else{
+            $labaBersih = QueryBuilder::for(LabaRugi::class)
+                ->whereIn('tenant_id', $tenant)
+                ->whereMonth('tanggal', date('m'))
+                ->whereYear('tanggal', date('Y'))
+                ->get();
+        }
         // Menampilkan Data Tenant
         $tenant = DB::table('tenant_mentor')
             ->join('users', 'tenant_mentor.user_id', '=', 'users.id')

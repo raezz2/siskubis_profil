@@ -458,6 +458,36 @@ class TenantController extends Controller
             ->whereMonth('tanggal', '=', $bulan)
             ->first();
             $arusKeluar[] = $keluar->totalKeluar;
+            
+        // Menampilkan Data Laba Rugi pada bagian Grafik 
+        $penghasilan = DB::table('tenant_user')
+            ->join('laba_rugi', 'tenant_user.tenant_id', '=', 'laba_rugi.tenant_id')
+            ->join('users', 'tenant_user.user_id', '=', 'users.id')
+            // ->select('users.id', 'tenant_mentor.user_id', 'arus_kas.*')
+            ->select(DB::raw("SUM(IF(jenis='1', jumlah, 0)) AS totalPenghasilan"))
+            ->where([
+                ['user_id', \Auth::user()->id]
+            ])
+            ->whereMonth('tanggal', '=', $bulan)
+            ->first();
+            $labaMasuk[] = $penghasilan->totalPenghasilan;
+            
+        // Menampilkan Data Laba Rugi Pada Bagian Grafik 
+        $beban = DB::table('tenant_user')
+            ->join('laba_rugi', 'tenant_user.tenant_id', '=', 'laba_rugi.tenant_id')
+            ->join('users', 'tenant_user.user_id', '=', 'users.id')
+            // ->select('users.id', 'tenant_mentor.user_id', 'arus_kas.*')
+            ->select(DB::raw("SUM(IF(jenis='0', jumlah, 0)) AS totalBeban"))
+            ->where([
+                ['user_id', \Auth::user()->id]
+            ])
+            ->whereMonth('tanggal', '=', $bulan)
+            ->first();
+            $labaKeluar[] = $beban->totalBeban;
+        
+        
+        // Menampilkan total Laba Rugi di Grafik
+        $totalLabaBersih[] = $penghasilan->totalPenghasilan - $beban->totalBeban;
         }
                 
         // Relasi antara Tenant dengan User
@@ -527,7 +557,7 @@ class TenantController extends Controller
 
         $this->data['data']= $data;
         
-        return view ('tenant.detailtenant',compact('keuangan','arusMasuk','arusKeluar','categories','total','total_masuk','total_keluar','user','grafikLaba','labaRugi','totalLaba','masuk_labaRugi','keluar_labaRugi','label','userId','tenant'), $this->data);
+        return view ('tenant.detailtenant',compact('keuangan','totalLabaBersih','labaKeluar','labaMasuk','arusMasuk','arusKeluar','categories','total','total_masuk','total_keluar','user','grafikLaba','labaRugi','totalLaba','masuk_labaRugi','keluar_labaRugi','label','userId','tenant'), $this->data);
 
     }
 }
