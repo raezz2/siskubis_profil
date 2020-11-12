@@ -489,7 +489,16 @@ class TenantController extends Controller
         // Menampilkan total Laba Rugi di Grafik
         $totalLabaBersih[] = $penghasilan->totalPenghasilan - $beban->totalBeban;
         }
-                
+        
+        $pendapatan = DB::table('tenant_user')
+            ->join('arus_kas', 'tenant_user.tenant_id', '=', 'arus_kas.tenant_id')
+            ->join('users', 'tenant_user.user_id', '=', 'users.id')
+            ->join('tenant', 'tenant_user.tenant_id', '=', 'tenant.id')            
+            ->select('users.id', 'tenant_user.user_id', 'arus_kas.*', 'tenant.*')
+            ->where([
+                ['user_id', \Auth::user()->id]
+            ])->get();
+
         // Relasi antara Tenant dengan User
         $user = User::where('users.id', Auth::user()->id)
             ->join('tenant_user', 'users.id', '=', 'tenant_user.user_id')
@@ -510,6 +519,20 @@ class TenantController extends Controller
 
         $total = $total_masuk - $total_keluar;
 
+        // Menghitung totalan pada bagian atas
+        $kas_masuk = 0;
+        $kas_keluar = 0;
+
+        foreach ($pendapatan as $row) {
+            if ($row->jenis == '1')
+                $kas_masuk = $kas_masuk + $row->jumlah;
+
+            elseif ($row->jenis == '0')
+                $kas_keluar = $kas_keluar + $row->jumlah;
+        }
+
+        $saldo_kas = $kas_masuk - $kas_keluar;
+
         // DATA TABLE LABA RUGI
         // Menampilkan Data Laba Rugi Keuangan Pada Bagian Table
         $labaRugi = DB::table('tenant_user')
@@ -522,17 +545,14 @@ class TenantController extends Controller
             ->whereMonth('tanggal', date('m'))
             ->get();
 
-        // Menampilkan Data Laba Rugi Keuangan Pada Bagian Grafik
-        $grafikLaba = DB::table('tenant_user')
+        $labaBersih = DB::table('tenant_user')
             ->join('laba_rugi', 'tenant_user.tenant_id', '=', 'laba_rugi.tenant_id')
             ->join('users', 'tenant_user.user_id', '=', 'users.id')
-            ->select(DB::raw("(SUM(jumlah)) as count"))
+            ->join('tenant', 'tenant_user.tenant_id', '=', 'tenant.id')            
+            ->select('users.id', 'tenant_user.user_id', 'laba_rugi.*', 'tenant.*')
             ->where([
                 ['user_id', \Auth::user()->id]
-            ])
-            ->whereYear('tanggal', date('Y'))
-            ->groupBy(DB::raw("Month(tanggal)", "asc"))
-            ->pluck('count');
+            ])->get();
             
         // Relasi antara Tenant dengan User
         $userId = User::where('users.id', Auth::user()->id)
@@ -555,9 +575,23 @@ class TenantController extends Controller
         $totalLaba = $masuk_labaRugi - $keluar_labaRugi;
         // return response()->json($data);
 
+        // Menghitung Total pada Bagian Atas
+        $laba_masuk = 0;
+        $laba_keluar = 0;
+
+        foreach ($labaBersih as $row) {
+            if ($row->jenis == '1')
+                $laba_masuk = $laba_masuk + $row->jumlah;
+
+            elseif ($row->jenis == '0')
+                $laba_keluar = $laba_keluar + $row->jumlah;
+        }
+
+        $laba_bersih = $laba_masuk - $laba_keluar;
+
         $this->data['data']= $data;
         
-        return view ('tenant.detailtenant',compact('keuangan','totalLabaBersih','labaKeluar','labaMasuk','arusMasuk','arusKeluar','categories','total','total_masuk','total_keluar','user','grafikLaba','labaRugi','totalLaba','masuk_labaRugi','keluar_labaRugi','label','userId','tenant'), $this->data);
+        return view ('tenant.detailtenant',compact('keuangan','totalLabaBersih','labaKeluar','labaMasuk','arusMasuk','arusKeluar','categories', 'pendapatan', 'kas_masuk', 'kas_keluar', 'saldo_kas', 'total','total_masuk','total_keluar','user','labaRugi','totalLaba','masuk_labaRugi','keluar_labaRugi','label','userId','tenant', 'labaBersih', 'laba_masuk', 'laba_keluar', 'laba_bersih' ), $this->data);
 
     }
 }

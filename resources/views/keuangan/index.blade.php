@@ -27,32 +27,22 @@
 @endif
 <div class="row">
     <!-- ICON BG-->
-    <div class="col-lg-4 col-md-6 col-sm-6">
-        <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-            <div class="card-body text-center"><i class="i-Add-User"></i>
-                <div class="content">
-                    <p class="text-muted">Kas Masuk</p>
-                    <p class="text-primary">{{"Rp " . number_format($total_masuk,2,',','.') }}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-6 col-sm-6">
-        <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-            <div class="card-body text-center"><i class="i-Financial"></i>
-                <div class="content">
-                    <p class="text-muted">Kas Keluar</p>
-                    <p class="text-primary">{{"Rp ". number_format($total_keluar,2,',','.') }}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-6 col-sm-6">
+    <div class="col-lg-6 col-md-12 col-sm-12">
         <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
             <div class="card-body text-center"><i class="i-Money-2"></i>
-                <div class="content">
-                    <p class="text-muted">Saldo Kas</p>
-                    <p class="text-primary">{{"Rp " . number_format($total,2,',','.') }}</p>
+                <div class="col-md-12">
+                    <h5><b><p class="text-important">Saldo Kas Akhir</p></b></h5>
+                    <p class="text-important">{{"Rp ". number_format($saldo_kas,2,',','.') }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-12">
+        <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+            <div class="card-body text-center"><i class="i-Financial"></i>
+                <div class="col-md-12">
+                <h5><b><p class="text-important">Laba Bersih Akhir</p></b></h5>
+                    <p class="text-important" >{{"Rp " . number_format($laba_bersih,2,',','.') }}</p>
                 </div>
             </div>
         </div>
@@ -98,7 +88,7 @@
                                     <th width="15%">Pemasukan</th>
                                     <th width="15%">Pengeluaran</th>
                                     <th width="15%">Saldo</th>
-                                    <th width="10%">Foto</th>
+                                    <th width="10%">Bukti Transaksi</th>
                                     <th width="10%">Action</th>
                                 </tr>
                                 </thead>
@@ -178,7 +168,7 @@
                                         <th width="20%">Keterangan</th>
                                         <th width="20%">Pemasukan</th>
                                         <th width="20%">Pengeluaran</th>
-                                        <th width="10%">Foto</th>
+                                        <th width="10%">Bukti Transaksi</th>
                                         <th width="10%">Action</th>
                                     </tr>
                                 </thead>
@@ -215,7 +205,7 @@
                                 <tfoot>
                                 <tr>
                                     <td colspan="2"><b>
-                                            <h5>Jumlah Beban Usaha</h5>
+                                            <h5>Jumlah</h5>
                                         </b></td>
                                     <td><b>{{"Rp " . number_format($masuk_labaRugi,2,',','.') }}</b></td>
                                     <td><b>{{"Rp " . number_format($keluar_labaRugi,2,',','.') }}</b></td>
@@ -510,6 +500,9 @@
     //GRAFIK
     var arusMasuk = <?php echo json_encode($arusMasuk) ?>;
     var arusKeluar = <?php echo json_encode($arusKeluar) ?>;
+    var labaMasuk = <?php echo json_encode($labaMasuk) ?>;
+    var labaKeluar = <?php echo json_encode($labaKeluar) ?>;
+    var totalLabaBersih = <?php echo json_encode($totalLabaBersih) ?>;
     var categories = <?php echo json_encode($categories) ?>;
     Highcharts.chart('chartKeuangan', {
         chart: {
@@ -519,7 +512,7 @@
             // verticalAlign: 'top',
             // layout: 'vertical',
             x: 'right',
-            data: ['Arus Kas Masuk', 'Arus Kas Keluar']
+            data: ['Arus Kas Masuk', 'Arus Kas Keluar', 'Penghasilan', 'Beban Usaha', 'Laba Bersih']
         },
         title: {
             text: 'Arus Kas & Laba Rugi'
@@ -569,7 +562,61 @@
                 color: '#0168c1'
             },
             barGap: 0,
-            color: '#bcbbdd',
+            color: '#1E90FF',
+            smooth: true,
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowOffsetY: -2,
+                    shadowColor: 'rgba(0, 0, 0, 0.3)'
+                }
+            }
+        },{
+            name: 'Penghasilan',
+            data: labaMasuk,
+            label: {
+                show: false,
+                color: '#FF8C00'
+            },
+            barGap: 0,
+            color: '#FFA500',
+            smooth: true,
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowOffsetY: -2,
+                    shadowColor: 'rgba(0, 0, 0, 0.3)'
+                }
+            }
+        },{
+            name: 'Beban Usaha',
+            data: labaKeluar,
+            label: {
+                show: false,
+                color: '#FF8C00'
+            },
+            barGap: 0,
+            color: '#FF0000',
+            smooth: true,
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowOffsetY: -2,
+                    shadowColor: 'rgba(0, 0, 0, 0.3)'
+                }
+            }
+        },{
+            name: 'Laba Bersih',
+            data: totalLabaBersih,
+            label: {
+                show: false,
+                color: '#FF00FF'
+            },
+            barGap: 0,
+            color: '#FF00FF',
             smooth: true,
             itemStyle: {
                 emphasis: {
