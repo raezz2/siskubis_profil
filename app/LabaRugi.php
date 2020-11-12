@@ -19,6 +19,10 @@ class LabaRugi extends Model
     }
     public function scopeDateTahun($query, $tahun)
     {
-        return $query->whereYear('tanggal', $tahun);
+        if ($tahun) {
+            return $query->whereYear('tanggal', $tahun);
+        }else{
+            return $query->whereYear('tanggal', date('Y'));
+        }
     }
 }
