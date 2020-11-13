@@ -94,10 +94,13 @@ class ProdukController extends Controller
         $produk         = Produk::with(['tenant','priority','produk_bisnis','produk_canvas','produk_ijin','produk_image','produk_ki','produk_riset','produk_sertifikasi'])->where('id', $id)->first();
         $image          = ProdukImage::where('produk_id',$id)->get();
         $produk_team    = ProdukTeam::with('profil_user.user')->where('produk_id', $id)->get();
-        $tag = explode(',',$produk->tag);
-        $spesifikasi = explode(',',$produk->spesifikasi);
+        $tag            = explode(',',$produk->tag);
+        $spesifikasi    = explode(',',$produk->spesifikasi);
+        $manfaat        = explode(',',$produk->manfaat);
+        $keunggulan     = explode(',',$produk->keunggulan);
 
-        return view('produk.detailProduk', compact('produk','produk_team','image','tag','spesifikasi'));    }
+        return view('produk.detailProduk', compact('produk','produk_team','image','tag','spesifikasi','manfaat','keunggulan'));
+    }
 
     public function create()
     {
@@ -331,15 +334,44 @@ class ProdukController extends Controller
         // return "ok";
     }
 
-    public function destroy(Produk $produk)
+     public function destroy($id)
     {
-        $produk->delete();
-        $produk = Produk::with(['tenant','priority','produk_bisnis','produk_canvas','produk_ijin','produk_image','produk_ki','produk_riset','produk_sertifikasi'])->where('id', $id)->first();
-        File::delete(storage_path('app/public/file/produk/ijin' . $produk->produk_ijin->dokumen));
-        File::delete(storage_path('app/public/file/produk/ki' . $produk->produk_ki->sertifikat));
-        File::delete(storage_path('app/public/file/produk/produk' . $produk->proposal));
-        File::delete(storage_path('app/public/file/produk/sertifiksi' . $produk->produk_sertifikasi->dokumen));
-        File::delete(storage_path('app/public/img/produk' . $produk->produk_image->image));
+        DB::table("produk")->where("id", $id)->delete();
+        DB::table("produk_bisnis")->where("produk_id", $id)->delete();
+        DB::table("produk_canvas")->where("produk_id", $id)->delete();
+        DB::table("produk_ijin")->where("produk_id", $id)->delete();
+        DB::table("produk_image")->where("produk_id", $id)->delete();
+        DB::table("produk_ki")->where("produk_id", $id)->delete();
+        DB::table("produk_riset")->where("produk_id", $id)->delete();
+        DB::table("produk_sertifikasi")->where("produk_id", $id)->delete();
+        DB::table("produk_team")->where("produk_id", $id)->delete();
+
+        // $produks = Produk::where('id', $produk);
+        // $produk_bisnis = ProdukBisnis::where('produk_id', $produks)->first();
+        // $produk_bisnis->delete();
+        // $produk_canvas = ProdukCanvas::where('produk_id', $produks)->first();
+        // $produk_canvas->delete();
+        // $produk_ijin = ProdukIjin::where('produk_id', $produks)->first();
+        // $produk_ijin->delete();
+        // $produk_image = ProdukImage::where('produk_id', $produks)->first();
+        // $produk_image->delete();
+        // $produk_ki = ProdukKI::where('produk_id', $produks)->first();
+        // $produk_ki->delete();
+        // $produk_riset = ProdukRiset::where('produk_id', $produks)->first();
+        // $produk_riset->delete();
+        // $produk_sertifikasi = ProdukSertifikasi::where('produk_id', $produks)->first();
+        // $produk_sertifikasi->delete();
+        // $produk_team = ProdukTeam::where('produk_id', $produks)->first();
+        // $produk_team->delete();
+        // $produk = Produk::find($produks->id);
+        // $produk->delete();
+        
+
+        // File::delete(storage_path('app/public/file/produk/ijin' . $produk_ijin->dokumen));
+        // File::delete(storage_path('app/public/file/produk/ki' . $produk_ki->sertifikat));
+        // File::delete(storage_path('app/public/file/produk/produk' . $produk->proposal));
+        // File::delete(storage_path('app/public/file/produk/sertifiksi' . $produk_sertifikasi->dokumen));
+        // File::delete(storage_path('app/public/img/produk' . $produk_image->image));
 
         return redirect()->back();
     }
