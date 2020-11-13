@@ -342,18 +342,26 @@
 
 										  	<dt class="col-sm-3">Spesifikasi</dt><dt class="col-md-1"> : </dt>
 										  	<dd class="col-sm-8">
-										  		<ul>
 										  		@foreach($spesifikasi as $row)
-                                    				<li>{{ $row }}</li>
+                                    				<i class="fas fa-arrow-right"></i>  {{ $row }}<br />
 										  		@endforeach
-										  		</ul>
+
 										  	</dd>
 
 										  	<dt class="col-sm-3">Manfaat</dt><dt class="col-md-1"> : </dt>
-										  	<dd class="col-sm-8">{{ $produk->manfaat }}</dd>
+										  	<dd class="col-sm-8">
+										  		@foreach($manfaat as $row)
+                                    				<i class="fas fa-arrow-right"></i>  {{ $row }}<br />
+										  		@endforeach
+										  	</dd>
 
 										  	<dt class="col-sm-3">Keunggulan</dt><dt class="col-md-1"> : </dt>
-										  	<dd class="col-sm-8">{{ $produk->keunggulan }}</dd>
+										  	<dd class="col-sm-8">
+										  		@foreach($keunggulan as $row)
+                                    				<i class="fas fa-arrow-right"></i>  {{ $row }}<br />
+										  		@endforeach
+
+										  	</dd>
 
 										  	<dt class="col-sm-3">Teknologi</dt><dt class="col-md-1"> : </dt>
 										  	<dd class="col-sm-8">{{ $produk->teknologi }}</dd>
