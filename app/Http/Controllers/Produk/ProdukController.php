@@ -154,10 +154,10 @@ class ProdukController extends Controller
             'berlaku_sampai'        => 'required|date',
             'pemilik_ki'            => 'required',
 
-            'user_id'               => 'required',
-            'jabatan'               => 'required',
-            'divisi'                => 'required',
-            'tugas'                 => 'required',
+            // 'user_id'               => 'required',
+            // 'jabatan'               => 'required',
+            // 'divisi'                => 'required',
+            // 'tugas'                 => 'required',
 
             'nama_riset'            => 'required',
             'pelaksana_riset'       => 'required',
@@ -278,13 +278,13 @@ class ProdukController extends Controller
 
 
             // dd($request->all());
-            $produk_team = ProdukTeam::create([
-                'produk_id'             => $produks_id,
-                'user_id'               => $request->user_id,
-                'jabatan'               => $request->jabatan,
-                'divisi'                => $request->divisi,
-                'tugas'                 => $request->tugas,
-            ]);
+            // $produk_team = ProdukTeam::create([
+            //     'produk_id'             => $produks_id,
+            //     'user_id'               => $request->user_id,
+            //     'jabatan'               => $request->jabatan,
+            //     'divisi'                => $request->divisi,
+            //     'tugas'                 => $request->tugas,
+            // ]);
 
             $produk_riset = ProdukRiset::create([
                 'produk_id'             => $produks_id,
@@ -328,13 +328,41 @@ class ProdukController extends Controller
             // return view('tenant.produk');
 
             return redirect(route('tenant.produk'));
-
         }
-
         // return "ok";
     }
 
-     public function destroy($id)
+    public function createTeam()
+    {
+
+        $user_id = ProfilUser::orderBy('nama')->get();
+        $tenant = Tenant::orderBy('title')->get();
+        // $penulis = profil_user::orderBy('nama')->get();
+
+        return view('produk.formTeam', compact('user_id', 'tenant'));
+    }
+
+    public function storeTeam(Request $request)
+    {
+        $request->validate([
+            'user_id'               => 'required',
+            'jabatan'               => 'required',
+            'divisi'                => 'required',
+            'tugas'                 => 'required',
+        ]);
+
+        $produk_team = ProdukTeam::create([
+            'produk_id'             => $produks_id,
+            'user_id'               => $request->user_id,
+            'jabatan'               => $request->jabatan,
+            'divisi'                => $request->divisi,
+            'tugas'                 => $request->tugas,
+        ]);
+
+        return redirect(route('tenant.produk'));
+    }
+
+    public function destroy($id)
     {
         DB::table("produk")->where("id", $id)->delete();
         DB::table("produk_bisnis")->where("produk_id", $id)->delete();
@@ -365,7 +393,7 @@ class ProdukController extends Controller
         // $produk_team->delete();
         // $produk = Produk::find($produks->id);
         // $produk->delete();
-        
+
 
         // File::delete(storage_path('app/public/file/produk/ijin' . $produk_ijin->dokumen));
         // File::delete(storage_path('app/public/file/produk/ki' . $produk_ki->sertifikat));

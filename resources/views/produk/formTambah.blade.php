@@ -184,11 +184,6 @@ p {
     content: "\f00c"
 }
 
-#progressbar #team:before {
-    font-family: FontAwesome;
-    content: "\f00c"
-}
-
 #progressbar #riset:before {
     font-family: FontAwesome;
     content: "\f00c"
@@ -308,7 +303,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
                         <li id="canvas"><strong>Canvas</strong></li>
                         <li id="image"><strong>Image</strong></li>
                         <li id="kintel"><strong>Kekayaan Intelektual</strong></li>
-                        <li id="team"><strong>Team</strong></li>
                         <li id="riset"><strong>Riset</strong></li>
                         <li id="sertifikasi"><strong>Sertifikasi</strong></li>
                         <li id="ijin"><strong>Ijin</strong></li>
@@ -609,7 +603,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                         <input type="button" name="next" class="next action-button" value="Next" />
                         <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
                     </fieldset>
-                    <fieldset>
+                    {{-- <fieldset>
                         <div class="form-card">
                             <div class="row">
                                 <div class="col-7">
@@ -678,7 +672,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                         </div>
                         <input type="button" name="next" class="next action-button" value="Next" />
                         <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
-                    </fieldset>
+                    </fieldset> --}}
                     <fieldset>
                         <div class="form-card">
                             <div class="row">
