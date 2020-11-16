@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
- 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -168,6 +168,7 @@ Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function (
 	// route produk tenant
     Route::get('/produk', 'Produk\ProdukController@index')->name('tenant.produk');
     Route::get('/produk/create', 'Produk\ProdukController@create')->name('tenant.formProduk');
+    Route::get('/produk/createTeam', 'Produk\ProdukController@createTeam')->name('tenant.formTeam');
     Route::post('/produk/store', 'Produk\ProdukController@store')->name('tenant.storeProduk');
     Route::get('/produk/destroy/{id}', 'Produk\ProdukController@destroy')->name('tenant.destroyProduk');
     Route::get('/produk/edit/{id}','Produk\ProdukController@edit')->name('tenant.editProduk');

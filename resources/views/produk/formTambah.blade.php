@@ -184,11 +184,6 @@ p {
     content: "\f00c"
 }
 
-#progressbar #team:before {
-    font-family: FontAwesome;
-    content: "\f00c"
-}
-
 #progressbar #riset:before {
     font-family: FontAwesome;
     content: "\f00c"
@@ -308,7 +303,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
                         <li id="canvas"><strong>Canvas</strong></li>
                         <li id="image"><strong>Image</strong></li>
                         <li id="kintel"><strong>Kekayaan Intelektual</strong></li>
-                        <li id="team"><strong>Team</strong></li>
                         <li id="riset"><strong>Riset</strong></li>
                         <li id="sertifikasi"><strong>Sertifikasi</strong></li>
                         <li id="ijin"><strong>Ijin</strong></li>
@@ -332,7 +326,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                             <div class="ul-widget__body">
                                                 <div class="input-container">
                                                     <i class="fas fa-user-tie icon"></i>
-                                                    <input class="form-control" type="text" placeholder="Username" name="title">
+                                                    <input class="form-control" type="text" placeholder="Title" name="title">
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="fas fa-money-bill-wave-alt icon"></i>
@@ -553,10 +547,19 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="ul-widget__body">
+                                                <label><strong>Select Jenis Kekayaan Intelektual :</strong></label><br/>
                                                 <div class="input-container">
-                                                    <i class="fas fa-align-justify icon"></i>
-                                                    <input class="form-control" name="jenis_ki" type="text" placeholder="Jenis Kekayaan Intelektual" />
-                                                </div>
+                                                    <i class="fas fa-tasks icon"></i>
+                                                    <select class="" name="jenis_ki[]">
+                                                      <option value="1">Hak Cipta</option>
+                                                      <option value="2">Paten</option>
+                                                      <option value="3">Merek</option>
+                                                      <option value="4">Desain Industri</option>
+                                                      <option value="5">Desain Tata Letak Sirkuit terpadu</option>
+                                                      <option value="6">Indikasi Geografis</option>
+                                                      <option value="7">Rahasia Dagang</option>
+                                                    </select>
+                                                </div><br/>
                                                 <div class="input-container">
                                                     <i class="fas fa-circle icon"></i>
                                                     <input class="form-control" name="status_ki" type="text" placeholder="Status Kekayaan Intelektual" />
@@ -600,7 +603,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                         <input type="button" name="next" class="next action-button" value="Next" />
                         <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
                     </fieldset>
-                    <fieldset>
+                    {{-- <fieldset>
                         <div class="form-card">
                             <div class="row">
                                 <div class="col-7">
@@ -669,7 +672,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                         </div>
                         <input type="button" name="next" class="next action-button" value="Next" />
                         <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
-                    </fieldset>
+                    </fieldset> --}}
                     <fieldset>
                         <div class="form-card">
                             <div class="row">
@@ -826,7 +829,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                 </div>
                                                 <div class="input-container">
                                                     <i class="far fa-calendar-alt icon"></i>
-                                                    <input class="form-control" name="tanggal_ijin" type="text" placeholder="Tanggal" />
+                                                    <input class="form-control" name="tanggal_ijin" type="date" placeholder="Tanggal" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="foto">Uploda Dokumen</label><br>
