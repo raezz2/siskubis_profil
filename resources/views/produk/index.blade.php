@@ -88,7 +88,7 @@
                                                     Option
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    <a href="#" class="dropdown-item btn-warning w-100">UPDATE</a>
+                                                    <a href="{{ route('tenant.editProduk', $row->id) }}" class="dropdown-item btn-warning w-100">UPDATE</a>
                                                     <a href="{{ route('tenant.destroyProduk', $row->id) }}" class="dropdown-item btn-danger w-100">HAPUS</a>
                                                 </div>
                                             </div>
