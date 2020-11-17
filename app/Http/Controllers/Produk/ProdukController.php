@@ -134,7 +134,7 @@ class ProdukController extends Controller
             'keunggulan'            => 'required',
             'teknologi'             => 'required',
             'pengembangan'          => 'required',
-            'dokumen_file_proposal' => 'required',
+            'proposal' => 'required',
             'kategori'              => 'required',
 
             'kompetitor'            => 'required',
@@ -143,7 +143,7 @@ class ProdukController extends Controller
             'produksi_harga'        => 'required|numeric',
             'pemasaran'             => 'required',
 
-            'produk_canvas'         => 'required',
+            // 'produk_canvas'         => 'required',
             'kategori_canvas'       => 'required',
             'tanggal_canvas'        => 'required|date',
 
@@ -155,10 +155,10 @@ class ProdukController extends Controller
             'berlaku_sampai'        => 'required|date',
             'pemilik_ki'            => 'required',
 
-            // 'user_id'               => 'required',
-            // 'jabatan'               => 'required',
-            // 'divisi'                => 'required',
-            // 'tugas'                 => 'required',
+            'user_id'               => 'required',
+            'jabatan'               => 'required',
+            'divisi'                => 'required',
+            'tugas'                 => 'required',
 
             'nama_riset'            => 'required',
             'pelaksana_riset'       => 'required',
@@ -175,17 +175,18 @@ class ProdukController extends Controller
             'status_sertif'         => 'required',
             'tahun_sertif'          => 'required|numeric',
             'tanggal_sertif'        => 'required|date',
-            'dokumen_file_sertifikasi'  => 'required',
+            'file_sertifikasi'  => 'required',
 
             'jenis_ijin'            => 'required',
             'pemberi_ijin'          => 'required',
             'status_ijin'           => 'required',
             'tahun_ijin'            => 'required|numeric',
             'tanggal_ijin'          => 'required|date',
-            'dokumen_file_ijin'     => 'required',
+            'file_ijin'     => 'required',
         ]);
+        // dd($request);
 
-        // dd($validator);
+
 
         if ($request->hasFile('foto')) {
 
@@ -268,7 +269,7 @@ class ProdukController extends Controller
 
             $produk_ki = ProdukKI::create([
                 'produk_id'             => $produks_id,
-                'jenis_ki'              => $jenis_ki,
+                'jenis_ki'              => $request->jenis_ki,
                 'status_ki'             => $request->status_ki,
                 'permohonan'            => $request->permohonan_ki,
                 'sertifikat'            => $request->sertifikat_ki,
@@ -278,14 +279,13 @@ class ProdukController extends Controller
             ]);
 
 
-            // dd($request->all());
-            // $produk_team = ProdukTeam::create([
-            //     'produk_id'             => $produks_id,
-            //     'user_id'               => $request->user_id,
-            //     'jabatan'               => $request->jabatan,
-            //     'divisi'                => $request->divisi,
-            //     'tugas'                 => $request->tugas,
-            // ]);
+            $produk_team = ProdukTeam::create([
+                'produk_id'             => $produks_id,
+                'user_id'               => $request->user_id,
+                'jabatan'               => $request->jabatan,
+                'divisi'                => $request->divisi,
+                'tugas'                 => $request->tugas,
+            ]);
 
             $produk_riset = ProdukRiset::create([
                 'produk_id'             => $produks_id,
@@ -333,35 +333,35 @@ class ProdukController extends Controller
         // return "ok";
     }
 
-    public function createTeam()
-    {
+    // public function createTeam()
+    // {
 
-        $user_id = ProfilUser::orderBy('nama')->get();
-        $tenant = Tenant::orderBy('title')->get();
-        // $penulis = profil_user::orderBy('nama')->get();
+    //     $user_id = ProfilUser::orderBy('nama')->get();
+    //     $tenant = Tenant::orderBy('title')->get();
+    //     // $penulis = profil_user::orderBy('nama')->get();
 
-        return view('produk.formTeam', compact('user_id', 'tenant'));
-    }
+    //     return view('produk.formTeam', compact('user_id', 'tenant'));
+    // }
 
-    public function storeTeam(Request $request)
-    {
-        $request->validate([
-            'user_id'               => 'required',
-            'jabatan'               => 'required',
-            'divisi'                => 'required',
-            'tugas'                 => 'required',
-        ]);
+    // public function storeTeam(Request $request)
+    // {
+    //     $request->validate([
+    //         'user_id'               => 'required',
+    //         'jabatan'               => 'required',
+    //         'divisi'                => 'required',
+    //         'tugas'                 => 'required',
+    //     ]);
 
-        $produk_team = ProdukTeam::create([
-            'produk_id'             => $produks_id,
-            'user_id'               => $request->user_id,
-            'jabatan'               => $request->jabatan,
-            'divisi'                => $request->divisi,
-            'tugas'                 => $request->tugas,
-        ]);
+    //     $produk_team = ProdukTeam::create([
+    //         'produk_id'             => $produks_id,
+    //         'user_id'               => $request->user_id,
+    //         'jabatan'               => $request->jabatan,
+    //         'divisi'                => $request->divisi,
+    //         'tugas'                 => $request->tugas,
+    //     ]);
 
-        return redirect(route('tenant.produk'));
-    }
+    //     return redirect(route('tenant.produk'));
+    // }
 
     public function destroy($id)
     {
@@ -371,7 +371,7 @@ class ProdukController extends Controller
         File::delete(storage_path('app/public/file/produk/ijin' . $produk->produk_ijin->dokumen));
         File::delete(storage_path('app/public/file/produk/ki' . $produk->produk_ki->sertifikat));
         File::delete(storage_path('app/public/file/produk/sertifiksi' . $produk->produk_sertifikasi->dokumen));
-        
+
         // $image          = ProdukImage::where('produk_id',$id)->get();
         // File::delete(storage_path('app/public/img/produk' . $image->image));
 

@@ -184,6 +184,11 @@ p {
     content: "\f00c"
 }
 
+#progressbar #team:before {
+    font-family: FontAwesome;
+    content: "\f00c"
+}
+
 #progressbar #riset:before {
     font-family: FontAwesome;
     content: "\f00c"
@@ -303,6 +308,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                         <li id="canvas"><strong>Canvas</strong></li>
                         <li id="image"><strong>Image</strong></li>
                         <li id="kintel"><strong>Kekayaan Intelektual</strong></li>
+                        <li id="team"><strong>Team</strong></li>
                         <li id="riset"><strong>Riset</strong></li>
                         <li id="sertifikasi"><strong>Sertifikasi</strong></li>
                         <li id="ijin"><strong>Ijin</strong></li>
@@ -328,14 +334,29 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                     <i class="fas fa-user-tie icon"></i>
                                                     <input class="form-control" type="text" placeholder="Title" name="title">
                                                 </div>
+                                                @error('title')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                                 <div class="input-container">
                                                     <i class="fas fa-money-bill-wave-alt icon"></i>
                                                     <input class="form-control" name="harga_pokok" type="text" placeholder="Harga Pokok" />
                                                 </div>
+                                                @error('harga_pokok')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                                 <div class="input-container">
                                                     <i class="fas fa-money-bill-wave-alt icon"></i>
                                                     <input class="form-control" name="harga_jual" type="text" row="3" placeholder="Harga Jual" />
                                                 </div>
+                                                @error('harga_jual')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                                 <div class="input-container">
                                                     <i class="fas fa-phone-alt icon"></i>
                                                     <input class="form-control" name="contact" type="text" placeholder="No Telphone" />
@@ -352,9 +373,14 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                       <option value="6">Tool</option>
                                                     </select>
                                                 </div><br/>
+                                                @error('tag')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                                 <div class="form-group" hidden>
                                                     <div class="input-group">
-                                                        <select name="kategori" class="form-control custom-select" required>
+                                                        <select name="kategori" class="form-control custom-select">
                                                             <option value="1">Kategori Id</option>
                                                         </select>
                                                     </div>
@@ -362,16 +388,36 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                 <div class="input-container">
                                                     <textarea class="form-control" name="subtitle" rows="2" placeholder="Subtitle"></textarea>
                                                 </div>
+                                                @error('subtitle')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                                 <div class="input-container">
                                                     <textarea class="form-control" name="location" rows="3" placeholder="Location"></textarea>
                                                 </div>
+                                                @error('location')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                                 <div class="input-container">
                                                     <textarea class="form-control" name="address" rows="4" placeholder="Address"></textarea>
                                                 </div>
+                                                @error('address')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                                 <div class="form-group">
                                                     <label for="foto">Uploda Proposal</label><br>
-                                                    <input type="file" name="proposal" value="{{ old('proposal') }}" required>
+                                                    <input type="file" name="proposal" value="{{ old('proposal') }}">
                                                 </div>
+                                                @error('proposal')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -384,32 +430,72 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="spesifikasi" type="text" placeholder="Spesifikasi" />
                                                     </div>
+                                                    @error('spesifikasi')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="keterbaharuan" type="text" placeholder="Keterbaharuan" />
                                                     </div>
+                                                    @error('keterbaharuan')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="manfaat" type="text" placeholder="Manfaat" />
                                                     </div>
+                                                    @error('manfaat')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="keunggulan" type="text" placeholder="Keunggulan" />
                                                     </div>
+                                                    @error('keunggulan')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="teknologi" type="text" placeholder="Teknologi" />
                                                     </div>
+                                                    @error('teknologi')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="pengembangan" type="text" placeholder="Pengembangan" />
                                                     </div>
+                                                    @error('pengembangan')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                     <div class="input-container">
                                                         <textarea class="form-control" name="latar_produk" rows="7" placeholder="Latar Produk"></textarea>
                                                     </div>
+                                                    @error('latar_produk')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                     <div class="input-container">
                                                         <textarea class="form-control" name="tentang_produk" rows="7" placeholder="Tentang Produk"></textarea>
                                                     </div>
+                                                    @error('tentang_produk')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -440,22 +526,47 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                     <i class="fas fa-user-tie icon"></i>
                                                     <input class="form-control" type="text" placeholder="Kompetitor" name="kompetitor">
                                                 </div>
+                                                @error('kompetitor')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                                 <div class="input-container">
                                                     <i class="fas fa-money-bill-wave-alt icon"></i>
                                                     <input class="form-control" name="target_pasar" type="text" placeholder="Target Pasar" />
                                                 </div>
+                                                @error('target_pasar')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                                 <div class="input-container">
                                                     <i class="fas fa-money-bill-wave-alt icon"></i>
                                                     <input class="form-control" name="produksi_harga" type="text" row="3" placeholder="Harga Produksi" />
                                                 </div>
+                                                @error('produksi_harga')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
                                                     <input class="form-control" name="dampak_sosek" type="text" placeholder="Dampak Sosek" />
                                                 </div>
+                                                @error('dampak_sosek')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
                                                     <input class="form-control" name="pemasaran" type="text" placeholder="Pemasaran" />
                                                 </div>
+                                                @error('pemasaran')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -489,6 +600,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                     <i class="far fa-calendar-alt icon"></i>
                                                     <input class="form-control" type="date" name="tanggal_canvas" placeholder="Tanggal">
                                                 </div>
+                                                @error('tanggal_canvas')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                 <h5>Input Kategori Canvas :</h5>
                                                 <div class="input-container">
                                                     <i class="fas fa-tasks icon"></i>
@@ -501,6 +617,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                       <option value="6">Tool</option>
                                                     </select>
                                                 </div><br/>
+                                                @error('kategori_canvas')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -525,8 +646,13 @@ body {font-family: Arial, Helvetica, sans-serif;}
                             <h5>Input Table Image</h5>
                             <div class="form-group">
                                 <label for="foto">Upload Foto</label><br>
-                                <input type="file" name="foto" value="{{ old('foto') }}" required>
+                                <input type="file" name="foto" value="{{ old('foto') }}">
                             </div>
+                            @error('foto')
+                            <div class="text-danger">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
                         <input type="button" name="next" class="next action-button" value="Next" />
                         <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
@@ -550,7 +676,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                 <label><strong>Select Jenis Kekayaan Intelektual :</strong></label><br/>
                                                 <div class="input-container">
                                                     <i class="fas fa-tasks icon"></i>
-                                                    <select class="" name="jenis_ki[]">
+                                                    <select class="" name="jenis_ki">
                                                       <option value="1">Hak Cipta</option>
                                                       <option value="2">Paten</option>
                                                       <option value="3">Merek</option>
@@ -560,18 +686,38 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                       <option value="7">Rahasia Dagang</option>
                                                     </select>
                                                 </div><br/>
+                                                @error('jenis_ki')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                                 <div class="input-container">
                                                     <i class="fas fa-circle icon"></i>
                                                     <input class="form-control" name="status_ki" type="text" placeholder="Status Kekayaan Intelektual" />
                                                 </div>
+                                                @error('status_ki')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
                                                     <input class="form-control" name="permohonan_ki" type="text" placeholder="Permohonan" />
                                                 </div>
+                                                @error('permohonan_ki')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                 <div class="input-container">
                                                     <i class="fas fa-certificate icon"></i>
                                                     <input class="form-control" name="sertifikat_ki" type="text" placeholder="Sertifikat" />
                                                 </div>
+                                                @error('sertifikat_ki')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -584,14 +730,29 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                         <i class="far fa-calendar icon"></i>
                                                         <input class="form-control" name="berlaku_mulai" type="date" placeholder="Berlaku Mulai" />
                                                     </div>
+                                                    @error('berlaku_mulai')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                     <div class="input-container">
                                                         <i class="far fa-calendar-check icon"></i>
                                                         <input class="form-control" name="berlaku_sampai" type="date" placeholder="Berlaku Sampai" />
                                                     </div>
+                                                    @error('berlaku_sampai')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                     <div class="input-container">
                                                         <i class="fas fa-user-tie icon"></i>
                                                         <input class="form-control" name="pemilik_ki" type="text" placeholder="Pemilik Kekayaan Intelektual" />
                                                     </div>
+                                                    @error('pemilik_ki')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -603,76 +764,121 @@ body {font-family: Arial, Helvetica, sans-serif;}
                         <input type="button" name="next" class="next action-button" value="Next" />
                         <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
                     </fieldset>
-                    {{-- <fieldset>
+                    <fieldset>
                         <div class="form-card">
                             <div class="row">
                                 <div class="col-7">
-                                    <h2 class="fs-title">Produk Team</h2>
+                                    <h2 class="fs-title">Team</h2>
                                 </div>
                                 <div class="col-5">
                                     <h2 class="steps">Step 6 - 10</h2>
                                 </div>
                             </div>
-                            <h5>Input Table Team</h5>
-                            <div class="col-xl-12 col-lg-4">
-                                <div class="card mb-4">
-                                    <div class="card-body">
-                                        <div class="ul-widget__body">
-                                            <div class="form-group" hidden>
-                                                <label>Tenant Id :</label>
-                                                   <div class="input-group">
-                                                    <input type="text" class="form-control" name="tenant_id" value="0" required>
-                                                   </div>
-                                            </div>
-                                            <div class="form-group" hidden>
-                                                <label>Inventor Id :</label>
-                                                   <div class="input-group">
-                                                    <input type="text" class="form-control" name="inventor_id" value="0" required>
-                                                   </div>
-                                            </div>
-                                            <div class="form-group" hidden>
-                                                <label>Priority Id :</label>
-                                                   <div class="input-group">
-                                                    <input type="text" class="form-control" name="priority_id" value="0" required>
-                                                   </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>User Id :</label>
-                                                <div class="input-group">
-                                                    <select name="user_id" class="form-control custom-select" required>
-                                                         <option value="">Pilih</option>
-                                                        @foreach ($user_id as $row)
-                                                            <option value="{{ $row->user_id }}">{{ $row->nama }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="input-group">
-                                                    <select name="jabatan" class="form-control custom-select" required>
-                                                        <option value="0">Jabatan</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="input-group">
-                                                    <select name="divisi" class="form-control custom-select" required>
-                                                        <option value="0">Divisi</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="input-container">
-                                                <i class="fas fa-align-justify icon"></i>
-                                                <input class="form-control" name="tugas" type="text" placeholder="Tugas" />
-                                            </div>
-                                        </div>
+                            <h5>Input Anggota Team</h5>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nama</th>
+                                                    <th>Jabatan</th>
+                                                    <th>Divisi</th>
+                                                    <th>Tugas</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <td>
+                                                        <div class="form-group" hidden>
+                                                            <label>Tenant Id :</label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" name="tenant_id" value="0">
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group" hidden>
+                                                            <label>Inventor Id :</label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" name="inventor_id" value="0">
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group" hidden>
+                                                            <label>Priority Id :</label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" name="priority_id" value="0">
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <select name="user_id" class="form-control custom-select">
+                                                                    <option value="">Pilih</option>
+                                                                    @foreach ($user_id as $row)
+                                                                        <option value="{{ $row->user_id }}">{{ $row->nama }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        @error('user_id')
+                                                        <div class="text-danger">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <select name="jabatan" class="form-control custom-select">
+                                                                    <option value="0">Jabatan</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        @error('jabatan')
+                                                        <div class="text-danger">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <select name="divisi" class="form-control custom-select">
+                                                                    <option value="0">Divisi</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        @error('divisi')
+                                                        <div class="text-danger">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-container">
+                                                            <i class="fas fa-align-justify icon"></i>
+                                                            <input class="form-control" name="tugas" type="text" placeholder="Tugas" />
+                                                        </div>
+                                                        @error('tugas')
+                                                        <div class="text-danger">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <input type="button" name="next" class="next action-button" value="Next" />
                         <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
-                    </fieldset> --}}
+                    </fieldset>
                     <fieldset>
                         <div class="form-card">
                             <div class="row">
@@ -693,22 +899,47 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                     <i class="fas fa-align-justify icon"></i>
                                                     <input class="form-control" name="nama_riset" type="text" placeholder="Nama Riset" />
                                                 </div>
+                                                @error('nama_riset')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                 <div class="input-container">
                                                     <i class="fas fa-user-tie icon"></i>
                                                     <input class="form-control" name="pelaksana_riset" type="text" placeholder="Pelaksana" />
                                                 </div>
+                                                @error('pelaksana_riset')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                 <div class="input-container">
                                                     <i class="far fa-calendar-alt icon"></i>
                                                     <input class="form-control" name="tahun_riset" type="text" placeholder="Tahun" />
                                                 </div>
+                                                @error('tahun_riset')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
                                                     <input class="form-control" name="pendanaan_riset" type="text" placeholder="Pendanaan" />
                                                 </div>
+                                                @error('pendanaan_riset')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                 <div class="input-container">
                                                     <i class="fas fa-align-justify icon"></i>
                                                     <input class="form-control" name="skema_riset" type="text" placeholder="Skema" />
                                                 </div>
+                                                @error('skema_riset')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -721,18 +952,38 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="nilai_riset" type="text" placeholder="Nilai" />
                                                     </div>
+                                                    @error('nilai_riset')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="aktifitas_riset" type="text" placeholder="Aktifitas" />
                                                     </div>
+                                                    @error('aktifitas_riset')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="tujuan_riset" type="text" placeholder="Tujuan" />
                                                     </div>
+                                                    @error('tujuan_riset')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="hasil_riset" type="text" placeholder="Hasil" />
                                                     </div>
+                                                    @error('hasil_riset')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -764,26 +1015,56 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                     <i class="fas fa-align-justify icon"></i>
                                                     <input class="form-control" name="jenis_sertif" type="text" placeholder="Jenis Sertifikat" />
                                                 </div>
+                                                @error('jenis_sertif')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                 <div class="input-container">
                                                     <i class="fas fa-user icon"></i>
                                                     <input class="form-control" name="pemberi_sertif" type="text" placeholder="Pemberi Sertifikat" />
                                                 </div>
+                                                @error('pemberi_sertif')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                 <div class="input-container">
                                                     <i class="fas fa-circle icon"></i>
                                                     <input class="form-control" name="status_sertif" type="text" placeholder="Status" />
                                                 </div>
+                                                @error('status_sertif')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                 <div class="input-container">
                                                     <i class="far fa-calendar-alt icon"></i>
                                                     <input class="form-control tahun" name="tahun_sertif" type="" placeholder="Tahun" />
                                                 </div>
+                                                @error('tahun_sertif')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                 <div class="input-container">
                                                     <i class="far fa-calendar-alt icon"></i>
                                                     <input class="form-control" name="tanggal_sertif" type="date" placeholder="Tanggal" />
                                                 </div>
+                                                @error('tanggal_sertif')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                 <div class="form-group">
                                                     <label for="foto">Uploda Dokumen</label><br>
-                                                    <input type="file" name="file_sertifikasi" value="{{ old('file_sertifikasi') }}" required>
+                                                    <input type="file" name="file_sertifikasi" value="{{ old('file_sertifikasi') }}">
                                                 </div>
+                                                @error('file_sertifikasi')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -815,26 +1096,56 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                     <i class="fas fa-align-justify icon"></i>
                                                     <input class="form-control" name="jenis_ijin" type="text" placeholder="Jenis Ijin" />
                                                 </div>
+                                                @error('jenis_ijin')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                 <div class="input-container">
                                                     <i class="fas fa-user icon"></i>
                                                     <input class="form-control" name="pemberi_ijin" type="text" placeholder="Pemberi Ijin" />
                                                 </div>
+                                                @error('pemberi_ijin')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                 <div class="input-container">
                                                     <i class="fas fa-circle icon"></i>
                                                     <input class="form-control" name="status_ijin" type="text" placeholder="Status" />
                                                 </div>
+                                                @error('status_ijin')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                 <div class="input-container">
                                                     <i class="far fa-calendar-alt icon"></i>
                                                     <input class="form-control" name="tahun_ijin" type="text" placeholder="Tahun" />
                                                 </div>
+                                                @error('tahun_ijin')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                 <div class="input-container">
                                                     <i class="far fa-calendar-alt icon"></i>
                                                     <input class="form-control" name="tanggal_ijin" type="date" placeholder="Tanggal" />
                                                 </div>
+                                                @error('tanggal_ijin')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                                 <div class="form-group">
                                                     <label for="foto">Uploda Dokumen</label><br>
-                                                    <input type="file" name="file_ijin" value="{{ old('file_ijin') }}" required>
+                                                    <input type="file" name="file_ijin" value="{{ old('file_ijin') }}">
                                                 </div>
+                                                @error('file_ijin')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
                                             </div>
                                         </div>
                                     </div>
