@@ -380,9 +380,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                 @enderror
                                                 <div class="form-group" hidden>
                                                     <div class="input-group">
-                                                        <select name="kategori" class="form-control custom-select">
-                                                            <option value="1">Kategori Id</option>
-                                                        </select>
+                                                        <Input name="kategori" class="form-control custom-select" value="0">
+                                                            {{-- <option value="1">Kategori Id</option> --}}
+                                                        {{-- </select> --}}
                                                     </div>
                                                 </div>
                                                 <div class="input-container">
@@ -789,34 +789,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                             </thead>
                                             <tbody>
                                                 <td>
-                                                        <div class="form-group" hidden>
-                                                            <label>Tenant Id :</label>
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control" name="tenant_id" value="0">
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="form-group" hidden>
-                                                            <label>Inventor Id :</label>
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control" name="inventor_id" value="0">
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="form-group" hidden>
-                                                            <label>Priority Id :</label>
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control" name="priority_id" value="0">
-                                                            </div>
-                                                        </div>
-                                                    </td>
                                                 <tr>
                                                     <td>
                                                         <div class="form-group">
                                                             <div class="input-group">
-                                                                <select name="user_id" class="form-control custom-select">
+                                                                <select name="user_id[]" class="form-control custom-select">
                                                                     <option value="">Pilih</option>
                                                                     @foreach ($user_id as $row)
                                                                         <option value="{{ $row->user_id }}">{{ $row->nama }}</option>
@@ -833,7 +810,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                     <td>
                                                         <div class="form-group">
                                                             <div class="input-group">
-                                                                <select name="jabatan" class="form-control custom-select">
+                                                                <select name="jabatan[]" class="form-control custom-select">
                                                                     <option value="0">Jabatan</option>
                                                                 </select>
                                                             </div>
@@ -847,7 +824,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                     <td>
                                                         <div class="form-group">
                                                             <div class="input-group">
-                                                                <select name="divisi" class="form-control custom-select">
+                                                                <select name="divisi[]" class="form-control custom-select">
                                                                     <option value="0">Divisi</option>
                                                                 </select>
                                                             </div>
@@ -861,7 +838,190 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                     <td>
                                                         <div class="input-container">
                                                             <i class="fas fa-align-justify icon"></i>
-                                                            <input class="form-control" name="tugas" type="text" placeholder="Tugas" />
+                                                            <input class="form-control" name="tugas[]" type="text" placeholder="Tugas" />
+                                                        </div>
+                                                        @error('tugas')
+                                                        <div class="text-danger">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody>
+                                                <td>
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <select name="user_id[]" class="form-control custom-select">
+                                                                    <option value="">Pilih</option>
+                                                                    @foreach ($user_id as $row)
+                                                                        <option value="{{ $row->user_id }}">{{ $row->nama }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        @error('user_id')
+                                                        <div class="text-danger">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <select name="jabatan[]" class="form-control custom-select">
+                                                                    <option value="0">Jabatan</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        @error('jabatan')
+                                                        <div class="text-danger">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <select name="divisi[]" class="form-control custom-select">
+                                                                    <option value="0">Divisi</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        @error('divisi')
+                                                        <div class="text-danger">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-container">
+                                                            <i class="fas fa-align-justify icon"></i>
+                                                            <input class="form-control" name="tugas[]" type="text" placeholder="Tugas" />
+                                                        </div>
+                                                        @error('tugas')
+                                                        <div class="text-danger">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody>
+                                                <td>
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <select name="user_id[]" class="form-control custom-select">
+                                                                    <option value="">Pilih</option>
+                                                                    @foreach ($user_id as $row)
+                                                                        <option value="{{ $row->user_id }}">{{ $row->nama }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        @error('user_id')
+                                                        <div class="text-danger">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <select name="jabatan[]" class="form-control custom-select">
+                                                                    <option value="0">Jabatan</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        @error('jabatan')
+                                                        <div class="text-danger">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <select name="divisi[]" class="form-control custom-select">
+                                                                    <option value="0">Divisi</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        @error('divisi')
+                                                        <div class="text-danger">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-container">
+                                                            <i class="fas fa-align-justify icon"></i>
+                                                            <input class="form-control" name="tugas[]" type="text" placeholder="Tugas" />
+                                                        </div>
+                                                        @error('tugas')
+                                                        <div class="text-danger">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody>
+                                                <td>
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <select name="user_id[]" class="form-control custom-select">
+                                                                    <option value="">Pilih</option>
+                                                                    @foreach ($user_id as $row)
+                                                                        <option value="{{ $row->user_id }}">{{ $row->nama }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        @error('user_id')
+                                                        <div class="text-danger">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <select name="jabatan[]" class="form-control custom-select">
+                                                                    <option value="0">Jabatan</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        @error('jabatan')
+                                                        <div class="text-danger">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <select name="divisi[]" class="form-control custom-select">
+                                                                    <option value="0">Divisi</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        @error('divisi')
+                                                        <div class="text-danger">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-container">
+                                                            <i class="fas fa-align-justify icon"></i>
+                                                            <input class="form-control" name="tugas[]" type="text" placeholder="Tugas" />
                                                         </div>
                                                         @error('tugas')
                                                         <div class="text-danger">

@@ -155,10 +155,10 @@ class ProdukController extends Controller
             'berlaku_sampai'        => 'required|date',
             'pemilik_ki'            => 'required',
 
-            'user_id'               => 'required',
-            'jabatan'               => 'required',
-            'divisi'                => 'required',
-            'tugas'                 => 'required',
+            'user_id'               => 'required|array',
+            'jabatan'               => 'required|array',
+            'divisi'                => 'required|array',
+            'tugas'                 => 'required|array',
 
             'nama_riset'            => 'required',
             'pelaksana_riset'       => 'required',
@@ -194,6 +194,8 @@ class ProdukController extends Controller
             $produks_id = $produk_id->id + 1;
             //$id = $produks_id + 1;
             //return $produks_id;
+            $tenant = TenantUser::where('user_id', $request->user()->id)->first();
+            $tenant_id=$tenant->tenant_id;
             $pd_image = $produks_id;
             $pd_team = $produks_id;
 
@@ -217,13 +219,12 @@ class ProdukController extends Controller
 
             $string = implode(",", $request->tag);
             // $strings = implode(",", $request->jenis_ki);
-
+            // dd($request);
             $produk = Produk::create([
-
                 'id'                    => $produks_id,
-                'tenant_id'             => $request->tenant_id,
-                'inventor_id'           => $request->inventor_id,
-                'priority_id'           => $request->priority_id,
+                'tenant_id'             => $tenant_id,
+                'inventor_id'           => 0,
+                'priority_id'           => 3,
                 'title'                 => $request->title,
                 'subtitle'              => $request->subtitle,
                 'harga_pokok'           => $request->harga_pokok,
@@ -243,7 +244,7 @@ class ProdukController extends Controller
                 'proposal'              => $dokumen_file_proposal,
                 'kategori_id'           => $request->kategori,
             ]);
-
+                // dd($produk);
             $produk_bisnis = ProdukBisnis::create([
                 'produk_id'             => $produks_id,
                 'kompetitor'            => $request->kompetitor,
@@ -279,13 +280,31 @@ class ProdukController extends Controller
             ]);
 
 
-            $produk_team = ProdukTeam::create([
-                'produk_id'             => $produks_id,
-                'user_id'               => $request->user_id,
-                'jabatan'               => $request->jabatan,
-                'divisi'                => $request->divisi,
-                'tugas'                 => $request->tugas,
-            ]);
+            $user_id = $request->user_id;
+            $jabatan = $request->jabatan;
+            $divisi = $request->divisi;
+            $tugas = $request->tugas;
+            for($count = 0; $count < count($user_id); $count++)
+            {
+            $data = array(
+                'produk_id' => $produks_id,
+                'user_id'   => $user_id[$count],
+                'jabatan'   => $jabatan[$count],
+                'divisi'    => $divisi[$count],
+                'tugas'     => $tugas[$count]
+            );
+            $insert_data[] = $data;
+            }
+            // dd($insert_data);
+
+            ProdukTeam::insert($insert_data);
+            // $produk_team = ProdukTeam::create([
+            //     'produk_id'             => $produks_id,
+            //     'user_id'               => $request->user_id,
+            //     'jabatan'               => $request->jabatan,
+            //     'divisi'                => $request->divisi,
+            //     'tugas'                 => $request->tugas,
+            // ]);
 
             $produk_riset = ProdukRiset::create([
                 'produk_id'             => $produks_id,
