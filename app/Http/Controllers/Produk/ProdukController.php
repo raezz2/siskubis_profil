@@ -155,10 +155,10 @@ class ProdukController extends Controller
             'berlaku_sampai'        => 'required|date',
             'pemilik_ki'            => 'required',
 
-            'user_id'               => 'required|array',
-            'jabatan'               => 'required|array',
-            'divisi'                => 'required|array',
-            'tugas'                 => 'required|array',
+            // 'user_id'               => 'required|array',
+            // 'jabatan'               => 'required|array',
+            // 'divisi'                => 'required|array',
+            // 'tugas'                 => 'required|array',
 
             'nama_riset'            => 'required',
             'pelaksana_riset'       => 'required',
