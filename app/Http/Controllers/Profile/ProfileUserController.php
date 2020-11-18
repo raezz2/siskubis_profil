@@ -154,15 +154,20 @@ class ProfileUserController extends Controller
         $profil = ProfilUser::where('user_id', Auth::user()->id)->first();
         $tujuan_upload = 'img/mentor/profile/';
         if ($profil) {
-            if ($profil->foto) {
+            // jika sudah ada data foto pengguna dan ingin menggantinya
+            if ($profil->foto && $request->file('foto')) {
                 \File::delete($tujuan_upload . $profil->foto);
+                $file = $request->foto;
+                $filename = time() . \Str::slug($request->get('nama')) . '.' . $file->getClientOriginalExtension();
+                $file->move($tujuan_upload, $filename);
+            } else {
+                $filename = $profil->foto;
             }
-        }
-
-
-        $file = $request->foto;
-        $filename = time() . \Str::slug($request->get('nama')) . '.' . $file->getClientOriginalExtension();
-        $file->move($tujuan_upload, $filename);
+        } else {
+            $file = $request->foto;
+            $filename = time() . \Str::slug($request->get('nama')) . '.' . $file->getClientOriginalExtension();
+            $file->move($tujuan_upload, $filename);
+        } 
 
         ProfilUser::updateOrCreate(
             ['user_id'  =>  Auth::user()->id],
