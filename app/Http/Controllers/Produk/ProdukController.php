@@ -284,20 +284,20 @@ class ProdukController extends Controller
             $jabatan = $request->jabatan;
             $divisi = $request->divisi;
             $tugas = $request->tugas;
-            for($count = 0; $count < count($user_id); $count++)
-            {
-            $data = array(
-                'produk_id' => $produks_id,
-                'user_id'   => $user_id[$count],
-                'jabatan'   => $jabatan[$count],
-                'divisi'    => $divisi[$count],
-                'tugas'     => $tugas[$count]
-            );
-            $insert_data[] = $data;
-            }
+            // for($count = 0; $count < count($user_id); $count++)
+            // {
+            // $data = array(
+            //     'produk_id' => $produks_id,
+            //     'user_id'   => $user_id[$count],
+            //     'jabatan'   => $jabatan[$count],
+            //     'divisi'    => $divisi[$count],
+            //     'tugas'     => $tugas[$count]
+            // );
+            // $insert_data[] = $data;
+            // }
             // dd($insert_data);
 
-            ProdukTeam::insert($insert_data);
+            // ProdukTeam::insert($insert_data);
             // $produk_team = ProdukTeam::create([
             //     'produk_id'             => $produks_id,
             //     'user_id'               => $request->user_id,
