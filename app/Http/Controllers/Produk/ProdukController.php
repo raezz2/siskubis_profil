@@ -347,40 +347,58 @@ class ProdukController extends Controller
 
             // return view('tenant.produk');
 
-            return redirect(route('tenant.produk'));
+            return redirect(route('tenant.team', $produks_id));
         }
         // return "ok";
     }
 
-    // public function createTeam()
-    // {
+    public function createTeam($id)
+    {
+        $produk = Produk::find($id);
+        $produk_team = ProdukTeam::where('produk_id', $produk->id)->get('user_id');
+        // return $produk_team;
+        $team = ProfilUser::whereIn('produk_team.user_id', $produk_team)->leftjoin('produk_team', ['profil_user.user_id'=>'produk_team.user_id'])->select('profil_user.nama as nama','produk_team.*')->get();
+        // return $team;
+        $user_id = ProfilUser::orderBy('nama')->get();
+        $tenant = Tenant::orderBy('title')->get();
+        // $penulis = profil_user::orderBy('nama')->get();
 
-    //     $user_id = ProfilUser::orderBy('nama')->get();
-    //     $tenant = Tenant::orderBy('title')->get();
-    //     // $penulis = profil_user::orderBy('nama')->get();
+        return view('produk.formTeam', compact('user_id', 'tenant', 'produk', 'team'));
+    }
 
-    //     return view('produk.formTeam', compact('user_id', 'tenant'));
-    // }
+    public function storeTeam(Request $request)
+    {
+        $rules = array(
+            'produk_id'     =>  'required',
+            'profil_id'     => 'required',
+            'jabatan'       => 'required',
+            'divisi'        => 'required',
+            'tugas'         => 'required',
+        );
 
-    // public function storeTeam(Request $request)
-    // {
-    //     $request->validate([
-    //         'user_id'               => 'required',
-    //         'jabatan'               => 'required',
-    //         'divisi'                => 'required',
-    //         'tugas'                 => 'required',
-    //     ]);
+        $validator = Validator::make($request->all(), $rules);
 
-    //     $produk_team = ProdukTeam::create([
-    //         'produk_id'             => $produks_id,
-    //         'user_id'               => $request->user_id,
-    //         'jabatan'               => $request->jabatan,
-    //         'divisi'                => $request->divisi,
-    //         'tugas'                 => $request->tugas,
-    //     ]);
+        if($validator->fails()){
+            return response()->json([
+                'error' =>  $validator->errors()->all()
+            ]);
+        }
 
-    //     return redirect(route('tenant.produk'));
-    // }
+        $team = ProdukTeam::create([
+            'produk_id'     =>  $request->produk_id,
+            'user_id'       =>  $request->profil_id,
+            'jabatan'       =>  $request->jabatan,
+            'divisi'       =>  $request->divisi,
+            'tugas'       =>  $request->tugas,
+        ]);
+
+        $data = ProfilUser::where('profil_user.user_id', $team->user_id)
+        ->leftjoin('produk_team', ['profil_user.user_id'=>'produk_team.user_id'])
+        ->select('profil_user.nama as nama','produk_team.*')
+        ->first();
+
+        return response()->json($data);
+    }
 
     public function destroy($id)
     {
