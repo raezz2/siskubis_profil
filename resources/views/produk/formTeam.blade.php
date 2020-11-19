@@ -16,7 +16,7 @@
                             <label for="profil_id">Nama</label>
                             <select type="text" class="form-control" name="profil_id">
                                 @foreach ($user_id as $item)
-                                    <option value="{{ $item->user_id }}">{{ $item->nama }}</option>
+                                <option value="{{ $item->user_id }}">{{ $item->nama }}</option>
                                 @endforeach
                             </select>
                             <input type="hidden" name="produk_id" value="{{ $produk->id }}">
@@ -60,13 +60,13 @@
                 </thead>
                 <tbody class="text-center" id="team-list">
                     @foreach ($team as $item)
-                        <tr id="team{{ $item->id }}">
-                            <td>{{ $item->nama }}</td>
-                            <td>{{ $item->jabatan }}</td>
-                            <td>{{ $item->divisi }}</td>
-                            <td>{{ $item->tugas }}</td>
-                            <td><button href="" class="btn btn-danger btn-sm" value="{{ $item->id }}">Delete</button></td>
-                        </tr>
+                    <tr id="team{{ $item->id }}">
+                        <td>{{ $item->nama }}</td>
+                        <td>{{ $item->jabatan }}</td>
+                        <td>{{ $item->divisi }}</td>
+                        <td>{{ $item->tugas }}</td>
+                        <td><button href="" class="btn btn-danger btn-sm" value="{{ $item->id }}">Delete</button></td>
+                    </tr>
                     @endforeach
                 </tbody>
             </table>
@@ -74,7 +74,7 @@
     </div>
     <br>
     <div class="col-md-12 text-right">
-        <a href="{{route('tenant.produk')}}" class="btn btn-success" >
+        <a href="{{route('tenant.produk')}}" class="btn btn-success">
             Selesai
         </a>
     </div>
@@ -97,7 +97,7 @@
             method: 'POST',
             success: function(data){
                 var team = '<tr id="team'+data.id+'"><td>'+data.nama+'</td><td>'+data.jabatan+'</td><td>'+data.divisi+'</td><td>'+data.tugas+'</td>';
-                team += '<td><button href="" class="btn btn-warning btn-sm" value="'+data.id+'">Delete</button></td></tr>';
+                team += '<td><button href="" class="btn btn-danger btn-sm" value="'+data.id+'">Delete</button></td></tr>';
                 $('#team-list').append(team);
             },
             error: function(data){

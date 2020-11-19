@@ -154,54 +154,54 @@
     #progressbar li {
         list-style-type: none;
         font-size: 15px;
-        width: 10%;
+        width: 11%;
         float: left;
         position: relative;
         font-weight: 400
     }
 
     #progressbar #produk:before {
-        font-family: FontAwesome;
-        content: "\f13e"
+        font-family: "Font Awesome 5 Free";
+        content: "\f1b3"
     }
 
     #progressbar #bisnis:before {
-        font-family: FontAwesome;
-        content: "\f007"
+        font-family: "Font Awesome 5 Free";
+        content: "\f030"
     }
 
     #progressbar #canvas:before {
-        font-family: FontAwesome;
+        font-family: "Font Awesome 5 Free";
         content: "\f030"
     }
 
     #progressbar #image:before {
-        font-family: FontAwesome;
+        font-family: "Font Awesome 5 Free";
         content: "\f00c"
     }
 
     #progressbar #kintel:before {
-        font-family: FontAwesome;
+        font-family: "Font Awesome 5 Free";
         content: "\f00c"
     }
 
     #progressbar #riset:before {
-        font-family: FontAwesome;
+        font-family: "Font Awesome 5 Free";
         content: "\f00c"
     }
 
     #progressbar #sertifikasi:before {
-        font-family: FontAwesome;
+        font-family: "Font Awesome 5 Free";
         content: "\f00c"
     }
 
     #progressbar #ijin:before {
-        font-family: FontAwesome;
+        font-family: "Font Awesome 5 Free";
         content: "\f00c"
     }
 
     #progressbar #finish:before {
-        font-family: FontAwesome;
+        font-family: "Font Awesome 5 Free";
         content: "\f00c"
     }
 
@@ -290,7 +290,6 @@
         height: 40px;
         width: 400px !important;
     }
-
 </style>
 
 @endsection
@@ -346,7 +345,8 @@
                                                     <div class="input-container">
                                                         <i class="fas fa-money-bill-wave-alt icon"></i>
                                                         <input class="form-control" name="harga_pokok" type="text"
-                                                            placeholder="Harga Pokok" value="{{ old('harga_pokok') }}" />
+                                                            placeholder="Harga Pokok"
+                                                            value="{{ old('harga_pokok') }}" />
                                                     </div>
                                                     @error('harga_pokok')
                                                     <div class="text-danger">
@@ -356,7 +356,8 @@
                                                     <div class="input-container">
                                                         <i class="fas fa-money-bill-wave-alt icon"></i>
                                                         <input class="form-control" name="harga_jual" type="text"
-                                                            row="3" placeholder="Harga Jual" value="{{ old('harga_jual') }}" />
+                                                            row="3" placeholder="Harga Jual"
+                                                            value="{{ old('harga_jual') }}" />
                                                     </div>
                                                     @error('harga_jual')
                                                     <div class="text-danger">
@@ -396,7 +397,7 @@
                                                     </div>
                                                     <div class="input-container">
                                                         <textarea class="form-control" name="subtitle" rows="2"
-                                                            placeholder="Subtitle" value="{{ old('subtitle') }}"></textarea>
+                                                            placeholder="Subtitle">{{ old('subtitle') }}</textarea>
                                                     </div>
                                                     @error('subtitle')
                                                     <div class="text-danger">
@@ -405,7 +406,7 @@
                                                     @enderror
                                                     <div class="input-container">
                                                         <textarea class="form-control" name="location" rows="3"
-                                                            placeholder="Location" value="{{ old('location') }}"></textarea>
+                                                            placeholder="Location">{{ old('location') }}</textarea>
                                                     </div>
                                                     @error('location')
                                                     <div class="text-danger">
@@ -414,7 +415,7 @@
                                                     @enderror
                                                     <div class="input-container">
                                                         <textarea class="form-control" name="address" rows="4"
-                                                            placeholder="Address" value="{{ old('address') }}"></textarea>
+                                                            placeholder="Address">{{ old('address') }}</textarea>
                                                     </div>
                                                     @error('address')
                                                     <div class="text-danger">
@@ -442,7 +443,8 @@
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="spesifikasi" type="text"
-                                                            placeholder="Spesifikasi" value="{{ old('spesifikasi') }}" />
+                                                            placeholder="Spesifikasi"
+                                                            value="{{ old('spesifikasi') }}" />
                                                     </div>
                                                     @error('spesifikasi')
                                                     <div class="text-danger">
@@ -452,7 +454,8 @@
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="keterbaharuan" type="text"
-                                                            placeholder="Keterbaharuan" value="{{ old('keterbaharuan') }}" />
+                                                            placeholder="Keterbaharuan"
+                                                            value="{{ old('keterbaharuan') }}" />
                                                     </div>
                                                     @error('keterbaharuan')
                                                     <div class="text-danger">
@@ -492,7 +495,8 @@
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="pengembangan" type="text"
-                                                            placeholder="Pengembangan" value="{{ old('pengembangan') }}" />
+                                                            placeholder="Pengembangan"
+                                                            value="{{ old('pengembangan') }}" />
                                                     </div>
                                                     @error('pengembangan')
                                                     <div class="text-danger">
@@ -501,7 +505,7 @@
                                                     @enderror
                                                     <div class="input-container">
                                                         <textarea class="form-control" name="latar_produk" rows="7"
-                                                            placeholder="Latar Produk" value="{{ old('latar_produk') }}"></textarea>
+                                                            placeholder="Latar Produk">{{ old('latar_produk') }}</textarea>
                                                     </div>
                                                     @error('latar_produk')
                                                     <div class="text-danger">
@@ -510,7 +514,7 @@
                                                     @enderror
                                                     <div class="input-container">
                                                         <textarea class="form-control" name="tentang_produk" rows="7"
-                                                            placeholder="Tentang Produk" value="{{ old('tentang_produk') }}"></textarea>
+                                                            placeholder="Tentang Produk">{{ old('tentang_produk') }}</textarea>
                                                     </div>
                                                     @error('tentang_produk')
                                                     <div class="text-danger">
@@ -556,7 +560,8 @@
                                                     <div class="input-container">
                                                         <i class="fas fa-money-bill-wave-alt icon"></i>
                                                         <input class="form-control" name="target_pasar" type="text"
-                                                            placeholder="Target Pasar" value="{{ old('target_pasar') }}" />
+                                                            placeholder="Target Pasar"
+                                                            value="{{ old('target_pasar') }}" />
                                                     </div>
                                                     @error('target_pasar')
                                                     <div class="text-danger">
@@ -566,7 +571,8 @@
                                                     <div class="input-container">
                                                         <i class="fas fa-money-bill-wave-alt icon"></i>
                                                         <input class="form-control" name="produksi_harga" type="text"
-                                                            row="3" placeholder="Harga Produksi" value="{{ old('produksi_harga') }}" />
+                                                            row="3" placeholder="Harga Produksi"
+                                                            value="{{ old('produksi_harga') }}" />
                                                     </div>
                                                     @error('produksi_harga')
                                                     <div class="text-danger">
@@ -576,7 +582,8 @@
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="dampak_sosek" type="text"
-                                                            placeholder="Dampak Sosek" value="{{ old('dampak_sosek') }}" />
+                                                            placeholder="Dampak Sosek"
+                                                            value="{{ old('dampak_sosek') }}" />
                                                     </div>
                                                     @error('dampak_sosek')
                                                     <div class="text-danger">
@@ -726,7 +733,8 @@
                                                     <div class="input-container">
                                                         <i class="fas fa-circle icon"></i>
                                                         <input class="form-control" name="status_ki" type="text"
-                                                            placeholder="Status Kekayaan Intelektual" value="{{ old('status_ki') }}" />
+                                                            placeholder="Status Kekayaan Intelektual"
+                                                            value="{{ old('status_ki') }}" />
                                                     </div>
                                                     @error('status_ki')
                                                     <div class="text-danger">
@@ -736,7 +744,8 @@
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="permohonan_ki" type="text"
-                                                            placeholder="Permohonan" value="{{ old('permohonan_ki') }}" />
+                                                            placeholder="Permohonan"
+                                                            value="{{ old('permohonan_ki') }}" />
                                                     </div>
                                                     @error('permohonan_ki')
                                                     <div class="text-danger">
@@ -746,7 +755,8 @@
                                                     <div class="input-container">
                                                         <i class="fas fa-certificate icon"></i>
                                                         <input class="form-control" name="sertifikat_ki" type="text"
-                                                            placeholder="Sertifikat" value="{{ old('sertifikat_ki') }}" />
+                                                            placeholder="Sertifikat"
+                                                            value="{{ old('sertifikat_ki') }}" />
                                                     </div>
                                                     @error('sertifikat_ki')
                                                     <div class="text-danger">
@@ -764,7 +774,8 @@
                                                     <div class="input-container">
                                                         <i class="far fa-calendar icon"></i>
                                                         <input class="form-control" name="berlaku_mulai" type="date"
-                                                            placeholder="Berlaku Mulai" value="{{ old('berlaku_mulai') }}" />
+                                                            placeholder="Berlaku Mulai"
+                                                            value="{{ old('berlaku_mulai') }}" />
                                                     </div>
                                                     @error('berlaku_mulai')
                                                     <div class="text-danger">
@@ -774,7 +785,8 @@
                                                     <div class="input-container">
                                                         <i class="far fa-calendar-check icon"></i>
                                                         <input class="form-control" name="berlaku_sampai" type="date"
-                                                            placeholder="Berlaku Sampai" value="{{ old('berlaku_sampai') }}" />
+                                                            placeholder="Berlaku Sampai"
+                                                            value="{{ old('berlaku_sampai') }}" />
                                                     </div>
                                                     @error('berlaku_sampai')
                                                     <div class="text-danger">
@@ -784,7 +796,8 @@
                                                     <div class="input-container">
                                                         <i class="fas fa-user-tie icon"></i>
                                                         <input class="form-control" name="pemilik_ki" type="text"
-                                                            placeholder="Pemilik Kekayaan Intelektual" value="{{ old('pemilik_ki') }}" />
+                                                            placeholder="Pemilik Kekayaan Intelektual"
+                                                            value="{{ old('pemilik_ki') }}" />
                                                     </div>
                                                     @error('pemilik_ki')
                                                     <div class="text-danger">
@@ -832,7 +845,8 @@
                                                     <div class="input-container">
                                                         <i class="fas fa-user-tie icon"></i>
                                                         <input class="form-control" name="pelaksana_riset" type="text"
-                                                            placeholder="Pelaksana" value="{{ old('pelaksana_riset') }}" />
+                                                            placeholder="Pelaksana"
+                                                            value="{{ old('pelaksana_riset') }}" />
                                                     </div>
                                                     @error('pelaksana_riset')
                                                     <div class="text-danger">
@@ -852,7 +866,8 @@
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="pendanaan_riset" type="text"
-                                                            placeholder="Pendanaan" value="{{ old('pendanaan_riset') }}" />
+                                                            placeholder="Pendanaan"
+                                                            value="{{ old('pendanaan_riset') }}" />
                                                     </div>
                                                     @error('pendanaan_riset')
                                                     <div class="text-danger">
@@ -890,7 +905,8 @@
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="aktifitas_riset" type="text"
-                                                            placeholder="Aktifitas" value="{{ old('aktifitas_riset') }}" />
+                                                            placeholder="Aktifitas"
+                                                            value="{{ old('aktifitas_riset') }}" />
                                                     </div>
                                                     @error('aktifitas_riset')
                                                     <div class="text-danger">
@@ -948,7 +964,8 @@
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="jenis_sertif" type="text"
-                                                            placeholder="Jenis Sertifikat" value="{{ old('jenis_sertif') }}" />
+                                                            placeholder="Jenis Sertifikat"
+                                                            value="{{ old('jenis_sertif') }}" />
                                                     </div>
                                                     @error('jenis_sertif')
                                                     <div class="text-danger">
@@ -958,7 +975,8 @@
                                                     <div class="input-container">
                                                         <i class="fas fa-user icon"></i>
                                                         <input class="form-control" name="pemberi_sertif" type="text"
-                                                            placeholder="Pemberi Sertifikat" value="{{ old('pemberi_sertif') }}" />
+                                                            placeholder="Pemberi Sertifikat"
+                                                            value="{{ old('pemberi_sertif') }}" />
                                                     </div>
                                                     @error('pemberi_sertif')
                                                     <div class="text-danger">
@@ -1046,7 +1064,8 @@
                                                     <div class="input-container">
                                                         <i class="fas fa-user icon"></i>
                                                         <input class="form-control" name="pemberi_ijin" type="text"
-                                                            placeholder="Pemberi Ijin" value="{{ old('pemberi_ijin') }}" />
+                                                            placeholder="Pemberi Ijin"
+                                                            value="{{ old('pemberi_ijin') }}" />
                                                     </div>
                                                     @error('pemberi_ijin')
                                                     <div class="text-danger">
