@@ -73,9 +73,9 @@
                             <td>{{ $data->kontak }}</td>
                             <td><a class="badge badge-primary m-2 p-2" href="#">Developer</a></td>
                             <td>20</td>
-                            <td>{{ $data->created_at->format("d M Y") }}</td>
+                            <td>{{ $data->created_at }}</td>
                             <td>$320,800</td>
-                            <td><a class="ul-link-action text-success" href="" data-toggle="tooltip" data-placement="top" title="Edit"><i class="i-Edit"></i></a><a class="ul-link-action text-danger mr-1" href="" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!"><i class="i-Eraser-2"></i></a></td>
+                            <td><a class="ul-link-action text-danger mr-1 adduser" type="submit" data-toggle="modal" data-id="{{ $data->uid }}" data-name="{{ $data->nama }}" data-target=".bd-contoh-modal-lg" data-placement="top" title="Pasangkan"><i class="i-Add-User"></i></a></td>
                         </tr>
                     @endforeach
 	                </tbody>
@@ -84,6 +84,89 @@
         </div>
     </div>
 </div>
+
+@role('inkubator')
+	<!-- begin::modal-->
+	<div class="ul-card-list__modal">
+		<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-body">
+					<h2>Tambah Pendamping</h2>
+						<form action="{{ route('inkubator.regis') }}" method="POST">
+							@csrf
+							<div class="form-group">
+								<label>Email</label>
+									<input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+
+							@error('email')
+								<span class="invalid-feedback" role="alert">
+									<strong>{{ $message }}</strong>
+								</span>
+							@enderror
+							</div>
+							<div class="form-group">
+								<label>Password</label>
+									<input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+							@error('password')
+								<span class="invalid-feedback" role="alert">
+									<strong>{{ $message }}</strong>
+								</span>
+							@enderror
+							</div>
+							<div class="form-group">
+								<label class="fw">Confirm Password</label>
+									<input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+							</div>									
+							<div class="form-group row">
+								<div class="col-sm-10 float-right">
+									<button class="btn btn-success" type="submit">Tambah Pendamping</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end::modal-->
+	<div class="ul-card-list__modal">
+		<div class="modal fade bd-contoh-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-body">
+					<h2>Tambah Pendamping</h2>
+						<form action="{{ route('inkubator.mentor.tenant') }}" method="POST">
+							@csrf	
+							<div class="row">
+								<div class="form-group col-md-6">
+									<label for="mentpr">Mentor</label>
+									<input class="form-control" name="nama" id="nama" disabled>
+									</div>
+									<input class="form-control" name="user_id" id="user_id" type="hidden">
+									<div class="form-group col-md-6">
+									<label for="publish">Tenant</label>
+									<select name="tenant_id" class="form-control" id="tenant_id">
+										@foreach ($tenant as $item)
+										<option value="{{ $item->id }}" >{{ $item->title }}</option>
+										@endforeach
+									</select>
+									</div>
+								</div>
+							<div class="form-group row">
+								<div class="col-sm-10 float-right">
+									<button class="btn btn-success" type="submit">Tambah Pendamping</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end::modal-->
+@endrole
 @endsection
 
 @section('js')
@@ -95,6 +178,15 @@
                 "scrollX": true
             }
         );
+
+        $('.adduser').click(function() {
+		var id = $(this).data('id');      
+		var nama = $(this).data('name');
+		  
+
+		$('#user_id').val(id);  
+		$('#nama').val(nama);  
+		} );
  
     </script>
 @endsection

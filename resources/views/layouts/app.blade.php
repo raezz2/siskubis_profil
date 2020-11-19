@@ -14,6 +14,7 @@
     <link href="{{ asset('theme/css/plugins/metisMenu.min.css')}}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('theme/css/plugins/sweetalert2.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('theme/css/plugins/toastr.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('src/main.css') }}" />
 	@yield('css')
 	@livewireStyles
 </head>
@@ -81,7 +82,8 @@
         <script src="{{ asset('theme/js/plugins/sweetalert2.min.js') }}"></script>
         <script src="{{ asset('theme/js/plugins/sweetalert2.script.min.js') }}"></script>
         <script src="{{ asset('theme/js/plugins/toastr.min.js') }}"></script>
-        <script src="{{ asset('theme/js/scripts/toastr.script.min.js') }}"></script>
+        <script src="{{ asset('theme/js/script/toastr.script.min.js') }}"></script>
+        <script src="{{ asset('src/main.js') }}"></script>
 		@yield('js')
 
 		<script>

@@ -43,6 +43,11 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 	Route::get('/tenant', 'Tenant\TenantController@index')->name('inkubator.tenant');
 	Route::get('/tenant/{kategori}', 'Tenant\TenantController@kategori')->name('inkubator.tenant-kategori');
 	Route::get('/tenant/{kategori}/{id}', 'Tenant\TenantController@detail')->name('inkubator.tenant-detail');
+	
+	
+	//Route Fitur Tenant
+	Route::post('/tenant/tambahtenant', 'Tenant\TenantController@create')->name('tenant.add-tenant');
+	Route::get('/tenant-priority/{priority}', 'Tenant\TenantController@priority')->name('inkubator.tenant-priority');
 
 	Route::get('/mentor', 'Mentor\MentorController@index')->name('inkubator.mentor');
 
@@ -55,13 +60,15 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 	Route::get('/produk/{kategori}/{id}', 'Produk\ProdukController@detail')->name('inkubator.produk-detail');
 
 	Route::get('/aktifitas', 'Aktifitas\AktifitasController@index')->name('inkubator.aktifitas');
-	Route::get('/keuangan', 'Keuangan\KeuanganController@index')->name('inkubator.keuangan');
-	Route::get('/pencapaian', 'Pencapaian\PencapaianController@index')->name('inkubator.pencapaian');
+	Route::get('/arus-kas', 'Keuangan\KeuanganController@indexInkubatorKas')->name('inkubator.arus');
+	Route::get('/arus-kas/filter', 'Keuangan\KeuanganController@inkubatorFilterKas')->name('inkubator.filter-arus');
+	Route::get('/laba-rugi', 'Keuangan\KeuanganController@indexInkubatorLaba')->name('inkubator.laba');
+	Route::get('/laba-rugi/filter', 'Keuangan\KeuanganController@inkubatorFilterLaba')->name('inkubator.filter-laba');	Route::get('/pencapaian', 'Pencapaian\PencapaianController@index')->name('inkubator.pencapaian');
 	Route::get('/laporan', 'Laporan\LaporanController@index')->name('inkubator.laporan');
 	Route::get('/chat', 'Chat\ChatController@index')->name('inkubator.chat');
 	Route::get('/pesan', 'Pesan\PesanController@index')->name('inkubator.pesan');
 	Route::get('/profile', 'Profile\ProfileUserController@index')->name('inkubator.profile-auth');
-	Route::get('/profile/{id}', 'Profile\ProfileUserController@index')->name('inkubator.profile');
+	Route::get('/profile/{id}', 'Profile\ProfileUserController@indexprofil')->name('inkubator.profile');
 
 	//Route Produk Inkubator
 	Route::get('/produk', 'Produk\ProdukController@index')->name('inkubator.produk');
@@ -112,6 +119,10 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 	Route::get('/berita/create', 'Berita\BeritaController@create')->name('inkubator.formBerita');
 	Route::post('/berita/store', 'Berita\BeritaController@store')->name('inkubator.storeBerita');
 	Route::get('/berita/destroy/{berita}', 'Berita\BeritaController@destroy')->name('inkubator.destroyBerita');
+	Route::get('berita/edit/{id}','Berita\BeritaController@edit')->name('inkubator.editBerita');
+	Route::put('berita/update/{id}','Berita\BeritaController@update')->name('inkubator.updateBerita');
+	Route::get('/berita/{slug}', 'Berita\BeritaController@show')->name('inkubator.showBerita');
+	Route::post('/berita/komentar','Berita\BeritaController@komentar')->name('inkubator.komentarBerita');
 	Route::get('berita/edit/{id}', 'Berita\BeritaController@edit')->name('inkubator.editBerita');
 	Route::put('berita/update/{id}', 'Berita\BeritaController@update')->name('inkubator.updateBerita');
 	Route::get('/berita/{slug}', 'Berita\BeritaController@show')->name('inkubator.showBerita');
@@ -124,6 +135,11 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 	Route::post('/berita/comment', 'Berita\BeritaKomentarController@comment')->name('inkubator.berita.comment');
 	Route::get('/berita/destroy/{id}', 'Berita\BeritaKomentarController@destroy')->name('inkubator.berita.destroy');
 	Route::get('/berita/kategori/create', 'Berita\KategoriController@create')->name('inkubator.kategori.create');
+	Route::post('/berita/kategori/create','Berita\KategoriController@store');
+	Route::get('/berita/kategori/{kategori}/edit', 'Berita\KategoriController@edit')->name('inkubator.kategori.edit');
+	Route::patch('/berita/kategori/{kategori}/edit', 'Berita\KategoriController@update')->name('inkubator.kategori.update');
+	Route::get('/berita/kategori/{kategori}/delete', 'Berita\KategoriController@destroy')->name('inkubator.kategori.destroy');
+	Route::get('cariberita','Berita\BeritaController@search')->name('cariberita');
 	Route::post('/berita/kategori/create', 'Berita\KategoriController@store');
 	Route::get('/berita/kategori/{kategori}/edit', 'Berita\KategoriController@edit')->name('inkubator.kategori.edit');
 	Route::patch('/berita/kategori/{kategori}/edit', 'Berita\KategoriController@update')->name('inkubator.kategori.update');
@@ -139,6 +155,12 @@ Route::group(['prefix' => 'mentor', 'middleware' => ['role:mentor']], function (
 	Route::get('/mentor', 'Mentor\MentorController@index')->name('mentor.index');
 	Route::get('/profile', 'Profile\ProfileUserController@index')->name('mentor.profile-mentor');
 	Route::post('/profile/update', 'Profile\ProfileUserController@update')->name('mentor.profile-update');
+
+	// Route Keuangan Mentor
+	Route::get('/arus-kas', 'Keuangan\KeuanganController@indexMentorKas')->name('mentor.arus');
+	Route::get('/arus-kas/filter', 'Keuangan\KeuanganController@mentorFilterKas')->name('mentor.filter-arus');
+	Route::get('/laba-rugi', 'Keuangan\KeuanganController@indexMentorLaba')->name('mentor.laba');
+	Route::get('/laba-rugi/filter', 'Keuangan\KeuanganController@mentorFilterLaba')->name('mentor.filter-laba');
 
 	//Route produk mentor
 	Route::get('/produk', 'Produk\ProdukController@index')->name('mentor.produk');
@@ -168,6 +190,10 @@ Route::group(['prefix' => 'mentor', 'middleware' => ['role:mentor']], function (
 	Route::get('/pengumuman/search', 'Mentor\MentorController@search')->name('mentor.search');
 	Route::get('/pengumuman/{slug}', 'Mentor\MentorController@show')->name('mentor.slug');
 	Route::get('/kategori/{id}', 'Mentor\MentorController@kategori')->name('mentor.kategori-id');
+
+	//route fitur tenant
+	Route::get('/daftartenant', 'Mentor\MentorController@daftartenant')->name('mentor.daftartenant');
+	Route::get('/detail-tenant/{kategori}/{tenant}', 'Mentor\MentorController@detailtenant')->name('mentor.detailtenant');
 });
 
 Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function () {
@@ -176,7 +202,7 @@ Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function (
 
 	Route::get('/mentor', 'Mentor\MentorController@indexTenant')->name('tenant.mentor');
 	Route::get('/mentor/list', 'Mentor\MentorController@tampil')->name('tenant.mentor-list');
-	Route::get('mentor/profile/{id}', 'Profile\ProfileUserController@show')->name('tenant.profile-detail');
+	Route::get('/mentor/profile/{id}', 'Profile\ProfileUserController@show')->name('tenant.mentor-detail');
 
 	// route produk tenant
     Route::get('/produk', 'Produk\ProdukController@index')->name('tenant.produk');
@@ -215,7 +241,22 @@ Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function (
 	Route::get('/pengumuman/nontenant', 'Tenant\TenantController@tenant')->name('tenant.non-tenant');
 	Route::get('/pengumuman/search', 'Tenant\TenantController@search')->name('tenant.search');
 	Route::get('/pengumuman/{slug}', 'Tenant\TenantController@show')->name('tenant.show');
-    Route::get('/kategori/{id}', 'Tenant\TenantController@kategori')->name('tenant.kategori-id');
+	Route::get('/kategori/{id}', 'Tenant\TenantController@kategori')->name('tenant.kategori-id');
+
+	//Route Fitur Tenant
+	Route::post('/add-user', 'Profile\ProfileUserController@createuser')->name('tenant.add-user');
+	Route::post('/update', 'Tenant\TenantController@profil')->name('tenant.update-profil');
+	Route::get('/editprofil/{tenant}', 'Tenant\TenantController@editprofil')->name('tenant.edit-profil');
+	Route::patch('/update-tenant/{tenant}', 'Tenant\TenantController@updateprofil')->name('tenant.update-tenant');
+	Route::get('/profile/{id}', 'Profile\ProfileUserController@index')->name('tenant.profile-detail');
+	Route::get('/edit-user/{id}', 'Profile\ProfileUserController@edit')->name('tenant.edit-profile-user');
+	Route::patch('/update-profile/{id}', 'Profile\ProfileUserController@updateprofileuser')->name('tenant.update-profile-user');
+	Route::get('/hapus-user/{id}', 'Profile\ProfileUserController@destroy')->name('tenant.delete-user');
+	Route::get('/detail-tenant', 'Tenant\TenantController@detailtenant')->name('tenant.detail-tenant');
+	Route::get('/kategori/{id}', 'Tenant\TenantController@kategori')->name('tenant.kategori-id');
+	Route::post('/update-profile', 'Profile\ProfileUserController@addprofil')->name('tenant.add-profil');
+	  
+
 });
 
 Route::group(['prefix' => 'user', 'middleware' => ['role:user']], function () {

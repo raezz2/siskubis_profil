@@ -176,58 +176,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                            <!-- FORM UPDATE MENTOR-PROFILE -->
-                            <form action="{{ route('mentor.profile-update') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label" for="nama">Nama</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="nama" type="text" placeholder="Nama" name="nama" value="{{ old('nama') ?? $data->nama }}">
-                                        @error('nama')
-                                            {{ $message }}
-                                        @enderror
-                                    </div>
-                                </div>
-                                <fieldset class="form-group">
-                                    <div class="row">
-                                        <label class="col-sm-2 col-form-label" for="jenkel">Jenis Kelamin</label>
-                                        <div class="col-sm-10">
-                                            <div class="form-check form-check-inline">
-                                                <input name="jenkel" class="form-check-input" type="radio" id="inlineradio1" value="L" {{ $data->jenkel == "L" ? ' checked ' : '' }}>
-                                                <label class="form-check-label" for="inlineradio1">Laki-Laki</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                <input name="jenkel" class="form-check-input" type="radio" id="inlineradio2" value="P" {{ $data->jenkel == "P" ? ' checked ' : '' }}>
-                                                <label class="form-check-label" for="inlineradio2">Perempuan</label>
-                                                </div>
-                                                @error('jenkel')
-                                                {{ $message }}
-                                                @enderror
-                                        </div>
-                                    </div>
-                                </fieldset>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label" for="kontak">Kontak</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="kontak" type="text" placeholder="Kontak" name="kontak" value="{{ old('kontak') ?? $data->kontak }}">
-                                        @error('kontak')
-                                            {{ $message }}
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label" for="alamat">Alamat</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="alamat" type="text" placeholder="Alamat" name="alamat" value="{{ old('alamat') ?? $data->alamat }}">
-                                        @error('alamat')
-                                            {{ $message }}
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label" for="inputEmail3">NIK</label>
-@role('mentor')
+                        @role('mentor')
                         <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                             <!-- FORM UPDATE MENTOR-PROFILE -->
                             <form action="{{ route('mentor.profile-update') }}" method="POST" enctype="multipart/form-data">
@@ -269,6 +218,72 @@
                                         <input class="form-control" id="kontak" type="text" placeholder="Kontak" name="kontak" value="{{ old('kontak') ?? $data->kontak }}" required>
                                         @error('kontak')
                                             {{ $message }}
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="alamat">Alamat</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" id="alamat" type="text" placeholder="Alamat" name="alamat" value="{{ old('alamat') ?? $data->alamat }}" required>
+                                        @error('alamat')
+                                            <div class="text-danger mt-2">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="inputEmail3">NIK</label>
+@role('mentor')
+                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                            <!-- FORM UPDATE MENTOR-PROFILE -->
+                            <form action="{{ route('mentor.profile-update') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="nama">Nama</label>
+                                    <div class="col-sm-10">
+<<<<<<< HEAD
+                                        <input class="form-control" id="nama" type="text" placeholder="Nama" name="nama" value="{{ old('nama') ?? $data->nama }}" required>
+                                        @error('nama')
+                                            <div class="text-danger mt-2">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label" for="jenkel">Jenis Kelamin</label>
+                                        <div class="col-sm-10">
+                                            <div class="form-check form-check-inline">
+                                                <input name="jenkel" class="form-check-input" type="radio" id="inlineradio1" value="L" {{ $data->jenkel == "L" ? ' checked ' : '' }} required>
+                                                <label class="form-check-label" for="inlineradio1">Laki-Laki</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                <input name="jenkel" class="form-check-input" type="radio" id="inlineradio2" value="P" {{ $data->jenkel == "P" ? ' checked ' : '' }} required>
+                                                <label class="form-check-label" for="inlineradio2">Perempuan</label>
+                                                </div>
+                                                @error('jenkel')
+                                                <div class="text-danger mt-2">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label" for="kontak">Kontak</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" id="kontak" type="text" placeholder="Kontak" name="kontak" value="{{ old('kontak') ?? $data->kontak }}" required>
+                                        @error('kontak')
+                                            {{ $message }}
+=======
+                                        <input class="form-control" id="nik" type="text" placeholder="NIK" name="nik" value="{{ old('nik') ?? $data->nik }}" required>
+                                        @error('nik')
+                                            <div class="text-danger mt-2">
+                                                {{ $message }}
+                                            </div>
+>>>>>>> 9334f1026d6ecc429728de712268e86046d62fd9
                                         @enderror
                                     </div>
                                 </div>
@@ -343,6 +358,12 @@
     CKEDITOR.replace('deskripsi');
 </script>
 <script>
+
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+
     @if(Session::has('message'))
     var type = "{{ Session::get('alert-type', 'info') }}";
     switch(type){

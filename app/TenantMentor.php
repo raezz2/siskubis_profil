@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class TenantMentor extends Model
 {
     protected $table = 'tenant_mentor';
+
+    public function profiluser()
+    {
+        return $this->belongsTo( 'App\ProfilUser', 'profil_user');
+    }
+  
     protected $guarded = ['id'];
 
 
@@ -21,3 +27,4 @@ class TenantMentor extends Model
         return $this->belongsTo('App\Tenant');
     }
 }
+

@@ -15,7 +15,7 @@
 					<a href="#"><i class="i-Library"></i> Forum</a>
 					<a href="#"><i class="i-Speach-Bubble-3"></i> Chat</a>
 					<a href="#"><i class="i-Email"></i> Pesan</a>
-					<a href="#"><i class="i-Checked-User"></i> Profile</a><a href="{{ route('logout') }}"
+					<a href ="/" type="button" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="i-Checked-User"></i> Profile</a><a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"><i class="i-Ambulance"></i> Logout</a> </div>
 				</div>
