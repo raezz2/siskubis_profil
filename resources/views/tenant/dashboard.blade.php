@@ -101,11 +101,14 @@
 						<form action="{{route('tenant.update-profil')}}" method="POST" enctype="multipart/form-data">
 						@csrf
 							<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-4">
 								<div class="drop-zone">
 									<span class="drop-zone__prompt">Drop file here or click to upload</span>
 									<input type="file" name="file" id="exampleInputFile" for="exampleInputFile" class="drop-zone__input">
 								</div>
+							</div>
+							<div class="col-md-6">
+								<p style="color:red">Silahkan lengkapi profile tenant anda terlebih dahulu! untuk bisa menambahkan anggota dan tampilan detail tenant.</p>
 							</div>
 							</div>
 							<div class="row">
@@ -136,6 +139,10 @@
 								<div class="col-md-12 form-group mb-3">
 									<label for="phone">Bidang Usaha</label>
 									<input class="form-control" id="phone" placeholder="Masukan Bidang Usaha" required="required" name="bidang" />
+								</div>
+								<div class="col-md-12 form-group mb-3">
+									<label for="phone">Website</label>
+									<input class="form-control" id="phone" placeholder="Masukan Website" required="required" name="website" />
 								</div>
 								<div class="col-md-12 form-group mb-3">
 									<label for="phone">Deskripsi Singkat</label>

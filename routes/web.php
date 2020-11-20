@@ -48,6 +48,7 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 	//Route Fitur Tenant
 	Route::post('/tenant/tambahtenant', 'Tenant\TenantController@create')->name('tenant.add-tenant');
 	Route::get('/tenant-priority/{priority}', 'Tenant\TenantController@priority')->name('inkubator.tenant-priority');
+	Route::get('/profile-user/{id}', 'Profile\ProfileUserController@indexprofil')->name('profile-detail');
 
 	Route::get('/mentor', 'Mentor\MentorController@index')->name('inkubator.mentor');
 
@@ -194,6 +195,7 @@ Route::group(['prefix' => 'mentor', 'middleware' => ['role:mentor']], function (
 	//route fitur tenant
 	Route::get('/daftartenant', 'Mentor\MentorController@daftartenant')->name('mentor.daftartenant');
 	Route::get('/detail-tenant/{kategori}/{tenant}', 'Mentor\MentorController@detailtenant')->name('mentor.detailtenant');
+	Route::get('/profil/{id}', 'Profile\ProfileUserController@indexprofil')->name('mentor.profile-detail');
 });
 
 Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function () {
@@ -248,7 +250,7 @@ Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function (
 	Route::post('/update', 'Tenant\TenantController@profil')->name('tenant.update-profil');
 	Route::get('/editprofil/{tenant}', 'Tenant\TenantController@editprofil')->name('tenant.edit-profil');
 	Route::patch('/update-tenant/{tenant}', 'Tenant\TenantController@updateprofil')->name('tenant.update-tenant');
-	Route::get('/profile/{id}', 'Profile\ProfileUserController@index')->name('tenant.profile-detail');
+	Route::get('/profile/{id}', 'Profile\ProfileUserController@indexprofil')->name('tenant.profile-detail');
 	Route::get('/edit-user/{id}', 'Profile\ProfileUserController@edit')->name('tenant.edit-profile-user');
 	Route::patch('/update-profile/{id}', 'Profile\ProfileUserController@updateprofileuser')->name('tenant.update-profile-user');
 	Route::get('/hapus-user/{id}', 'Profile\ProfileUserController@destroy')->name('tenant.delete-user');

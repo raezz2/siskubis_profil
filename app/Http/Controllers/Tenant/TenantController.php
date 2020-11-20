@@ -16,6 +16,7 @@ use App\Pengumuman;
 use App\User;
 use App\RoleUser;
 use App\ProfilUser;
+use App\TenantGallery;
 use Session;
 
 use Spatie\QueryBuilder\QueryBuilder;
@@ -99,10 +100,18 @@ class TenantController extends Controller
     {
         $tenant = Tenant::findOrFail($id);
 
-        // return response()->json($tenant);
+        $tenantuser = TenantUser::where('tenant_id', $id)
+        ->leftJoin('profil_user',['profil_user.user_id'=>'tenant_user.user_id'])
+        ->get();
 
+        $gallery = TenantGallery::where('tenant_id', $id)->paginate(6);
+
+        
         $this->data['tenant'] = $tenant;
-
+        $this->data['tenantuser'] = $tenantuser;
+        $this->data['gallery'] = $gallery;
+        
+        // return response()->json($tenantuser);
 
         return view('tenant.'.$kategori, $this->data);
     }
@@ -222,6 +231,7 @@ class TenantController extends Controller
                 $tenantuser->slogan = $data['slogan'];
                 $tenantuser->alamat = $data['alamat'];
                 $tenantuser->kontak = $data['kontak'];
+                $tenantuser->website = $data['website'];
                 $tenantuser->jam_operasional = $data['operasional'];
                 $tenantuser->foto = $fileName;
                 $tenantuser->created_at = date('Y-m-d H:i:s');
@@ -312,6 +322,7 @@ class TenantController extends Controller
             'slogan' =>$request->slogan,
             'alamat' =>$request->alamat,
             'kontak' =>$request->kontak,
+            'website' =>$request->website,
             'jam_operasional' =>$request->operasional,
             'foto' => $fileName,
             'created_at'=>date('Y-m-d H:i:s'),
@@ -338,15 +349,34 @@ class TenantController extends Controller
 
         $check = TenantUser::where('user_id',Auth::user()->id)->get();
 
-        $priority = Priority::all();
+        if(count($check) > 0){
 
-        foreach($detailtenant as $dt){
-          $data = $dt;
+            foreach( $check as $ck){
+                
+                $profil= TenantUser::where('tenant_id', $ck->tenant_id )
+                ->Join('profil_user', ['profil_user.user_id'=>'tenant_user.user_id'])
+                ->get();
+
+                $this->data['profil']= $profil;
+    
+            }
         }
+        
+        $priority = Priority::all();
+        
+        if( count($detailtenant) > 0){
+            foreach($detailtenant as $dt){
+                $data = $dt;
+            }
+            
+            $gallery = TenantGallery::where('tenant_id', $dt->tenant_id)->paginate(6);
 
-        // return response()->json($data);
+            $this->data['data']= $data;
+            $this->data['gallery']= $gallery;
+        }
+        
+        // return response()->json($detailtenant);
 
-        $this->data['data']= $data;
         $this->data['priority']= $priority;
         $this->data['check']= $check;
         
