@@ -42,7 +42,7 @@
 					<div class="user-profile"><img class="profile-picture mb-2" src="{{ asset('img/mentor/profile/'.$data->foto)}}" alt="{{ $data->nama ?? '-'  }}" /></div>
 					<div class="ul-contact-page__info">
 						@role('inkubator')
-						<a href="{{route('inkubator.profile-detail',$data->uid)}}"><p class="m-0 text-24">{{$data->nama ?? $data->email}}</p></a>
+						<a href="{{route('inkubator.mentor-detail',$data->uid)}}"><p class="m-0 text-24">{{$data->nama ?? $data->email}}</p></a>
 						@endrole
 						@role('tenant')
 						<a href="{{route('tenant.mentor-detail',$data->uid)}}"><p class="m-0 text-24">{{$data->nama ?? $data->email}}</p></a>
