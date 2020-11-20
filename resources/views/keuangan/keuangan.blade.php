@@ -1,5 +1,3 @@
-@extends('layouts.app')
-@section('content')
 @if(session('success'))
 <div class="alert alert-success" role="alert">
     <strong>Berhasil!</strong> {{session('success')}}
@@ -60,177 +58,189 @@
         </div>
     </div>
 </div>
+<div class="card-body">
+		<ul class="nav nav-tabs profile-nav mb-4" id="profileTab" role="tablist">
+			<li class="nav-item"><a class="nav-link" id="arus-kas-tab" data-toggle="tab" href="#arus-kas" role="tab" aria-controls="arus-kas" aria-selected="false">Arus Kas</a></li>
+			<li class="nav-item"><a class="nav-link" id="laba-rugi-tab" data-toggle="tab" href="#laba-rugi" role="tab" aria-controls="laba-rugi" aria-selected="false">Laba Rugi</a></li>
+		</ul>
+        <div class="tab-content" id="profileTabContent">
+            <div class="tab-pane fade" id="arus-kas" role="tabpanel" aria-labelledby="arus-kas-tab">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="task-manager-list">
+                        <!--  content area -->
+                        <div class="content"> 
+                            <!--  task manager table -->
+                            <div class="card" id="card">
+                                <div class="card-header container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <h3>Arus Kas</h3>
+                                        </div>
+                                        <div class="col-md-0">
+                                            <a href="#"><button class="btn btn-primary custom-btn btn-sm ml-5" type="button" data-toggle="modal" data-target="#arusModal" name="create_record" id="create_record">Tambah Data</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="display table" id="ul-contact-list" style="width:100%">
+                                            <thead>
+                                            <tr>
+                                                <th width="20%">Tanggal</th>
+                                                <th width="15%">Keterangan</th>
+                                                <th width="15%">Pemasukan</th>
+                                                <th width="15%">Pengeluaran</th>
+                                                <th width="15%">Saldo</th>
+                                                <th width="10%">Bukti Transaksi</th>
+                                                <th width="10%">Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($keuangan as $k)
+                                                <tr>
+                                                    <td>{{ date('d F Y', strtotime($k->tanggal)) }}</td>
+                                                    <td>{{$k->keterangan}}</td> 
+                                                    <td>
+                                                    @if($k->jenis == 1)
+                                                    {{ "Rp " . number_format($k->jumlah,2,',','.') }}
+                                                    @endif
+                                                    </td> 
+                                                    <td>
+                                                    @if($k->jenis == 0)
+                                                    {{ "Rp " . number_format($k->jumlah,2,',','.') }}
+                                                    @endif
+                                                    </td>  
+                                                    @if($k->jenis == 1)
+                                                    <td>{{"Rp " . number_format($k->jumlah,2,',','.') }}</td>
+                                                    @else
+                                                    <td>{{"Rp " . "- " . number_format($k->jumlah,2,',','.') }}</td>
+                                                    @endif
+                                                    <td>
+                                                        <img src="{{ asset('img/keuangan/'. $k->foto ) }}" width="150" height="100" alt="">
+                                                    </td>
+                                                    <td>
+                                                        <a class="ul-link-action text-success" type="button" data-toggle="tooltip" href="{{ route('tenant.editArus-id', $k->id )}}" data-placement="top" title="Edit"><i class="i-Edit"></i>
+                                                        <a class="ul-link-action text-danger mr-1 delete" href="{{ route('tenant.hapusArus-id', $k->id) }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!">
+                                                        <i class="i-Eraser-2"></i></a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach       
+                                            </tbody>
+                                            <tfoot>
+                                            <tr>
+                                                <td colspan="2"><b><h5>Total</h5></b></td>
+                                                <td><b>{{"Rp " . number_format($total_masuk,2,',','.') }}</b></td>
+                                                <td><b>{{"Rp " . number_format($total_keluar,2,',','.') }}</b></td>
+                                                <td colspan="2"><b>{{"Rp " . number_format($total,2,',','.') }}</b></td>
+                                                <td></td>
+                                            </tr> 
 
-<div class="row">
-	<div class="col-md-12">
-        <div id="task-manager-list">
-            <!--  content area -->
-            <div class="content"> 
-                <!--  task manager table -->
-                <div class="card" id="card">
-                    <div class="card-header container-fluid">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <h3>Arus Kas</h3>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-0">
-                                <a href="#"><button class="btn btn-primary custom-btn btn-sm ml-5" type="button" data-toggle="modal" data-target="#arusModal" name="create_record" id="create_record">Tambah Data</button></a>
-                            </div>
+                            <!--  end of task manager table -->
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="display table" id="ul-contact-list" style="width:100%">
-                                <thead>
-                                <tr>
-                                    <th width="20%">Tanggal</th>
-                                    <th width="15%">Keterangan</th>
-                                    <th width="15%">Pemasukan</th>
-                                    <th width="15%">Pengeluaran</th>
-                                    <th width="15%">Saldo</th>
-                                    <th width="10%">Bukti Transaksi</th>
-                                    <th width="10%">Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($keuangan as $k)
-                                    <tr>
-                                        <td>{{ date('d F Y', strtotime($k->tanggal)) }}</td>
-                                        <td>{{$k->keterangan}}</td> 
-                                        <td>
-                                        @if($k->jenis == 1)
-                                        {{ "Rp " . number_format($k->jumlah,2,',','.') }}
-                                        @endif
-                                        </td> 
-                                        <td>
-                                        @if($k->jenis == 0)
-                                        {{ "Rp " . number_format($k->jumlah,2,',','.') }}
-                                        @endif
-                                        </td>  
-                                        @if($k->jenis == 1)
-                                        <td>{{"Rp " . number_format($k->jumlah,2,',','.') }}</td>
-                                        @else
-                                        <td>{{"Rp " . "- " . number_format($k->jumlah,2,',','.') }}</td>
-                                        @endif
-                                        <td>
-                                            <img src="{{ asset('img/keuangan/'. $k->foto ) }}" width="150" height="100" alt="">
-                                        </td>
-                                        <td>
-                                            <a class="ul-link-action text-success" type="button" data-toggle="tooltip" href="{{ route('tenant.editArus-id', $k->id )}}" data-placement="top" title="Edit"><i class="i-Edit"></i>
-                                            <a class="ul-link-action text-danger mr-1 delete" href="{{ route('tenant.hapusArus-id', $k->id) }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!">
-                                            <i class="i-Eraser-2"></i></a>
-                                        </td>
-                                    </tr>
-                                @endforeach       
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                    <td colspan="2"><b><h5>Total</h5></b></td>
-                                    <td><b>{{"Rp " . number_format($total_masuk,2,',','.') }}</b></td>
-                                    <td><b>{{"Rp " . number_format($total_keluar,2,',','.') }}</b></td>
-                                    <td colspan="2"><b>{{"Rp " . number_format($total,2,',','.') }}</b></td>
-                                    <td></td>
-                                </tr> 
-
-                                </tfoot>
-                            </table>
-                        </div>
+                        <!--  end of content area -->
                     </div>
                 </div>
-                <!--  end of task manager table -->
             </div>
-            <!--  end of content area -->
-        </div>
-    </div>
-    &nbsp
-    <div class="col-md-12">
-        <div id="task-manager-list">
-            <!--  content area -->
-            <div class="content"> 
-                <!--  task manager table -->
-                <div class="card" id="card">
-                    <div class="card-header container-fluid">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <h3>Laba Rugi</h3>
+            </div>
+            <div class="tab-pane fade" id="laba-rugi" role="tabpanel" aria-labelledby="laba-rugi-tab">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="task-manager-list">
+                        <!--  content area -->
+                        <div class="content"> 
+                            <!--  task manager table -->
+                            <div class="card" id="card">
+                                <div class="card-header container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <h3>Laba Rugi</h3>
+                                        </div>
+                                        <div class="col-md-0">
+                                            <a href="#"><button class="btn btn-primary custom-btn btn-sm ml-5" type="button" data-toggle="modal" data-target="#labaModal" name="create_record" id="create_record">Tambah Data</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="display table" id="ul-laba-list" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th width="20%">Tanggal</th>
+                                                    <th width="20%">Keterangan</th>
+                                                    <th width="20%">Pemasukan</th>
+                                                    <th width="20%">Pengeluaran</th>
+                                                    <th width="10%">Bukti Transaksi</th>
+                                                    <th width="10%">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($labaRugi as $b)
+                                                <tr>
+                                                    <td>
+                                                        {{ date('d F Y', strtotime($b->tanggal)) }}
+                                                    </td>
+                                                    <td>
+                                                        <p>{{ $b->keterangan }}</p>
+                                                    </td>
+                                                    <td>
+                                                        @if($b->jenis == 1)
+                                                        {{ "Rp " . number_format($b->jumlah,2,',','.') }}
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if($b->jenis == 0)
+                                                        {{ "Rp " . number_format($b->jumlah,2,',','.') }}
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <img src="{{ asset('img/keuangan/'. $b->foto ) }}" width="150" height="100" alt="">
+                                                    </td>
+                                                    <td>
+                                                        <a class="ul-link-action text-success" type="button" data-toggle="tooltip" href="{{ route('tenant.editLaba-id', $b->id) }}" data-placement="top" title="Edit"><i class="i-Edit"></i>
+                                                            <a class="ul-link-action text-danger mr-1 delete" href="{{ route('tenant.hapusLaba-id', $b->id) }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!">
+                                                                <i class="i-Eraser-2"></i></a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach       
+                                            </tbody>
+                                            <tfoot>
+                                            <tr>
+                                                <td colspan="2"><b>
+                                                        <h5>Jumlah Beban Usaha</h5>
+                                                    </b></td>
+                                                <td><b>{{"Rp " . number_format($masuk_labaRugi,2,',','.') }}</b></td>
+                                                <td><b>{{"Rp " . number_format($keluar_labaRugi,2,',','.') }}</b></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">
+                                                    <h5>Laba Bersih</h5>
+                                                </td>
+                                                <td><b>{{"Rp " . number_format($totalLaba,2,',','.') }}</b></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-0">
-                                <a href="#"><button class="btn btn-primary custom-btn btn-sm ml-5" type="button" data-toggle="modal" data-target="#labaModal" name="create_record" id="create_record">Tambah Data</button></a>
-                            </div>
+                            <!--  end of task manager table -->
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="display table" id="ul-laba-list" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th width="20%">Tanggal</th>
-                                        <th width="20%">Keterangan</th>
-                                        <th width="20%">Pemasukan</th>
-                                        <th width="20%">Pengeluaran</th>
-                                        <th width="10%">Bukti Transaksi</th>
-                                        <th width="10%">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($labaRugi as $b)
-                                    <tr>
-                                        <td>
-                                            {{ date('d F Y', strtotime($b->tanggal)) }}
-                                        </td>
-                                        <td>
-                                            <p>{{ $b->keterangan }}</p>
-                                        </td>
-                                        <td>
-                                            @if($b->jenis == 1)
-                                            {{ "Rp " . number_format($b->jumlah,2,',','.') }}
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if($b->jenis == 0)
-                                            {{ "Rp " . number_format($b->jumlah,2,',','.') }}
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <img src="{{ asset('img/keuangan/'. $b->foto ) }}" width="150" height="100" alt="">
-                                        </td>
-                                        <td>
-                                            <a class="ul-link-action text-success" type="button" data-toggle="tooltip" href="{{ route('tenant.editLaba-id', $b->id) }}" data-placement="top" title="Edit"><i class="i-Edit"></i>
-                                                <a class="ul-link-action text-danger mr-1 delete" href="{{ route('tenant.hapusLaba-id', $b->id) }}" data-toggle="tooltip" data-placement="top" title="Want To Delete !!!">
-                                                    <i class="i-Eraser-2"></i></a>
-                                        </td>
-                                    </tr>
-                                @endforeach       
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                    <td colspan="2"><b>
-                                            <h5>Jumlah</h5>
-                                        </b></td>
-                                    <td><b>{{"Rp " . number_format($masuk_labaRugi,2,',','.') }}</b></td>
-                                    <td><b>{{"Rp " . number_format($keluar_labaRugi,2,',','.') }}</b></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3">
-                                        <h5>Laba Bersih</h5>
-                                    </td>
-                                    <td><b>{{"Rp " . number_format($totalLaba,2,',','.') }}</b></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                </tfoot>
-                            </table>
-                        </div>
+                        <!--  end of content area -->
                     </div>
                 </div>
-                <!--  end of task manager table -->
             </div>
-            <!--  end of content area -->
         </div>
-    </div>
 </div>
+    &nbsp
 <!-- MODAL -->
 <!-- FORM INPUT ARUS KAS -->
 <div class="modal fade" id="arusModal" tabindex="-1" role="dialog" aria-labelledby="arusModalLabel" aria-hidden="true">
@@ -399,7 +409,6 @@
         </div>
     </div>
 </div>
-@endsection
 @section('css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha256-siyOpF/pBWUPgIcQi17TLBkjvNgNQArcmwJB8YvkAgg=" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -512,7 +521,7 @@
             // verticalAlign: 'top',
             // layout: 'vertical',
             x: 'right',
-            data: ['Arus Kas Masuk', 'Arus Kas Keluar', 'Penghasilan', 'Beban Usaha', 'Laba Bersih']
+            data: ['Arus Kas Masuk', 'Arus Kas Keluar','Penghasilan', 'Beban Usaha', 'Laba Bersih']
         },
         title: {
             text: 'Arus Kas & Laba Rugi'
@@ -562,7 +571,7 @@
                 color: '#0168c1'
             },
             barGap: 0,
-            color: '#1E90FF',
+            color: '#bcbbdd',
             smooth: true,
             itemStyle: {
                 emphasis: {

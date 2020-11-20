@@ -55,16 +55,6 @@
                                     </li>
                                 </ul>
                             </li>
-                            <!--  <p class="main-menu-title text-muted ml-3 font-weight-700 text-13 mt-4 mb-2">UI Elements</p> -->
-                            <li class="Ul_li--hover"><a class="has-arrow" href="#"><i class="i-Computer-Secure text-20 mr-2 text-muted"></i><span class="item-name text-15 text-muted">Keuangan</span></a>
-                                <ul class="mm-collapse">
-                                    <li class="item-name"><a href="widget-card.html"><i class="nav-icon i-Receipt-4"></i><span class="item-name">widget card</span></a></li>
-                                    <li class="item-name"><a href="widgets-statistics.html"><i class="nav-icon i-Receipt-4"></i><span class="item-name">widget statistics</span></a></li>
-                                    <li class="item-name"><a href="widget-list.html"><i class="nav-icon i-Receipt-4"></i><span class="item-name">Widget List</span></a></li>
-                                    <li class="item-name"><a href="widget-app.html"><i class="nav-icon i-Receipt-4"></i><span class="item-name">Widget App </span></a></li>
-                                    <li class="item-name"><a href="weather-card.html"><i class="nav-icon i-Receipt-4"></i><span class="item-name">Weather App </span></a></li>
-                                </ul>
-                            </li>
 
                             <li class="Ul_li--hover"><a class="has-arrow" href="#"><i class="i-File-Clipboard-File--Text text-20 mr-2 text-muted"></i><span class="item-name text-15 text-muted">Produksi</span></a>
                                 <ul class="mm-collapse">

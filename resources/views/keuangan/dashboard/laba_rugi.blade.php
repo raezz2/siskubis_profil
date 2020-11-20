@@ -5,9 +5,9 @@
     <div class="col-lg-4 col-md-6 col-sm-6">
         <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
             <div class="card-body text-center"><i class="i-Add-User"></i>
-                <div class="content">
-                    <p class="text-muted">Penghasilan</p>
-                    <p class="text-primary">{{"Rp " . number_format($masuk_labaRugi,2,',','.') }}</p>
+                <div class="col-md-12">
+                <h5><b><p class="text-important">Penghasilan</p></b></h5>
+                    <p class="text-important">{{"Rp " . number_format($masuk_labaRugi,2,',','.') }}</p>
                 </div>
             </div>
         </div>
@@ -15,9 +15,9 @@
     <div class="col-lg-4 col-md-6 col-sm-6">
         <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
             <div class="card-body text-center"><i class="i-Financial"></i>
-                <div class="content">
-                    <p class="text-muted">Beban</p>
-                    <p class="text-primary">{{"Rp ". number_format($keluar_labaRugi,2,',','.') }}</p>
+                <div class="col-md-12">
+                <h5><b><p class="text-important">Beban</p></b></h5>
+                    <p class="text-important">{{"Rp ". number_format($keluar_labaRugi,2,',','.') }}</p>
                 </div>
             </div>
         </div>
@@ -25,9 +25,9 @@
     <div class="col-lg-4 col-md-6 col-sm-6">
         <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
             <div class="card-body text-center"><i class="i-Money-2"></i>
-                <div class="content">
-                    <p class="text-muted">Laba Bersih</p>
-                    <p class="text-primary">{{"Rp " . number_format($laba_bersih,2,',','.') }}</p>
+            <div class="col-md-12">
+                <h5><b><p class="text-important">Laba Bersih Akhir</p></b></h5>
+                    <p class="text-important">{{"Rp " . number_format($laba_bersih,2,',','.') }}</p>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
     <div class="col-lg-12 col-md-12">
         <div class="card mb-4">
             <div class="card-body">
-                <div class="card-title">Grafik Keuangan Seluruh Tenant</div>
+                <!-- <div class="card-title">Grafik Keuangan Seluruh Tenant</div> -->
                 <div id="chartKeuangan" style="height: 300px;"></div>
             </div>
         </div>
@@ -52,19 +52,15 @@
 			<div class="card-header container-fluid">
 			  <div class="row">
 				<div class="col">
-				  <h3>Filter</h3>
+				  <h4>Filter</h4>
 				</div>
 			  </div>
             </div>
-			<div class="card-body">
+            <div class="card-body">
                 <div class="form-group">
-                @role(['inkubator'])
-                <form action="{{ route('inkubator.filter-laba') }}" method="GET" class="form-group">
-                @endrole
-                @role(['mentor'])
-                <form action="{{ route('mentor.filter-laba') }}" method="GET" class="form-group">
-                @endrole
-                    <select style="cursor:pointer;margin-top:1.5em;margin-bottom:1.5em;" class="form-control" id="tag_select" name="month">
+                <label for="tenant">Filter Bulan</label>
+                    <!-- <input type="month" class="form-control" id="tag_select" name="month"/> -->
+                    <select style="cursor:pointer;margin-bottom:1.5em;" class="form-control" id="tag_select" name="month">
                         <option value="0" selected disabled> Pilih Bulan</option>
                         <option value="01"> Januari</option>
                         <option value="02"> Februari</option>
@@ -79,7 +75,10 @@
                         <option value="11"> November</option>
                         <option value="12"> Desember</option>
                     </select>
-                    <select style="cursor:pointer;" class="form-control" id="tag_select" name="year">
+                </div>
+                <div class="form-group">
+                <label for="tenant">Filter Tehun</label>
+                    <select style="cursor:pointer;margin-bottom:1.5em;" class="form-control" id="tag_select" name="year">
                         <option value="0" selected disabled> Pilih Tahun</option>
                         <?php 
                         $year = date('Y');
@@ -90,7 +89,9 @@
                         }
                         ?>
                     </select>
-                    <label for="tenant">Tenant</label>
+                </div>
+                <div class="form-group">
+                    <label for="tenant">Filter Tenant</label>
                     @foreach ($tenant as $item)
                         <label class="checkbox checkbox-success">
                             <input type="checkbox" name="tenant" value="{{ $item->id }}"
@@ -99,10 +100,11 @@
                                 @endif/><span>{{ $item->title }}</span><span class="checkmark"></span>
                         </label>
                     @endforeach
-                    <input class="btn btn-primary" name="submit" type="submit" value="Filter"/>
-                </form>
                 </div>
-            </div>
+                <div class="form-group">
+                    <button id="filter" class="btn btn-primary">Filter</button>
+                </div>
+            </div>        
         </div>
         @endrole
 	</div>
@@ -119,9 +121,9 @@
                                     <tr>
                                         <th width="20%">Tanggal</th>
                                         <th width="20%">Keterangan</th>
-                                        <th width="30%">Pemasukan</th>
-                                        <th width="30%">Pengeluaran</th>
-                                        <th width="10%">Tanda Bukti</th>
+                                        <th width="30%">Penghasilan</th>
+                                        <th width="30%">Beban Usaha</th>
+                                        <!-- <th width="10%">Tanda Bukti</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -143,9 +145,9 @@
                                             {{ "Rp " . number_format($b->jumlah,2,',','.') }}
                                             @endif
                                         </td>
-                                        <td>
+                                        <!-- <td>
                                             <img src="{{ asset('img/keuangan/'. $b->foto ) }}" width="150" height="100" alt="">
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 @endforeach       
                                 </tbody>
@@ -156,7 +158,7 @@
                                             </b></td>
                                         <td><b>{{"Rp " . number_format($masuk_labaRugi,2,',','.') }}</b></td>
                                         <td><b>{{"Rp " . number_format($keluar_labaRugi,2,',','.') }}</b></td>
-                                        <td></td>
+                                        <!-- <td></td> -->
                                     </tr>
                                     <tr>
                                         <td colspan="3">
@@ -165,7 +167,7 @@
                                         </b>
                                         </td>
                                         <td><b>{{"Rp " . number_format($totalLaba,2,',','.') }}</b></td>
-                                        <td></td>
+                                        <!-- <td></td> -->
                                     </tr>
                                 </tfoot>
                             </table>
@@ -217,6 +219,11 @@
   }
   .image-preview-input-title {
     margin-left:2px;
+  }
+  .laba{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
   }
 </style>
 @endsection
@@ -289,10 +296,18 @@
 
     function filterResults () {
         let tenantIds = getIds("tenant");
-        let href = 'labaRugi?';
+        let bulan = $('select[name="month"]').val();
+        let tahun = $('select[name="year"]').val();
+        let href = 'laba-rugi?';
 
         if(tenantIds.length) {
             href += 'filter[tenant]=' + tenantIds;
+        }
+        if(bulan !== null) {
+            href += '&filter[bulan]=' + bulan;
+        }
+        if(tahun !== null) {
+            href += '&filter[tahun]=' + tahun;
         }
         console.log(href);
 
@@ -314,6 +329,7 @@
 <script>
         var labaMasuk = <?php echo json_encode($labaMasuk)?>;
         var labaKeluar = <?php echo json_encode($labaKeluar)?>;
+        var totalLabaBersih = <?php echo json_encode($totalLabaBersih)?>;
         Highcharts.chart('chartKeuangan', {
             chart: {
                 type: 'column'
@@ -325,10 +341,10 @@
 			},
             title: {
                 @role('mentor')
-                text: 'Grafik Keuangan Tenant yang dibimbing'
+                text: 'Grafik Laba Rugi Tenant yang dibimbing'
                 @endrole
                 @role('inkubator')
-                text: 'Grafik Keuangan Seluruh Tenant'
+                text: 'Grafik Laba Rugi Seluruh Tenant'
                 @endrole
             },
 			grid: {
@@ -358,7 +374,7 @@
 					color: '#0168c1'
 				},
 				barGap: 0,
-				color: '#7569b3',
+				color: '#9400D3',
 				smooth: true,
 				itemStyle: {
 					emphasis: {
@@ -369,14 +385,32 @@
 					}
                 }
             },{
-				name: 'Beban',
+				name: 'Beban Usaha',
 				data: labaKeluar,
 				label: {
 					show: false,
 					color: '#0168c1'
 				},
 				barGap: 0,
-				color: '#bcbbdd',
+				color: '#8B008B',
+				smooth: true,
+				itemStyle: {
+					emphasis: {
+						shadowBlur: 10,
+						shadowOffsetX: 0,
+						shadowOffsetY: -2,
+						shadowColor: 'rgba(0, 0, 0, 0.3)'
+					}
+				}
+			},{
+				name: 'Laba Bersih',
+				data: totalLabaBersih,
+				label: {
+					show: false,
+					color: '#0168c1'
+				},
+				barGap: 0,
+				color: '#4B0082',
 				smooth: true,
 				itemStyle: {
 					emphasis: {

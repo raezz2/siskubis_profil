@@ -30,6 +30,7 @@
 					<li class="nav-item"><a class="nav-link" id="friends-tab" data-toggle="tab" href="#friends" role="tab" aria-controls="friends" aria-selected="false">Friends</a></li>
 					<li class="nav-item"><a class="nav-link" id="photos-tab" data-toggle="tab" href="#photos" role="tab" aria-controls="photos" aria-selected="false">Photos</a></li>
 					<li class="nav-item"><a class="nav-link delete" id="profil" tenant-id="{{$data->id}}" data-toggle="tab" href="" role="tab" aria-controls="profil" aria-selected="false"><i id="profil" tenant-id="{{$data->id}}" class="delete" ></i>Edit Profil</a></li>
+          			<li class="nav-item"><a class="nav-link" id="keuangan-tab" data-toggle="tab" href="#keuangan" role="tab" aria-controls="keuangan" aria-selected="false">Keuangan</a></li>
 				</ul>
 				<div class="tab-content" id="profileTabContent">
 					<div class="tab-pane fade" id="timeline" role="tabpanel" aria-labelledby="about-tab">
@@ -325,8 +326,13 @@
 					</div>
 				</div>
 			</div>
+			<div class="tab-pane fade" id="keuangan" role="tabpanel" aria-labelledby="keuangan-tab">
+					@include('keuangan.keuangan')
+			</div>
 		</div>
 	</div>
+</div><!-- end of main-content -->
+
 <!-- end::modal add profil-->
 @endif
 
@@ -352,3 +358,4 @@ $('#profil').click(function(){
 });
 </script>
 @endsection
+
