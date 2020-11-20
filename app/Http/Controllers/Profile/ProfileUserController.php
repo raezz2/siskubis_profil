@@ -24,9 +24,10 @@ class ProfileUserController extends Controller
     /**
      * Menampilan data profile user yang sedang login
      */
-	 
+
     public function indexprofil($id)
     {
+
         $check = TenantUser::where('user_id',Auth::user()->id)->get();
 
         $data=User::where(['users.inkubator_id'=>Auth::user()->inkubator_id,'users.id'=>$id])
@@ -48,21 +49,22 @@ class ProfileUserController extends Controller
 
         // return response()->json($data);
         return view('profile.profile',$this->data);
+
         // return $data;
     }
 
     public function edit($id)
     {
-        $check = TenantUser::where('user_id',Auth::user()->id)->get();
+        $check = TenantUser::where('user_id', Auth::user()->id)->get();
 
-        $data = User::where(['users.inkubator_id'=>Auth::user()->inkubator_id,'users.id'=>$id])
-        ->join('role_user',['users.id'=>'role_user.user_id'])
-        ->leftJoin('profil_user',['users.id'=>'profil_user.user_id'])
-        ->select('users.id as uid','profil_user.*','users.email')
-        ->first();
+        $data = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'users.id' => $id])
+            ->join('role_user', ['users.id' => 'role_user.user_id'])
+            ->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])
+            ->select('users.id as uid', 'profil_user.*', 'users.email')
+            ->first();
 
-        $this->data['data']= $data;
-        $this->data['check']= $check;
+        $this->data['data'] = $data;
+        $this->data['check'] = $check;
 
         // return response()->json($data);
         return view('tenant.editprofiluser', $this->data);
@@ -71,7 +73,7 @@ class ProfileUserController extends Controller
     public function index()
     {
         if (request()->user()->hasRole(['mentor'])) {
-            $data['data'] = User::where(['users.id' => Auth::user()->id])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid','users.email as email', 'profil_user.*')->first();
+            $data['data'] = User::where(['users.id' => Auth::user()->id])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'users.email as email', 'profil_user.*')->first();
             if (!$data['data']->id) {
                 request()->session()->now('message', 'Tolong lengkapi data profil anda');
                 request()->session()->now('alert-type', 'warning');
@@ -99,6 +101,7 @@ class ProfileUserController extends Controller
 
             $this->data['data']= $data;
             $this->data['tenant']= $tenant;
+
         }
 
         return view('profile.profile', $this->data);
@@ -117,14 +120,14 @@ class ProfileUserController extends Controller
 
         if ($request->has('file')) {
             $file = $request->file('file');
-            $fileName = time(). '_'. $file->getClientOriginalName();
- 
+            $fileName = time() . '_' . $file->getClientOriginalName();
+
             $file->move('theme/images/faces', $fileName);
-         }
+        }
 
         $tenant = TenantUser::where('user_id', Auth::user()->id)->get();
 
-        foreach( $tenant as $tenant){
+        foreach ($tenant as $tenant) {
             $tenantid = $tenant->tenant_id;
         }
 
@@ -142,7 +145,7 @@ class ProfileUserController extends Controller
         $roleuser->user_id = $user->id;
         $roleuser->role_id = 2;
         $roleuser->save();
-        
+
         $tenanuser = new TenantUser;
         $tenanuser->user_id = $user->id;
         $tenanuser->tenant_id = $tenantid;
@@ -176,14 +179,21 @@ class ProfileUserController extends Controller
     {
         $profil = ProfilUser::where('user_id', Auth::user()->id)->first();
         $tujuan_upload = 'img/mentor/profile/';
-
-        if ($profil->foto) {
-            \File::delete($tujuan_upload . $profil->foto);
-        }
-        
-        $file = $request->foto;
-        $filename = time() . \Str::slug($request->get('nama')) . '.' . $file->getClientOriginalExtension();
-        $file->move($tujuan_upload, $filename);
+        if ($profil) {
+            // jika sudah ada data foto pengguna dan ingin menggantinya
+            if ($profil->foto && $request->file('foto')) {
+                \File::delete($tujuan_upload . $profil->foto);
+                $file = $request->foto;
+                $filename = time() . \Str::slug($request->get('nama')) . '.' . $file->getClientOriginalExtension();
+                $file->move($tujuan_upload, $filename);
+            } else {
+                $filename = $profil->foto;
+            }
+        } else {
+            $file = $request->foto;
+            $filename = time() . \Str::slug($request->get('nama')) . '.' . $file->getClientOriginalExtension();
+            $file->move($tujuan_upload, $filename);
+        } 
 
         ProfilUser::updateOrCreate(
             ['user_id'  =>  Auth::user()->id],
@@ -211,10 +221,10 @@ class ProfileUserController extends Controller
 
         if ($request->has('file')) {
             $file = $request->file('file');
-            $fileName = time(). '_'. $file->getClientOriginalName();
- 
+            $fileName = time() . '_' . $file->getClientOriginalName();
+
             $file->move('theme/images/faces', $fileName);
-         }
+        }
 
         $profiluser = new ProfilUser;
         $profiluser->user_id = Auth::user()->id;
@@ -235,8 +245,6 @@ class ProfileUserController extends Controller
 
         // return response()->json($request);
         return redirect('/tenant');
-
-
     }
 
     public function updateprofileuser(Request $request, $id)
@@ -249,23 +257,23 @@ class ProfileUserController extends Controller
 
         if ($request->has('file')) {
             $file = $request->file('file');
-            $fileName = time(). '_'. $file->getClientOriginalName();
- 
+            $fileName = time() . '_' . $file->getClientOriginalName();
+
             $file->move('theme/images/faces', $fileName);
-            File::delete('theme/images/faces'. $profil->foto);
-         }
+            File::delete('theme/images/faces' . $profil->foto);
+        }
 
         ProfilUser::where('id', $profil->id)
-        ->update([
-        'user_id' => $userID,
-        'nama' => $request->nama,
-        'kontak' => $request->kontak,
-        'alamat' => $request->alamat,
-        'nik' => $request->nik,
-        'deskripsi' => $request->deskripsi,
-        'foto' => $fileName,
-        'jenkel' => $request->jenkel,
-        ]);
+            ->update([
+                'user_id' => $userID,
+                'nama' => $request->nama,
+                'kontak' => $request->kontak,
+                'alamat' => $request->alamat,
+                'nik' => $request->nik,
+                'deskripsi' => $request->deskripsi,
+                'foto' => $fileName,
+                'jenkel' => $request->jenkel,
+            ]);
 
         // $this->data['data']= $data;
         // $this->data['fileName']= $fileName;
@@ -282,23 +290,20 @@ class ProfileUserController extends Controller
 
     public function destroy($id)
     {
-        if ( $id == Auth::user()->id) {
-            
-            return back()->with( Session::flash('error', 'User gagal dihapus'));
-        }
-        else {
+        if ($id == Auth::user()->id) {
+
+            return back()->with(Session::flash('error', 'User gagal dihapus'));
+        } else {
 
             $user  = User::findOrFail($id);
             $user->TenantUser()->detach();
             $user->ProfilUser()->detach();
-    
+
             if ($user->delete()) {
                 Session::flash('success', 'User berhasil dihapus');
             }
 
             return back();
         }
-
     }
-
 }

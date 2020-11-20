@@ -204,7 +204,7 @@ Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function (
 
 	Route::get('/mentor', 'Mentor\MentorController@indexTenant')->name('tenant.mentor');
 	Route::get('/mentor/list', 'Mentor\MentorController@tampil')->name('tenant.mentor-list');
-	Route::get('mentor/profile/{id}', 'Profile\ProfileUserController@show')->name('tenant.profile-detail');
+	Route::get('/mentor/profile/{id}', 'Profile\ProfileUserController@show')->name('tenant.mentor-detail');
 
 	// route produk tenant
     Route::get('/produk', 'Produk\ProdukController@index')->name('tenant.produk');

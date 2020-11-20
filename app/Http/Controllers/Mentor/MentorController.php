@@ -33,7 +33,7 @@ class MentorController extends Controller
      */
     public function index()
     {
-        $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'role_user.role_id' => 4])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid','users.email as email',  'profil_user.*')->get();
+        $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'role_user.role_id' => 4])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'users.email as email',  'profil_user.*')->get();
         // $data['data'] = User::with('profile')->where(['users.inkubator_id' => Auth::user()->inkubator_id])
         //     ->whereHas('roles', function ($q) {
         //         $q->where('name', 'Mentor');
@@ -46,7 +46,7 @@ class MentorController extends Controller
     {
         $mentor = TenantMentor::where('tenant_id', Auth::user()->tenantId())->get('user_id');
         // $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id])->whereIn('id', $mentor)->get();
-        $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id])->whereIn('users.id', $mentor)->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid','users.email as email',  'profil_user.*')->get();
+        $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id])->whereIn('users.id', $mentor)->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'users.email as email',  'profil_user.*')->get();
         return view('mentor.index', $data);
     }
 
@@ -64,10 +64,11 @@ class MentorController extends Controller
     public function tampil(Request $request)
     {
         if ($request->user()->hasRole('inkubator')) {
-            $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'role_user.role_id' => 4])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid','users.email as email', 'profil_user.*')->get();
+            $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id, 'role_user.role_id' => 4])->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'users.email as email', 'profil_user.*')->get();
+            $data['tenant'] = Tenant::where(['inkubator_id' => Auth::user()->inkubator_id])->get();
         } elseif ($request->user()->hasRole('tenant')) {
             $mentor = TenantMentor::where('tenant_id', Auth::user()->tenantId())->get('user_id');
-            $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id])->whereIn('users.id', $mentor)->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid','users.email as email',  'profil_user.*')->get();
+            $data['data'] = User::where(['users.inkubator_id' => Auth::user()->inkubator_id])->whereIn('users.id', $mentor)->join('role_user', ['users.id' => 'role_user.user_id'])->leftJoin('profil_user', ['users.id' => 'profil_user.user_id'])->select('users.id as uid', 'users.email as email',  'profil_user.*')->get();
         }
         return view('mentor.mentor-list', $data);
     }
@@ -157,13 +158,13 @@ class MentorController extends Controller
         ->get();
 
 
-        $user = Tenant::where('inkubator_id',Auth::user()->inkubator_id)
-        ->leftJoin('tenant_user',['tenant.id'=>'tenant_user.tenant_id'])
-        ->Join('profil_user',['profil_user.user_id'=>'tenant_user.user_id'])
-        ->select('profil_user.*', 'tenant_user.tenant_id')
-        ->get();
+        $user = Tenant::where('inkubator_id', Auth::user()->inkubator_id)
+            ->leftJoin('tenant_user', ['tenant.id' => 'tenant_user.tenant_id'])
+            ->Join('profil_user', ['profil_user.user_id' => 'tenant_user.user_id'])
+            ->select('profil_user.*', 'tenant_user.tenant_id')
+            ->get();
 
-        
+
 
         $priority = DB::table('priority')->get();
 
@@ -175,10 +176,11 @@ class MentorController extends Controller
         $this->data['exp'] = $exp;
         $this->data['priority'] = $priority;
         
+
         return view('mentor.daftartenant', $this->data);
     }
 
-    public function detailtenant( $kategori, $id)
+    public function detailtenant($kategori, $id)
     {
         $tenant = Tenant::findOrFail($id);
 
@@ -196,6 +198,6 @@ class MentorController extends Controller
         // return response()->json($tenantuser);
 
 
-        return view('tenant.'.$kategori, $this->data);
+        return view('tenant.' . $kategori, $this->data);
     }
 }
