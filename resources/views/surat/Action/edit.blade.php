@@ -33,7 +33,6 @@
                   @endrole
                     @method('patch')
                     {{ csrf_field() }}
-                    @include('layouts.alert', ['$errors' => $errors])
                     <div class="row">
                       <div class="col-sm-6">
                         <div class="form-group">
