@@ -558,7 +558,10 @@
 												<div class="card-body">
 													<div class="ul-product-detail__border-box">
 														<h5 class="heading">{{ $row->profil_user->nama ?? 'tidak ada data'}}</h5>
-														<p class="text-muted text-12">{{ $row->profil_user->deskripsi ?? 'tidak ada data'}}</p>
+														<h6 class="">
+															{{ $row->jabatan ?? 'tidak ada data'}} - <b class="font-weight-bold">{{ $row->divisi }}</b>
+														</h6>
+														<p>{{ $row->tugas }}</p>
 													</div>
 												</div>
 											</div>

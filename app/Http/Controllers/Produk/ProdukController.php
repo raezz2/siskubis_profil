@@ -88,7 +88,7 @@ class ProdukController extends Controller
         return view('produk.index', compact('produk','priority','title'));
     }
 
-	public function show($id)
+    public function show($id)
     {
         $produk         = Produk::find($id);
         $produk         = Produk::with(['tenant','priority','produk_bisnis','produk_canvas','produk_ijin','produk_image','produk_ki','produk_riset','produk_sertifikasi'])->where('id', $id)->first();
@@ -194,8 +194,9 @@ class ProdukController extends Controller
             $produks_id = $produk_id->id + 1;
             //$id = $produks_id + 1;
             //return $produks_id;
-            $tenant = TenantUser::where('user_id', $request->user()->id)->first();
+            $tenant = TenantUser::with('tenants')->where('user_id', $request->user()->id)->first();
             $tenant_id=$tenant->tenant_id;
+            $priority_tenant=$tenant->tenants->priority;
             $pd_image = $produks_id;
             $pd_team = $produks_id;
 
@@ -224,7 +225,7 @@ class ProdukController extends Controller
                 'id'                    => $produks_id,
                 'tenant_id'             => $tenant_id,
                 'inventor_id'           => 0,
-                'priority_id'           => 3,
+                'priority_id'           => $priority_tenant,
                 'title'                 => $request->title,
                 'subtitle'              => $request->subtitle,
                 'harga_pokok'           => $request->harga_pokok,
@@ -430,8 +431,9 @@ class ProdukController extends Controller
     public function edit($id)
     {
         $produk = Produk::find($id);
+        $user_id = ProfilUser::orderBy('nama')->get();
 
-        return $produk;
+        return view('produk.formedit', compact('produk','user_id'));
     }
 
     public function update($id, Request $request)

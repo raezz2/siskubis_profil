@@ -16,7 +16,7 @@
                             <label for="profil_id">Nama</label>
                             <select type="text" class="form-control" name="profil_id">
                                 @foreach ($user_id as $item)
-                                <option value="{{ $item->user_id }}">{{ $item->nama }}</option>
+                                    <option value="{{ $item->user_id }}">{{ $item->nama }}</option>
                                 @endforeach
                             </select>
                             <input type="hidden" name="produk_id" value="{{ $produk->id }}">
