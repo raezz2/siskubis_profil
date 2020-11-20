@@ -55,7 +55,7 @@ Route::group(['prefix' => 'inkubator', 'middleware' => ['role:inkubator']], func
 	Route::get('/mentor/list', 'Mentor\MentorController@tampil')->name('inkubator.mentor-list');
 	Route::post('/mentor/tambah', 'Mentor\MentorController@create')->name('inkubator.mentor.tenant');
 	Route::post('/mentor/store', 'Inkubator\RegisterMentorController@create')->name('inkubator.regis');
-	Route::get('/mentor/profile/{id}', 'Profile\ProfileUserController@show')->name('inkubator.profile-detail');
+	Route::get('/mentor/profile/{id}', 'Profile\ProfileUserController@showMentorDetail')->name('inkubator.mentor-detail');
 	Route::get('/produk', 'Produk\ProdukController@index')->name('inkubator.produk');
 	Route::get('/produk/{kategori}', 'Produk\ProdukController@kategori')->name('inkubator.produk-kategori');
 	Route::get('/produk/{kategori}/{id}', 'Produk\ProdukController@detail')->name('inkubator.produk-detail');
@@ -203,7 +203,7 @@ Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function (
 
 	Route::get('/mentor', 'Mentor\MentorController@indexTenant')->name('tenant.mentor');
 	Route::get('/mentor/list', 'Mentor\MentorController@tampil')->name('tenant.mentor-list');
-	Route::get('/mentor/profile/{id}', 'Profile\ProfileUserController@show')->name('tenant.mentor-detail');
+	Route::get('/mentor/profile/{id}', 'Profile\ProfileUserController@showMentorDetail')->name('tenant.mentor-detail');
 
 	// route produk tenant
     Route::get('/produk', 'Produk\ProdukController@index')->name('tenant.produk');
