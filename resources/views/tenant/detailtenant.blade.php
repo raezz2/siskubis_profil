@@ -29,7 +29,7 @@
 					<li class="nav-item"><a class="nav-link" id="timeline-tab" data-toggle="tab" href="#timeline" role="tab" aria-controls="timeline" aria-selected="false">Timeline</a></li>
 					<li class="nav-item"><a class="nav-link" id="friends-tab" data-toggle="tab" href="#friends" role="tab" aria-controls="friends" aria-selected="false">Friends</a></li>
 					<li class="nav-item"><a class="nav-link" id="photos-tab" data-toggle="tab" href="#photos" role="tab" aria-controls="photos" aria-selected="false">Photos</a></li>
-					<li class="nav-item"><a class="nav-link delete" id="profil" tenant-id="{{$data->id}}" data-toggle="tab" href="" role="tab" aria-controls="profil" aria-selected="false"><i id="profil" tenant-id="{{$data->id}}" class="delete" ></i>Edit Profil</a></li>
+					<li class="nav-item"><a class="nav-link" id="profil" tenant-id="{{$data->id}}" data-toggle="tab" href="" role="tab" aria-controls="profil" aria-selected="false"><i id="profil" tenant-id="{{$data->id}}" class="delete" ></i>Edit Profil</a></li>
           			<li class="nav-item"><a class="nav-link" id="keuangan-tab" data-toggle="tab" href="#keuangan" role="tab" aria-controls="keuangan" aria-selected="false">Keuangan</a></li>
 				</ul>
 				<div class="tab-content" id="profileTabContent">
