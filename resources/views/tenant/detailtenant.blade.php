@@ -225,6 +225,9 @@
 						</div>
 						{{ $gallery->links() }}
 					</div>
+                    <div class="tab-pane fade" id="keuangan" role="tabpanel" aria-labelledby="keuangan-tab">
+					    @include('keuangan.keuangan')
+			        </div>
 				</div>
 			</div>
 		</div><!-- end of main-content -->
@@ -325,9 +328,6 @@
 						</form>
 					</div>
 				</div>
-			</div>
-			<div class="tab-pane fade" id="keuangan" role="tabpanel" aria-labelledby="keuangan-tab">
-					@include('keuangan.keuangan')
 			</div>
 		</div>
 	</div>
