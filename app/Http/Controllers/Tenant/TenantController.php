@@ -544,8 +544,6 @@ class TenantController extends Controller
 
         $laba_bersih = $laba_masuk - $laba_keluar;
 
-        $this->data['data']= $data;
-
         $priority = Priority::all();
         
         if( count($detailtenant) > 0){
