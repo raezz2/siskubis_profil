@@ -468,6 +468,15 @@
     $('#ul-laba-list').DataTable({
 		responsive: true,
 	});
+
+    $('#profil').click(function(){
+
+        var data_id = $(this).attr('tenant-id');
+
+        window.location.href = "/tenant/editprofil/"+ data_id ;
+            
+    });
+    
     $('.delete').on("click", function(event) {
 		event.preventDefault();
 		const url = $(this).attr('href');
