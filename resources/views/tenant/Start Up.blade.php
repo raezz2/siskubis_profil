@@ -117,44 +117,43 @@
 				</ul>
 			</div>
 			<div class="tab-pane fade active show" id="about" role="tabpanel" aria-labelledby="timeline-tab">
-			<h4>Personal Information</h4>
+			<h4>Tenant Information</h4>
 				<p>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, commodi quam! Provident quis voluptate asperiores ullam, quidem odio pariatur. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem, nulla eos?
-					Cum non ex voluptate corporis id asperiores doloribus dignissimos blanditiis iusto qui repellendus deleniti aliquam, vel quae eligendi explicabo.
+					{{$tenant->description}}
 				</p>
 				<hr />
 				<div class="row">
 					<div class="col-md-4 col-6">
 						<div class="mb-4">
-							<p class="text-primary mb-1"><i class="i-Calendar text-16 mr-1"></i> Birth Date</p><span>1 Jan, 1994</span>
+							<p class="text-primary mb-1"><i class="i-Calendar text-16 mr-1"></i> Birth Date</p><span>{{$tenant->tanggal_berdiri}}</span>
 						</div>
 						<div class="mb-4">
-							<p class="text-primary mb-1"><i class="i-Edit-Map text-16 mr-1"></i> Birth Place</p><span>Dhaka, DB</span>
+							<p class="text-primary mb-1"><i class="i-Edit-Map text-16 mr-1"></i> Alamat</p><span>{{$tenant->alamat}}</span>
 						</div>
 						<div class="mb-4">
-							<p class="text-primary mb-1"><i class="i-Globe text-16 mr-1"></i> Lives In</p><span>Dhaka, DB</span>
-						</div>
-					</div>
-					<div class="col-md-4 col-6">
-						<div class="mb-4">
-							<p class="text-primary mb-1"><i class="i-MaleFemale text-16 mr-1"></i> Gender</p><span>1 Jan, 1994</span>
-						</div>
-						<div class="mb-4">
-							<p class="text-primary mb-1"><i class="i-MaleFemale text-16 mr-1"></i> Email</p><span>example@ui-lib.com</span>
-						</div>
-						<div class="mb-4">
-							<p class="text-primary mb-1"><i class="i-Cloud-Weather text-16 mr-1"></i> Website</p><span>www.ui-lib.com</span>
+						<p class="text-primary mb-1"><i class="i-Professor text-16 mr-1"></i> Visi</p><span>{{$tenant->visi}}</span>
 						</div>
 					</div>
 					<div class="col-md-4 col-6">
 						<div class="mb-4">
-							<p class="text-primary mb-1"><i class="i-Face-Style-4 text-16 mr-1"></i> Profession</p><span>Digital Marketer</span>
+							<p class="text-primary mb-1"><i class="i-MaleFemale text-16 mr-1"></i> Contact</p><span>{{$tenant->kontak}}</span>
 						</div>
 						<div class="mb-4">
-							<p class="text-primary mb-1"><i class="i-Professor text-16 mr-1"></i> Experience</p><span>8 Years</span>
+						<p class="text-primary mb-1"><i class="i-Cloud-Weather text-16 mr-1"></i> Website</p><span>{{$tenant->website}}</span>
 						</div>
 						<div class="mb-4">
-							<p class="text-primary mb-1"><i class="i-Home1 text-16 mr-1"></i> School</p><span>School of Digital Marketing</span>
+						<p class="text-primary mb-1"><i class="i-Professor text-16 mr-1"></i> Misi</p><span>{{$tenant->misi}}</span>
+						</div>
+					</div>
+					<div class="col-md-4 col-6">
+						<div class="mb-4">
+							<p class="text-primary mb-1"><i class="i-Face-Style-4 text-16 mr-1"></i> Bidang Usaha</p><span>{{$tenant->bidang_usaha}}</span>
+						</div>
+						<div class="mb-4">
+							<p class="text-primary mb-1"><i class="i-Professor text-16 mr-1"></i> Slogan</p><span>{{$tenant->slogan}}</span>
+						</div>
+						<div class="mb-4">
+						<p class="text-primary mb-1"><i class="i-Professor text-16 mr-1"></i> Jam Operasional</p><span>{{$tenant->jam_operasional}}</span>
 						</div>
 					</div>
 				</div>
@@ -181,108 +180,40 @@
 						<p class="text-16 mt-1">Shopping</p>
 					</div>
 				</div>
-				
-				
-				
-				
-				
 			</div>
 			<div class="tab-pane fade" id="friends" role="tabpanel" aria-labelledby="friends-tab">
 				<div class="row">
+				@foreach($tenantuser as $user)
 					<div class="col-md-3">
 						<div class="card card-profile-1 mb-4">
 							<div class="card-body text-center">
-								<div class="avatar box-shadow-2 mb-3"><img src="{{ asset('theme/images/faces/16.jpg')}}" alt="" /></div>
-								<h5 class="m-0">Jassica Hike</h5>
-								<p class="mt-0">UI/UX Designer</p>
-								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae cumque.</p>
-								<button class="btn btn-primary btn-rounded">Contact Jassica</button>
+								<div class="avatar box-shadow-2 mb-3"><img src="{{ asset('theme/images/faces/'.$user->foto)}}" alt="" /></div>
+								<h5 class="m-0">{{$user->nama}}</h5>
+								<p>{{$user->deskripsi}}</p>
+								@role('mentor')
+								<a href="{{ route('mentor.profile-detail',''.$user->user_id)}}"><button class="btn btn-primary btn-rounded">Contact {{$user->nama}}</button></a>
+								@endrole
+								@role('inkubator')
+								<a href="{{ route('profile-detail',''.$user->user_id)}}"><button class="btn btn-primary btn-rounded">Contact {{$user->nama}}</button></a>
+								@endrole
 								<div class="card-socials-simple mt-4"><a href=""><i class="i-Linkedin-2"></i></a><a href=""><i class="i-Facebook-2"></i></a><a href=""><i class="i-Twitter"></i></a></div>
 							</div>
 						</div>
 					</div>
-					<div class="col-md-3">
-						<div class="card card-profile-1 mb-4">
-							<div class="card-body text-center">
-								<div class="avatar box-shadow-2 mb-3"><img src="{{ asset('theme/images/faces/2.jpg')}}" alt="" /></div>
-								<h5 class="m-0">Frank Powell</h5>
-								<p class="mt-0">UI/UX Designer</p>
-								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae cumque.</p>
-								<button class="btn btn-primary btn-rounded">Contact Frank</button>
-								<div class="card-socials-simple mt-4"><a href=""><i class="i-Linkedin-2"></i></a><a href=""><i class="i-Facebook-2"></i></a><a href=""><i class="i-Twitter"></i></a></div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="card card-profile-1 mb-4">
-							<div class="card-body text-center">
-								<div class="avatar box-shadow-2 mb-3"><img src="{{ asset('theme/images/faces/3.jpg')}}" alt="" /></div>
-								<h5 class="m-0">Arthur Mendoza</h5>
-								<p class="mt-0">UI/UX Designer</p>
-								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae cumque.</p>
-								<button class="btn btn-primary btn-rounded">Contact Arthur</button>
-								<div class="card-socials-simple mt-4"><a href=""><i class="i-Linkedin-2"></i></a><a href=""><i class="i-Facebook-2"></i></a><a href=""><i class="i-Twitter"></i></a></div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="card card-profile-1 mb-4">
-							<div class="card-body text-center">
-								<div class="avatar box-shadow-2 mb-3"><img src="{{ asset('theme/images/faces/4.jpg')}}" alt="" /></div>
-								<h5 class="m-0">Jacqueline Day</h5>
-								<p class="mt-0">UI/UX Designer</p>
-								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae cumque.</p>
-								<button class="btn btn-primary btn-rounded">Contact Jacqueline</button>
-								<div class="card-socials-simple mt-4"><a href=""><i class="i-Linkedin-2"></i></a><a href=""><i class="i-Facebook-2"></i></a><a href=""><i class="i-Twitter"></i></a></div>
-							</div>
-						</div>
-					</div>
+				@endforeach
 				</div>
 			</div>
 			<div class="tab-pane fade" id="photos" role="tabpanel" aria-labelledby="photos-tab">
 				<div class="row">
+				@foreach($gallery as $gallery)
 					<div class="col-md-4">
-						<div class="card text-white o-hidden mb-3"><img class="card-img" src="{{ asset('theme/images/products/headphone-1.jpg')}}" alt="" />
+						<div class="card text-white o-hidden mb-3"><img class="card-img" src="{{ asset('theme/images/products/'. $gallery->foto)}}" alt="" />
 							<div class="card-img-overlay">
-								<div class="p-1 text-left card-footer font-weight-light d-flex"><span class="mr-3 d-flex align-items-center"><i class="i-Speach-Bubble-6 mr-1"></i>12</span><span class="d-flex align-items-center"><i class="i-Calendar-4 mr-2"></i>03.12.2018</span></div>
+								<div class="p-1 text-left card-footer font-weight-light d-flex"><span class="mr-3 d-flex align-items-center"><i class="i-Speach-Bubble-6 mr-1"></i>12</span><span class="d-flex align-items-center"><i class="i-Calendar-4 mr-2"></i>{{$gallery->created_at}}</span></div>
 							</div>
 						</div>
 					</div>
-					<div class="col-md-4">
-						<div class="card text-white o-hidden mb-3"><img class="card-img" src="{{ asset('theme/images/products/headphone-2.jpg')}}" alt="" />
-							<div class="card-img-overlay">
-								<div class="p-1 text-left card-footer font-weight-light d-flex"><span class="mr-3 d-flex align-items-center"><i class="i-Speach-Bubble-6 mr-1"></i>12</span><span class="d-flex align-items-center"><i class="i-Calendar-4 mr-2"></i>03.12.2018</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="card text-white o-hidden mb-3"><img class="card-img" src="{{ asset('theme/images/products/headphone-3.jpg')}}" alt="" />
-							<div class="card-img-overlay">
-								<div class="p-1 text-left card-footer font-weight-light d-flex"><span class="mr-3 d-flex align-items-center"><i class="i-Speach-Bubble-6 mr-1"></i>12</span><span class="d-flex align-items-center"><i class="i-Calendar-4 mr-2"></i>03.12.2018</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="card text-white o-hidden mb-3"><img class="card-img" src="{{ asset('theme/images/products/iphone-1.jpg')}}" alt="" />
-							<div class="card-img-overlay">
-								<div class="p-1 text-left card-footer font-weight-light d-flex"><span class="mr-3 d-flex align-items-center"><i class="i-Speach-Bubble-6 mr-1"></i>12</span><span class="d-flex align-items-center"><i class="i-Calendar-4 mr-2"></i>03.12.2018</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="card text-white o-hidden mb-3"><img class="card-img" src="{{ asset('theme/images/products/iphone-2.jpg')}}" alt="" />
-							<div class="card-img-overlay">
-								<div class="p-1 text-left card-footer font-weight-light d-flex"><span class="mr-3 d-flex align-items-center"><i class="i-Speach-Bubble-6 mr-1"></i>12</span><span class="d-flex align-items-center"><i class="i-Calendar-4 mr-2"></i>03.12.2018</span></div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="card text-white o-hidden mb-3"><img class="card-img" src="{{ asset('theme/images/products/watch-1.jpg')}}" alt="" />
-							<div class="card-img-overlay">
-								<div class="p-1 text-left card-footer font-weight-light d-flex"><span class="mr-3 d-flex align-items-center"><i class="i-Speach-Bubble-6 mr-1"></i> 12</span><span class="d-flex align-items-center"><i class="i-Calendar-4 mr-2"></i>03.12.2018</span></div>
-							</div>
-						</div>
-					</div>
+				@endforeach
 				</div>
 			</div>
 		</div>

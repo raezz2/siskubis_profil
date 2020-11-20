@@ -99,6 +99,10 @@
 									<label for="credit1">Jam Operasional</label>
 									<textarea class="form-control" id="credit1" placeholder="Masukan Jam Operasional" required="required" name="operasional" value="{{ $tenant->jam_operasional}}">{{ $tenant->jam_operasional}}</textarea>
 								</div>
+								<div class="col-md-12 form-group mb-3">
+									<label for="credit1">Website</label>
+									<textarea class="form-control" id="credit1" placeholder="Masukan Website" required="required" name="website" value="{{ $tenant->website}}">{{ $tenant->website}}</textarea>
+								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-12">

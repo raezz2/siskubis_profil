@@ -16,6 +16,7 @@ use App\Pengumuman;
 use App\User;
 use App\RoleUser;
 use App\ProfilUser;
+use App\TenantGallery;
 use Session;
 
 use Spatie\QueryBuilder\QueryBuilder;
@@ -99,10 +100,18 @@ class TenantController extends Controller
     {
         $tenant = Tenant::findOrFail($id);
 
-        // return response()->json($tenant);
+        $tenantuser = TenantUser::where('tenant_id', $id)
+        ->leftJoin('profil_user',['profil_user.user_id'=>'tenant_user.user_id'])
+        ->get();
 
+        $gallery = TenantGallery::where('tenant_id', $id)->paginate(6);
+
+        
         $this->data['tenant'] = $tenant;
-
+        $this->data['tenantuser'] = $tenantuser;
+        $this->data['gallery'] = $gallery;
+        
+        // return response()->json($tenantuser);
 
         return view('tenant.'.$kategori, $this->data);
     }
@@ -222,6 +231,7 @@ class TenantController extends Controller
                 $tenantuser->slogan = $data['slogan'];
                 $tenantuser->alamat = $data['alamat'];
                 $tenantuser->kontak = $data['kontak'];
+                $tenantuser->website = $data['website'];
                 $tenantuser->jam_operasional = $data['operasional'];
                 $tenantuser->foto = $fileName;
                 $tenantuser->created_at = date('Y-m-d H:i:s');
@@ -312,6 +322,7 @@ class TenantController extends Controller
             'slogan' =>$request->slogan,
             'alamat' =>$request->alamat,
             'kontak' =>$request->kontak,
+            'website' =>$request->website,
             'jam_operasional' =>$request->operasional,
             'foto' => $fileName,
             'created_at'=>date('Y-m-d H:i:s'),
@@ -328,73 +339,6 @@ class TenantController extends Controller
 
     }
 
-    public function createuser(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-        ]);
-
-
-        $data = $request->all();
-
-        if ($request->has('file')) {
-            $file = $request->file('file');
-            $fileName = time(). '_'. $file->getClientOriginalName();
- 
-            $file->move('theme/images/faces', $fileName);
-         }
-
-        $tenant = TenantUser::where('user_id', Auth::user()->id)->get();
-
-        foreach( $tenant as $tenant){
-            $tenantid = $tenant->tenant_id;
-        }
-
-
-        $user = new User;
-        $user->name = $data['name'];
-        $user->inkubator_id = Auth::user()->inkubator_id;
-        $user->email = $data['email'];
-        $user->password = bcrypt($data['password']);
-        $user->created_at = date('Y-m-d H:i:s');
-        $user->updated_at = date('Y-m-d H:i:s');
-        $user->save();
-
-        $roleuser = new RoleUser;
-        $roleuser->user_id = $user->id;
-        $roleuser->role_id = 2;
-        $roleuser->save();
-        
-        $tenanuser = new TenantUser;
-        $tenanuser->user_id = $user->id;
-        $tenanuser->tenant_id = $tenantid;
-        $tenanuser->save();
-
-        $profiluser = new ProfilUser;
-        $profiluser->user_id = $user->id;
-        $profiluser->nama = $data['nama'];
-        $profiluser->kontak = $data['kontak'];
-        $profiluser->alamat = $data['alamat'];
-        $profiluser->nik = $data['nik'];
-        $profiluser->deskripsi = $data['deskripsi'];
-        $profiluser->foto = $fileName;
-        $profiluser->jenkel = $data['jenkel'];
-        $profiluser->save();
-
-        // $this->data['data']= $data;
-        // $this->data['fileName']= $fileName;
-
-        if ($fileName) {
-            Session::flash('success', 'User berhasil di simpan');
-        } else {
-            Session::flash('error', 'User Gagal di simpan');
-        }
-
-        // return response()->json($this->data);
-        return redirect('/tenant');
-    }
 
     public function detailtenant()
     {
@@ -403,8 +347,19 @@ class TenantController extends Controller
         ->leftJoin('tenant',['tenant.id'=>'tenant_user.tenant_id'])
         ->get();
 
-        foreach($detailtenant as $dt){
-          $data = $dt;
+        $check = TenantUser::where('user_id',Auth::user()->id)->get();
+
+        if(count($check) > 0){
+
+            foreach( $check as $ck){
+                
+                $profil= TenantUser::where('tenant_id', $ck->tenant_id )
+                ->Join('profil_user', ['profil_user.user_id'=>'tenant_user.user_id'])
+                ->get();
+
+                $this->data['profil']= $profil;
+    
+            }
         }
         $label = [
             'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
@@ -590,6 +545,25 @@ class TenantController extends Controller
         $laba_bersih = $laba_masuk - $laba_keluar;
 
         $this->data['data']= $data;
+
+        $priority = Priority::all();
+        
+        if( count($detailtenant) > 0){
+            foreach($detailtenant as $dt){
+                $data = $dt;
+            }
+            
+            $gallery = TenantGallery::where('tenant_id', $dt->tenant_id)->paginate(6);
+
+            $this->data['data']= $data;
+            $this->data['gallery']= $gallery;
+        }
+        
+        // return response()->json($detailtenant);
+
+        $this->data['priority']= $priority;
+        $this->data['check']= $check;
+
         
         return view ('tenant.detailtenant',compact('keuangan','totalLabaBersih','labaKeluar','labaMasuk','arusMasuk','arusKeluar','categories', 'pendapatan', 'kas_masuk', 'kas_keluar', 'saldo_kas', 'total','total_masuk','total_keluar','user','labaRugi','totalLaba','masuk_labaRugi','keluar_labaRugi','label','userId','tenant', 'labaBersih', 'laba_masuk', 'laba_keluar', 'laba_bersih' ), $this->data);
 
