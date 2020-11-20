@@ -88,7 +88,7 @@ class ProdukController extends Controller
         return view('produk.index', compact('produk','priority','title'));
     }
 
-	public function show($id)
+    public function show($id)
     {
         $produk         = Produk::find($id);
         $produk         = Produk::with(['tenant','priority','produk_bisnis','produk_canvas','produk_ijin','produk_image','produk_ki','produk_riset','produk_sertifikasi'])->where('id', $id)->first();
@@ -134,7 +134,7 @@ class ProdukController extends Controller
             'keunggulan'            => 'required',
             'teknologi'             => 'required',
             'pengembangan'          => 'required',
-            'dokumen_file_proposal' => 'required',
+            'proposal' => 'required',
             'kategori'              => 'required',
 
             'kompetitor'            => 'required',
@@ -143,7 +143,7 @@ class ProdukController extends Controller
             'produksi_harga'        => 'required|numeric',
             'pemasaran'             => 'required',
 
-            'produk_canvas'         => 'required',
+            // 'produk_canvas'         => 'required',
             'kategori_canvas'       => 'required',
             'tanggal_canvas'        => 'required|date',
 
@@ -155,10 +155,10 @@ class ProdukController extends Controller
             'berlaku_sampai'        => 'required|date',
             'pemilik_ki'            => 'required',
 
-            // 'user_id'               => 'required',
-            // 'jabatan'               => 'required',
-            // 'divisi'                => 'required',
-            // 'tugas'                 => 'required',
+            // 'user_id'               => 'required|array',
+            // 'jabatan'               => 'required|array',
+            // 'divisi'                => 'required|array',
+            // 'tugas'                 => 'required|array',
 
             'nama_riset'            => 'required',
             'pelaksana_riset'       => 'required',
@@ -175,17 +175,18 @@ class ProdukController extends Controller
             'status_sertif'         => 'required',
             'tahun_sertif'          => 'required|numeric',
             'tanggal_sertif'        => 'required|date',
-            'dokumen_file_sertifikasi'  => 'required',
+            'file_sertifikasi'  => 'required',
 
             'jenis_ijin'            => 'required',
             'pemberi_ijin'          => 'required',
             'status_ijin'           => 'required',
             'tahun_ijin'            => 'required|numeric',
             'tanggal_ijin'          => 'required|date',
-            'dokumen_file_ijin'     => 'required',
+            'file_ijin'     => 'required',
         ]);
+        // dd($request);
 
-        // dd($validator);
+
 
         if ($request->hasFile('foto')) {
 
@@ -193,6 +194,9 @@ class ProdukController extends Controller
             $produks_id = $produk_id->id + 1;
             //$id = $produks_id + 1;
             //return $produks_id;
+            $tenant = TenantUser::with('tenants')->where('user_id', $request->user()->id)->first();
+            $tenant_id=$tenant->tenant_id;
+            $priority_tenant=$tenant->tenants->priority;
             $pd_image = $produks_id;
             $pd_team = $produks_id;
 
@@ -216,13 +220,12 @@ class ProdukController extends Controller
 
             $string = implode(",", $request->tag);
             // $strings = implode(",", $request->jenis_ki);
-
+            // dd($request);
             $produk = Produk::create([
-
                 'id'                    => $produks_id,
-                'tenant_id'             => $request->tenant_id,
-                'inventor_id'           => $request->inventor_id,
-                'priority_id'           => $request->priority_id,
+                'tenant_id'             => $tenant_id,
+                'inventor_id'           => 0,
+                'priority_id'           => $priority_tenant,
                 'title'                 => $request->title,
                 'subtitle'              => $request->subtitle,
                 'harga_pokok'           => $request->harga_pokok,
@@ -242,7 +245,7 @@ class ProdukController extends Controller
                 'proposal'              => $dokumen_file_proposal,
                 'kategori_id'           => $request->kategori,
             ]);
-
+                // dd($produk);
             $produk_bisnis = ProdukBisnis::create([
                 'produk_id'             => $produks_id,
                 'kompetitor'            => $request->kompetitor,
@@ -268,7 +271,7 @@ class ProdukController extends Controller
 
             $produk_ki = ProdukKI::create([
                 'produk_id'             => $produks_id,
-                'jenis_ki'              => $jenis_ki,
+                'jenis_ki'              => $request->jenis_ki,
                 'status_ki'             => $request->status_ki,
                 'permohonan'            => $request->permohonan_ki,
                 'sertifikat'            => $request->sertifikat_ki,
@@ -278,7 +281,24 @@ class ProdukController extends Controller
             ]);
 
 
-            // dd($request->all());
+            $user_id = $request->user_id;
+            $jabatan = $request->jabatan;
+            $divisi = $request->divisi;
+            $tugas = $request->tugas;
+            // for($count = 0; $count < count($user_id); $count++)
+            // {
+            // $data = array(
+            //     'produk_id' => $produks_id,
+            //     'user_id'   => $user_id[$count],
+            //     'jabatan'   => $jabatan[$count],
+            //     'divisi'    => $divisi[$count],
+            //     'tugas'     => $tugas[$count]
+            // );
+            // $insert_data[] = $data;
+            // }
+            // dd($insert_data);
+
+            // ProdukTeam::insert($insert_data);
             // $produk_team = ProdukTeam::create([
             //     'produk_id'             => $produks_id,
             //     'user_id'               => $request->user_id,
@@ -328,39 +348,57 @@ class ProdukController extends Controller
 
             // return view('tenant.produk');
 
-            return redirect(route('tenant.produk'));
+            return redirect(route('tenant.team', $produks_id));
         }
         // return "ok";
     }
 
-    public function createTeam()
+    public function createTeam($id)
     {
-
+        $produk = Produk::find($id);
+        $produk_team = ProdukTeam::where('produk_id', $produk->id)->get('user_id');
+        // return $produk_team;
+        $team = ProfilUser::whereIn('produk_team.user_id', $produk_team)->leftjoin('produk_team', ['profil_user.user_id'=>'produk_team.user_id'])->select('profil_user.nama as nama','produk_team.*')->get();
+        // return $team;
         $user_id = ProfilUser::orderBy('nama')->get();
         $tenant = Tenant::orderBy('title')->get();
         // $penulis = profil_user::orderBy('nama')->get();
 
-        return view('produk.formTeam', compact('user_id', 'tenant'));
+        return view('produk.formTeam', compact('user_id', 'tenant', 'produk', 'team'));
     }
 
     public function storeTeam(Request $request)
     {
-        $request->validate([
-            'user_id'               => 'required',
-            'jabatan'               => 'required',
-            'divisi'                => 'required',
-            'tugas'                 => 'required',
+        $rules = array(
+            'produk_id'     =>  'required',
+            'profil_id'     => 'required',
+            'jabatan'       => 'required',
+            'divisi'        => 'required',
+            'tugas'         => 'required',
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if($validator->fails()){
+            return response()->json([
+                'error' =>  $validator->errors()->all()
+            ]);
+        }
+
+        $team = ProdukTeam::create([
+            'produk_id'     =>  $request->produk_id,
+            'user_id'       =>  $request->profil_id,
+            'jabatan'       =>  $request->jabatan,
+            'divisi'       =>  $request->divisi,
+            'tugas'       =>  $request->tugas,
         ]);
 
-        $produk_team = ProdukTeam::create([
-            'produk_id'             => $produks_id,
-            'user_id'               => $request->user_id,
-            'jabatan'               => $request->jabatan,
-            'divisi'                => $request->divisi,
-            'tugas'                 => $request->tugas,
-        ]);
+        $data = ProfilUser::where('profil_user.user_id', $team->user_id)
+        ->leftjoin('produk_team', ['profil_user.user_id'=>'produk_team.user_id'])
+        ->select('profil_user.nama as nama','produk_team.*')
+        ->first();
 
-        return redirect(route('tenant.produk'));
+        return response()->json($data);
     }
 
     public function destroy($id)
@@ -371,7 +409,7 @@ class ProdukController extends Controller
         File::delete(storage_path('app/public/file/produk/ijin' . $produk->produk_ijin->dokumen));
         File::delete(storage_path('app/public/file/produk/ki' . $produk->produk_ki->sertifikat));
         File::delete(storage_path('app/public/file/produk/sertifiksi' . $produk->produk_sertifikasi->dokumen));
-        
+
         // $image          = ProdukImage::where('produk_id',$id)->get();
         // File::delete(storage_path('app/public/img/produk' . $image->image));
 
@@ -393,8 +431,9 @@ class ProdukController extends Controller
     public function edit($id)
     {
         $produk = Produk::find($id);
+        $user_id = ProfilUser::orderBy('nama')->get();
 
-        return $produk;
+        return view('produk.formedit', compact('produk','user_id'));
     }
 
     public function update($id, Request $request)
