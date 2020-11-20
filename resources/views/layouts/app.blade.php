@@ -6,7 +6,10 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
 	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-	<title>Dashboard SISKUBIS</title>
+    <title>Dashboard SISKUBIS</title>
+
+    <script src="{{ asset('js/app.js')}}"></script>
+
 	<link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet" />
 	<link href="{{ asset('theme/css/themes/lite-purple.css')}}" rel="stylesheet" />
 	<link href="{{ asset('theme/css/plugins/perfect-scrollbar.css')}}" rel="stylesheet" />
@@ -68,7 +71,7 @@
 				@include('layouts.footer')
 				<!-- fotter end -->
 			</div>
-		</div>
+        </div>
 		<script src="{{ asset('theme/js/plugins/jquery-3.3.1.min.js')}}"></script>
 		<script src="{{ asset('theme/js/plugins/bootstrap.bundle.min.js')}}"></script>
 		<script src="{{ asset('theme/js/plugins/perfect-scrollbar.min.js')}}"></script>

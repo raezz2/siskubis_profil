@@ -88,10 +88,28 @@
                                                     Option
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    <a href="#" class="dropdown-item btn-warning w-100">UPDATE</a>
+                                                    <a href="{{ route('tenant.editProduk', $row->id) }}" class="dropdown-item btn-warning w-100">UPDATE</a>
                                                     <a href="{{ route('tenant.destroyProduk', $row->id) }}" class="dropdown-item btn-danger w-100">HAPUS</a>
                                                 </div>
                                             </div>
+                                            <!-- <button class="btn btn-primary btn-block w-100" id="with-timer" type="button">Option</button> -->
+                                            <!-- <button type="button" class="btn btn-primary btn-block w-100" data-toggle="modal" data-target="#myModal">
+                                                Option
+                                            </button>
+                                            <div class="modal" id="myModal">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">OPTION</h4>
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <a href="{{ route('tenant.editProduk', $row->id) }}" class="dropdown-item btn-warning">UPDATE</a>
+                                                            <a href="{{ route('tenant.destroyProduk', $row->id) }}" class="dropdown-item btn-danger">HAPUS</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
                                         @endrole
                                     </div>
                                 </div>
@@ -149,5 +167,11 @@
             }
         document.getElementById("filter").addEventListener("click", filterResults);
         });
+
+        // $('body').on('click','#with-timer', function () {
+        //     var timerInterval;
+        //     swal({
+        //         timer: 5000
+        // });
     </script>
 @endsection
