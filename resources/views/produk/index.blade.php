@@ -87,9 +87,9 @@
                                                 <button type="button" class="btn btn-primary btn-sm dropdown-toggle w-100" data-toggle="dropdown">
                                                     Option
                                                 </button>
-                                                <div class="dropdown-menu">
-                                                    <a href="{{ route('tenant.editProduk', $row->id) }}" class="dropdown-item btn-warning w-100">UPDATE</a>
-                                                    <a href="{{ route('tenant.destroyProduk', $row->id) }}" class="dropdown-item btn-danger w-100">HAPUS</a>
+                                                <div class="dropdown-menu bg-primary w-100">
+                                                    <a href="{{ route('tenant.editProduk', $row->id) }}" class="dropdown-item btn-primary w-100 text-white"><small class="font-weight-700">UPDATE</small></a>
+                                                    <a href="{{ route('tenant.destroyProduk', $row->id) }}" class="dropdown-item btn-primary w-100 text-white"><small class="font-weight-bolder">HAPUS</small></a>
                                                 </div>
                                             </div>
                                             <!-- <button class="btn btn-primary btn-block w-100" id="with-timer" type="button">Option</button> -->
@@ -167,11 +167,5 @@
             }
         document.getElementById("filter").addEventListener("click", filterResults);
         });
-
-        // $('body').on('click','#with-timer', function () {
-        //     var timerInterval;
-        //     swal({
-        //         timer: 5000
-        // });
     </script>
 @endsection

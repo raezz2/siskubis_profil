@@ -305,17 +305,21 @@
 										  	<dd class="col-sm-8">
 										  		@if($produk->kategori_id == 0)
 										  			Belum ada data
-										  		@else
-										  			{{ $produk->kategori_id }}
+										  		@elseif($produk->kategori_id == 1)
+										  			Otomotif
+										  		@elseif($produk->kategori_id == 2)
+										  			Kuliner
+										  		@elseif($produk->kategori_id == 3)
+										  			Teknologi
 										  		@endif
 										  	</dd> <!-- Belum di deklarasikan -->
 
 										  	<dt class="col-sm-3">Tags</dt><dt class="col-md-1"> : </dt>
 										  	<dd class="col-sm-8">
 										  		<h5>
-										  			@foreach($tag as $row)
-										  				<span class="badge badge-light">#{{$row}}</span>
-										  			@endforeach
+										  		@foreach($tag as $row)
+										  			<span class="badge badge-light">#{{$row}}</span>
+										  		@endforeach
 										  		</h5>
 										  	</dd>
 
@@ -393,7 +397,11 @@
 								  	<dd class="col-sm-8">{{ $produk->produk_bisnis->dampak_sosek ?? 'tidak ada data'}}</dd>
 
 								  	<dt class="col-sm-3">Produksi Harga</dt><dt class="col-md-1"> : </dt>
-								  	<dd class="col-sm-8">{{ $produk->produk_bisnis->produksi_harga ?? 'tidak ada data'}}</dd>
+								  	<dd class="col-sm-8">
+								  		@foreach($produksi_harga as $row)
+                                    		<i class="fas fa-arrow-right"></i>  {{ $row }}<br />
+										 @endforeach
+								  	</dd>
 
 								  	<dt class="col-sm-3">Pemasaran</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_bisnis->pemasaran ?? 'tidak ada data'}}</dd>
@@ -444,7 +452,7 @@
 								<h5 class="mb-5 font-weight-700 text-center">Galeri Produk</h5>
 								<div class="row">
 									@forelse($image as $row)
-										<div class="col-md-3 mb-3">
+										<div class="col-md-3">
 											<img class="rounded w-100" src="{{ asset('img/produk/' . $row->image) }}" alt="{{ $row->judul }}">
 										</div>
 									@empty
@@ -457,13 +465,7 @@
 								<h5 class="mb-5 font-weight-700 text-center">Kekayaan Intelektual</h5>
 								<dl class="row">
 									<dt class="col-sm-3">Jenis</dt><dt class="col-md-1"> : </dt>
-								  	<dd class="col-sm-8">
-								  		@if($produk->produk_ki->jenis_ki == 1) Hak Cipta
-								  		@elseif($produk->produk_ki->jenis_ki == 2) Paten
-								  		@elseif($produk->produk_ki->jenis_ki == 3) Merk Dagang
-								  		@elseif($produk->produk_ki->jenis_ki == 4) Rahasia Dagang
-								  		@endif
-								  	</dd>
+								  	<dd class="col-sm-8">{{ $produk->produk_ki->jenis_ki ?? 'tidak ada data'}}</dd>
 
 									<dt class="col-sm-3">Status</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_ki->status_ki ?? 'tidak ada data'}}</dd>
