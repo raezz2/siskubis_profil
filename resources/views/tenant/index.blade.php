@@ -81,7 +81,7 @@
 									@foreach($mentor as $up)
 										@if($up->tenant_id == $data->id)
 										<li>
-											<a href="{{route('inkubator.profile-detail',''. $up->user_id)}}"><img class="rounded-circle" src="{{ asset('theme/images/faces/'.$up->foto)}}" width="36" height="36" alt="corrupted 2" /></a><a href="#">
+											<a href="{{route('profile-detail',''. $up->user_id)}}"><img class="rounded-circle" src="{{ asset('theme/images/faces/'.$up->foto)}}" width="36" height="36" alt="corrupted 2" /></a><a href="#">
 										</li>
 										@endif
 									@endforeach
