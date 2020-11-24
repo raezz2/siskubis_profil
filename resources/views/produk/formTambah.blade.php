@@ -290,6 +290,11 @@
         height: 40px;
         width: 400px !important;
     }
+
+    h6 {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
 </style>
 
 @endsection
@@ -332,9 +337,10 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="ul-widget__body">
+                                                    <h6>Nama Produk :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-user-tie icon"></i>
-                                                        <input class="form-control" type="text" placeholder="Title"
+                                                        <input class="form-control" type="text" placeholder="Nama lengkap produk anda..."
                                                             name="title" value="{{ old('title') }}">
                                                     </div>
                                                     @error('title')
@@ -342,10 +348,11 @@
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Harga Pokok :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-money-bill-wave-alt icon"></i>
                                                         <input class="form-control" name="harga_pokok" type="text"
-                                                            placeholder="Harga Pokok"
+                                                            placeholder="Rp. 100000"
                                                             value="{{ old('harga_pokok') }}" />
                                                     </div>
                                                     @error('harga_pokok')
@@ -353,10 +360,11 @@
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Harga Jual :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-money-bill-wave-alt icon"></i>
                                                         <input class="form-control" name="harga_jual" type="text"
-                                                            row="3" placeholder="Harga Jual"
+                                                            row="3" placeholder="Rp. 100000"
                                                             value="{{ old('harga_jual') }}" />
                                                     </div>
                                                     @error('harga_jual')
@@ -364,12 +372,13 @@
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>No Telphone :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-phone-alt icon"></i>
                                                         <input class="form-control" name="contact" type="text"
-                                                            placeholder="No Telphone" value="{{ old('contact') }}" />
+                                                            placeholder="0811 1111 1111" value="{{ old('contact') }}" />
                                                     </div>
-                                                    <label><strong>Select Tag :</strong></label><br />
+                                                    <h6>Pilih Tag :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-tasks icon"></i>
                                                         <select class="selectpicker" multiple data-live-search="true"
@@ -395,27 +404,30 @@
                                                             {{-- </select> --}}
                                                         </div>
                                                     </div>
+                                                    <h6>Subtitle Produk :</h6>
                                                     <div class="input-container">
                                                         <textarea class="form-control" name="subtitle" rows="2"
-                                                            placeholder="Subtitle">{{ old('subtitle') }}</textarea>
+                                                            placeholder="Subtitle produk anda...">{{ old('subtitle') }}</textarea>
                                                     </div>
                                                     @error('subtitle')
                                                     <div class="text-danger">
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Lokasi :</h6>
                                                     <div class="input-container">
                                                         <textarea class="form-control" name="location" rows="3"
-                                                            placeholder="Location">{{ old('location') }}</textarea>
+                                                            placeholder="Sleman">{{ old('location') }}</textarea>
                                                     </div>
                                                     @error('location')
                                                     <div class="text-danger">
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Alamat :</h6>
                                                     <div class="input-container">
                                                         <textarea class="form-control" name="address" rows="4"
-                                                            placeholder="Address">{{ old('address') }}</textarea>
+                                                            placeholder="Jalan nusa indah no. 69, Depok">{{ old('address') }}</textarea>
                                                     </div>
                                                     @error('address')
                                                     <div class="text-danger">
@@ -440,10 +452,11 @@
                                         <div class="card mb-4">
                                             <div class="card-body">
                                                 <div class="ul-widget__body">
+                                                    <h6>Spesifikasi Produk :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="spesifikasi" type="text"
-                                                            placeholder="Spesifikasi"
+                                                            placeholder="Spesifikasi dari produk ini adalah sebagai berikut..."
                                                             value="{{ old('spesifikasi') }}" />
                                                     </div>
                                                     @error('spesifikasi')
@@ -451,10 +464,11 @@
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Keterbaharuan Produk :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="keterbaharuan" type="text"
-                                                            placeholder="Keterbaharuan"
+                                                            placeholder="Apa yang baru dari produk ini..."
                                                             value="{{ old('keterbaharuan') }}" />
                                                     </div>
                                                     @error('keterbaharuan')
@@ -462,40 +476,44 @@
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Manfaat Produk :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="manfaat" type="text"
-                                                            placeholder="Manfaat" value="{{ old('manfaat') }}" />
+                                                            placeholder="Manfaat_produk" name="manfaat_produk[]" type="text" placeholder="Manfaat dari produk ini adalah sebagai berikut..." value="{{ old('manfaat') }}" />
                                                     </div>
                                                     @error('manfaat')
                                                     <div class="text-danger">
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Keunggulan Produk :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="keunggulan" type="text"
-                                                            placeholder="Keunggulan" value="{{ old('keunggulan') }}" />
+                                                            placeholder="Keunggulan dari produk ini adalah sebagai berikut..." value="{{ old('keunggulan') }}" />
                                                     </div>
                                                     @error('keunggulan')
                                                     <div class="text-danger">
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Teknologi Produk :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="teknologi" type="text"
-                                                            placeholder="Teknologi" value="{{ old('teknologi') }}" />
+                                                            placeholder="Tekonologi pada produk ini..." value="{{ old('teknologi') }}" />
                                                     </div>
                                                     @error('teknologi')
                                                     <div class="text-danger">
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Pengembangan Produk :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="pengembangan" type="text"
-                                                            placeholder="Pengembangan"
+                                                            placeholder="Pengembangan pada produk..."
                                                             value="{{ old('pengembangan') }}" />
                                                     </div>
                                                     @error('pengembangan')
@@ -503,18 +521,20 @@
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Latar Belakang Produk :</h6>
                                                     <div class="input-container">
                                                         <textarea class="form-control" name="latar_produk" rows="7"
-                                                            placeholder="Latar Produk">{{ old('latar_produk') }}</textarea>
+                                                            placeholder="Produk ini adalah...">{{ old('latar_produk') }}</textarea>
                                                     </div>
                                                     @error('latar_produk')
                                                     <div class="text-danger">
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Tentang Produk :</h6>
                                                     <div class="input-container">
                                                         <textarea class="form-control" name="tentang_produk" rows="7"
-                                                            placeholder="Tentang Produk">{{ old('tentang_produk') }}</textarea>
+                                                            placeholder="Produk ini kami ciptakan agar...">{{ old('tentang_produk') }}</textarea>
                                                     </div>
                                                     @error('tentang_produk')
                                                     <div class="text-danger">
@@ -535,7 +555,7 @@
                             <div class="form-card">
                                 <div class="row">
                                     <div class="col-7">
-                                        <h2 class="fs-title">Pandangan Produk</h2>
+                                        <h2 class="fs-title">Pandangan Produk :</h2>
                                     </div>
                                     <div class="col-5">
                                         <h2 class="steps">Step 2 - 9</h2>
@@ -547,9 +567,10 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="ul-widget__body">
+                                                    <h6>Kompetitor :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-user-tie icon"></i>
-                                                        <input class="form-control" type="text" placeholder="Kompetitor"
+                                                        <input class="form-control" type="text" placeholder="Kompetitor Bisnis"
                                                             name="kompetitor" value="{{ old('kompetitor') }}">
                                                     </div>
                                                     @error('kompetitor')
@@ -557,10 +578,11 @@
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Target Pasar :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-money-bill-wave-alt icon"></i>
                                                         <input class="form-control" name="target_pasar" type="text"
-                                                            placeholder="Target Pasar"
+                                                            placeholder="Rp. 100000"
                                                             value="{{ old('target_pasar') }}" />
                                                     </div>
                                                     @error('target_pasar')
@@ -568,10 +590,11 @@
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Harga Produksi :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-money-bill-wave-alt icon"></i>
                                                         <input class="form-control" name="produksi_harga" type="text"
-                                                            row="3" placeholder="Harga Produksi"
+                                                            row="3" placeholder="Rp. 100000"
                                                             value="{{ old('produksi_harga') }}" />
                                                     </div>
                                                     @error('produksi_harga')
@@ -579,10 +602,11 @@
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Dampak Sosial :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="dampak_sosek" type="text"
-                                                            placeholder="Dampak Sosek"
+                                                            placeholder="Bagaimana dampaknya"
                                                             value="{{ old('dampak_sosek') }}" />
                                                     </div>
                                                     @error('dampak_sosek')
@@ -590,10 +614,11 @@
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Pemasaran Produk :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="pemasaran" type="text"
-                                                            placeholder="Pemasaran" value="{{ old('pemasaran') }}" />
+                                                            placeholder="Bagaimana Pemasaranya" value="{{ old('pemasaran') }}" />
                                                     </div>
                                                     @error('pemasaran')
                                                     <div class="text-danger">
@@ -622,12 +647,12 @@
                                         <h2 class="steps">Step 3 - 9</h2>
                                     </div>
                                 </div>
-                                <h5>Input Table Canvas :</h5>
                                 <div class="row">
                                     <div class="col-xl-12 col-lg-4">
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="ul-widget__body">
+                                                    <h5>Input Table Canvas :</h5><br>
                                                     <textarea name="editor1"></textarea><br />
                                                     <h5>Input Tanggal Canvas :</h5>
                                                     <div class="input-container">
@@ -680,7 +705,7 @@
                                         <h2 class="steps">Step 4 - 9</h2>
                                     </div>
                                 </div>
-                                <h5>Input Table Image</h5>
+                                <h5>Input Table Image :</h5>
                                 <div class="form-group">
                                     <label for="foto">Upload Foto</label><br>
                                     <input type="file" name="foto" value="{{ old('foto') }}">
@@ -705,14 +730,12 @@
                                         <h2 class="steps">Step 5 - 9</h2>
                                     </div>
                                 </div>
-                                <h5>Input Tabel KI</h5>
                                 <div class="row">
                                     <div class="col-xl-6 col-lg-6">
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="ul-widget__body">
-                                                    <label><strong>Select Jenis Kekayaan Intelektual
-                                                            :</strong></label><br />
+                                                    <h6>Jenis KI :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-tasks icon"></i>
                                                         <select class="" name="jenis_ki">
@@ -730,6 +753,7 @@
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Status KI :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-circle icon"></i>
                                                         <input class="form-control" name="status_ki" type="text"
@@ -741,10 +765,11 @@
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Permohonan KI :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="permohonan_ki" type="text"
-                                                            placeholder="Permohonan"
+                                                            placeholder="Permohonan pada KI"
                                                             value="{{ old('permohonan_ki') }}" />
                                                     </div>
                                                     @error('permohonan_ki')
@@ -752,10 +777,11 @@
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Sertifikat KI :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-certificate icon"></i>
                                                         <input class="form-control" name="sertifikat_ki" type="text"
-                                                            placeholder="Sertifikat"
+                                                            placeholder="Sertifikat Kekayaan Intelektual"
                                                             value="{{ old('sertifikat_ki') }}" />
                                                     </div>
                                                     @error('sertifikat_ki')
@@ -771,6 +797,7 @@
                                         <div class="card mb-4">
                                             <div class="card-body">
                                                 <div class="ul-widget__body">
+                                                    <h6>Berlaku Mulai :</h6>
                                                     <div class="input-container">
                                                         <i class="far fa-calendar icon"></i>
                                                         <input class="form-control" name="berlaku_mulai" type="date"
@@ -782,6 +809,7 @@
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6> Berlaku Sampai :</h6>
                                                     <div class="input-container">
                                                         <i class="far fa-calendar-check icon"></i>
                                                         <input class="form-control" name="berlaku_sampai" type="date"
@@ -793,6 +821,7 @@
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Pemilik KI :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-user-tie icon"></i>
                                                         <input class="form-control" name="pemilik_ki" type="text"
@@ -826,26 +855,28 @@
                                         <h2 class="steps">Step 6 - 9</h2>
                                     </div>
                                 </div>
-                                <h5>Input Table Riset</h5>
+                                <h5>Input Table Riset :</h5>
                                 <div class="row">
                                     <div class="col-xl-6 col-lg-6">
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="ul-widget__body">
+                                                    <h6>Nama Riset :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="nama_riset" type="text"
-                                                            placeholder="Nama Riset" value="{{ old('nama_riset') }}" />
+                                                            placeholder="Nama Riset...." value="{{ old('nama_riset') }}" />
                                                     </div>
                                                     @error('nama_riset')
                                                     <div class="text-danger">
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Pelaksana Riset :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-user-tie icon"></i>
                                                         <input class="form-control" name="pelaksana_riset" type="text"
-                                                            placeholder="Pelaksana"
+                                                            placeholder="Pelaksana riset produk"
                                                             value="{{ old('pelaksana_riset') }}" />
                                                     </div>
                                                     @error('pelaksana_riset')
@@ -853,20 +884,22 @@
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Tahun Riset :</h6>
                                                     <div class="input-container">
                                                         <i class="far fa-calendar-alt icon"></i>
                                                         <input class="form-control" name="tahun_riset" type="text"
-                                                            placeholder="Tahun" value="{{ old('tahun_riset') }}" />
+                                                            placeholder="2020" value="{{ old('tahun_riset') }}" />
                                                     </div>
                                                     @error('tahun_riset')
                                                     <div class="text-danger">
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Pendanaan Riset :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="pendanaan_riset" type="text"
-                                                            placeholder="Pendanaan"
+                                                            placeholder="Pendanaan riset produk"
                                                             value="{{ old('pendanaan_riset') }}" />
                                                     </div>
                                                     @error('pendanaan_riset')
@@ -874,10 +907,11 @@
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Skema Riset :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="skema_riset" type="text"
-                                                            placeholder="Skema" value="{{ old('skema_riset') }}" />
+                                                            placeholder="Skema riset produk" value="{{ old('skema_riset') }}" />
                                                     </div>
                                                     @error('skema_riset')
                                                     <div class="text-danger">
@@ -892,20 +926,22 @@
                                         <div class="card mb-4">
                                             <div class="card-body">
                                                 <div class="ul-widget__body">
+                                                    <h6>Nilai Riset :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="nilai_riset" type="text"
-                                                            placeholder="Nilai" value="{{ old('nilai_riset') }}" />
+                                                            placeholder="Nilai Riset Produk" value="{{ old('nilai_riset') }}" />
                                                     </div>
                                                     @error('nilai_riset')
                                                     <div class="text-danger">
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Aktifitas Riset :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="aktifitas_riset" type="text"
-                                                            placeholder="Aktifitas"
+                                                            placeholder="Aktifitas riset produk"
                                                             value="{{ old('aktifitas_riset') }}" />
                                                     </div>
                                                     @error('aktifitas_riset')
@@ -913,20 +949,22 @@
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Tujuan Riset: </h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="tujuan_riset" type="text"
-                                                            placeholder="Tujuan" value="{{ old('tujuan_riset') }}" />
+                                                            placeholder="Tujuan riset produk" value="{{ old('tujuan_riset') }}" />
                                                     </div>
                                                     @error('tujuan_riset')
                                                     <div class="text-danger">
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Hasil Riset :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="hasil_riset" type="text"
-                                                            placeholder="Hasil" value="{{ old('hasil_riset') }}" />
+                                                            placeholder="Hasil Riset Produk" value="{{ old('hasil_riset') }}" />
                                                     </div>
                                                     @error('hasil_riset')
                                                     <div class="text-danger">
@@ -961,10 +999,11 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="ul-widget__body">
+                                                    <h6>Jenis Sertifikat :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="jenis_sertif" type="text"
-                                                            placeholder="Jenis Sertifikat"
+                                                            placeholder="Jenis Sertifikat Produk"
                                                             value="{{ old('jenis_sertif') }}" />
                                                     </div>
                                                     @error('jenis_sertif')
@@ -972,10 +1011,11 @@
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Pemberi Sertifikat :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-user icon"></i>
                                                         <input class="form-control" name="pemberi_sertif" type="text"
-                                                            placeholder="Pemberi Sertifikat"
+                                                            placeholder="Pemberi Sertifikat..."
                                                             value="{{ old('pemberi_sertif') }}" />
                                                     </div>
                                                     @error('pemberi_sertif')
@@ -983,26 +1023,29 @@
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Status Sertifikat :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-circle icon"></i>
                                                         <input class="form-control" name="status_sertif" type="text"
-                                                            placeholder="Status" value="{{ old('status_sertif') }}" />
+                                                            placeholder="Status Sertifikat..." value="{{ old('status_sertif') }}" />
                                                     </div>
                                                     @error('status_sertif')
                                                     <div class="text-danger">
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Tahun Sertifikat :</h6>
                                                     <div class="input-container">
                                                         <i class="far fa-calendar-alt icon"></i>
                                                         <input class="form-control tahun" name="tahun_sertif" type=""
-                                                            placeholder="Tahun" value="{{ old('tahun_sertif') }}" />
+                                                            placeholder="2020" value="{{ old('tahun_sertif') }}" />
                                                     </div>
                                                     @error('tahun_sertif')
                                                     <div class="text-danger">
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Tanggal Sertifikat :</h6>
                                                     <div class="input-container">
                                                         <i class="far fa-calendar-alt icon"></i>
                                                         <input class="form-control" name="tanggal_sertif" type="date"
@@ -1051,16 +1094,18 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="ul-widget__body">
+                                                    <h6>Jenis Ijin :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-align-justify icon"></i>
                                                         <input class="form-control" name="jenis_ijin" type="text"
-                                                            placeholder="Jenis Ijin" value="{{ old('jenis_ijin') }}" />
+                                                            placeholder="Jenis Ijin.." value="{{ old('jenis_ijin') }}" />
                                                     </div>
                                                     @error('jenis_ijin')
                                                     <div class="text-danger">
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Pemberi Ijin :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-user icon"></i>
                                                         <input class="form-control" name="pemberi_ijin" type="text"
@@ -1072,6 +1117,7 @@
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Status Ijin :</h6>
                                                     <div class="input-container">
                                                         <i class="fas fa-circle icon"></i>
                                                         <input class="form-control" name="status_ijin" type="text"
@@ -1082,16 +1128,18 @@
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Tahun Ijin :</h6>
                                                     <div class="input-container">
                                                         <i class="far fa-calendar-alt icon"></i>
                                                         <input class="form-control" name="tahun_ijin" type="text"
-                                                            placeholder="Tahun" value="{{ old('tahun_ijin') }}" />
+                                                            placeholder="2020" value="{{ old('tahun_ijin') }}" />
                                                     </div>
                                                     @error('tahun_ijin')
                                                     <div class="text-danger">
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                    <h6>Tanggal Ijin :</h6>
                                                     <div class="input-container">
                                                         <i class="far fa-calendar-alt icon"></i>
                                                         <input class="form-control" name="tanggal_ijin" type="date"
@@ -1154,7 +1202,9 @@
 @endsection
 @section('js')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
 <script type="text/javascript">
