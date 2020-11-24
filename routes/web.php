@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
- 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -169,10 +169,13 @@ Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function (
     Route::get('/produk', 'Produk\ProdukController@index')->name('tenant.produk');
     Route::get('/produk/create', 'Produk\ProdukController@create')->name('tenant.formProduk');
     Route::post('/produk/store', 'Produk\ProdukController@store')->name('tenant.storeProduk');
-    Route::get('/produk/destroy/{title}', 'Produk\ProdukController@destroy')->name('tenant.destroyProduk');
-
+    Route::get('/produk/destroy/{id}', 'Produk\ProdukController@destroy')->name('tenant.destroyProduk');
+    Route::get('/produk/edit/{id}','Produk\ProdukController@edit')->name('tenant.editProduk');
+    Route::put('/produk/update/{id}','Produk\ProdukController@update')->name('tenant.updateProduk');
     Route::get('/produk/{title}', 'Produk\ProdukController@show')->name('tenant.detailProduk');
+    Route::get('/produk/deleteImage/{id}','Produk\ProdukController@deleteImage')->name('tenant.produk.deleteImage');
 
+	Route::get('/produk/api/getUser', 'Produk\ProdukController@getUser');
 	// route berita tenant
 	Route::get('/berita', 'Berita\BeritaController@indexTenant')->name('tenant.berita');
     Route::get('/berita/{slug}', 'Berita\BeritaController@showT')->name('tenant.showBerita');

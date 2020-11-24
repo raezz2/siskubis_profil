@@ -14,13 +14,11 @@ class TenantUser extends Model
         return $this->belongsTo('App\User');
     }
     public function tenants(){
-
-        return $this->belongsTo('App\Tenant');
+        return $this->belongsTo('App\Tenant','tenant_id','id');
     }
 
     public function profilUser()
     {
     	return $this->belongsTo('App\ProfilUser','user_id','user_id');
     }
-
 }
