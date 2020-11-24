@@ -51,7 +51,7 @@
                     @forelse ($produk as $row)
                         <div class="list-item col-md-3">
                             <div class="card o-hidden mb-4 d-flex flex-column">
-                                <div class="list-thumb d-flex"><img alt="" src="{{ asset('img/produk/' . $row->produk_image->image) }}" /></div>
+                                <div class="list-thumb d-flex"><img alt="" src="{{ asset('img/produk/' . $row->produk_image->image ?? 'dummy.jpg') }}" /></div>
                                 <div class="flex-grow-1 d-bock">
                                     <div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center">
                                         @role('inkubator')

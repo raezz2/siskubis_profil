@@ -452,7 +452,7 @@
 								<h5 class="mb-5 font-weight-700 text-center">Galeri Produk</h5>
 								<div class="row">
 									@forelse($image as $row)
-										<div class="col-md-3">
+										<div class="col-md-3 mb-3">
 											<img class="rounded w-100" src="{{ asset('img/produk/' . $row->image) }}" alt="{{ $row->judul }}">
 										</div>
 									@empty
@@ -561,9 +561,13 @@
 													<div class="ul-product-detail__border-box">
 														<h5 class="heading">{{ $row->profil_user->nama ?? 'tidak ada data'}}</h5>
 														<h6 class="">
-															{{ $row->jabatan ?? 'tidak ada data'}} - <b class="font-weight-bold">{{ $row->divisi }}</b>
+															<b class="font-weight-bold">Jabatan</b><br>
+															<p class="mb-1">{{ $row->jabatan ?? 'tidak ada data' }}</p><br>
+															<b class="font-weight-bold">Divisi</b><br>
+															<p class="mb-1">{{ $row->divisi ?? 'tidak ada data' }}</p><br>
+															<b class="font-weight-bold">Tugas</b><br>
+															<p class="mb-1">{{ $row->tugas ?? 'tidak ada data' }}</p>
 														</h6>
-														<p>{{ $row->tugas }}</p>
 													</div>
 												</div>
 											</div>

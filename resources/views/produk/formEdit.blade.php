@@ -18,10 +18,13 @@
     <div class="card">
         <div class="container">
             <div class="main-content pt-4 pb-4">
-                <form action="{{ route('tenant.storeProduk') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('tenant.updateProduk', $produk->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
+                {{ method_field('PUT') }}
                     <div class="breadcrumb">
-                        <h1>Update Produk <b>{{ $produk->title }}</b></h1>
+                        <h1>
+                            Update Produk <b>{{ $produk->title }}</b>
+                        </h1>
                     </div>
                     <div class="separator-breadcrumb border-top"></div>
                     <div class="row">
@@ -194,7 +197,7 @@
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label class="ul-form__label" for="keterbaharuan_produk">Keterbaharuan :</label>
-                                                <input class="form-control" id="keterbaharuan_produk" name="keterbaharuan_produk" type="text" placeholder="Apa yang baru dari produk ini..." required="required" value="{{ $produk->keterbaharuan }}">
+                                                <textarea class="form-control" id="keterbaharuan_produk" name="keterbaharuan_produk" type="text" placeholder="Apa yang baru dari produk ini..." required="required">{{ $produk->keterbaharuan }}</textarea>
                                                 @error('keterbaharuan_produk')
                                                     <div class="text-danger">
                                                         {{ $message }}
@@ -205,7 +208,7 @@
                                                 <label class="ul-form__label" for="spesifikasi_produk">Spesifikasi :</label>
                                                 <textarea class="form-control inline" id="spesifikasi_produk" name="spesifikasi_produk" type="text" placeholder="Spesifikasi dari produk ini adalah sebagai berikut..." required="required">{{ $produk->spesifikasi }}</textarea>
                                                 <small class="ul-form__text form-text text-danger" id="passwordHelpBlock">
-                                                    Pisahkan dengan titik koma ( ; )
+                                                    Jika lebih dari 1, pisahkan dengan titik koma ( ; )
                                                 </small>
                                                 @error('spesifikasi_produk')
                                                     <div class="text-danger">
@@ -220,7 +223,7 @@
                                                 <label class="ul-form__label" for="manfaat_produk">Manfaat :</label>
                                                 <input class="form-control" id="manfaat_produk" name="manfaat_produk" type="text" placeholder="Manfaat dari produk ini adalah sebagai berikut..." required="required" value="{{ $produk->manfaat }}" />
                                                 <small class="ul-form__text form-text text-danger" id="passwordHelpBlock">
-                                                    Pisahkan dengan titik koma ( ; )
+                                                    Jika lebih dari 1, pisahkan dengan titik koma ( ; )
                                                 </small>
                                                 @error('manfaat_produk')
                                                     <div class="text-danger">
@@ -232,7 +235,7 @@
                                                 <label class="ul-form__label" for="keunggulan_produk">Keunggulan :</label>
                                                 <input class="form-control" id="keunggulan_produk" name="keunggulan_produk" type="text" placeholder="Keunggulan dari produk ini adalah sebagai berikut..." required="required" value="{{ $produk->keunggulan }}" />
                                                 <small class="ul-form__text form-text text-danger" id="passwordHelpBlock">
-                                                    Pisahkan dengan titik koma ( ; )
+                                                    Jika lebih dari 1, pisahkan dengan titik koma ( ; )
                                                 </small>
                                                 @error('keunggulan_produk')
                                                     <div class="text-danger">
@@ -266,18 +269,19 @@
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label class="ul-form__label" for="proposal_produk">Proposal :</label>
-                                                <a href="#" data-toggle="tooltip" title="Proposal ini berisi tentang penjelasan produk">
+                                                <a href="#" data-toggle="tooltip" title="Tidak usah di isi jika tidak akan mengganti">
                                                     <i class="ul-form__icon i-Information"></i>
                                                 </a>
                                                 <div class="input-group">
                                                     <div class="custom-file">
-                                                        <a href="{{ asset('file/produk/produk'.'/'.$produk->proposal) }}">
-                                                            {{ $produk->proposal ?? 'tidak ada data' }}
-                                                        </a>
                                                         <input class="custom-file-input" id="proposal_produk" name="proposal_produk" type="file" value="{{ old('proposal_produk') }}">
-                                                        <label class="custom-file-label" for="proposal_produk">Choose file</label>
+                                                        <label class="custom-file-label" for="proposal_produk">{{ $produk->proposal ?? 'Choose file' }}</label>
                                                     </div>
                                                 </div>
+                                                File yang anda input sebelumnya : 
+                                                <a href="{{ asset('file/produk/produk'.'/'.$produk->proposal) }}" class="font-weight-bold">
+                                                    {{ $produk->proposal ?? 'tidak ada data' }}
+                                                </a>
                                                 @error('proposal_produk')
                                                     <div class="text-danger">
                                                         {{ $message }}
@@ -325,6 +329,9 @@
                                             <div class="form-group col-md-6">
                                                 <label class="ul-form__label" for="produksi_harga_bisnis">Produksi Harga :</label>
                                                 <textarea class="form-control" id="produksi_harga_bisnis" name="produksi_harga_bisnis" type="text" placeholder="Rp. 100000" required="required">{{ $produk->produk_bisnis->produksi_harga }}</textarea>
+                                                <small class="ul-form__text form-text text-danger" id="passwordHelpBlock">
+                                                    Jika lebih dari 1, pisahkan dengan titik koma ( ; )
+                                                </small>
                                                 @error('produksi_harga_bisnis')
                                                     <div class="text-danger">
                                                         {{ $message }}
@@ -446,12 +453,19 @@
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label class="ul-form__label" for="dokumen_ijin">Dokumen :</label>
+                                                <a href="#" data-toggle="tooltip" title="Tidak usah di isi jika tidak akan mengganti">
+                                                    <i class="ul-form__icon i-Information"></i>
+                                                </a>
                                                 <div class="input-group">
                                                     <div class="custom-file">
                                                         <input class="custom-file-input" id="dokumen_ijin" name="dokumen_ijin" type="file" value="{{ old('dokumen_ijin') }}" >
-                                                        <label class="custom-file-label" for="dokumen_ijin">Choose file</label>
+                                                        <label class="custom-file-label" for="dokumen_ijin">{{ $produk->produk_ijin->dokumen ?? 'Choose file' }}</label>
                                                     </div>
                                                 </div>
+                                                File yang anda input sebelumnya : 
+                                                <a href="{{ asset('file/produk/ijin'.'/'.$produk->produk_ijin->dokumen) }}" class="font-weight-bold">
+                                                    {{ $produk->produk_ijin->dokumen ?? 'tidak ada data' }}
+                                                </a>
                                                 @error('dokumen_ijin')
                                                     <div class="text-danger">
                                                         {{ $message }}
@@ -462,36 +476,77 @@
                                         </div>
                                     </div>
                                     <div id="image">
-                                        <h5 class="border-bottom border-gray pb-2">Foto Produk Anda</h5>
+                                        <h5 class="border-bottom border-gray pb-2">Foto Produk Anda <a class="btn btn-primary" href="javascript:void(0);" id="add_foto" title="Add field">+</a></h5>
                                         <div class="field_foto">
                                             <div class="form-row">
-                                                <div class="form-group col-md-10">
-                                                    <label class="ul-form__label" for="foto_image">Foto :</label>
-                                                    <div class="input-group">
-                                                        <div class="custom-file">
-                                                            <input class="custom-file-input" id="foto_image" name="foto_image[]" type="file">
-                                                            <label class="custom-file-label" for="foto_image">Choose file</label>
-                                                        </div>
-                                                        <div class="col-auto">
-                                                            <a class="btn btn-primary" href="javascript:void(0);" id="add_foto" title="Add field">+</a>
-                                                        </div>
-                                                    </div>
-                                                    @error('foto')
-                                                    <div class="text-danger">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
+                                                <div class="col-md-3">
+                                                    <img src="{{ asset('img/produk/dummy.jpg') }}" width="200px" height="130px">
                                                 </div>
-                                                <div class="form-group col-md-10">
-                                                    <input class="form-control" name="caption_image[]" id="caption_image" type="text" placeholder="Ini diisi caption" value="{{ old('caption_image') }}">
-                                                    @error('caption_image')
+                                                <div class="col-md-9">
+                                                    <div class="form-group col-md-10">
+                                                        <label class="ul-form__label" for="foto_image">Foto :</label>
+                                                        <div class="input-group">
+                                                            <div class="custom-file">
+                                                                <input class="custom-file-input" id="foto_image" name="foto_image[]" type="file">
+                                                                <label class="custom-file-label" for="foto_image">Choose file</label>
+                                                            </div>
+                                                        </div>
+                                                        @error('foto')
                                                         <div class="text-danger">
                                                             {{ $message }}
                                                         </div>
                                                     @enderror
+                                                    </div>
+                                                    <div class="form-group col-md-10">
+                                                        <input class="form-control" name="caption_image[]" id="caption_image" type="text" placeholder="Ini diisi caption" value="">
+                                                        @error('caption_image')
+                                                            <div class="text-danger">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="custom-separator mb-3"></div>
+                                        @foreach($image as $row)
+                                        <div class="field_image">
+                                            <div class="form-row">
+                                                <div class="col-md-3">
+                                                    <img src="{{ asset('img/produk/' . $row->image) }}" width="200px" height="130px" alt="{{ $row->image }}"><br>
+                                                    <a href="{{ route('tenant.produk.deleteImage', $row->id) }}" class="deleteImage btn btn-sm btn-danger">Hapus Gambar</a>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <div class="form-group col-md-10">
+                                                        <label class="ul-form__label" for="foto_image">Foto :</label>
+                                                        <div class="input-group">
+                                                            <div class="custom-file">
+                                                                <input class="custom-file-input" id="foto_image" name="foto_image[]" type="file">
+                                                                <label class="custom-file-label" for="foto_image">{{ $row->image }}</label>
+                                                            </div>
+                                                            <!-- <div class="col-auto">
+                                                                <a class="btn btn-primary" href="#" id="#" title="Add field">-</a>
+                                                            </div> -->
+                                                        </div>
+                                                        @error('foto')
+                                                        <div class="text-danger">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                    </div>
+                                                    <div class="form-group col-md-10">
+                                                        <input class="form-control" name="caption_image[]" id="caption_image" type="text" placeholder="Ini diisi caption" value="{{ $row->caption }}">
+                                                        @error('caption_image')
+                                                            <div class="text-danger">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <div class="custom-separator mb-3"></div>
+                                        </div>
+                                        @endforeach
                                     </div>
                                     <div id="ki">
                                         <h5 class="border-bottom border-gray pb-2">Kelengkapan Kekayaan Intelektual</h5>
@@ -536,15 +591,21 @@
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label class="ul-form__label" for="sertifikat_ki">Sertifikat :</label>
-                                                <a href="#" data-toggle="tooltip" title="Berupa file PDF">
+                                                <a href="#" data-toggle="tooltip" title="Tidak usah di isi jika tidak akan mengganti">
                                                     <i class="ul-form__icon i-Information"></i>
                                                 </a>
                                                 <div class="input-group">
                                                     <div class="custom-file">
                                                         <input class="custom-file-input" id="sertifikat_ki" name="sertifikat_ki" type="file" value="{{ old('sertifikat_ki') }}">
-                                                        <label class="custom-file-label" for="sertifikat_ki">Choose file</label>
+                                                        <label class="custom-file-label" for="sertifikat_ki">
+                                                            {{ $produk->produk_ki->sertifikat ?? 'Choose file' }}
+                                                        </label>
                                                     </div>
                                                 </div>
+                                                File yang anda input sebelumnya : 
+                                                <a href="{{ asset('file/produk/ki'.'/'.$produk->produk_ki->sertifikat) }}" class="font-weight-bold">
+                                                    {{ $produk->produk_ki->sertifikat ?? 'tidak ada data' }}
+                                                </a>
                                                 @error('sertifikat_ki')
                                                     <div class="text-danger">
                                                         {{ $message }}
@@ -745,15 +806,19 @@
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label class="ul-form__label" for="dokumen_sertifikasi">Dokumen :</label>
-                                                <a href="#" data-toggle="tooltip" title="Berupa file PDF">
+                                                <a href="#" data-toggle="tooltip" title="Tidak usah di isi jika tidak akan mengganti">
                                                     <i class="ul-form__icon i-Information"></i>
                                                 </a>
                                                 <div class="input-group">
                                                     <div class="custom-file">
-                                                        <input class="custom-file-input" id="dokumen_sertifikasi" name="dokumen_sertifikasi" type="file" value="{{ old('dokumen_sertifikasi') }}" />
-                                                        <label class="custom-file-label" for="dokumen_sertifikasi">Choose file</label>
+                                                        <input class="custom-file-input" id="dokumen_sertifikasi" name="dokumen_sertifikasi" type="file">
+                                                        <label class="custom-file-label" for="dokumen_sertifikasi">{{ $produk->produk_sertifikasi->dokumen }}</label>
                                                     </div>
                                                 </div>
+                                                File yang anda input sebelumnya : 
+                                                <a href="{{ asset('file/produk/sertifikasi'.'/'.$produk->produk_sertifikasi->dokumen) }}" class="font-weight-bold">
+                                                    {{ $produk->produk_sertifikasi->dokumen ?? 'tidak ada data' }}
+                                                </a>
                                                 @error('dokumen_sertifikasi')
                                                     <div class="text-danger">
                                                         {{ $message }}
@@ -777,6 +842,7 @@
                                     </div>
                                     <div id="team">
                                         <h5 class="border-bottom border-gray pb-2">Team Pengembangan Produk</h5>
+                                        @foreach($produk_team as $row)
                                         <div class="row" id="field_team">
                                             <div class="col-md-6 mb-2">
                                                 <div class="card mb-2">
@@ -816,6 +882,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -860,7 +927,7 @@
         var maxField = 5;
         var addButton = $('#add_foto');
         var wrapper = $('.field_foto');
-        var fieldHTML = '<div class="form-row"> <div class="form-group col-md-10"> <label class="ul-form__label" for="foto_image">Foto :</label> <div class="input-group"> <div class="custom-file"> <input class="custom-file-input" id="foto_image" name="foto_image[]" type="file"> <label class="custom-file-label" for="foto_image">Choose file</label> </div> <div class="col-auto"> <a href="javascript:void(0);" class="remove_button btn btn-danger">x</a> </div> </div> <div class="invalid-feedback"> Sepertinya field ini belum terisi. </div> </div> <div class="form-group col-md-10"> <input class="form-control" name="caption_image" id="caption_image" type="text" placeholder="Ini diisi caption" /> <div class="invalid-feedback"> Sepertinya field ini belum terisi. </div></div></div>';
+        var fieldHTML = '<div class="form-row"> <div class="col-md-3"> <img src="{{ asset('img/produk/dummy.jpg') }}" width="200px" height="130px"> <a href="javascript:void(0);" class="remove_button btn btn-danger">Hapus</a> </div> <div class="col-md-9"> <div class="form-group col-md-10"> <label class="ul-form__label" for="foto_image">Foto :</label> <div class="input-group"> <div class="custom-file"> <input class="custom-file-input" id="foto_image" name="foto_image[]" type="file"> <label class="custom-file-label" for="foto_image">Choose file</label> </div> </div> @error('foto') <div class="text-danger"> {{ $message }} </div> @enderror </div> <div class="form-group col-md-10"> <input class="form-control" name="caption_image[]" id="caption_image" type="text" placeholder="Ini diisi caption" value="{{ old('caption_image') }}"> @error('caption_image') <div class="text-danger"> {{ $message }} </div> @enderror </div> </div> </div> '; 
         var x = 1;
         $(addButton).click(function(){
             if(x < maxField){ 
@@ -887,6 +954,20 @@
                     $(rap).append(html);
                 }
             });
+        });
+    });
+
+//Delete Image
+    $(document).ready(function(){
+        var wrapper = $('.field_image')
+        $(wrapper).on('click','.deleteImage', function(e){
+            e.preventDefault();
+            $.ajax({
+                url : $(this).attr('href'),
+                success : function(){
+                    $(this).parent('').parent('').remove();
+                }
+            })
         });
     });
 </script>

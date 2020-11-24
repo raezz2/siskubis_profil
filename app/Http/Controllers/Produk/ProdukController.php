@@ -357,7 +357,6 @@ class ProdukController extends Controller
                 File::delete('img/produk' . $row);
             }
 
-
         $produk_bisnis = ProdukBisnis::where('produk_id', $id)->delete();
         $produk_canvas = ProdukCanvas::where('produk_id', $id)->delete();
         $produk_ijin = ProdukIjin::where('produk_id', $id)->delete();
@@ -381,12 +380,88 @@ class ProdukController extends Controller
         $produk_team    = ProdukTeam::with('profil_user.user')->where('produk_id', $id)->get();
         $user_id = ProfilUser::orderBy('nama')->get();
 
-        return view('produk.formedit', compact('produk','user_id'));
+        return view('produk.formedit', compact('produk','user_id','image','produk_team'));
     }
 
     public function update($id, Request $request)
     {
+        $validator = Validator::make($request->all(), [
+
+            'title_produk'                 => 'required',
+            'subtitle_produk'              => 'required',
+            'harga_pokok_produk'           => 'required|numeric',
+            'harga_jual_produk'            => 'required|numeric',
+            'kategori_produk'              => 'required',
+            'tag_produk'                   => 'required',
+            'location_produk'              => 'required',
+            'address_produk'               => 'required',
+            'contact_produk'               => 'required|numeric',
+
+            'tentang_produk_produk'        => 'required',
+            'latar_produk_produk'          => 'required',
+            'keterbaharuan_produk'         => 'required',
+            'spesifikasi_produk'           => 'required',
+            'manfaat_produk'               => 'required',
+            'keunggulan_produk'            => 'required',
+            'teknologi_produk'             => 'required',
+            'pengembangan_produk'          => 'required',
+            'proposal_produk'              => 'required|file',
+
+            'kompetitor_bisnis'            => 'required',
+            'target_pasar_bisnis'          => 'required',
+            'dampak_sosek_bisnis'          => 'required',
+            'produksi_harga_bisnis'        => 'required',
+            'pemasaran_bisnis'             => 'required',
+
+            'canvas_canvas'                => 'required',
+            'kategori_canvas'              => 'required',
+            'tanggal_canvas'               => 'required|date',
+
+            'jenis_ijin'                   => 'required',
+            'pemberi_ijin'                 => 'required',
+            'status_ijin'                  => 'required',
+            'tahun_ijin'                   => 'required|numeric',
+            'tanggal_ijin'                 => 'required|date',
+            'dokumen_ijin'                 => 'required|file',
+
+            'foto_image'                   => 'required|image|mimes:jpg,png,jpeg',
+            'caption_image'                => 'required',
+
+            'jenis_ki'                     => 'required',
+            'status_ki'                    => 'required',
+            'permohonan_ki'                => 'required',
+            'sertifikat_ki'                => 'required',
+            'berlaku_mulai_ki'             => 'required|date',
+            'berlaku_sampai_ki'            => 'required|date',
+            'pemilik_ki'                   => 'required',
+
+            'nama_riset'                   => 'required',
+            'pelaksana_riset'              => 'required',
+            'tahun_riset'                  => 'required|numeric',
+            'pendanaan_riset'              => 'required',
+            'skema_riset'                  => 'required',
+            'nilai_riset'                  => 'required',
+            'aktifitas_riset'              => 'required',
+            'tujuan_riset'                 => 'required',
+            'hasil_riset'                  => 'required',
+
+            'jenis_sertifikasi'            => 'required',
+            'pemberi_sertifikasi'          => 'required',
+            'tanggal_sertifikasi'          => 'required|date',
+            'tahun_sertifikasi'            => 'required|numeric',
+            'dokumen_sertifikasi'          => 'required|file',
+            'status_sertifikasi'           => 'required',
+        ]);
+
         $produk = Produk::find($id);
+
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $filename = time() . Str::slug($request->get('title')) . '.' . $file->getClientOriginalExtension();
+            $tujuan_upload = 'img/pengumuman';
+            $file->move($tujuan_upload, $filename);
+            File::delete('img/pengumuman/' . $pengumuman->foto);
+        }
     }
 
     public function getUser()
@@ -397,5 +472,14 @@ class ProdukController extends Controller
             $html .= '<option value="'.$u->user_id.'">'.$u->nama.'</option>';
         }
         return response()->json(['option'=>$html]);
+    }
+
+    public function deleteImage($id)
+    {
+        $image = ProdukImage::find($id);
+        File::delete('img/produk/' . $image->image);
+        $image->delete();
+
+        return response()->json($image);
     }
 }
