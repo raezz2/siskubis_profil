@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 @section('css')
     <link href="{{ asset('theme/css/plugins/smart.wizard/smart_wizard.min.css')}}" />
