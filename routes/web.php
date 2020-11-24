@@ -171,10 +171,10 @@ Route::group(['prefix' => 'tenant', 'middleware' => ['role:tenant']], function (
     Route::post('/produk/store', 'Produk\ProdukController@store')->name('tenant.storeProduk');
     Route::get('/produk/destroy/{id}', 'Produk\ProdukController@destroy')->name('tenant.destroyProduk');
     Route::get('/produk/edit/{id}','Produk\ProdukController@edit')->name('tenant.editProduk');
+    Route::put('/produk/update/{id}','Produk\ProdukController@update')->name('tenant.updateProduk');
     Route::get('/produk/{title}', 'Produk\ProdukController@show')->name('tenant.detailProduk');
-	Route::get('/produk/createTeam', 'Produk\ProdukController@createTeam')->name('tenant.formTeam');
-	Route::get('/produk/{title}/team', 'Produk\ProdukController@createTeam')->name('tenant.team');
-	Route::post('/produk/{title}/team/store', 'Produk\ProdukController@storeTeam')->name('tenant.storeTeam');
+    Route::get('/produk/deleteImage/{id}','Produk\ProdukController@deleteImage')->name('tenant.produk.deleteImage');
+
 	Route::get('/produk/api/getUser', 'Produk\ProdukController@getUser');
 	// route berita tenant
 	Route::get('/berita', 'Berita\BeritaController@indexTenant')->name('tenant.berita');

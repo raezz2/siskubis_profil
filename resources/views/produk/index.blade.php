@@ -51,7 +51,7 @@
                     @forelse ($produk as $row)
                         <div class="list-item col-md-3">
                             <div class="card o-hidden mb-4 d-flex flex-column">
-                                <div class="list-thumb d-flex"><img alt="" src="{{ asset('img/produk/' . $row->produk_image->image) }}" /></div>
+                                <div class="list-thumb d-flex"><img alt="" src="{{ asset('img/produk/' . $row->produk_image->image ?? 'dummy.jpg') }}" /></div>
                                 <div class="flex-grow-1 d-bock">
                                     <div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center">
                                         @role('inkubator')
@@ -87,9 +87,9 @@
                                                 <button type="button" class="btn btn-primary btn-sm dropdown-toggle w-100" data-toggle="dropdown">
                                                     Option
                                                 </button>
-                                                <div class="dropdown-menu">
-                                                    <a href="{{ route('tenant.editProduk', $row->id) }}" class="dropdown-item btn-warning w-100">UPDATE</a>
-                                                    <a href="{{ route('tenant.destroyProduk', $row->id) }}" class="dropdown-item btn-danger w-100">HAPUS</a>
+                                                <div class="dropdown-menu bg-primary w-100">
+                                                    <a href="{{ route('tenant.editProduk', $row->id) }}" class="dropdown-item btn-primary w-100 text-white"><small class="font-weight-700">UPDATE</small></a>
+                                                    <a href="{{ route('tenant.destroyProduk', $row->id) }}" class="dropdown-item btn-primary w-100 text-white"><small class="font-weight-bolder">HAPUS</small></a>
                                                 </div>
                                             </div>
                                             <!-- <button class="btn btn-primary btn-block w-100" id="with-timer" type="button">Option</button> -->
@@ -167,11 +167,5 @@
             }
         document.getElementById("filter").addEventListener("click", filterResults);
         });
-
-        // $('body').on('click','#with-timer', function () {
-        //     var timerInterval;
-        //     swal({
-        //         timer: 5000
-        // });
     </script>
 @endsection
