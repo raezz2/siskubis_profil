@@ -122,7 +122,7 @@
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label class="ul-form__label" for="location_produk">Lokasi :</label>
-                                                <div class="input-right-icon">  
+                                                <div class="input-right-icon">
                                                     <input class="form-control" id="location_produk" name="location_produk" type="text" placeholder="Sleman" required="required" value="{{ old('location_produk') }}">
                                                     <span class="span-right-input-icon">
                                                         <a href="#" data-toggle="tooltip" title="Masukan nama kota">
@@ -487,6 +487,9 @@
                                                         </div>
                                                     @enderror
                                                 </div>
+                                                <small class="ul-form__text form-text text-danger" id="passwordHelpBlock">
+                                                    Tolong upload lebih dari 1 foto untuk memperjelas produk
+                                                </small>
                                             </div>
                                         </div>
                                     </div>
@@ -833,7 +836,7 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script>
     <script type="text/javascript">
 
-//Field tag        
+//Field tag
     $(document).ready(function() {
         $('select').selectpicker();
     });
@@ -857,10 +860,10 @@
         var maxField = 5;
         var addButton = $('#add_foto');
         var wrapper = $('.field_foto');
-        var fieldHTML = '<div class="form-row"> <div class="form-group col-md-10"> <label class="ul-form__label" for="foto_image">Foto :</label> <div class="input-group"> <div class="custom-file"> <input class="custom-file-input" id="foto_image" name="foto_image[]" type="file"> <label class="custom-file-label" for="foto_image">Choose file</label> </div> <div class="col-auto"> <a href="javascript:void(0);" class="remove_button btn btn-danger">x</a> </div> </div> <div class="invalid-feedback"> Sepertinya field ini belum terisi. </div> </div> <div class="form-group col-md-10"> <input class="form-control" name="caption_image" id="caption_image" type="text" placeholder="Ini diisi caption" /> <div class="invalid-feedback"> Sepertinya field ini belum terisi. </div></div></div>';
+        var fieldHTML = '<div class="form-row"> <div class="form-group col-md-10"> <label class="ul-form__label" for="foto_image">Foto :</label> <div class="input-group"> <div class="custom-file"><input class="custom-file-input" id="foto_image" name="foto_image[]" type="file"> <label class="custom-file-label" for="foto_image">Choose file</label></div><a href="javascript:void(0);" class="remove_button btn btn-danger">x</a><div class="invalid-feedback"> Sepertinya field ini belum terisi. </div></div><div class="form-group"></br><input class="form-control" name="caption_image" id="caption_image" type="text" placeholder="Ini diisi caption" /> <div class="invalid-feedback"> Sepertinya field ini belum terisi. </div></div>';
         var x = 1;
         $(addButton).click(function(){
-            if(x < maxField){ 
+            if(x < maxField){
                 x++;
                 $(wrapper).append(fieldHTML);
             }
@@ -880,7 +883,7 @@
             $.ajax({
                 url: 'api/getUser',
                 success: function(data){
-                    var html = '<div class="col-md-6 mb-2"><div class="card mb-2"><div class="card-body"><div class="form-group row"><label class="col-sm-2 col-form-label" for="user_id_team">Nama</label><div class="col-sm-10"><select class="form-control" name="user_id_team[]" required="required">'+data.option+'</select></div></div><div class="form-group row"><label class="col-sm-2 col-form-label" for="jabatan_team">Jabatan</label><div class="col-sm-10"><input class="form-control" id="jabatan_team" name="jabatan_team[]" type="text" placeholder="Digital marketing..."></div></div><div class="form-group row"><label class="col-sm-2 col-form-label" for="divisi_team">Divisi</label><div class="col-sm-10"><input class="form-control" id="divisi_team" name="divisi_team[]" type="text" placeholder="Marketing"></div></div><div class="form-group row"><label class="col-sm-2 col-form-label" for="tugas_team">Tugas</label><div class="col-sm-10"><textarea class="form-control" id="tugas_team" name="tugas_team[]" type="text" placeholder="Memupuk pundi-pundi customer"></textarea></div></div><a href="javascript:void(0);" class="remove_button btn btn-danger">Hapus</a></div></div></div>';
+                    var html = '<div class="col-md-6 mb-2"><div class="card mb-2"><div class="card-body"><div class="form-group row"><label class="col-sm-2 col-form-label" for="user_id_team">Nama</label><div class="col-sm-10"><select class="form-control" name="user_id_team[]" required="required">'+data.option+'</select></div></div><div class="form-group row"><label class="col-sm-2 col-form-label" for="jabatan_team">Jabatan</label><div class="col-sm-10"><input class="form-control" id="jabatan_team" name="jabatan_team[]" type="text" placeholder="Digital marketing..."></div></div><div class="form-group row"><label class="col-sm-2 col-form-label" for="divisi_team">Divisi</label><div class="col-sm-10"><input class="form-control" id="divisi_team" name="divisi_team[]" type="text" placeholder="Marketing"></div></div><div class="form-group row"><label class="col-sm-2 col-form-label" for="tugas_team">Tugas</label><div class="col-sm-10"><textarea class="form-control" id="tugas_team" name="tugas_team[]" type="text" placeholder="Memupuk pundi-pundi customer"></textarea><a href="javascript:void(0);" class="remove_button btn btn-danger">Hapus</a></div></div></div></div></div>';
                     $(rap).append(html);
                 }
             });

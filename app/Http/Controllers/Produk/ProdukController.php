@@ -182,6 +182,7 @@ class ProdukController extends Controller
             'dokumen_sertifikasi'          => 'required|file',
             'status_sertifikasi'           => 'required',
         ]);
+        // dd($validator);
 
             $produk_id = Produk::orderBy('id','DESC')->first();
             $produks_id = $produk_id->id + 1;
@@ -208,19 +209,19 @@ class ProdukController extends Controller
             ProdukImage::insert($image_data);
 
             $file = $request->file('proposal_produk');
-            $dokumen_file_proposal = Str::slug($request->title_produk).".".$file->getClientOriginalExtension();
+            $dokumen_file_proposal = time() . Str::slug($request->title_produk).".".$file->getClientOriginalExtension();
             $file->move('file/produk/produk/',$dokumen_file_proposal);
 
             $file = $request->file('dokumen_sertifikasi');
-            $dokumen_file_sertifikasi = Str::slug($request->title_produk).".".$file->getClientOriginalExtension();
+            $dokumen_file_sertifikasi = time() . Str::slug($request->title_produk).".".$file->getClientOriginalExtension();
             $file->move('file/produk/sertifikasi/',$dokumen_file_sertifikasi);
 
             $file = $request->file('dokumen_ijin');
-            $dokumen_file_ijin = Str::slug($request->title_produk).".".$file->getClientOriginalExtension();
+            $dokumen_file_ijin = time() . Str::slug($request->title_produk).".".$file->getClientOriginalExtension();
             $file->move('file/produk/ijin/',$dokumen_file_ijin);
 
             $file = $request->file('sertifikat_ki');
-            $dokumen_file_ki = Str::slug($request->title_produk).".".$file->getClientOriginalExtension();
+            $dokumen_file_ki = time() . Str::slug($request->title_produk).".".$file->getClientOriginalExtension();
             $file->move('file/produk/ki/',$dokumen_file_ki);
 
 
@@ -336,11 +337,44 @@ class ProdukController extends Controller
             ProdukTeam::insert($insert_data);
 
             return redirect(route('tenant.produk'));
-            
+
     }
 
     public function destroy($id)
     {
+        // $produk = Produk::find($id);
+        // File::delete('file/produk/produk' . $produk->proposal);
+        // $produk->delete();
+
+        // $produk_bisnis = ProdukBisnis::where('produk_id', $id)->first();
+        // $produk_bisnis->delete();
+
+        // $produk_canvas = ProdukCanvas::where('produk_id', $id)->first();
+        // $produk_canvas->delete();
+
+        // $produk_ijin = ProdukIjin::where('produk_id', $id)->first();
+        // File::delete('file/produk/ijin' . $produk_ijin->dokumen);
+        // $produk_ijin->delete();
+
+        // $image          = ProdukImage::where('produk_id',$id)->get();
+        //     foreach ($image as $row){
+        //         File::delete('img/produk' . $row->image);
+        //     }
+        // $image->delete();
+
+        // $produk_ki = ProdukKI::where('produk_id', $id)->first();
+        // File::delete('file/produk/ki' . $produk_ki->sertifikat);
+        // $produk_ki->delete();
+
+        // $produk_riset = ProdukRiset::where('produk_id', $id)->first();
+        // $produk_riset->delete();
+
+        // $produk_sertifikasi = ProdukSertifikasi::where('produk_id', $id)->first();
+        // File::delete('file/produk/sertifiksi' . $produk_sertifikasi->dokumen);
+        // $produk_sertifikasi->delete();
+
+        // $produk_team = ProdukTeam::where('produk_id', $id)->get();
+        // $produk_team->delete();
 
         $produk = Produk::with('produk_ijin','produk_ki','produk_sertifikasi')->where('id', $id)->first();
         File::delete('file/produk/produk' . $produk->proposal);
@@ -351,9 +385,8 @@ class ProdukController extends Controller
         $sertif = $produk->produk_sertifikasi->dokumen;
         File::delete('file/produk/sertifiksi' . $sertif);
 
-        $image          = ProdukImage::where('produk_id',$id)->get('image');
-        $images     = $image;
-            foreach ($images as $row){
+        $image          = ProdukImage::where('produk_id',$id)->get();
+            foreach ($image as $row){
                 File::delete('img/produk' . $row);
             }
 
