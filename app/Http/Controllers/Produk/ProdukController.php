@@ -383,7 +383,7 @@ class ProdukController extends Controller
         $ki = $produk->produk_ki->sertifikat;
         File::delete('file/produk/ki' . $ki);
         $sertif = $produk->produk_sertifikasi->dokumen;
-        File::delete('file/produk/sertifiksi' . $sertif);
+        File::delete('file/produk/sertifikasi' . $sertif);
 
         $image          = ProdukImage::where('produk_id',$id)->get();
             foreach ($image as $row){
@@ -438,7 +438,7 @@ class ProdukController extends Controller
             'keunggulan_produk'            => 'required',
             'teknologi_produk'             => 'required',
             'pengembangan_produk'          => 'required',
-            'proposal_produk'              => 'required|file',
+            'proposal_produk'              => 'nullable',
 
             'kompetitor_bisnis'            => 'required',
             'target_pasar_bisnis'          => 'required',
@@ -455,15 +455,15 @@ class ProdukController extends Controller
             'status_ijin'                  => 'required',
             'tahun_ijin'                   => 'required|numeric',
             'tanggal_ijin'                 => 'required|date',
-            'dokumen_ijin'                 => 'required|file',
+            'dokumen_ijin'                 => 'nullable',
 
-            'foto_image'                   => 'required|image|mimes:jpg,png,jpeg',
-            'caption_image'                => 'required',
+            'foto_image'                   => 'nullable|image|mimes:jpg,png,jpeg',
+            'caption_image'                => 'nullable',
 
             'jenis_ki'                     => 'required',
             'status_ki'                    => 'required',
             'permohonan_ki'                => 'required',
-            'sertifikat_ki'                => 'required',
+            'sertifikat_ki'                => 'nullable',
             'berlaku_mulai_ki'             => 'required|date',
             'berlaku_sampai_ki'            => 'required|date',
             'pemilik_ki'                   => 'required',
@@ -482,19 +482,151 @@ class ProdukController extends Controller
             'pemberi_sertifikasi'          => 'required',
             'tanggal_sertifikasi'          => 'required|date',
             'tahun_sertifikasi'            => 'required|numeric',
-            'dokumen_sertifikasi'          => 'required|file',
+            'dokumen_sertifikasi'          => 'nullable',
             'status_sertifikasi'           => 'required',
         ]);
 
+        $tenant = TenantUser::with('tenants')->where('user_id', $request->user()->id)->first();
+        $tenant_id=$tenant->tenant_id;
+        $priority_tenant=$tenant->tenants->priority;
+        
         $produk = Produk::find($id);
+        $produks = Produk::with(['tenant','priority','produk_bisnis','produk_canvas','produk_ijin','produk_image','produk_ki','produk_riset','produk_sertifikasi'])->where('id', $id)->first();
+        $images = ProdukImage::where('produk_id', $id)->get();
+        $id = $produk->id;
+        $dokumen_file_proposal = $produk->proposal;
+        $dokumen_file_ijin = $produk->produk_ijin->dokumen;
+        $dokumen_file_ki = $produk->produk_ki->sertifikat;
+        $dokumen_file_sertifikasi = $produk->produk_sertifikasi->dokumen;
 
-        if ($request->hasFile('foto')) {
-            $file = $request->file('foto');
-            $filename = time() . Str::slug($request->get('title')) . '.' . $file->getClientOriginalExtension();
-            $tujuan_upload = 'img/pengumuman';
-            $file->move($tujuan_upload, $filename);
-            File::delete('img/pengumuman/' . $pengumuman->foto);
+        if ($request->hasFile('proposal_produk')) {
+            $file = $request->file('proposal_produk');
+            $dokumen_file_proposal = time() . Str::slug($request->title_produk).".".$file->getClientOriginalExtension();
+            $file->move('file/produk/produk/',$dokumen_file_proposal);
+            File::delete('file/produk/produk/' . $produk->proposal);
         }
+        
+        if ($request->hasFile('dokumen_ijin')) {
+            $file = $request->file('dokumen_ijin');
+            $dokumen_file_ijin = time() . Str::slug($request->title_produk).".".$file->getClientOriginalExtension();
+            $file->move('file/produk/ijin/',$dokumen_file_ijin);
+            File::delete('file/produk/ijin/' . $produks->produk_ijin->proposal);
+        }
+
+        if ($request->hasFile('sertifikat_ki')) {
+            $file = $request->file('sertifikat_ki');
+            $dokumen_file_ki = time() . Str::slug($request->title_produk).".".$file->getClientOriginalExtension();
+            $file->move('file/produk/ki/',$dokumen_file_ki);
+            File::delete('file/produk/ki/' . $produks->produk_ki->sertifikat);
+        }
+
+        if ($request->hasFile('dokumen_sertifikasi')) {
+            $file = $request->file('dokumen_sertifikasi');
+            $dokumen_file_sertifikasi = time() . Str::slug($request->title_produk).".".$file->getClientOriginalExtension();
+            $file->move('file/produk/sertifikasi/',$dokumen_file_sertifikasi);
+            File::delete('file/produk/sertifikasi/' . $produks->produk_sertifikasi->sertifikasi);
+        }
+
+        if ($request->hasFile('foto_image')) {
+            $images = $request->foto_image;
+            $image_files = $request->file('foto_image');
+            for ($i=0; $i < count($images); $i++) {
+                $captions = $request->caption_image;
+                $filename = time() . Str::slug($request->title_produk). $i .'.' . $image_files[$i]->getClientOriginalExtension();
+                $image_resize = Image::make($image_files[$i]->getRealPath());
+                $image_resize->resize(900,585);
+                $image_resize->save(public_path('img/produk/'.$filename));
+                $data = array(
+                    'produk_id' =>  $produks->id,
+                    'image'     =>  $filename,
+                    'judul'     =>  $request->title_produk,
+                    'caption'   =>  $captions[$i],
+                );
+                $image_data[]  = $data;
+            }
+            ProdukImage::insert($image_data);
+        }
+        
+        $produk = Produk::where('id', $id)->update([
+            'tenant_id'             => $tenant_id,
+            'inventor_id'           => 0,
+            'priority_id'           => $priority_tenant,
+            'title'                 => $request->title_produk,
+            'subtitle'              => $request->subtitle_produk,
+            'harga_pokok'           => $request->harga_pokok_produk,
+            'harga_jual'            => $request->harga_jual_produk,
+            'kategori_id'           => $request->kategori_id_produk,
+            'tag'                   => implode(",", $request->tag),
+            'location'              => $request->location_produk,
+            'address'               => $request->address_produk,
+            'contact'               => $request->contact_produk,
+            'tentang'               => $request->tentang_produk,
+            'latar'                 => $request->latar_produk,
+            'keterbaharuan'         => $request->keterbaharuan_produk,
+            'spesifikasi'           => $request->spesifikasi_produk,
+            'manfaat'               => $request->manfaat_produk,
+            'keunggulan'            => $request->keunggulan_produk,
+            'teknologi'             => $request->teknologi_produk,
+            'pengembangan'          => $request->pengembangan_produk,
+            'proposal'              => $dokumen_file_proposal,
+        ]);
+
+        $produk_bisnis = ProdukBisnis::where('produk_id',$id)->update([
+            'kompetitor'            => $request->kompetitor_bisnis,
+            'target_pasar'          => $request->target_pasar_bisnis,
+            'dampak_sosek'          => $request->dampak_sosek_bisnis,
+            'produksi_harga'        => $request->produksi_harga_bisnis,
+            'pemasaran'             => $request->pemasaran_bisnis,
+        ]);
+
+        $produk_canvas = ProdukCanvas::where('produk_id', $id)->update([
+            'canvas'                => $request->canvas_canvas,
+            'kategori'              => $request->kategori_canvas,
+            'tanggal'               => $request->tanggal_canvas,
+        ]);
+
+        $produk_ijin = ProdukIjin::where('produk_id', $id)->update([
+            'jenis_ijin'            => $request->jenis_ijin,
+            'pemberi'               => $request->pemberi_ijin,
+            'status'                => $request->status_ijin,
+            'tahun'                 => $request->tahun_ijin,
+            'tanggal'               => $request->tanggal_ijin,
+            'dokumen'               => $dokumen_file_ijin,
+        ]);
+
+        $produk_ki = ProdukKI::where('produk_id', $id)->update([
+            'jenis_ki'              => $request->jenis_ki,
+            'status_ki'             => $request->status_ki,
+            'permohonan'            => $request->permohonan_ki,
+            'sertifikat'            => $dokumen_file_ki,
+            'berlaku_mulai'         => $request->berlaku_mulai_ki,
+            'berlaku_sampai'        => $request->berlaku_sampai_ki,
+            'pemilik_ki'            => $request->pemilik_ki,
+        ]);
+
+        $produk_riset = ProdukRiset::where('produk_id', $id)->update([
+            'nama_riset'            => $request->nama_riset,
+            'pelaksana'             => $request->pelaksana_riset,
+            'tahun'                 => $request->tahun_riset,
+            'pendanaan'             => $request->pendanaan_riset,
+            'skema'                 => $request->skema_riset,
+            'nilai'                 => $request->nilai_riset,
+            'aktifitas'             => $request->aktifitas_riset,
+            'tujuan'                => $request->tujuan_riset,
+            'hasil'                 => $request->hasil_riset,
+        ]);
+
+        $produk_sertifikasi = ProdukSertifikasi::where('produk_id', $id)->update([
+            'jenis_sertif'          => $request->jenis_sertifikasi,
+            'pemberi_sertif'        => $request->pemberi_sertifikasi,
+            'status'                => $request->status_sertifikasi,
+            'tahun'                 => $request->tahun_sertifikasi,
+            'tanggal'               => $request->tanggal_sertifikasi,
+            'dokumen'               => $dokumen_file_sertifikasi,
+        ]);
+
+        return redirect(route('tenant.detailProduk', $id));
+
     }
 
     public function getUser()
