@@ -39,6 +39,7 @@
                                     <li><a href="#ki">Kekayaan Intelektual<br></a></li>
                                     <li><a href="#riset">Riset<br></a></li>
                                     <li><a href="#sertifikasi">Sertifikasi<br></a></li>
+                                    <li><a href="#team">Team<br></a></li>
                                 </ul>
                                 <div>
                                     <div id="detail">
@@ -116,7 +117,11 @@
                                             <div class="form-group col-md-6">
                                                 <label class="ul-form__label" for="tag_produk">Tag :</label>
                                                 <div class="tagBox case-sensitive form-control" data-no-duplicate="true" data-pre-tags-separator="," data-no-duplicate-text="Duplicate tags" data-type-zone-class="type-zone" data-case-sensitive="true" data-tag-box-class="tagging" data-no-enter="true">{{ $produk->tag }}</div>
-                                                <small class="text-danger">{{ $errors->first('tag') }}</small>
+                                                @error('tag')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="custom-separator"></div>
@@ -216,7 +221,7 @@
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label class="ul-form__label" for="manfaat_produk">Manfaat :</label>
-                                                <textarea class="form-control" id="manfaat_produk" name="manfaat_produk" type="text" placeholder="Manfaat dari produk ini adalah sebagai berikut..." required="required">{{ $produk->manfaat }}</textarea>
+                                                <input class="form-control" id="manfaat_produk" name="manfaat_produk" type="text" placeholder="Manfaat dari produk ini adalah sebagai berikut..." required="required" value="{{ $produk->manfaat }}" />
                                                 <small class="ul-form__text form-text text-danger" id="passwordHelpBlock">
                                                     Jika lebih dari 1, pisahkan dengan titik koma ( ; )
                                                 </small>
@@ -228,7 +233,7 @@
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label class="ul-form__label" for="keunggulan_produk">Keunggulan :</label>
-                                                <textarea class="form-control" id="keunggulan_produk" name="keunggulan_produk" type="text" placeholder="Keunggulan dari produk ini adalah sebagai berikut..." required="required">{{ $produk->keunggulan }}</textarea>
+                                                <input class="form-control" id="keunggulan_produk" name="keunggulan_produk" type="text" placeholder="Keunggulan dari produk ini adalah sebagai berikut..." required="required" value="{{ $produk->keunggulan }}" />
                                                 <small class="ul-form__text form-text text-danger" id="passwordHelpBlock">
                                                     Jika lebih dari 1, pisahkan dengan titik koma ( ; )
                                                 </small>
@@ -243,7 +248,7 @@
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label class="ul-form__label" for="teknologi_produk">Tekonologi :</label>
-                                                <textarea class="form-control" id="teknologi_produk" name="teknologi_produk" type="text" placeholder="Tekonologi pada produk ini..." required="required">{{ $produk->teknologi }}</textarea>
+                                                <input class="form-control" id="teknologi_produk" name="teknologi_produk" type="text" placeholder="Tekonologi pada produk ini..." required="required" value="{{ $produk->teknologi }}">
                                                 @error('teknologi_produk')
                                                     <div class="text-danger">
                                                         {{ $message }}
@@ -252,7 +257,7 @@
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label class="ul-form__label" for="pengembangan_produk">Pengembangan :</label>
-                                                <textarea class="form-control" id="pengembangan_produk" name="pengembangan_produk" type="text" placeholder="Pengembangan produk..." required="required">{{ $produk->pengembangan }}</textarea>
+                                                <input class="form-control" id="pengembangan_produk" name="pengembangan_produk" type="text" placeholder="Pengembangan produk..." required="required" value="{{ $produk->pengembangan }}">
                                                 @error('pengembangan_produk')
                                                     <div class="text-danger">
                                                         {{ $message }}
@@ -472,7 +477,7 @@
                                     </div>
                                     <div id="image">
                                         <h5 class="border-bottom border-gray pb-2">Foto Produk Anda <a class="btn btn-primary" href="javascript:void(0);" id="add_foto" title="Add field">+</a></h5>
-                                        <div class="field_foto mb-5">
+                                        <div class="field_foto">
                                             <div class="form-row">
                                                 <div class="col-md-3">
                                                     <img src="{{ asset('img/produk/dummy.jpg') }}" width="200px" height="130px">
@@ -493,7 +498,7 @@
                                                     @enderror
                                                     </div>
                                                     <div class="form-group col-md-10">
-                                                        <input class="form-control" name="caption_image[]" id="caption_image" type="text" placeholder="Ini diisi caption">
+                                                        <input class="form-control" name="caption_image[]" id="caption_image" type="text" placeholder="Ini diisi caption" value="">
                                                         @error('caption_image')
                                                             <div class="text-danger">
                                                                 {{ $message }}
@@ -509,7 +514,7 @@
                                             <div class="form-row">
                                                 <div class="col-md-3">
                                                     <img src="{{ asset('img/produk/' . $row->image) }}" width="200px" height="130px" alt="{{ $row->image }}"><br>
-                                                    <a href="{{ route('tenant.produk.deleteImage', $row->id) }}" class="deleteImage btn btn-sm btn-danger mt-2">Hapus Gambar</a>
+                                                    <a href="{{ route('tenant.produk.deleteImage', $row->id) }}" class="deleteImage btn btn-sm btn-danger">Hapus Gambar</a>
                                                 </div>
                                                 <div class="col-md-9">
                                                     <div class="form-group col-md-10">
@@ -657,7 +662,7 @@
                                                 @enderror
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label class="ul-form__label" for="pelaksana_riset">Pelaksana :</label>
+                                                <label class="ul-form__label" for="pelaksana_riset">Pelaksanaan :</label>
                                                 <input class="form-control" id="pelaksana_riset" name="pelaksana_riset" type="text" placeholder="Pelaksana riset..." required="required" value="{{ $produk->produk_riset->pelaksana }}" />
                                                 @error('pelaksana_riset')
                                                     <div class="text-danger">
@@ -835,6 +840,50 @@
                                         </div>
                                         <div class="custom-separator"></div>
                                     </div>
+                                    <div id="team">
+                                        <h5 class="border-bottom border-gray pb-2">Team Pengembangan Produk</h5>
+                                        @foreach($produk_team as $row)
+                                        <div class="row" id="field_team">
+                                            <div class="col-md-6 mb-2">
+                                                <div class="card mb-2">
+                                                    <div class="card-body">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-2 col-form-label" for="user_id_team">Nama</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-control" name="user_id_team[]" required="required">
+                                                                    @forelse($user_id as $row)
+                                                                        <option value="{{ $row->id }}">{{ $row->nama }}</option>
+                                                                    @empty
+                                                                        <option>Belum ada anggota di tenant ini</option>
+                                                                    @endforelse
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-2 col-form-label" for="jabatan_team">Jabatan</label>
+                                                            <div class="col-sm-10">
+                                                                <input class="form-control" id="jabatan_team" name="jabatan_team[]" type="text" placeholder="Digital marketing...">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-2 col-form-label" for="divisi_team">Divisi</label>
+                                                            <div class="col-sm-10">
+                                                                <input class="form-control" id="divisi_team" name="divisi_team[]" type="text" placeholder="Marketing">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-2 col-form-label" for="tugas_team">Tugas</label>
+                                                            <div class="col-sm-10">
+                                                                <textarea class="form-control" id="tugas_team" name="tugas_team[]" type="text" placeholder="Memupuk pundi-pundi customer"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <a class="btn btn-primary" href="javascript:void(0);" id="add_team" title="Add field">Tambah Orang</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -878,7 +927,8 @@
         var maxField = 5;
         var addButton = $('#add_foto');
         var wrapper = $('.field_foto');
-        var fieldHTML ='<div class="form-row mt-3"> <div class="col-md-3"> <img src="{{ asset('img/produk/dummy.jpg') }}" width="200px" height="130px"> <a href="javascript:void(0);" class="remove_button btn btn-danger mt-2">Hapus</a> </div> <div class="col-md-9"> <div class="form-group col-md-10"> <label class="ul-form__label" for="foto_image">Foto :</label> <div class="input-group"> <div class="custom-file"> <input class="custom-file-input" id="foto_image" name="foto_image[]" type="file"> <label class="custom-file-label" for="foto_image">Choose file</label> </div> </div> @error('foto') <div class="text-danger"> {{ $message }} </div> @enderror </div> <div class="form-group col-md-10"> <input class="form-control" name="caption_image[]" id="caption_image" type="text" placeholder="Ini diisi caption"> @error('caption_image') <div class="text-danger"> {{ $message }} </div> @enderror </div> </div> </div>'; var x = 1;
+        var fieldHTML = '<div class="form-row"> <div class="col-md-3"> <img src="{{ asset('img/produk/dummy.jpg') }}" width="200px" height="130px"> <a href="javascript:void(0);" class="remove_button btn btn-danger">Hapus</a> </div> <div class="col-md-9"> <div class="form-group col-md-10"> <label class="ul-form__label" for="foto_image">Foto :</label> <div class="input-group"> <div class="custom-file"> <input class="custom-file-input" id="foto_image" name="foto_image[]" type="file"> <label class="custom-file-label" for="foto_image">Choose file</label> </div> </div> @error('foto') <div class="text-danger"> {{ $message }} </div> @enderror </div> <div class="form-group col-md-10"> <input class="form-control" name="caption_image[]" id="caption_image" type="text" placeholder="Ini diisi caption" value="{{ old('caption_image') }}"> @error('caption_image') <div class="text-danger"> {{ $message }} </div> @enderror </div> </div> </div> '; 
+        var x = 1;
         $(addButton).click(function(){
             if(x < maxField){ 
                 x++;
@@ -915,7 +965,7 @@
             $.ajax({
                 url : $(this).attr('href'),
                 success : function(){
-                    $(wrapper).remove();
+                    $(wrapper).parent('').parent('').remove();
                 }
             })
         });

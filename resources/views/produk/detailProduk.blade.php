@@ -414,7 +414,17 @@
 								  	<div class="w-100">{!! $produk->produk_canvas->canvas ?? 'tidak ada data'!!}</div>
 
 								  	<dt class="col-sm-3">Target Pasar</dt>
-								  	<dd class="col-sm-8">{{ $produk->produk_canvas->kategori ?? 'tidak ada data'}}</dd>
+								  	<dd class="col-sm-8">
+								  		@if($produk->kategori_id == 0)
+								  			Belum ada data
+								  		@elseif($produk->kategori_id == 1)
+								  			Produk
+								  		@elseif($produk->kategori_id == 2)
+								  			Pemasaran
+								  		@elseif($produk->kategori_id == 3)
+								  			Target
+										@endif
+								  	</dd>
 								</dl>
 							</div>
 
@@ -465,7 +475,19 @@
 								<h5 class="mb-5 font-weight-700 text-center">Kekayaan Intelektual</h5>
 								<dl class="row">
 									<dt class="col-sm-3">Jenis</dt><dt class="col-md-1"> : </dt>
-								  	<dd class="col-sm-8">{{ $produk->produk_ki->jenis_ki ?? 'tidak ada data'}}</dd>
+								  	<dd class="col-sm-8">
+								  		@if($produk->produk_ki->jenis_ki == 0)
+								  			Belum ada data
+								  		@elseif($produk->produk_ki->jenis_ki == 1)
+								  			Hak Cipta
+								  		@elseif($produk->produk_ki->jenis_ki == 2)
+								  			Paten
+								  		@elseif($produk->produk_ki->jenis_ki == 3)
+								  			Merk Dagang
+								  		@elseif($produk->produk_ki->jenis_ki == 4)
+								  			Rahasia Dagang
+										@endif
+								  	</dd>
 
 									<dt class="col-sm-3">Status</dt><dt class="col-md-1"> : </dt>
 								  	<dd class="col-sm-8">{{ $produk->produk_ki->status_ki ?? 'tidak ada data'}}</dd>
