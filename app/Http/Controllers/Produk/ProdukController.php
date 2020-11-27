@@ -267,7 +267,6 @@ class ProdukController extends Controller
                 'tanggal'               => $request->tanggal_canvas,
             ]);
 
-
             $produk_ki = ProdukKI::create([
                 'produk_id'             => $produks_id,
                 'jenis_ki'              => $request->jenis_ki,
