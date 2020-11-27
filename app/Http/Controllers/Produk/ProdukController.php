@@ -267,13 +267,6 @@ class ProdukController extends Controller
                 'tanggal'               => $request->tanggal_canvas,
             ]);
 
-            $produk_image = ProdukImage::create([
-                'produk_id'             => $produks_id,
-                'image'                 => $filename,
-                'judul'                 => $request->title_produk,
-                'caption'               => $request->caption_image,
-            ]);
-
             $produk_ki = ProdukKI::create([
                 'produk_id'             => $produks_id,
                 'jenis_ki'              => $request->jenis_ki,

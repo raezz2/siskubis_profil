@@ -502,8 +502,8 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="custom-separator mb-3"></div>
                                         </div>
-                                        <div class="custom-separator mb-3"></div>
                                         @foreach($image as $row)
                                         <div class="field_image">
                                             <div class="form-row">
@@ -878,7 +878,8 @@
         var maxField = 5;
         var addButton = $('#add_foto');
         var wrapper = $('.field_foto');
-        var fieldHTML ='<div class="form-row mt-3"> <div class="col-md-3"> <img src="{{ asset('img/produk/dummy.jpg') }}" width="200px" height="130px"> <a href="javascript:void(0);" class="remove_button btn btn-danger mt-2">Hapus</a> </div> <div class="col-md-9"> <div class="form-group col-md-10"> <label class="ul-form__label" for="foto_image">Foto :</label> <div class="input-group"> <div class="custom-file"> <input class="custom-file-input" id="foto_image" name="foto_image[]" type="file"> <label class="custom-file-label" for="foto_image">Choose file</label> </div> </div> @error('foto') <div class="text-danger"> {{ $message }} </div> @enderror </div> <div class="form-group col-md-10"> <input class="form-control" name="caption_image[]" id="caption_image" type="text" placeholder="Ini diisi caption"> @error('caption_image') <div class="text-danger"> {{ $message }} </div> @enderror </div> </div> </div>'; var x = 1;
+        var fieldHTML ='<div class="form-row mt-3"> <div class="col-md-3"> <img src="{{ asset('img/produk/dummy.jpg') }}" width="200px" height="130px"> <a href="javascript:void(0);" class="remove_button btn btn-danger mt-2">Hapus</a> </div> <div class="col-md-9"> <div class="form-group col-md-10"> <label class="ul-form__label" for="foto_image">Foto :</label> <div class="input-group"> <div class="custom-file"> <input class="custom-file-input" id="foto_image" name="foto_image[]" type="file"> <label class="custom-file-label" for="foto_image">Choose file</label> </div> </div> @error('foto') <div class="text-danger"> {{ $message }} </div> @enderror </div> <div class="form-group col-md-10"> <input class="form-control" name="caption_image[]" id="caption_image" type="text" placeholder="Ini diisi caption"> @error('caption_image') <div class="text-danger"> {{ $message }} </div> @enderror </div> </div></div><div class="custom-separator mb-3"></div>'; 
+        var x = 1;
         $(addButton).click(function(){
             if(x < maxField){ 
                 x++;
@@ -909,15 +910,12 @@
 
 //Delete Image
     $(document).ready(function(){
-        var wrapper = $('.field_image')
-        $(wrapper).on('click','.deleteImage', function(e){
+        $('.field_image').on('click','.deleteImage', function(e){
             e.preventDefault();
             $.ajax({
                 url : $(this).attr('href'),
-                success : function(){
-                    $(wrapper).remove();
-                }
             })
+            $(this).remove();
         });
     });
 </script>
