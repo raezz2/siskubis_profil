@@ -811,9 +811,9 @@
                                                                 <textarea class="form-control" id="tugas_team" name="tugas_team[]" type="text" placeholder="Memupuk pundi-pundi customer"></textarea>
                                                             </div>
                                                         </div>
-                                                        <a class="btn btn-primary" href="javascript:void(0);" id="add_team" title="Add field">Tambah Orang</a>
                                                     </div>
                                                 </div>
+                                                <a class="btn btn-primary" href="javascript:void(0);" id="add_team" title="Add field">Tambah Orang</a>
                                             </div>
                                         </div>
                                     </div>
@@ -883,10 +883,16 @@
             $.ajax({
                 url: 'api/getUser',
                 success: function(data){
-                    var html = '<div class="col-md-6 mb-2"><div class="card mb-2"><div class="card-body"><div class="form-group row"><label class="col-sm-2 col-form-label" for="user_id_team">Nama</label><div class="col-sm-10"><select class="form-control" name="user_id_team[]" required="required">'+data.option+'</select></div></div><div class="form-group row"><label class="col-sm-2 col-form-label" for="jabatan_team">Jabatan</label><div class="col-sm-10"><input class="form-control" id="jabatan_team" name="jabatan_team[]" type="text" placeholder="Digital marketing..."></div></div><div class="form-group row"><label class="col-sm-2 col-form-label" for="divisi_team">Divisi</label><div class="col-sm-10"><input class="form-control" id="divisi_team" name="divisi_team[]" type="text" placeholder="Marketing"></div></div><div class="form-group row"><label class="col-sm-2 col-form-label" for="tugas_team">Tugas</label><div class="col-sm-10"><textarea class="form-control" id="tugas_team" name="tugas_team[]" type="text" placeholder="Memupuk pundi-pundi customer"></textarea><a href="javascript:void(0);" class="remove_button btn btn-danger">Hapus</a></div></div></div></div></div>';
+                    var html = '<div class="col-md-6 mb-2"><div class="card mb-2"><div class="card-body"><div class="form-group row"><label class="col-sm-2 col-form-label" for="user_id_team">Nama</label><div class="col-sm-10"><select class="form-control" name="user_id_team[]" required="required">'+data.option+'</select></div></div><div class="form-group row"><label class="col-sm-2 col-form-label" for="jabatan_team">Jabatan</label><div class="col-sm-10"><input class="form-control" id="jabatan_team" name="jabatan_team[]" type="text" placeholder="Digital marketing..."></div></div><div class="form-group row"><label class="col-sm-2 col-form-label" for="divisi_team">Divisi</label><div class="col-sm-10"><input class="form-control" id="divisi_team" name="divisi_team[]" type="text" placeholder="Marketing"></div></div><div class="form-group row"><label class="col-sm-2 col-form-label" for="tugas_team">Tugas</label><div class="col-sm-10"><textarea class="form-control" id="tugas_team" name="tugas_team[]" type="text" placeholder="Memupuk pundi-pundi customer"></textarea></div></div></div></div><a href="javascript:void(0);" class="remove_button btn btn-danger">Hapus</a></div>';
                     $(rap).append(html);
                 }
             });
+        });
+
+        $('#field_team').on('click', '.remove_button', function(e){
+            e.preventDefault();
+            $(this).parent('').remove();
+            x--;
         });
     });
 </script>
