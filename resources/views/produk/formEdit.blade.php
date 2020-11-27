@@ -512,31 +512,13 @@
                                                     <a href="{{ route('tenant.produk.deleteImage', $row->id) }}" class="deleteImage btn btn-sm btn-danger mt-2">Hapus Gambar</a>
                                                 </div>
                                                 <div class="col-md-9">
-                                                    <div class="form-group col-md-10">
-                                                        <label class="ul-form__label" for="foto_image">Foto :</label>
-                                                        <div class="input-group">
-                                                            <div class="custom-file">
-                                                                <input class="custom-file-input" id="foto_image" name="foto_image[]" type="file">
-                                                                <label class="custom-file-label" for="foto_image">{{ $row->image }}</label>
-                                                            </div>
-                                                            <!-- <div class="col-auto">
-                                                                <a class="btn btn-primary" href="#" id="#" title="Add field">-</a>
-                                                            </div> -->
-                                                        </div>
-                                                        @error('foto')
-                                                        <div class="text-danger">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                    </div>
-                                                    <div class="form-group col-md-10">
-                                                        <input class="form-control" name="caption_image[]" id="caption_image" type="text" placeholder="Ini diisi caption" value="{{ $row->caption }}">
-                                                        @error('caption_image')
-                                                            <div class="text-danger">
-                                                                {{ $message }}
-                                                            </div>
-                                                        @enderror
-                                                    </div>
+                                                    <table class="table table-borderless w-50">
+                                                        <h6><tr>
+                                                            <td>File </td><td>: {{ $row->image }}</td>
+                                                        </tr><tr>
+                                                            <td>Caption </td><td>: {{ $row->caption }}</td>
+                                                        </tr></h6>
+                                                    </table>
                                                 </div>
                                             </div>
                                         <div class="custom-separator mb-3"></div>
