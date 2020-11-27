@@ -482,7 +482,7 @@ class ProdukController extends Controller
         $tenant = TenantUser::with('tenants')->where('user_id', $request->user()->id)->first();
         $tenant_id=$tenant->tenant_id;
         $priority_tenant=$tenant->tenants->priority;
-        
+
         $produk = Produk::find($id);
         $produks = Produk::with(['tenant','priority','produk_bisnis','produk_canvas','produk_ijin','produk_image','produk_ki','produk_riset','produk_sertifikasi'])->where('id', $id)->first();
         $images = ProdukImage::where('produk_id', $id)->get();
@@ -498,7 +498,7 @@ class ProdukController extends Controller
             $file->move('file/produk/produk/',$dokumen_file_proposal);
             File::delete('file/produk/produk/' . $produk->proposal);
         }
-        
+
         if ($request->hasFile('dokumen_ijin')) {
             $file = $request->file('dokumen_ijin');
             $dokumen_file_ijin = time() . Str::slug($request->title_produk).".".$file->getClientOriginalExtension();
@@ -539,7 +539,7 @@ class ProdukController extends Controller
             }
             ProdukImage::insert($image_data);
         }
-        
+
         $produk = Produk::where('id', $id)->update([
             'tenant_id'             => $tenant_id,
             'inventor_id'           => 0,
