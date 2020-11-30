@@ -123,7 +123,7 @@
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label class="ul-form__label" for="location_produk">Lokasi :</label>
-                                                <div class="input-right-icon">  
+                                                <div class="input-right-icon">
                                                     <input class="form-control" id="location_produk" name="location_produk" type="text" placeholder="Sleman" required="required" value="{{ $produk->location }}">
                                                     <span class="span-right-input-icon">
                                                         <a href="#" data-toggle="tooltip" title="Masukan nama kota">
@@ -273,7 +273,7 @@
                                                         <label class="custom-file-label" for="proposal_produk">{{ $produk->proposal ?? 'Choose file' }}</label>
                                                     </div>
                                                 </div>
-                                                File yang anda input sebelumnya : 
+                                                File yang anda input sebelumnya :
                                                 <a href="{{ asset('file/produk/produk'.'/'.$produk->proposal) }}" class="font-weight-bold">
                                                     {{ $produk->proposal ?? 'tidak ada data' }}
                                                 </a>
@@ -418,7 +418,7 @@
                                                 <select class="form-control" name="status_ijin" required="required">
                                                     <option value="Aktif" {{ $produk->produk_ijin->status == 'Aktif' ? 'selected':'' }}>Aktif</option>
                                                     <option value="Tidak Aktif" {{ $produk->produk_ijin->status == 'Tidak Aktif' ? 'selected':'' }}>Tidak Aktif</option>
-                                                </select>                                                
+                                                </select>
                                                 @error('status_ijin')
                                                     <div class="text-danger">
                                                         {{ $message }}
@@ -457,7 +457,7 @@
                                                         <label class="custom-file-label" for="dokumen_ijin">{{ $produk->produk_ijin->dokumen ?? 'Choose file' }}</label>
                                                     </div>
                                                 </div>
-                                                File yang anda input sebelumnya : 
+                                                File yang anda input sebelumnya :
                                                 <a href="{{ asset('file/produk/ijin'.'/'.$produk->produk_ijin->dokumen) }}" class="font-weight-bold">
                                                     {{ $produk->produk_ijin->dokumen ?? 'tidak ada data' }}
                                                 </a>
@@ -579,7 +579,7 @@
                                                         </label>
                                                     </div>
                                                 </div>
-                                                File yang anda input sebelumnya : 
+                                                File yang anda input sebelumnya :
                                                 <a href="{{ asset('file/produk/ki'.'/'.$produk->produk_ki->sertifikat) }}" class="font-weight-bold">
                                                     {{ $produk->produk_ki->sertifikat ?? 'tidak ada data' }}
                                                 </a>
@@ -792,7 +792,7 @@
                                                         <label class="custom-file-label" for="dokumen_sertifikasi">{{ $produk->produk_sertifikasi->dokumen }}</label>
                                                     </div>
                                                 </div>
-                                                File yang anda input sebelumnya : 
+                                                File yang anda input sebelumnya :
                                                 <a href="{{ asset('file/produk/sertifikasi'.'/'.$produk->produk_sertifikasi->dokumen) }}" class="font-weight-bold">
                                                     {{ $produk->produk_sertifikasi->dokumen ?? 'tidak ada data' }}
                                                 </a>
@@ -836,7 +836,7 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script>
     <script type="text/javascript">
 
-//Field tag        
+//Field tag
     $(document).ready(function() {
         $('select').selectpicker();
     });
@@ -860,10 +860,10 @@
         var maxField = 5;
         var addButton = $('#add_foto');
         var wrapper = $('.field_foto');
-        var fieldHTML ='<div class="form-row mt-3"> <div class="col-md-3"> <img src="{{ asset('img/produk/dummy.jpg') }}" width="200px" height="130px"> <a href="javascript:void(0);" class="remove_button btn btn-danger mt-2">Hapus</a> </div> <div class="col-md-9"> <div class="form-group col-md-10"> <label class="ul-form__label" for="foto_image">Foto :</label> <div class="input-group"> <div class="custom-file"> <input class="custom-file-input" id="foto_image" name="foto_image[]" type="file"> <label class="custom-file-label" for="foto_image">Choose file</label> </div> </div> @error('foto') <div class="text-danger"> {{ $message }} </div> @enderror </div> <div class="form-group col-md-10"> <input class="form-control" name="caption_image[]" id="caption_image" type="text" placeholder="Ini diisi caption"> @error('caption_image') <div class="text-danger"> {{ $message }} </div> @enderror </div> </div></div><div class="custom-separator mb-3"></div>'; 
+        var fieldHTML ='<div class="form-row mt-3"> <div class="col-md-3"> <img src="{{ asset('img/produk/dummy.jpg') }}" width="200px" height="130px"> <a href="javascript:void(0);" class="remove_button btn btn-danger mt-2">Hapus</a> </div> <div class="col-md-9"> <div class="form-group col-md-10"> <label class="ul-form__label" for="foto_image">Foto :</label> <div class="input-group"> <div class="custom-file"> <input class="custom-file-input" id="foto_image" name="foto_image[]" type="file"> <label class="custom-file-label" for="foto_image">Choose file</label> </div> </div> @error('foto') <div class="text-danger"> {{ $message }} </div> @enderror </div> <div class="form-group col-md-10"> <input class="form-control" name="caption_image[]" id="caption_image" type="text" placeholder="Ini diisi caption"> @error('caption_image') <div class="text-danger"> {{ $message }} </div> @enderror </div> </div></div><div class="custom-separator mb-3"></div>';
         var x = 1;
         $(addButton).click(function(){
-            if(x < maxField){ 
+            if(x < maxField){
                 x++;
                 $(wrapper).append(fieldHTML);
             }
