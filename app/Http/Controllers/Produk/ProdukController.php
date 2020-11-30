@@ -327,9 +327,14 @@ class ProdukController extends Controller
                 $insert_data[] = $data;
             }
 
+            $notification = array(
+                'message' => 'Produk Berhasil Ditambahkan!',
+                'alert-type' => 'success'
+            );
+
             ProdukTeam::insert($insert_data);
 
-            return redirect(route('tenant.produk'));
+            return redirect(route('tenant.produk'))->with($notification);
 
     }
 
@@ -393,9 +398,12 @@ class ProdukController extends Controller
         $produk_team = ProdukTeam::where('produk_id', $id)->delete();
         $produk = Produk::where('id', $id)->delete();
 
+        $notification = array(
+            'message' => 'Produk Berhasil Dihapus!',
+            'alert-type' => 'error'
+        );
 
-
-        return redirect()->back();
+        return redirect()->back()->with($notification);
     }
 
     public function edit($id)
@@ -406,7 +414,7 @@ class ProdukController extends Controller
         $produk_team    = ProdukTeam::with('profil_user.user')->where('produk_id', $id)->get();
         $user_id = ProfilUser::orderBy('nama')->get();
 
-        return view('produk.formedit', compact('produk','user_id','image','produk_team'));
+        return view('produk.formEdit', compact('produk','user_id','image','produk_team'));
     }
 
     public function update($id, Request $request)
@@ -618,7 +626,12 @@ class ProdukController extends Controller
             'dokumen'               => $dokumen_file_sertifikasi,
         ]);
 
-        return redirect(route('tenant.detailProduk', $id));
+        $notification = array(
+            'message' => 'Produk Berhasil Diedit!',
+            'alert-type' => 'success'
+        );
+
+        return redirect(route('tenant.detailProduk', $id))->with($notification);
 
     }
 
