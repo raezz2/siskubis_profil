@@ -786,7 +786,7 @@
                                                             <div class="col-sm-10">
                                                                 <select class="form-control" name="user_id_team[]" required="required">
                                                                     @forelse($user_id as $row)
-                                                                        <option value="{{ $row->id }}">{{ $row->nama }}</option>
+                                                                        <option value="{{ $row->user_id }}">{{ $row->nama }}</option>
                                                                     @empty
                                                                         <option>Belum ada anggota di tenant ini</option>
                                                                     @endforelse
