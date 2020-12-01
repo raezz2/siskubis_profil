@@ -106,7 +106,6 @@ class ProdukController extends Controller
 
     public function create()
     {
-
         $tenant = TenantUser::where('user_id', request()->user()->id)->first();
 
         $user_id = TenantUser::where('tenant_id', $tenant->tenant_id)
@@ -207,7 +206,6 @@ class ProdukController extends Controller
             $file = $request->file('sertifikat_ki');
             $dokumen_file_ki = time() . Str::slug($request->title_produk).".".$file->getClientOriginalExtension();
             $file->move('file/produk/ki/',$dokumen_file_ki);
-
 
             $string = implode(",", $request->tag);
             $produk = Produk::create([
@@ -321,8 +319,6 @@ class ProdukController extends Controller
                 );
                 $insert_data[] = $data;
             }
-
-
             ProdukTeam::insert($insert_data);
         });
             
@@ -332,57 +328,22 @@ class ProdukController extends Controller
         );
 
         return redirect(route('tenant.produk'))->with($notification);
-
     }
 
     public function destroy($id)
     {
-        // $produk = Produk::find($id);
-        // File::delete('file/produk/produk' . $produk->proposal);
-        // $produk->delete();
-
-        // $produk_bisnis = ProdukBisnis::where('produk_id', $id)->first();
-        // $produk_bisnis->delete();
-
-        // $produk_canvas = ProdukCanvas::where('produk_id', $id)->first();
-        // $produk_canvas->delete();
-
-        // $produk_ijin = ProdukIjin::where('produk_id', $id)->first();
-        // File::delete('file/produk/ijin' . $produk_ijin->dokumen);
-        // $produk_ijin->delete();
-
-        // $image          = ProdukImage::where('produk_id',$id)->get();
-        //     foreach ($image as $row){
-        //         File::delete('img/produk' . $row->image);
-        //     }
-        // $image->delete();
-
-        // $produk_ki = ProdukKI::where('produk_id', $id)->first();
-        // File::delete('file/produk/ki' . $produk_ki->sertifikat);
-        // $produk_ki->delete();
-
-        // $produk_riset = ProdukRiset::where('produk_id', $id)->first();
-        // $produk_riset->delete();
-
-        // $produk_sertifikasi = ProdukSertifikasi::where('produk_id', $id)->first();
-        // File::delete('file/produk/sertifiksi' . $produk_sertifikasi->dokumen);
-        // $produk_sertifikasi->delete();
-
-        // $produk_team = ProdukTeam::where('produk_id', $id)->get();
-        // $produk_team->delete();
-
         $produk = Produk::with('produk_ijin','produk_ki','produk_sertifikasi')->where('id', $id)->first();
-        File::delete('file/produk/produk' . $produk->proposal);
+        File::delete('file/produk/produk/' . $produk->proposal);
         $ijin = $produk->produk_ijin->dokumen;
-        File::delete('file/produk/ijin' . $ijin);
+        File::delete('file/produk/ijin/' . $ijin);
         $ki = $produk->produk_ki->sertifikat;
-        File::delete('file/produk/ki' . $ki);
+        File::delete('file/produk/ki/' . $ki);
         $sertif = $produk->produk_sertifikasi->dokumen;
-        File::delete('file/produk/sertifikasi' . $sertif);
+        File::delete('file/produk/sertifikasi/' . $sertif);
 
         $image          = ProdukImage::where('produk_id',$id)->get();
             foreach ($image as $row){
-                File::delete('img/produk' . $row);
+                File::delete('img/produk/' . $row);
             }
 
         $produk_bisnis = ProdukBisnis::where('produk_id', $id)->delete();
@@ -405,7 +366,6 @@ class ProdukController extends Controller
 
     public function edit($id)
     {
-        //$produk = Produk::find($id);
         $produk         = Produk::with(['tenant','priority','produk_bisnis','produk_canvas','produk_ijin','produk_image','produk_ki','produk_riset','produk_sertifikasi'])->where('id', $id)->first();
         $image          = ProdukImage::where('produk_id',$id)->get();
         $tenant = TenantUser::where('user_id', request()->user()->id)->first();
@@ -422,7 +382,6 @@ class ProdukController extends Controller
     public function update($id, Request $request)
     {
         $validator = Validator::make($request->all(), [
-
             'title_produk'                 => 'required',
             'subtitle_produk'              => 'required',
             'harga_pokok_produk'           => 'required|numeric',
@@ -644,9 +603,7 @@ class ProdukController extends Controller
             $insert_data[] = $data;
         }
         ProdukTeam::where('produk_id', $id)->delete();
-        ProdukTeam::insert($insert_data);
-        
-        
+        ProdukTeam::insert($insert_data);        
 
         $notification = array(
             'message' => 'Produk Berhasil Diedit!',
@@ -660,7 +617,6 @@ class ProdukController extends Controller
     public function getUser()
     {
         $tenant = TenantUser::where('user_id', request()->user()->id)->first();
-
         $user = TenantUser::where('tenant_id', $tenant->tenant_id)
             ->join('profil_user',['tenant_user.user_id' =>  'profil_user.user_id'])
             ->select('profil_user.*')
