@@ -39,6 +39,7 @@
                                     <li><a href="#ki">Kekayaan Intelektual<br></a></li>
                                     <li><a href="#riset">Riset<br></a></li>
                                     <li><a href="#sertifikasi">Sertifikasi<br></a></li>
+                                    <li><a href="#team">Team<br></a></li>
                                 </ul>
                                 <div>
                                     <div id="detail">
@@ -817,6 +818,58 @@
                                         </div>
                                         <div class="custom-separator"></div>
                                     </div>
+                                    <!--- Input Team -->
+                                    <div id="team">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h5 class="border-bottom border-gray pb-2">Team Pengembangan Produk</h5>
+                                            </div>
+                                            <div class="col text-right">
+                                                <a class="btn btn-primary btn-sm" href="javascript:void(0);" id="add_team" title="Add field">Tambah Orang</a>
+                                            </div>
+                                        </div>
+                                        <div class="row field_team">
+                                            @foreach ($produk_team as $team)
+                                            <div class="col-md-6 mb-2">
+                                                <div class="card mb-2">
+                                                    <div class="card-body">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-2 col-form-label" for="user_id_team">Nama</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-control" name="user_id_team[]" required="required">
+                                                                    @forelse($user_id as $row)
+                                                                        <option value="{{ $row->user_id }}" {{ $row->user_id == $team->profil_user->user_id ? 'selected':''}}>{{ $row->nama }}</option>
+                                                                    @empty
+                                                                        <option>Belum ada anggota di tenant ini</option>
+                                                                    @endforelse
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-2 col-form-label" for="jabatan_team">Jabatan</label>
+                                                            <div class="col-sm-10">
+                                                                <input class="form-control" id="jabatan_team" name="jabatan_team[]" type="text" placeholder="Digital marketing..." value="{{ $team->jabatan }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-2 col-form-label" for="divisi_team">Divisi</label>
+                                                            <div class="col-sm-10">
+                                                                <input class="form-control" id="divisi_team" name="divisi_team[]" type="text" placeholder="Marketing" value="{{ $team->divisi }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-2 col-form-label" for="tugas_team">Tugas</label>
+                                                            <div class="col-sm-10">
+                                                                <textarea class="form-control" id="tugas_team" name="tugas_team[]" type="text" placeholder="Memupuk pundi-pundi customer">{{ $team->tugas }}</textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a href="{{ route('tenant.produk.deleteTeam', $team->id) }}" class="deleteTeam btn btn-sm btn-danger mt-2">Hapus Team</a>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -875,30 +928,67 @@
         });
     });
 
-//Field team
-    $(document).ready(function(){
-        $('body').on('click', '#add_team', function () {
-            console.log('ok');
-            var rap = $('#field_team');
-            $.ajax({
-                url: 'api/getUser',
-                success: function(data){
-                    var html = '<div class="col-md-6 mb-2"><div class="card mb-2"><div class="card-body"><div class="form-group row"><label class="col-sm-2 col-form-label" for="user_id_team">Nama</label><div class="col-sm-10"><select class="form-control" name="user_id_team[]" required="required">'+data.option+'</select></div></div><div class="form-group row"><label class="col-sm-2 col-form-label" for="jabatan_team">Jabatan</label><div class="col-sm-10"><input class="form-control" id="jabatan_team" name="jabatan_team[]" type="text" placeholder="Digital marketing..."></div></div><div class="form-group row"><label class="col-sm-2 col-form-label" for="divisi_team">Divisi</label><div class="col-sm-10"><input class="form-control" id="divisi_team" name="divisi_team[]" type="text" placeholder="Marketing"></div></div><div class="form-group row"><label class="col-sm-2 col-form-label" for="tugas_team">Tugas</label><div class="col-sm-10"><textarea class="form-control" id="tugas_team" name="tugas_team[]" type="text" placeholder="Memupuk pundi-pundi customer"></textarea></div></div><a href="javascript:void(0);" class="remove_button btn btn-danger">Hapus</a></div></div></div>';
-                    $(rap).append(html);
-                }
-            });
-        });
-    });
-
 //Delete Image
     $(document).ready(function(){
         $('.field_image').on('click','.deleteImage', function(e){
             e.preventDefault();
+            var btn = $(this);
             $.ajax({
                 url : $(this).attr('href'),
+                success : function(data){
+                    if(data.success){
+                        alert(data.success);
+                        btn.parents('.field_image').remove();
+                    }
+                    if(data.errors){
+                        alert(data.errors);
+                    }
+                }
             })
-            $(this).remove();
         });
     });
+
+// Field team
+    $(document).ready(function(){
+        var xTeam = 5;
+        $('body').on('click', '#add_team', function () {
+            console.log('ok');
+            var rap = $('.field_team');
+            $.ajax({
+                url: '{{ route("tenant.getUser") }}',
+                success: function(data){
+                    var html = '<div class="col-md-6 mb-2"><div class="card mb-2"><div class="card-body"><div class="form-group row"><label class="col-sm-2 col-form-label" for="user_id_team">Nama</label><div class="col-sm-10"><select class="form-control" name="user_id_team[]" required="required">'+data.option+'</select></div></div><div class="form-group row"><label class="col-sm-2 col-form-label" for="jabatan_team">Jabatan</label><div class="col-sm-10"><input class="form-control" id="jabatan_team" name="jabatan_team[]" type="text" placeholder="Digital marketing..."></div></div><div class="form-group row"><label class="col-sm-2 col-form-label" for="divisi_team">Divisi</label><div class="col-sm-10"><input class="form-control" id="divisi_team" name="divisi_team[]" type="text" placeholder="Marketing"></div></div><div class="form-group row"><label class="col-sm-2 col-form-label" for="tugas_team">Tugas</label><div class="col-sm-10"><textarea class="form-control" id="tugas_team" name="tugas_team[]" type="text" placeholder="Memupuk pundi-pundi customer"></textarea></div></div></div></div><a href="javascript:void(0);" class="remove_button btn btn-sm btn-danger">Hapus</a></div>';
+                    $(rap).append(html);
+                }
+            });
+        });
+
+        $('.field_team').on('click', '.remove_button', function(e){
+            e.preventDefault();
+            $(this).parent('').remove();
+            xTeam--;
+        });
+    });
+
+//Delete Team
+    $(document).ready(function(){
+        $('.field_team').on('click','.deleteTeam', function(e){
+            e.preventDefault();
+            var btn = $(this);
+            $.ajax({
+                url : $(this).attr('href'),
+                success : function(data){
+                    if(data.success){
+                        alert(data.success);
+                        btn.parents('.field_team').remove();
+                    }
+                    if(data.errors){
+                        alert(data.errors);
+                    }
+                }
+            })
+        });
+    });
+
 </script>
 @endsection
