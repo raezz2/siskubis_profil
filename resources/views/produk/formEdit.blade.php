@@ -472,7 +472,14 @@
                                         </div>
                                     </div>
                                     <div id="image">
-                                        <h5 class="border-bottom border-gray pb-2">Foto Produk Anda <a class="btn btn-primary" href="javascript:void(0);" id="add_foto" title="Add field">+</a></h5>
+                                        <div class="row">
+                                            <div class="col">
+                                                <h5 class="border-bottom border-gray pb-2">Foto Produk</h5>
+                                            </div>
+                                            <div class="col text-right">
+                                                <a class="btn btn-primary btn-sm" href="javascript:void(0);" id="add_foto" title="Add field">Tambah Gambar</a>
+                                            </div>
+                                        </div>
                                         <div class="field_foto mb-5">
                                             <div class="form-row">
                                                 <div class="col-md-3">
@@ -860,7 +867,7 @@
                                                         <div class="form-group row">
                                                             <label class="col-sm-2 col-form-label" for="tugas_team">Tugas</label>
                                                             <div class="col-sm-10">
-                                                                <textarea class="form-control" id="tugas_team" name="tugas_team[]" type="text" placeholder="Memupuk pundi-pundi customer">{{ $team->tugas }}</textarea>
+                                                                <textarea class="form-control" id="tugas_team" name="tugas_team[]" type="text" placeholder="Memasarkan produk">{{ $team->tugas }}</textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -913,7 +920,7 @@
         var maxField = 5;
         var addButton = $('#add_foto');
         var wrapper = $('.field_foto');
-        var fieldHTML ='<div class="form-row mt-3"> <div class="col-md-3"> <img src="{{ asset('img/produk/dummy.jpg') }}" width="200px" height="130px"> <a href="javascript:void(0);" class="remove_button btn btn-danger mt-2">Hapus</a> </div> <div class="col-md-9"> <div class="form-group col-md-10"> <label class="ul-form__label" for="foto_image">Foto :</label> <div class="input-group"> <div class="custom-file"> <input class="custom-file-input" id="foto_image" name="foto_image[]" type="file"> <label class="custom-file-label" for="foto_image">Choose file</label> </div> </div> @error('foto') <div class="text-danger"> {{ $message }} </div> @enderror </div> <div class="form-group col-md-10"> <input class="form-control" name="caption_image[]" id="caption_image" type="text" placeholder="Ini diisi caption"> @error('caption_image') <div class="text-danger"> {{ $message }} </div> @enderror </div> </div></div><div class="custom-separator mb-3"></div>';
+        var fieldHTML ='<div class="form-row mt-3"> <div class="col-md-3"> <img src="{{ asset('img/produk/dummy.jpg') }}" width="200px" height="130px"> <a href="javascript:void(0);" class="remove_button btn btn-danger btn-sm mt-2">Hapus</a> </div> <div class="col-md-9"> <div class="form-group col-md-10"> <label class="ul-form__label" for="foto_image">Foto :</label> <div class="input-group"> <div class="custom-file"> <input class="custom-file-input" id="foto_image" name="foto_image[]" type="file"> <label class="custom-file-label" for="foto_image">Choose file</label> </div> </div> @error('foto') <div class="text-danger"> {{ $message }} </div> @enderror </div> <div class="form-group col-md-10"> <input class="form-control" name="caption_image[]" id="caption_image" type="text" placeholder="Ini diisi caption"> @error('caption_image') <div class="text-danger"> {{ $message }} </div> @enderror </div> </div></div><div class="custom-separator mb-3"></div>';
         var x = 1;
         $(addButton).click(function(){
             if(x < maxField){
@@ -957,7 +964,7 @@
             $.ajax({
                 url: '{{ route("tenant.getUser") }}',
                 success: function(data){
-                    var html = '<div class="col-md-6 mb-2"><div class="card mb-2"><div class="card-body"><div class="form-group row"><label class="col-sm-2 col-form-label" for="user_id_team">Nama</label><div class="col-sm-10"><select class="form-control" name="user_id_team[]" required="required">'+data.option+'</select></div></div><div class="form-group row"><label class="col-sm-2 col-form-label" for="jabatan_team">Jabatan</label><div class="col-sm-10"><input class="form-control" id="jabatan_team" name="jabatan_team[]" type="text" placeholder="Digital marketing..."></div></div><div class="form-group row"><label class="col-sm-2 col-form-label" for="divisi_team">Divisi</label><div class="col-sm-10"><input class="form-control" id="divisi_team" name="divisi_team[]" type="text" placeholder="Marketing"></div></div><div class="form-group row"><label class="col-sm-2 col-form-label" for="tugas_team">Tugas</label><div class="col-sm-10"><textarea class="form-control" id="tugas_team" name="tugas_team[]" type="text" placeholder="Memupuk pundi-pundi customer"></textarea></div></div></div></div><a href="javascript:void(0);" class="remove_button btn btn-sm btn-danger">Hapus</a></div>';
+                    var html = '<div class="col-md-6 mb-2"><div class="card mb-2"><div class="card-body"><div class="form-group row"><label class="col-sm-2 col-form-label" for="user_id_team">Nama</label><div class="col-sm-10"><select class="form-control" name="user_id_team[]" required="required">'+data.option+'</select></div></div><div class="form-group row"><label class="col-sm-2 col-form-label" for="jabatan_team">Jabatan</label><div class="col-sm-10"><input class="form-control" id="jabatan_team" name="jabatan_team[]" type="text" placeholder="Digital marketing..."></div></div><div class="form-group row"><label class="col-sm-2 col-form-label" for="divisi_team">Divisi</label><div class="col-sm-10"><input class="form-control" id="divisi_team" name="divisi_team[]" type="text" placeholder="Marketing"></div></div><div class="form-group row"><label class="col-sm-2 col-form-label" for="tugas_team">Tugas</label><div class="col-sm-10"><textarea class="form-control" id="tugas_team" name="tugas_team[]" type="text" placeholder="Memasarkan produk"></textarea></div></div></div></div><a href="javascript:void(0);" class="remove_button btn btn-sm btn-danger">Hapus</a></div>';
                     $(rap).append(html);
                 }
             });
@@ -980,7 +987,7 @@
                 success : function(data){
                     if(data.success){
                         alert(data.success);
-                        btn.parents('.field_team').remove();
+                        btn.parent('').remove();
                     }
                     if(data.errors){
                         alert(data.errors);
