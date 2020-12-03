@@ -9,7 +9,7 @@ class Tenant extends Model
 {
     protected $table = 'tenant';
     protected $fillable = [
-        'inkubator_id', 'title', 'subtitle', 'description', 'priority', 'foto', 'status', 'updated_at', 'created_at'
+        'inkubator_id', 'title', 'subtitle', 'description', 'priority', 'foto', 'bidang_usaha', 'tanggal_berdiri', 'visi', 'misi', 'slogan', 'alamat', 'kontak', 'jam_operasional', 'status', 'updated_at', 'created_at'
     ];
 
     public function users()
